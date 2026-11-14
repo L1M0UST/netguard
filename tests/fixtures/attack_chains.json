@@ -1,0 +1,5366 @@
+[
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_2b23fe1536570557cfef",
+    "task_id": "task_fixture_00",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0043",
+        "technique": "T1082",
+        "narrative": "Mock narrative for stage 2 of candidate cand_9ae8dd501bd9a3cf derived from event evt_000002.",
+        "evidence_event_ids": [
+          "evt_000002"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Reconnaissance",
+        "technique_name": "System Information Discovery",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0043",
+        "technique": "T1087",
+        "narrative": "Mock narrative for stage 3 of candidate cand_9ae8dd501bd9a3cf derived from event evt_000003.",
+        "evidence_event_ids": [
+          "evt_000003"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Reconnaissance",
+        "technique_name": "Account Discovery",
+        "source": "llm"
+      },
+      {
+        "stage_index": 3,
+        "tactic": "TA0007",
+        "technique": "T1046",
+        "narrative": "Mock narrative for stage 1 of candidate cand_9ae8dd501bd9a3cf derived from event evt_000001.",
+        "evidence_event_ids": [
+          "evt_000001"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Discovery",
+        "technique_name": "Network Service Discovery",
+        "source": "merged"
+      }
+    ],
+    "severity": "medium",
+    "confidence": 0.5869,
+    "summary": "Mock analysis for candidate cand_9ae8dd501bd9a3cf: 3 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0043",
+      "TA0007"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_cbed13d24e2c4453",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.068,
+      "input_tokens": 2901,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:49.798337Z",
+    "fingerprint": "af_273e189edaa3f612be65b9e0c6ab5966748ad774",
+    "risk_score": {
+      "score": 51.05,
+      "severity": "medium",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.4,
+          "contribution": 0.088,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000001"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000002",
+            "evt_000003",
+            "evt_000001"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "0 malicious / 0 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 1.0,
+          "contribution": 0.12,
+          "description": "victim asset weight 3.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.5878,
+          "contribution": 0.0705,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "2 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0007 (Discovery)",
+        "3 independent evidence events support the chain",
+        "victim asset criticality weight is 3.00",
+        "score 51.0 -> medium (threshold 45)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.65,
+        "contribution": 0.195,
+        "description": "3 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.5878,
+        "contribution": 0.1176,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 0.8718,
+        "contribution": 0.1744,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 0.0,
+        "contribution": 0.0,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.1"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.13",
+      "10.0.0.21",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000001",
+      "evt_000002",
+      "evt_000003",
+      "evt_000004",
+      "evt_000005",
+      "evt_000006",
+      "evt_000007",
+      "evt_000008",
+      "evt_000009",
+      "evt_000010",
+      "evt_000011",
+      "evt_000012"
+    ],
+    "candidate_ids": [
+      "cand_9ae8dd501bd9a3cf"
+    ],
+    "threat_entities": [
+      "ent_10197622aad7cea7",
+      "ent_3232675bdc17ea20",
+      "ent_359166b5b9caa35f",
+      "ent_72d922e0a1d8c6fb",
+      "ent_75601802590a5f41",
+      "ent_a145887b95686436",
+      "ent_a63ece82b4e6d095",
+      "ent_c66769548f749ce8",
+      "ent_d4c6280afe6a93db",
+      "ent_d7ef7c38286b6da7",
+      "ent_dd5a39dc0089ff53",
+      "ent_ea9b75c93a866387",
+      "ent_fa33f9c86711149a"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_9ae8dd501bd9a3cf",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 3,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [],
+      "malicious_ioc_hits": 0,
+      "rules": [
+        "l1_port_scan_sweep",
+        "l1_service_discovery"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:00:36Z",
+    "last_seen": "2024-05-01T12:03:43Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_b505d9c83c19083f5937",
+    "task_id": "task_fixture_00",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0001",
+        "technique": "T1078",
+        "narrative": "Mock narrative for stage 1 of candidate cand_0ac4fc38d34ad32d derived from event evt_000013.",
+        "evidence_event_ids": [
+          "evt_000013"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Initial Access",
+        "technique_name": "Valid Accounts",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0005",
+        "technique": "T1110",
+        "narrative": "Mock narrative for stage 2 of candidate cand_0ac4fc38d34ad32d derived from event evt_000014.",
+        "evidence_event_ids": [
+          "evt_000014"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Defense Evasion",
+        "technique_name": "Brute Force",
+        "source": "llm"
+      },
+      {
+        "stage_index": 3,
+        "tactic": "TA0006",
+        "technique": "T1133",
+        "narrative": "Mock narrative for stage 3 of candidate cand_0ac4fc38d34ad32d derived from event evt_000015.",
+        "evidence_event_ids": [
+          "evt_000015"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Credential Access",
+        "technique_name": "External Remote Services",
+        "source": "llm"
+      }
+    ],
+    "severity": "medium",
+    "confidence": 0.6391,
+    "summary": "Mock analysis for candidate cand_0ac4fc38d34ad32d: 3 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0001",
+      "TA0005",
+      "TA0006"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_569ed529d4d3415a",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.033,
+      "input_tokens": 1918,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:49.798710Z",
+    "fingerprint": "af_ee9c258fd7d58ee03b80535736bf6b30b1d412f1",
+    "risk_score": {
+      "score": 53.74,
+      "severity": "medium",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.85,
+          "contribution": 0.187,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000013"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000013",
+            "evt_000014",
+            "evt_000015"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "0 malicious / 0 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "victim asset weight 1.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.7203,
+          "contribution": 0.0864,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 1.0,
+          "contribution": 0.08,
+          "description": "3 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0001 (Initial Access)",
+        "3 independent evidence events support the chain",
+        "3 distinct ATT&CK tactics observed",
+        "score 53.7 -> medium (threshold 45)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.65,
+        "contribution": 0.195,
+        "description": "3 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.7203,
+        "contribution": 0.1441,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 1.0,
+        "contribution": 0.2,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 0.0,
+        "contribution": 0.0,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.2"
+    ],
+    "victim_ips": [
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000013",
+      "evt_000014",
+      "evt_000015",
+      "evt_000016",
+      "evt_000017",
+      "evt_000018"
+    ],
+    "candidate_ids": [
+      "cand_0ac4fc38d34ad32d"
+    ],
+    "threat_entities": [
+      "ent_10197622aad7cea7",
+      "ent_19fe9356c7524ef8",
+      "ent_2aeddb74adb34b86",
+      "ent_3232675bdc17ea20",
+      "ent_8dd7fafe8f4d5710",
+      "ent_965937330bede1ce",
+      "ent_ca534e427d6db31f",
+      "ent_dd5a39dc0089ff53",
+      "ent_def1e8e92419ba41"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_0ac4fc38d34ad32d",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 3,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [],
+      "malicious_ioc_hits": 0,
+      "rules": [
+        "l1_auth_failure_burst",
+        "l1_brute_force_ssh"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:01:19Z",
+    "last_seen": "2024-05-01T12:04:05Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_28f3b2c3695117b4f42f",
+    "task_id": "task_fixture_00",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0001",
+        "technique": "T1041",
+        "narrative": "Mock narrative for stage 1 of candidate cand_e723aa7dbaab9eb0 derived from event evt_000019.",
+        "evidence_event_ids": [
+          "evt_000019"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Initial Access",
+        "technique_name": "Exfiltration Over C2 Channel",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0002",
+        "technique": "T1048",
+        "narrative": "Mock narrative for stage 2 of candidate cand_e723aa7dbaab9eb0 derived from event evt_000020.",
+        "evidence_event_ids": [
+          "evt_000020"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Execution",
+        "technique_name": "Exfiltration Over Alternative Protocol",
+        "source": "llm"
+      },
+      {
+        "stage_index": 3,
+        "tactic": "TA0004",
+        "technique": "T1068",
+        "narrative": "Mock narrative for stage 3 of candidate cand_e723aa7dbaab9eb0 derived from event evt_000021.",
+        "evidence_event_ids": [
+          "evt_000021"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Privilege Escalation",
+        "technique_name": "Exploitation for Privilege Escalation",
+        "source": "merged"
+      }
+    ],
+    "severity": "high",
+    "confidence": 0.7324,
+    "summary": "Mock analysis for candidate cand_e723aa7dbaab9eb0: 3 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0001",
+      "TA0002",
+      "TA0004"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_6585b59a61eb4995",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.025,
+      "input_tokens": 2041,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:49.799012Z",
+    "fingerprint": "af_38323d87afde831728559eeea8f742b5f8eb2ed8",
+    "risk_score": {
+      "score": 70.55,
+      "severity": "high",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.85,
+          "contribution": 0.187,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000019"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000019",
+            "evt_000020",
+            "evt_000021"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.8,
+          "contribution": 0.112,
+          "description": "1 malicious / 1 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 0.25,
+          "contribution": 0.03,
+          "description": "victim asset weight 1.50",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.9372,
+          "contribution": 0.1125,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 1.0,
+          "contribution": 0.08,
+          "description": "3 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0001 (Initial Access)",
+        "3 independent evidence events support the chain",
+        "1 malicious indicator(s) matched threat intelligence",
+        "3 distinct ATT&CK tactics observed",
+        "score 70.5 -> high (threshold 70)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.65,
+        "contribution": 0.195,
+        "description": "3 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.9372,
+        "contribution": 0.1874,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 1.0,
+        "contribution": 0.2,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 0.5,
+        "contribution": 0.05,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.3"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      80,
+      8080
+    ],
+    "event_ids": [
+      "evt_000019",
+      "evt_000020",
+      "evt_000021"
+    ],
+    "candidate_ids": [
+      "cand_e723aa7dbaab9eb0"
+    ],
+    "threat_entities": [
+      "ent_089925d53b8f7d11",
+      "ent_10197622aad7cea7",
+      "ent_2a25bbdf6d2431ad",
+      "ent_880ba2356543f1f7",
+      "ent_89b9112065c1a9a2",
+      "ent_90ab8041a8f921ed",
+      "ent_b02baf3884c154ae",
+      "ent_b2db803a57ce4b19",
+      "ent_bb33d5bc1d12ea3f"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_e723aa7dbaab9eb0",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 3,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [
+        "CVE-2021-44228"
+      ],
+      "malicious_ioc_hits": 1,
+      "rules": [
+        "l1_exploit_cve_2021_44228",
+        "l1_webshell_upload"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:02:33Z",
+    "last_seen": "2024-05-01T12:03:43Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_87aa41df7a8ad24e62b9",
+    "task_id": "task_fixture_00",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0042",
+        "technique": "T1566",
+        "narrative": "Mock narrative for stage 3 of candidate cand_4217066c6573e1d5 derived from event evt_000024.",
+        "evidence_event_ids": [
+          "evt_000024"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Resource Development",
+        "technique_name": "Phishing",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0001",
+        "technique": "T1071",
+        "narrative": "Mock narrative for stage 1 of candidate cand_4217066c6573e1d5 derived from event evt_000022.",
+        "evidence_event_ids": [
+          "evt_000022"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Initial Access",
+        "technique_name": "Application Layer Protocol",
+        "source": "llm"
+      },
+      {
+        "stage_index": 3,
+        "tactic": "TA0011",
+        "technique": "T1105",
+        "narrative": "Mock narrative for stage 2 of candidate cand_4217066c6573e1d5 derived from event evt_000023.",
+        "evidence_event_ids": [
+          "evt_000023"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Command and Control",
+        "technique_name": "Ingress Tool Transfer",
+        "source": "merged"
+      }
+    ],
+    "severity": "medium",
+    "confidence": 0.7661,
+    "summary": "Mock analysis for candidate cand_4217066c6573e1d5: 3 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0042",
+      "TA0001",
+      "TA0011"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_cc4a8502418e4619",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.026,
+      "input_tokens": 2002,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:49.799316Z",
+    "fingerprint": "af_0d9e1379479f1ca6e864386f89bb9ac39d31b92a",
+    "risk_score": {
+      "score": 69.36,
+      "severity": "medium",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.85,
+          "contribution": 0.187,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000022"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000024",
+            "evt_000022",
+            "evt_000023"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 1.0,
+          "contribution": 0.14,
+          "description": "2 malicious / 2 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "victim asset weight 1.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.8554,
+          "contribution": 0.1026,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 1.0,
+          "contribution": 0.08,
+          "description": "3 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0001 (Initial Access)",
+        "3 independent evidence events support the chain",
+        "2 malicious indicator(s) matched threat intelligence",
+        "3 distinct ATT&CK tactics observed",
+        "score 69.4 -> medium (threshold 45)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.65,
+        "contribution": 0.195,
+        "description": "3 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.8554,
+        "contribution": 0.1711,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 1.0,
+        "contribution": 0.2,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 1.0,
+        "contribution": 0.1,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.4"
+    ],
+    "victim_ips": [
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      53,
+      443
+    ],
+    "event_ids": [
+      "evt_000022",
+      "evt_000023",
+      "evt_000024",
+      "evt_000025"
+    ],
+    "candidate_ids": [
+      "cand_4217066c6573e1d5"
+    ],
+    "threat_entities": [
+      "ent_032a4d05adc605f6",
+      "ent_05afe96870fcc953",
+      "ent_0cda8f98773d668d",
+      "ent_10197622aad7cea7",
+      "ent_20a906a979d22551",
+      "ent_4a9edae0ad31437b",
+      "ent_ab1690987ee815aa",
+      "ent_b709fafe419c2194",
+      "ent_cc8815f85847600d",
+      "ent_dd5a39dc0089ff53",
+      "ent_f4cf6e95b83e7ad1"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_4217066c6573e1d5",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 3,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [
+        "evil-c2.example.com",
+        "203.0.113.66"
+      ],
+      "malicious_ioc_hits": 2,
+      "rules": [
+        "l1_c2_beacon_periodic",
+        "l1_malicious_domain_dns"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:03:15Z",
+    "last_seen": "2024-05-01T12:03:58Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_a76f2bbe9428c2cbeb21",
+    "task_id": "task_fixture_00",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0002",
+        "technique": "T1027",
+        "narrative": "Mock narrative for stage 1 of candidate cand_d752aa7f194ced7e derived from event evt_000026.",
+        "evidence_event_ids": [
+          "evt_000026"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Execution",
+        "technique_name": "Obfuscated Files or Information",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0005",
+        "technique": "T1059",
+        "narrative": "Mock narrative for stage 2 of candidate cand_d752aa7f194ced7e derived from event evt_000027.",
+        "evidence_event_ids": [
+          "evt_000027"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Defense Evasion",
+        "technique_name": "Command and Scripting Interpreter",
+        "source": "llm"
+      }
+    ],
+    "severity": "medium",
+    "confidence": 0.5645,
+    "summary": "Mock analysis for candidate cand_d752aa7f194ced7e: 2 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0002",
+      "TA0005"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_e12fb488b6974120",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.02,
+      "input_tokens": 1613,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:49.799518Z",
+    "fingerprint": "af_61158b249de39fe96941dca789e229d9ac967532",
+    "risk_score": {
+      "score": 50.8,
+      "severity": "medium",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.8,
+          "contribution": 0.176,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000026"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.3333,
+          "contribution": 0.0533,
+          "description": "2 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000026",
+            "evt_000027"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "0 malicious / 0 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 0.5,
+          "contribution": 0.06,
+          "description": "victim asset weight 2.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.8224,
+          "contribution": 0.0987,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.4,
+          "contribution": 0.032,
+          "description": "2 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "2 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0002 (Execution)",
+        "victim asset criticality weight is 2.00",
+        "score 50.8 -> medium (threshold 45)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.3333,
+        "contribution": 0.1,
+        "description": "2 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.8224,
+        "contribution": 0.1645,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 1.0,
+        "contribution": 0.2,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 0.0,
+        "contribution": 0.0,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.5"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000026",
+      "evt_000027"
+    ],
+    "candidate_ids": [
+      "cand_d752aa7f194ced7e"
+    ],
+    "threat_entities": [
+      "ent_026413efd8af40b7",
+      "ent_10197622aad7cea7",
+      "ent_1afa10c78915caaa",
+      "ent_77f2024fb0e620bc",
+      "ent_a145887b95686436",
+      "ent_b832064c8ff24cf4",
+      "ent_c8334296208c9bb3"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_d752aa7f194ced7e",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 2,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [],
+      "malicious_ioc_hits": 0,
+      "rules": [
+        "l1_encoded_command",
+        "l1_suspicious_powershell"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:04:19Z",
+    "last_seen": "2024-05-01T12:04:39Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_bdf31b036379b1851e55",
+    "task_id": "task_fixture_01",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0043",
+        "technique": "T1082",
+        "narrative": "Mock narrative for stage 2 of candidate cand_8c39a4580402db88 derived from event evt_000002.",
+        "evidence_event_ids": [
+          "evt_000002"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Reconnaissance",
+        "technique_name": "System Information Discovery",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0043",
+        "technique": "T1087",
+        "narrative": "Mock narrative for stage 3 of candidate cand_8c39a4580402db88 derived from event evt_000003.",
+        "evidence_event_ids": [
+          "evt_000003"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Reconnaissance",
+        "technique_name": "Account Discovery",
+        "source": "llm"
+      },
+      {
+        "stage_index": 3,
+        "tactic": "TA0007",
+        "technique": "T1046",
+        "narrative": "Mock narrative for stage 1 of candidate cand_8c39a4580402db88 derived from event evt_000001.",
+        "evidence_event_ids": [
+          "evt_000001"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Discovery",
+        "technique_name": "Network Service Discovery",
+        "source": "merged"
+      }
+    ],
+    "severity": "medium",
+    "confidence": 0.5822,
+    "summary": "Mock analysis for candidate cand_8c39a4580402db88: 3 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0043",
+      "TA0007"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_84ff38c95a4b4a66",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.131,
+      "input_tokens": 2901,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:50.157323Z",
+    "fingerprint": "af_e962b283686fedc804d48e329510bacac1ca272b",
+    "risk_score": {
+      "score": 51.16,
+      "severity": "medium",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.4,
+          "contribution": 0.088,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000001"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000002",
+            "evt_000003",
+            "evt_000001"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "0 malicious / 0 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 1.0,
+          "contribution": 0.12,
+          "description": "victim asset weight 3.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.5968,
+          "contribution": 0.0716,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "2 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0007 (Discovery)",
+        "3 independent evidence events support the chain",
+        "victim asset criticality weight is 3.00",
+        "score 51.2 -> medium (threshold 45)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.65,
+        "contribution": 0.195,
+        "description": "3 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.5968,
+        "contribution": 0.1194,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 0.8391,
+        "contribution": 0.1678,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 0.0,
+        "contribution": 0.0,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.6"
+    ],
+    "victim_ips": [
+      "10.0.0.13",
+      "10.0.0.21",
+      "10.0.5.44",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000001",
+      "evt_000002",
+      "evt_000003",
+      "evt_000004",
+      "evt_000005",
+      "evt_000006",
+      "evt_000007",
+      "evt_000008",
+      "evt_000009",
+      "evt_000010",
+      "evt_000011",
+      "evt_000012"
+    ],
+    "candidate_ids": [
+      "cand_8c39a4580402db88"
+    ],
+    "threat_entities": [
+      "ent_10197622aad7cea7",
+      "ent_10e1b3440ee940cd",
+      "ent_3232675bdc17ea20",
+      "ent_359166b5b9caa35f",
+      "ent_72d922e0a1d8c6fb",
+      "ent_90ab8041a8f921ed",
+      "ent_a145887b95686436",
+      "ent_a63ece82b4e6d095",
+      "ent_c66769548f749ce8",
+      "ent_d4c6280afe6a93db",
+      "ent_d7ef7c38286b6da7",
+      "ent_dd5a39dc0089ff53",
+      "ent_ea9b75c93a866387"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_8c39a4580402db88",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 3,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [],
+      "malicious_ioc_hits": 0,
+      "rules": [
+        "l1_port_scan_sweep",
+        "l1_service_discovery"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:00:11Z",
+    "last_seen": "2024-05-01T12:04:31Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_d186507814b56e03da12",
+    "task_id": "task_fixture_01",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0001",
+        "technique": "T1078",
+        "narrative": "Mock narrative for stage 1 of candidate cand_301f212b4c85f6a8 derived from event evt_000013.",
+        "evidence_event_ids": [
+          "evt_000013"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Initial Access",
+        "technique_name": "Valid Accounts",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0005",
+        "technique": "T1110",
+        "narrative": "Mock narrative for stage 2 of candidate cand_301f212b4c85f6a8 derived from event evt_000014.",
+        "evidence_event_ids": [
+          "evt_000014"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Defense Evasion",
+        "technique_name": "Brute Force",
+        "source": "llm"
+      },
+      {
+        "stage_index": 3,
+        "tactic": "TA0006",
+        "technique": "T1133",
+        "narrative": "Mock narrative for stage 3 of candidate cand_301f212b4c85f6a8 derived from event evt_000015.",
+        "evidence_event_ids": [
+          "evt_000015"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Credential Access",
+        "technique_name": "External Remote Services",
+        "source": "llm"
+      }
+    ],
+    "severity": "medium",
+    "confidence": 0.6394,
+    "summary": "Mock analysis for candidate cand_301f212b4c85f6a8: 3 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0001",
+      "TA0005",
+      "TA0006"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_83b8c21fe8c54e28",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.074,
+      "input_tokens": 1919,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:50.158035Z",
+    "fingerprint": "af_cfbbc204f4d48e6c100c72d504770de88be23f94",
+    "risk_score": {
+      "score": 59.76,
+      "severity": "medium",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.85,
+          "contribution": 0.187,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000013"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000013",
+            "evt_000014",
+            "evt_000015"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "0 malicious / 0 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 0.5,
+          "contribution": 0.06,
+          "description": "victim asset weight 2.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.722,
+          "contribution": 0.0866,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 1.0,
+          "contribution": 0.08,
+          "description": "3 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0001 (Initial Access)",
+        "3 independent evidence events support the chain",
+        "victim asset criticality weight is 2.00",
+        "3 distinct ATT&CK tactics observed",
+        "score 59.8 -> medium (threshold 45)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.65,
+        "contribution": 0.195,
+        "description": "3 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.722,
+        "contribution": 0.1444,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 1.0,
+        "contribution": 0.2,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 0.0,
+        "contribution": 0.0,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.7"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000013",
+      "evt_000014",
+      "evt_000015",
+      "evt_000016",
+      "evt_000017",
+      "evt_000018"
+    ],
+    "candidate_ids": [
+      "cand_301f212b4c85f6a8"
+    ],
+    "threat_entities": [
+      "ent_10197622aad7cea7",
+      "ent_2aeddb74adb34b86",
+      "ent_3232675bdc17ea20",
+      "ent_8dd7fafe8f4d5710",
+      "ent_965937330bede1ce",
+      "ent_a145887b95686436",
+      "ent_ca534e427d6db31f",
+      "ent_def1e8e92419ba41",
+      "ent_e7ef42bac1522c87"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_301f212b4c85f6a8",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 3,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [],
+      "malicious_ioc_hits": 0,
+      "rules": [
+        "l1_auth_failure_burst",
+        "l1_brute_force_ssh"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:01:23Z",
+    "last_seen": "2024-05-01T12:03:36Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_b624554c43c6d7ca737e",
+    "task_id": "task_fixture_01",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0001",
+        "technique": "T1041",
+        "narrative": "Mock narrative for stage 1 of candidate cand_41ba6bf33d77359b derived from event evt_000019.",
+        "evidence_event_ids": [
+          "evt_000019"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Initial Access",
+        "technique_name": "Exfiltration Over C2 Channel",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0002",
+        "technique": "T1048",
+        "narrative": "Mock narrative for stage 2 of candidate cand_41ba6bf33d77359b derived from event evt_000020.",
+        "evidence_event_ids": [
+          "evt_000020"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Execution",
+        "technique_name": "Exfiltration Over Alternative Protocol",
+        "source": "llm"
+      },
+      {
+        "stage_index": 3,
+        "tactic": "TA0004",
+        "technique": "T1068",
+        "narrative": "Mock narrative for stage 3 of candidate cand_41ba6bf33d77359b derived from event evt_000021.",
+        "evidence_event_ids": [
+          "evt_000021"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Privilege Escalation",
+        "technique_name": "Exploitation for Privilege Escalation",
+        "source": "merged"
+      }
+    ],
+    "severity": "medium",
+    "confidence": 0.717,
+    "summary": "Mock analysis for candidate cand_41ba6bf33d77359b: 3 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0001",
+      "TA0002",
+      "TA0004"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_d35f664c9a744b57",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.058,
+      "input_tokens": 2039,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:50.158587Z",
+    "fingerprint": "af_ef37eb0c42c3ec02315591be67c3bed570eb4831",
+    "risk_score": {
+      "score": 66.62,
+      "severity": "medium",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.85,
+          "contribution": 0.187,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000019"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000019",
+            "evt_000020",
+            "evt_000021"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.8,
+          "contribution": 0.112,
+          "description": "1 malicious / 1 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "victim asset weight 1.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.86,
+          "contribution": 0.1032,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 1.0,
+          "contribution": 0.08,
+          "description": "3 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0001 (Initial Access)",
+        "3 independent evidence events support the chain",
+        "1 malicious indicator(s) matched threat intelligence",
+        "3 distinct ATT&CK tactics observed",
+        "score 66.6 -> medium (threshold 45)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.65,
+        "contribution": 0.195,
+        "description": "3 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.86,
+        "contribution": 0.172,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 1.0,
+        "contribution": 0.2,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 0.5,
+        "contribution": 0.05,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.8"
+    ],
+    "victim_ips": [
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      80,
+      8080
+    ],
+    "event_ids": [
+      "evt_000019",
+      "evt_000020",
+      "evt_000021"
+    ],
+    "candidate_ids": [
+      "cand_41ba6bf33d77359b"
+    ],
+    "threat_entities": [
+      "ent_089925d53b8f7d11",
+      "ent_10197622aad7cea7",
+      "ent_2a25bbdf6d2431ad",
+      "ent_880ba2356543f1f7",
+      "ent_89b9112065c1a9a2",
+      "ent_9da7db813a78edd1",
+      "ent_b02baf3884c154ae",
+      "ent_b2db803a57ce4b19",
+      "ent_dd5a39dc0089ff53"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_41ba6bf33d77359b",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 3,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [
+        "CVE-2021-44228"
+      ],
+      "malicious_ioc_hits": 1,
+      "rules": [
+        "l1_exploit_cve_2021_44228",
+        "l1_webshell_upload"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:02:08Z",
+    "last_seen": "2024-05-01T12:02:44Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_87bfe6cb1fc8d702b2ea",
+    "task_id": "task_fixture_01",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0042",
+        "technique": "T1566",
+        "narrative": "Mock narrative for stage 3 of candidate cand_d34e66efa7a1dfb3 derived from event evt_000024.",
+        "evidence_event_ids": [
+          "evt_000024"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Resource Development",
+        "technique_name": "Phishing",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0001",
+        "technique": "T1071",
+        "narrative": "Mock narrative for stage 1 of candidate cand_d34e66efa7a1dfb3 derived from event evt_000022.",
+        "evidence_event_ids": [
+          "evt_000022"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Initial Access",
+        "technique_name": "Application Layer Protocol",
+        "source": "llm"
+      },
+      {
+        "stage_index": 3,
+        "tactic": "TA0011",
+        "technique": "T1105",
+        "narrative": "Mock narrative for stage 2 of candidate cand_d34e66efa7a1dfb3 derived from event evt_000023.",
+        "evidence_event_ids": [
+          "evt_000023"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Command and Control",
+        "technique_name": "Ingress Tool Transfer",
+        "source": "merged"
+      }
+    ],
+    "severity": "medium",
+    "confidence": 0.7666,
+    "summary": "Mock analysis for candidate cand_d34e66efa7a1dfb3: 3 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0042",
+      "TA0001",
+      "TA0011"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_a899555a463046a1",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.054,
+      "input_tokens": 2002,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:50.159122Z",
+    "fingerprint": "af_27b33a539f738e23eecb774786b4114c25fa7d7f",
+    "risk_score": {
+      "score": 69.39,
+      "severity": "medium",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.85,
+          "contribution": 0.187,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000022"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000024",
+            "evt_000022",
+            "evt_000023"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 1.0,
+          "contribution": 0.14,
+          "description": "2 malicious / 2 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "victim asset weight 1.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.8579,
+          "contribution": 0.1029,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 1.0,
+          "contribution": 0.08,
+          "description": "3 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0001 (Initial Access)",
+        "3 independent evidence events support the chain",
+        "2 malicious indicator(s) matched threat intelligence",
+        "3 distinct ATT&CK tactics observed",
+        "score 69.4 -> medium (threshold 45)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.65,
+        "contribution": 0.195,
+        "description": "3 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.8579,
+        "contribution": 0.1716,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 1.0,
+        "contribution": 0.2,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 1.0,
+        "contribution": 0.1,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.9"
+    ],
+    "victim_ips": [
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      53,
+      443
+    ],
+    "event_ids": [
+      "evt_000022",
+      "evt_000023",
+      "evt_000024",
+      "evt_000025"
+    ],
+    "candidate_ids": [
+      "cand_d34e66efa7a1dfb3"
+    ],
+    "threat_entities": [
+      "ent_05afe96870fcc953",
+      "ent_0cda8f98773d668d",
+      "ent_10197622aad7cea7",
+      "ent_20a906a979d22551",
+      "ent_4a9edae0ad31437b",
+      "ent_ab1690987ee815aa",
+      "ent_b709fafe419c2194",
+      "ent_cc8815f85847600d",
+      "ent_dd5a39dc0089ff53",
+      "ent_e86e851706642641",
+      "ent_f4cf6e95b83e7ad1"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_d34e66efa7a1dfb3",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 3,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [
+        "evil-c2.example.com",
+        "203.0.113.66"
+      ],
+      "malicious_ioc_hits": 2,
+      "rules": [
+        "l1_c2_beacon_periodic",
+        "l1_malicious_domain_dns"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:03:14Z",
+    "last_seen": "2024-05-01T12:04:17Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_dac91d19fcf72ab72405",
+    "task_id": "task_fixture_01",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0002",
+        "technique": "T1027",
+        "narrative": "Mock narrative for stage 1 of candidate cand_6f5f38a5491429ff derived from event evt_000026.",
+        "evidence_event_ids": [
+          "evt_000026"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Execution",
+        "technique_name": "Obfuscated Files or Information",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0005",
+        "technique": "T1059",
+        "narrative": "Mock narrative for stage 2 of candidate cand_6f5f38a5491429ff derived from event evt_000027.",
+        "evidence_event_ids": [
+          "evt_000027"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Defense Evasion",
+        "technique_name": "Command and Scripting Interpreter",
+        "source": "llm"
+      }
+    ],
+    "severity": "medium",
+    "confidence": 0.5595,
+    "summary": "Mock analysis for candidate cand_6f5f38a5491429ff: 2 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0002",
+      "TA0005"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_50b006c449ef4fc7",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.047,
+      "input_tokens": 1614,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:50.159762Z",
+    "fingerprint": "af_920b6ceb4aa5b29cb0128c7b4d6712106674e1b3",
+    "risk_score": {
+      "score": 56.5,
+      "severity": "medium",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.8,
+          "contribution": 0.176,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000026"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.3333,
+          "contribution": 0.0533,
+          "description": "2 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000026",
+            "evt_000027"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "0 malicious / 0 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 1.0,
+          "contribution": 0.12,
+          "description": "victim asset weight 3.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.7977,
+          "contribution": 0.0957,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.4,
+          "contribution": 0.032,
+          "description": "2 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "2 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0002 (Execution)",
+        "victim asset criticality weight is 3.00",
+        "score 56.5 -> medium (threshold 45)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.3333,
+        "contribution": 0.1,
+        "description": "2 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.7977,
+        "contribution": 0.1595,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 1.0,
+        "contribution": 0.2,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 0.0,
+        "contribution": 0.0,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.10"
+    ],
+    "victim_ips": [
+      "10.0.0.13"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000026",
+      "evt_000027"
+    ],
+    "candidate_ids": [
+      "cand_6f5f38a5491429ff"
+    ],
+    "threat_entities": [
+      "ent_026413efd8af40b7",
+      "ent_0fe2dd1fe6f439d1",
+      "ent_10197622aad7cea7",
+      "ent_1afa10c78915caaa",
+      "ent_77f2024fb0e620bc",
+      "ent_c8334296208c9bb3",
+      "ent_d7ef7c38286b6da7"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_6f5f38a5491429ff",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 2,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [],
+      "malicious_ioc_hits": 0,
+      "rules": [
+        "l1_encoded_command",
+        "l1_suspicious_powershell"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:04:42Z",
+    "last_seen": "2024-05-01T12:04:58Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_a32955d69edf90e47736",
+    "task_id": "task_fixture_02",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0043",
+        "technique": "T1082",
+        "narrative": "Mock narrative for stage 2 of candidate cand_40939787c34383a3 derived from event evt_000002.",
+        "evidence_event_ids": [
+          "evt_000002"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Reconnaissance",
+        "technique_name": "System Information Discovery",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0043",
+        "technique": "T1087",
+        "narrative": "Mock narrative for stage 3 of candidate cand_40939787c34383a3 derived from event evt_000003.",
+        "evidence_event_ids": [
+          "evt_000003"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Reconnaissance",
+        "technique_name": "Account Discovery",
+        "source": "llm"
+      },
+      {
+        "stage_index": 3,
+        "tactic": "TA0007",
+        "technique": "T1046",
+        "narrative": "Mock narrative for stage 1 of candidate cand_40939787c34383a3 derived from event evt_000001.",
+        "evidence_event_ids": [
+          "evt_000001"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Discovery",
+        "technique_name": "Network Service Discovery",
+        "source": "merged"
+      }
+    ],
+    "severity": "medium",
+    "confidence": 0.5744,
+    "summary": "Mock analysis for candidate cand_40939787c34383a3: 3 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0043",
+      "TA0007"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_b3823d8c7ced4941",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.051,
+      "input_tokens": 2906,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:50.492481Z",
+    "fingerprint": "af_7cb6eea248087bd1a8005c3ac63c229aa3788316",
+    "risk_score": {
+      "score": 51.09,
+      "severity": "medium",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.4,
+          "contribution": 0.088,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000001"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000002",
+            "evt_000003",
+            "evt_000001"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "0 malicious / 0 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 1.0,
+          "contribution": 0.12,
+          "description": "victim asset weight 3.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.5906,
+          "contribution": 0.0709,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "2 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0007 (Discovery)",
+        "3 independent evidence events support the chain",
+        "victim asset criticality weight is 3.00",
+        "score 51.1 -> medium (threshold 45)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.65,
+        "contribution": 0.195,
+        "description": "3 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.5906,
+        "contribution": 0.1181,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 0.8064,
+        "contribution": 0.1613,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 0.0,
+        "contribution": 0.0,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.11"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.13",
+      "10.0.0.21",
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000001",
+      "evt_000002",
+      "evt_000003",
+      "evt_000004",
+      "evt_000005",
+      "evt_000006",
+      "evt_000007",
+      "evt_000008",
+      "evt_000009",
+      "evt_000010",
+      "evt_000011",
+      "evt_000012"
+    ],
+    "candidate_ids": [
+      "cand_40939787c34383a3"
+    ],
+    "threat_entities": [
+      "ent_10197622aad7cea7",
+      "ent_3232675bdc17ea20",
+      "ent_359166b5b9caa35f",
+      "ent_72d922e0a1d8c6fb",
+      "ent_75601802590a5f41",
+      "ent_90ab8041a8f921ed",
+      "ent_a145887b95686436",
+      "ent_a63ece82b4e6d095",
+      "ent_b99beb8251426728",
+      "ent_c66769548f749ce8",
+      "ent_d4c6280afe6a93db",
+      "ent_d7ef7c38286b6da7",
+      "ent_ea9b75c93a866387"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_40939787c34383a3",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 3,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [],
+      "malicious_ioc_hits": 0,
+      "rules": [
+        "l1_port_scan_sweep",
+        "l1_service_discovery"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:00:43Z",
+    "last_seen": "2024-05-01T12:05:40Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_e8e7dcb59ad43883008b",
+    "task_id": "task_fixture_02",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0001",
+        "technique": "T1078",
+        "narrative": "Mock narrative for stage 1 of candidate cand_5e53941906781f58 derived from event evt_000013.",
+        "evidence_event_ids": [
+          "evt_000013"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Initial Access",
+        "technique_name": "Valid Accounts",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0005",
+        "technique": "T1110",
+        "narrative": "Mock narrative for stage 2 of candidate cand_5e53941906781f58 derived from event evt_000014.",
+        "evidence_event_ids": [
+          "evt_000014"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Defense Evasion",
+        "technique_name": "Brute Force",
+        "source": "llm"
+      },
+      {
+        "stage_index": 3,
+        "tactic": "TA0006",
+        "technique": "T1133",
+        "narrative": "Mock narrative for stage 3 of candidate cand_5e53941906781f58 derived from event evt_000015.",
+        "evidence_event_ids": [
+          "evt_000015"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Credential Access",
+        "technique_name": "External Remote Services",
+        "source": "llm"
+      }
+    ],
+    "severity": "medium",
+    "confidence": 0.6404,
+    "summary": "Mock analysis for candidate cand_5e53941906781f58: 3 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0001",
+      "TA0005",
+      "TA0006"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_c52656417df94535",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.025,
+      "input_tokens": 1921,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:50.492765Z",
+    "fingerprint": "af_b18ef7644713c8662bbac26aaf22f8c51e72f90d",
+    "risk_score": {
+      "score": 59.83,
+      "severity": "medium",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.85,
+          "contribution": 0.187,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000013"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000013",
+            "evt_000014",
+            "evt_000015"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "0 malicious / 0 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 0.5,
+          "contribution": 0.06,
+          "description": "victim asset weight 2.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.7271,
+          "contribution": 0.0873,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 1.0,
+          "contribution": 0.08,
+          "description": "3 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0001 (Initial Access)",
+        "3 independent evidence events support the chain",
+        "victim asset criticality weight is 2.00",
+        "3 distinct ATT&CK tactics observed",
+        "score 59.8 -> medium (threshold 45)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.65,
+        "contribution": 0.195,
+        "description": "3 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.7271,
+        "contribution": 0.1454,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 1.0,
+        "contribution": 0.2,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 0.0,
+        "contribution": 0.0,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.12"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000013",
+      "evt_000014",
+      "evt_000015",
+      "evt_000016",
+      "evt_000017",
+      "evt_000018"
+    ],
+    "candidate_ids": [
+      "cand_5e53941906781f58"
+    ],
+    "threat_entities": [
+      "ent_10197622aad7cea7",
+      "ent_2aeddb74adb34b86",
+      "ent_3232675bdc17ea20",
+      "ent_8dd7fafe8f4d5710",
+      "ent_965937330bede1ce",
+      "ent_a145887b95686436",
+      "ent_aa98db0a6f536645",
+      "ent_ca534e427d6db31f",
+      "ent_def1e8e92419ba41"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_5e53941906781f58",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 3,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [],
+      "malicious_ioc_hits": 0,
+      "rules": [
+        "l1_auth_failure_burst",
+        "l1_brute_force_ssh"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:01:45Z",
+    "last_seen": "2024-05-01T12:04:17Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_955a9aff37a7c9fa0188",
+    "task_id": "task_fixture_02",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0001",
+        "technique": "T1041",
+        "narrative": "Mock narrative for stage 1 of candidate cand_1bdf50b8eb31afd6 derived from event evt_000019.",
+        "evidence_event_ids": [
+          "evt_000019"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Initial Access",
+        "technique_name": "Exfiltration Over C2 Channel",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0002",
+        "technique": "T1048",
+        "narrative": "Mock narrative for stage 2 of candidate cand_1bdf50b8eb31afd6 derived from event evt_000020.",
+        "evidence_event_ids": [
+          "evt_000020"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Execution",
+        "technique_name": "Exfiltration Over Alternative Protocol",
+        "source": "llm"
+      },
+      {
+        "stage_index": 3,
+        "tactic": "TA0004",
+        "technique": "T1068",
+        "narrative": "Mock narrative for stage 3 of candidate cand_1bdf50b8eb31afd6 derived from event evt_000021.",
+        "evidence_event_ids": [
+          "evt_000021"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Privilege Escalation",
+        "technique_name": "Exploitation for Privilege Escalation",
+        "source": "merged"
+      }
+    ],
+    "severity": "high",
+    "confidence": 0.7266,
+    "summary": "Mock analysis for candidate cand_1bdf50b8eb31afd6: 3 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0001",
+      "TA0002",
+      "TA0004"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_f83361cfb42e40cc",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.019,
+      "input_tokens": 2041,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:50.493084Z",
+    "fingerprint": "af_3e44586b0a5c6d668629edee2d6113279be64c6e",
+    "risk_score": {
+      "score": 73.19,
+      "severity": "high",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.85,
+          "contribution": 0.187,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000019"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000019",
+            "evt_000020",
+            "evt_000021"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.8,
+          "contribution": 0.112,
+          "description": "1 malicious / 1 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 0.5,
+          "contribution": 0.06,
+          "description": "victim asset weight 2.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.9078,
+          "contribution": 0.1089,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 1.0,
+          "contribution": 0.08,
+          "description": "3 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0001 (Initial Access)",
+        "3 independent evidence events support the chain",
+        "1 malicious indicator(s) matched threat intelligence",
+        "victim asset criticality weight is 2.00",
+        "3 distinct ATT&CK tactics observed",
+        "score 73.2 -> high (threshold 70)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.65,
+        "contribution": 0.195,
+        "description": "3 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.9078,
+        "contribution": 0.1816,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 1.0,
+        "contribution": 0.2,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 0.5,
+        "contribution": 0.05,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.13"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      80,
+      8080
+    ],
+    "event_ids": [
+      "evt_000019",
+      "evt_000020",
+      "evt_000021"
+    ],
+    "candidate_ids": [
+      "cand_1bdf50b8eb31afd6"
+    ],
+    "threat_entities": [
+      "ent_089925d53b8f7d11",
+      "ent_10197622aad7cea7",
+      "ent_2a25bbdf6d2431ad",
+      "ent_880ba2356543f1f7",
+      "ent_89b9112065c1a9a2",
+      "ent_9ca6d9a200c9c8b4",
+      "ent_a145887b95686436",
+      "ent_b02baf3884c154ae",
+      "ent_b2db803a57ce4b19"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_1bdf50b8eb31afd6",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 3,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [
+        "CVE-2021-44228"
+      ],
+      "malicious_ioc_hits": 1,
+      "rules": [
+        "l1_exploit_cve_2021_44228",
+        "l1_webshell_upload"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:02:12Z",
+    "last_seen": "2024-05-01T12:03:02Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_92c8f0a3a46a35a799be",
+    "task_id": "task_fixture_02",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0042",
+        "technique": "T1566",
+        "narrative": "Mock narrative for stage 3 of candidate cand_2391514f9b59008a derived from event evt_000024.",
+        "evidence_event_ids": [
+          "evt_000024"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Resource Development",
+        "technique_name": "Phishing",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0001",
+        "technique": "T1071",
+        "narrative": "Mock narrative for stage 1 of candidate cand_2391514f9b59008a derived from event evt_000022.",
+        "evidence_event_ids": [
+          "evt_000022"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Initial Access",
+        "technique_name": "Application Layer Protocol",
+        "source": "llm"
+      },
+      {
+        "stage_index": 3,
+        "tactic": "TA0011",
+        "technique": "T1105",
+        "narrative": "Mock narrative for stage 2 of candidate cand_2391514f9b59008a derived from event evt_000023.",
+        "evidence_event_ids": [
+          "evt_000023"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Command and Control",
+        "technique_name": "Ingress Tool Transfer",
+        "source": "merged"
+      }
+    ],
+    "severity": "high",
+    "confidence": 0.7515,
+    "summary": "Mock analysis for candidate cand_2391514f9b59008a: 3 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0042",
+      "TA0001",
+      "TA0011"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_2116a22babb64c44",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.018,
+      "input_tokens": 2004,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:50.493296Z",
+    "fingerprint": "af_f6c536e05698ce7c538c43b4b8601fc7431bb862",
+    "risk_score": {
+      "score": 71.49,
+      "severity": "high",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.85,
+          "contribution": 0.187,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000022"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000024",
+            "evt_000022",
+            "evt_000023"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 1.0,
+          "contribution": 0.14,
+          "description": "2 malicious / 2 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 0.25,
+          "contribution": 0.03,
+          "description": "victim asset weight 1.50",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.7825,
+          "contribution": 0.0939,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 1.0,
+          "contribution": 0.08,
+          "description": "3 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0001 (Initial Access)",
+        "3 independent evidence events support the chain",
+        "2 malicious indicator(s) matched threat intelligence",
+        "3 distinct ATT&CK tactics observed",
+        "score 71.5 -> high (threshold 70)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.65,
+        "contribution": 0.195,
+        "description": "3 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.7825,
+        "contribution": 0.1565,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 1.0,
+        "contribution": 0.2,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 1.0,
+        "contribution": 0.1,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.14"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      53,
+      443
+    ],
+    "event_ids": [
+      "evt_000022",
+      "evt_000023",
+      "evt_000024",
+      "evt_000025"
+    ],
+    "candidate_ids": [
+      "cand_2391514f9b59008a"
+    ],
+    "threat_entities": [
+      "ent_05afe96870fcc953",
+      "ent_0cda8f98773d668d",
+      "ent_10197622aad7cea7",
+      "ent_17f853dad7b84ea8",
+      "ent_20a906a979d22551",
+      "ent_4a9edae0ad31437b",
+      "ent_90ab8041a8f921ed",
+      "ent_ab1690987ee815aa",
+      "ent_b709fafe419c2194",
+      "ent_cc8815f85847600d",
+      "ent_f4cf6e95b83e7ad1"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_2391514f9b59008a",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 3,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [
+        "evil-c2.example.com",
+        "203.0.113.66"
+      ],
+      "malicious_ioc_hits": 2,
+      "rules": [
+        "l1_c2_beacon_periodic",
+        "l1_malicious_domain_dns"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:03:20Z",
+    "last_seen": "2024-05-01T12:04:52Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_9594f2689e753a567225",
+    "task_id": "task_fixture_02",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0002",
+        "technique": "T1027",
+        "narrative": "Mock narrative for stage 1 of candidate cand_ea7289e24177f964 derived from event evt_000026.",
+        "evidence_event_ids": [
+          "evt_000026"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Execution",
+        "technique_name": "Obfuscated Files or Information",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0005",
+        "technique": "T1059",
+        "narrative": "Mock narrative for stage 2 of candidate cand_ea7289e24177f964 derived from event evt_000027.",
+        "evidence_event_ids": [
+          "evt_000027"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Defense Evasion",
+        "technique_name": "Command and Scripting Interpreter",
+        "source": "llm"
+      }
+    ],
+    "severity": "medium",
+    "confidence": 0.5623,
+    "summary": "Mock analysis for candidate cand_ea7289e24177f964: 2 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0002",
+      "TA0005"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_d37b398d3d994792",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.017,
+      "input_tokens": 1614,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:50.493484Z",
+    "fingerprint": "af_88e5d131ae055b6b878a6fedb8ea13f4b60cd1f0",
+    "risk_score": {
+      "score": 50.67,
+      "severity": "medium",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.8,
+          "contribution": 0.176,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000026"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.3333,
+          "contribution": 0.0533,
+          "description": "2 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000026",
+            "evt_000027"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "0 malicious / 0 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 0.5,
+          "contribution": 0.06,
+          "description": "victim asset weight 2.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.8117,
+          "contribution": 0.0974,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.4,
+          "contribution": 0.032,
+          "description": "2 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "2 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0002 (Execution)",
+        "victim asset criticality weight is 2.00",
+        "score 50.7 -> medium (threshold 45)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.3333,
+        "contribution": 0.1,
+        "description": "2 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.8117,
+        "contribution": 0.1623,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 1.0,
+        "contribution": 0.2,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 0.0,
+        "contribution": 0.0,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.15"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000026",
+      "evt_000027"
+    ],
+    "candidate_ids": [
+      "cand_ea7289e24177f964"
+    ],
+    "threat_entities": [
+      "ent_026413efd8af40b7",
+      "ent_10197622aad7cea7",
+      "ent_1afa10c78915caaa",
+      "ent_3107b04783e5b777",
+      "ent_77f2024fb0e620bc",
+      "ent_a145887b95686436",
+      "ent_c8334296208c9bb3"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_ea7289e24177f964",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 2,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [],
+      "malicious_ioc_hits": 0,
+      "rules": [
+        "l1_encoded_command",
+        "l1_suspicious_powershell"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:04:13Z",
+    "last_seen": "2024-05-01T12:04:24Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_ef552367b414dbfe74cd",
+    "task_id": "task_fixture_03",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0043",
+        "technique": "T1082",
+        "narrative": "Mock narrative for stage 2 of candidate cand_0ef4b15ffd643824 derived from event evt_000002.",
+        "evidence_event_ids": [
+          "evt_000002"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Reconnaissance",
+        "technique_name": "System Information Discovery",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0043",
+        "technique": "T1087",
+        "narrative": "Mock narrative for stage 3 of candidate cand_0ef4b15ffd643824 derived from event evt_000003.",
+        "evidence_event_ids": [
+          "evt_000003"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Reconnaissance",
+        "technique_name": "Account Discovery",
+        "source": "llm"
+      },
+      {
+        "stage_index": 3,
+        "tactic": "TA0007",
+        "technique": "T1046",
+        "narrative": "Mock narrative for stage 1 of candidate cand_0ef4b15ffd643824 derived from event evt_000001.",
+        "evidence_event_ids": [
+          "evt_000001"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Discovery",
+        "technique_name": "Network Service Discovery",
+        "source": "merged"
+      }
+    ],
+    "severity": "medium",
+    "confidence": 0.5814,
+    "summary": "Mock analysis for candidate cand_0ef4b15ffd643824: 3 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0043",
+      "TA0007"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_ccc77029998b4ec5",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.053,
+      "input_tokens": 2904,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:50.816658Z",
+    "fingerprint": "af_e5f986fb25aeff1dda4caf88d303eabdc0d437c5",
+    "risk_score": {
+      "score": 51.12,
+      "severity": "medium",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.4,
+          "contribution": 0.088,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000001"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000002",
+            "evt_000003",
+            "evt_000001"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "0 malicious / 0 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 1.0,
+          "contribution": 0.12,
+          "description": "victim asset weight 3.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.593,
+          "contribution": 0.0712,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "2 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0007 (Discovery)",
+        "3 independent evidence events support the chain",
+        "victim asset criticality weight is 3.00",
+        "score 51.1 -> medium (threshold 45)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.65,
+        "contribution": 0.195,
+        "description": "3 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.593,
+        "contribution": 0.1186,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 0.8391,
+        "contribution": 0.1678,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 0.0,
+        "contribution": 0.0,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.16"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.21",
+      "10.0.5.44",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000001",
+      "evt_000002",
+      "evt_000003",
+      "evt_000004",
+      "evt_000005",
+      "evt_000006",
+      "evt_000007",
+      "evt_000008",
+      "evt_000009",
+      "evt_000010",
+      "evt_000011",
+      "evt_000012"
+    ],
+    "candidate_ids": [
+      "cand_0ef4b15ffd643824"
+    ],
+    "threat_entities": [
+      "ent_10197622aad7cea7",
+      "ent_3232675bdc17ea20",
+      "ent_359166b5b9caa35f",
+      "ent_72d922e0a1d8c6fb",
+      "ent_75601802590a5f41",
+      "ent_78bb266ae322e508",
+      "ent_90ab8041a8f921ed",
+      "ent_a145887b95686436",
+      "ent_a63ece82b4e6d095",
+      "ent_c66769548f749ce8",
+      "ent_d4c6280afe6a93db",
+      "ent_dd5a39dc0089ff53",
+      "ent_ea9b75c93a866387"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_0ef4b15ffd643824",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 3,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [],
+      "malicious_ioc_hits": 0,
+      "rules": [
+        "l1_port_scan_sweep",
+        "l1_service_discovery"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:00:32Z",
+    "last_seen": "2024-05-01T12:04:14Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_ac83ea71c709f9743732",
+    "task_id": "task_fixture_03",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0001",
+        "technique": "T1078",
+        "narrative": "Mock narrative for stage 1 of candidate cand_c0c6ca701eaf536c derived from event evt_000013.",
+        "evidence_event_ids": [
+          "evt_000013"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Initial Access",
+        "technique_name": "Valid Accounts",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0005",
+        "technique": "T1110",
+        "narrative": "Mock narrative for stage 2 of candidate cand_c0c6ca701eaf536c derived from event evt_000014.",
+        "evidence_event_ids": [
+          "evt_000014"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Defense Evasion",
+        "technique_name": "Brute Force",
+        "source": "llm"
+      },
+      {
+        "stage_index": 3,
+        "tactic": "TA0006",
+        "technique": "T1133",
+        "narrative": "Mock narrative for stage 3 of candidate cand_c0c6ca701eaf536c derived from event evt_000015.",
+        "evidence_event_ids": [
+          "evt_000015"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Credential Access",
+        "technique_name": "External Remote Services",
+        "source": "llm"
+      }
+    ],
+    "severity": "medium",
+    "confidence": 0.6402,
+    "summary": "Mock analysis for candidate cand_c0c6ca701eaf536c: 3 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0001",
+      "TA0005",
+      "TA0006"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_2d9388fa82bb4b60",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.027,
+      "input_tokens": 1921,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:50.816961Z",
+    "fingerprint": "af_8a300595d614c756b999fb3a4e878ca6887b0840",
+    "risk_score": {
+      "score": 65.81,
+      "severity": "medium",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.85,
+          "contribution": 0.187,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000013"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000013",
+            "evt_000014",
+            "evt_000015"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "0 malicious / 0 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 1.0,
+          "contribution": 0.12,
+          "description": "victim asset weight 3.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.726,
+          "contribution": 0.0871,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 1.0,
+          "contribution": 0.08,
+          "description": "3 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0001 (Initial Access)",
+        "3 independent evidence events support the chain",
+        "victim asset criticality weight is 3.00",
+        "3 distinct ATT&CK tactics observed",
+        "score 65.8 -> medium (threshold 45)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.65,
+        "contribution": 0.195,
+        "description": "3 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.726,
+        "contribution": 0.1452,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 1.0,
+        "contribution": 0.2,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 0.0,
+        "contribution": 0.0,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.17"
+    ],
+    "victim_ips": [
+      "10.0.0.12"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000013",
+      "evt_000014",
+      "evt_000015",
+      "evt_000016",
+      "evt_000017",
+      "evt_000018"
+    ],
+    "candidate_ids": [
+      "cand_c0c6ca701eaf536c"
+    ],
+    "threat_entities": [
+      "ent_10197622aad7cea7",
+      "ent_2aeddb74adb34b86",
+      "ent_3232675bdc17ea20",
+      "ent_75601802590a5f41",
+      "ent_8dd7fafe8f4d5710",
+      "ent_965937330bede1ce",
+      "ent_ca534e427d6db31f",
+      "ent_def1e8e92419ba41",
+      "ent_ff10a2aee2750c0a"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_c0c6ca701eaf536c",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 3,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [],
+      "malicious_ioc_hits": 0,
+      "rules": [
+        "l1_auth_failure_burst",
+        "l1_brute_force_ssh"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:01:10Z",
+    "last_seen": "2024-05-01T12:03:19Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_a32c70c8010bdd3ffe22",
+    "task_id": "task_fixture_03",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0001",
+        "technique": "T1041",
+        "narrative": "Mock narrative for stage 1 of candidate cand_2c44242557fd718a derived from event evt_000019.",
+        "evidence_event_ids": [
+          "evt_000019"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Initial Access",
+        "technique_name": "Exfiltration Over C2 Channel",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0002",
+        "technique": "T1048",
+        "narrative": "Mock narrative for stage 2 of candidate cand_2c44242557fd718a derived from event evt_000020.",
+        "evidence_event_ids": [
+          "evt_000020"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Execution",
+        "technique_name": "Exfiltration Over Alternative Protocol",
+        "source": "llm"
+      },
+      {
+        "stage_index": 3,
+        "tactic": "TA0004",
+        "technique": "T1068",
+        "narrative": "Mock narrative for stage 3 of candidate cand_2c44242557fd718a derived from event evt_000021.",
+        "evidence_event_ids": [
+          "evt_000021"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Privilege Escalation",
+        "technique_name": "Exploitation for Privilege Escalation",
+        "source": "merged"
+      }
+    ],
+    "severity": "medium",
+    "confidence": 0.73,
+    "summary": "Mock analysis for candidate cand_2c44242557fd718a: 3 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0001",
+      "TA0002",
+      "TA0004"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_fcc71ce85b3a4995",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.021,
+      "input_tokens": 2041,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:50.817326Z",
+    "fingerprint": "af_4a89c3d2f4a80d8496339b33ddf44b72bb6b6cfc",
+    "risk_score": {
+      "score": 67.4,
+      "severity": "medium",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.85,
+          "contribution": 0.187,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000019"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000019",
+            "evt_000020",
+            "evt_000021"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.8,
+          "contribution": 0.112,
+          "description": "1 malicious / 1 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "victim asset weight 1.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.9251,
+          "contribution": 0.111,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 1.0,
+          "contribution": 0.08,
+          "description": "3 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0001 (Initial Access)",
+        "3 independent evidence events support the chain",
+        "1 malicious indicator(s) matched threat intelligence",
+        "3 distinct ATT&CK tactics observed",
+        "score 67.4 -> medium (threshold 45)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.65,
+        "contribution": 0.195,
+        "description": "3 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.9251,
+        "contribution": 0.185,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 1.0,
+        "contribution": 0.2,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 0.5,
+        "contribution": 0.05,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.18"
+    ],
+    "victim_ips": [
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      80,
+      8080
+    ],
+    "event_ids": [
+      "evt_000019",
+      "evt_000020",
+      "evt_000021"
+    ],
+    "candidate_ids": [
+      "cand_2c44242557fd718a"
+    ],
+    "threat_entities": [
+      "ent_089925d53b8f7d11",
+      "ent_10197622aad7cea7",
+      "ent_2a25bbdf6d2431ad",
+      "ent_5d53b90ef31b4b7d",
+      "ent_880ba2356543f1f7",
+      "ent_89b9112065c1a9a2",
+      "ent_b02baf3884c154ae",
+      "ent_b2db803a57ce4b19",
+      "ent_dd5a39dc0089ff53"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_2c44242557fd718a",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 3,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [
+        "CVE-2021-44228"
+      ],
+      "malicious_ioc_hits": 1,
+      "rules": [
+        "l1_exploit_cve_2021_44228",
+        "l1_webshell_upload"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:02:22Z",
+    "last_seen": "2024-05-01T12:03:06Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_84d6ea2c0f80abc33dd9",
+    "task_id": "task_fixture_03",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0042",
+        "technique": "T1566",
+        "narrative": "Mock narrative for stage 3 of candidate cand_340a141ac98b1255 derived from event evt_000024.",
+        "evidence_event_ids": [
+          "evt_000024"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Resource Development",
+        "technique_name": "Phishing",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0001",
+        "technique": "T1071",
+        "narrative": "Mock narrative for stage 1 of candidate cand_340a141ac98b1255 derived from event evt_000022.",
+        "evidence_event_ids": [
+          "evt_000022"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Initial Access",
+        "technique_name": "Application Layer Protocol",
+        "source": "llm"
+      },
+      {
+        "stage_index": 3,
+        "tactic": "TA0011",
+        "technique": "T1105",
+        "narrative": "Mock narrative for stage 2 of candidate cand_340a141ac98b1255 derived from event evt_000023.",
+        "evidence_event_ids": [
+          "evt_000023"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Command and Control",
+        "technique_name": "Ingress Tool Transfer",
+        "source": "merged"
+      }
+    ],
+    "severity": "high",
+    "confidence": 0.7748,
+    "summary": "Mock analysis for candidate cand_340a141ac98b1255: 3 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0042",
+      "TA0001",
+      "TA0011"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_1c718fe2f2c64fac",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.019,
+      "input_tokens": 2004,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:50.817564Z",
+    "fingerprint": "af_25bf5addf7af545b415401970a8991ab7cd9f2c1",
+    "risk_score": {
+      "score": 81.89,
+      "severity": "high",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.85,
+          "contribution": 0.187,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000022"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000024",
+            "evt_000022",
+            "evt_000023"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 1.0,
+          "contribution": 0.14,
+          "description": "2 malicious / 2 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 1.0,
+          "contribution": 0.12,
+          "description": "victim asset weight 3.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.8988,
+          "contribution": 0.1079,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 1.0,
+          "contribution": 0.08,
+          "description": "3 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0001 (Initial Access)",
+        "3 independent evidence events support the chain",
+        "2 malicious indicator(s) matched threat intelligence",
+        "victim asset criticality weight is 3.00",
+        "3 distinct ATT&CK tactics observed",
+        "score 81.9 -> high (threshold 70)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.65,
+        "contribution": 0.195,
+        "description": "3 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.8988,
+        "contribution": 0.1798,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 1.0,
+        "contribution": 0.2,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 1.0,
+        "contribution": 0.1,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.19"
+    ],
+    "victim_ips": [
+      "10.0.0.13"
+    ],
+    "victim_ports": [
+      53,
+      443
+    ],
+    "event_ids": [
+      "evt_000022",
+      "evt_000023",
+      "evt_000024",
+      "evt_000025"
+    ],
+    "candidate_ids": [
+      "cand_340a141ac98b1255"
+    ],
+    "threat_entities": [
+      "ent_05afe96870fcc953",
+      "ent_0cda8f98773d668d",
+      "ent_10197622aad7cea7",
+      "ent_20a906a979d22551",
+      "ent_247ab578bdb6d6ca",
+      "ent_4a9edae0ad31437b",
+      "ent_ab1690987ee815aa",
+      "ent_b709fafe419c2194",
+      "ent_cc8815f85847600d",
+      "ent_d7ef7c38286b6da7",
+      "ent_f4cf6e95b83e7ad1"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_340a141ac98b1255",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 3,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [
+        "evil-c2.example.com",
+        "203.0.113.66"
+      ],
+      "malicious_ioc_hits": 2,
+      "rules": [
+        "l1_c2_beacon_periodic",
+        "l1_malicious_domain_dns"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:03:06Z",
+    "last_seen": "2024-05-01T12:04:29Z"
+  },
+  {
+    "schema_version": "1.0.0",
+    "chain_id": "chain_81b18fc50b5ed9a44cfd",
+    "task_id": "task_fixture_03",
+    "stages": [
+      {
+        "stage_index": 1,
+        "tactic": "TA0002",
+        "technique": "T1027",
+        "narrative": "Mock narrative for stage 1 of candidate cand_bc6bc216b0a51136 derived from event evt_000026.",
+        "evidence_event_ids": [
+          "evt_000026"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Execution",
+        "technique_name": "Obfuscated Files or Information",
+        "source": "llm"
+      },
+      {
+        "stage_index": 2,
+        "tactic": "TA0005",
+        "technique": "T1059",
+        "narrative": "Mock narrative for stage 2 of candidate cand_bc6bc216b0a51136 derived from event evt_000027.",
+        "evidence_event_ids": [
+          "evt_000027"
+        ],
+        "confidence": 0.6,
+        "tactic_name": "Defense Evasion",
+        "technique_name": "Command and Scripting Interpreter",
+        "source": "llm"
+      }
+    ],
+    "severity": "low",
+    "confidence": 0.5656,
+    "summary": "Mock analysis for candidate cand_bc6bc216b0a51136: 2 evidence event(s) grouped by the correlation engine.",
+    "mitre_tactics": [
+      "TA0002",
+      "TA0005"
+    ],
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "request_id": "req_570479f0f29e4023",
+      "status": "success",
+      "llm_degraded": false,
+      "latency_ms": 0.019,
+      "input_tokens": 1613,
+      "output_tokens": 200,
+      "retry_count": 0,
+      "error": null
+    },
+    "created_at": "2026-09-20T03:19:50.817752Z",
+    "fingerprint": "af_ca89b7ee1a55a2258ac604f72b9efb0b262c001d",
+    "risk_score": {
+      "score": 44.86,
+      "severity": "low",
+      "factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.8,
+          "contribution": 0.176,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000026"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.3333,
+          "contribution": 0.0533,
+          "description": "2 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000026",
+            "evt_000027"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "0 malicious / 0 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "victim asset weight 1.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.8278,
+          "contribution": 0.0993,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.4,
+          "contribution": 0.032,
+          "description": "2 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "2 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "rationale": [
+        "highest-impact tactic: TA0002 (Execution)",
+        "score 44.9 -> low (threshold 20)"
+      ]
+    },
+    "confidence_factors": [
+      {
+        "name": "evidence",
+        "weight": 0.3,
+        "value": 0.3333,
+        "contribution": 0.1,
+        "description": "2 validated evidence event(s)",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      },
+      {
+        "name": "rule",
+        "weight": 0.2,
+        "value": 0.8278,
+        "contribution": 0.1656,
+        "description": "Module 1 detection score of the correlated events",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      },
+      {
+        "name": "correlation",
+        "weight": 0.2,
+        "value": 1.0,
+        "contribution": 0.2,
+        "description": "strength of the deterministic correlation",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      },
+      {
+        "name": "ioc",
+        "weight": 0.1,
+        "value": 0.0,
+        "contribution": 0.0,
+        "description": "threat-intelligence support",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      },
+      {
+        "name": "llm",
+        "weight": 0.2,
+        "value": 0.5,
+        "contribution": 0.1,
+        "description": "semantic analysis confidence",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      }
+    ],
+    "attacker_ips": [
+      "198.18.0.20"
+    ],
+    "victim_ips": [
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000026",
+      "evt_000027"
+    ],
+    "candidate_ids": [
+      "cand_bc6bc216b0a51136"
+    ],
+    "threat_entities": [
+      "ent_026413efd8af40b7",
+      "ent_10197622aad7cea7",
+      "ent_1afa10c78915caaa",
+      "ent_77f2024fb0e620bc",
+      "ent_84a2b343f13463b7",
+      "ent_c8334296208c9bb3",
+      "ent_dd5a39dc0089ff53"
+    ],
+    "uncertainties": [
+      "analysis produced by MockLLMProvider (no real model was called)"
+    ],
+    "evidence_validation": {
+      "candidate_id": "cand_bc6bc216b0a51136",
+      "valid": true,
+      "hallucination_detected": false,
+      "degraded_to_rules": false,
+      "issues": [],
+      "unknown_event_ids": [],
+      "dropped_stage_indexes": [],
+      "valid_evidence_count": 2,
+      "confidence_penalty": 0.0,
+      "notes": [],
+      "ioc_hits": [],
+      "malicious_ioc_hits": 0,
+      "rules": [
+        "l1_encoded_command",
+        "l1_suspicious_powershell"
+      ]
+    },
+    "llm_degraded": false,
+    "deduplicated_from": [],
+    "first_seen": "2024-05-01T12:04:24Z",
+    "last_seen": "2024-05-01T12:05:02Z"
+  }
+]

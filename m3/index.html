@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NetGuard · 网络攻击预警</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%233768ef'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'>N</text></svg>" />
+    <link rel="stylesheet" href="styles.css?v=30" />
+
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand"><span class="brand-mark">N</span><div><strong>NetGuard</strong><small>攻击预警中心</small></div></div>
+        <nav>
+          <button class="nav-item active" data-view="overview"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>态势总览</span></button>
+          <button class="nav-item" data-view="report"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg><span>分析结果</span></button>
+        <button class="nav-item" data-view="alerts"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 4.2 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 4.2a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13.5"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>告警中心</span><b id="nav-alert-count" hidden>0</b></button>
+          <button class="nav-item" data-view="chains"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg><span>攻击链分析</span></button>
+          <button class="nav-item" data-view="tasks"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h1.5L7 7.5 10 4"/><path d="M4 12h1.5L7 13.5 10 10"/><path d="M4 18h1.5L7 19.5 10 16"/><line x1="13" y1="6" x2="20" y2="6"/><line x1="13" y1="12" x2="20" y2="12"/><line x1="13" y1="18" x2="20" y2="18"/></svg><span>分析任务</span></button>
+        </nav>
+        <div class="sidebar-bottom"><button id="reset-demo" class="sidebar-reset" title="清空全部任务、文件与工作区产物，恢复初始演示状态（有任务运行时会被拒绝）"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="2 4 2 10 8 10"/><path d="M4 15a9 9 0 1 0 2-9.4L2 10"/></svg><span>重置演示环境</span></button><div class="system-status"><i></i><span>系统运行正常</span></div><small>v0.1.0</small></div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar"><div><h1 id="page-title">态势总览</h1></div><div class="top-actions"><span class="eyebrow" title="安全运营中心">安全运营中心</span><span class="last-update">最后更新：刚刚</span><button class="icon-btn" title="查看未读告警"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><em id="notification-count" hidden>0</em></button><div class="avatar" aria-label="用户">X</div></div></header>
+
+        <section id="overview" class="view active-view">
+          <article class="panel analysis-panel">
+            <div class="panel-head"><div><h2>任务分析</h2><span id="analysis-file">实时进度 · 数据逐段流式可见</span></div><span id="analysis-state" class="status running">空闲</span></div>
+            <div id="analysis-bars" class="analysis-bars"></div>
+            <div id="analysis-counts" class="analysis-counts" hidden></div>
+            <div id="analysis-log" class="analysis-log"></div>
+          </article>
+          <div class="hero-row"><div><h2 id="greeting">你好</h2><p>这里是你的网络安全态势。</p></div><button class="primary-btn" id="new-task-btn"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span>新建分析任务</span></button></div>
+          <div class="grid-2"><div class="distribution-grid"><article class="panel"><div class="panel-head"><div><h3>威胁类型分布</h3><span>按告警数量统计</span></div><button class="text-btn" data-view="alerts">查看全部 →</button></div><div class="threat-list"><div><span class="dot cyan"></span><label>扫描探测</label><b>38%</b><div class="bar"><i style="width:38%"></i></div></div></div></article><article class="panel risk-pie-panel"><div class="panel-head"><div><h3>危险等级占比</h3><span>全部任务 · 按告警数量统计</span></div></div><div id="stat-chips" class="stat-chips"></div><div class="risk-pie-wrap"><div id="risk-pie" class="risk-pie" role="img" aria-label="危险等级占比"></div><div id="risk-legend" class="risk-legend"></div></div></article></div></div>
+          <div class="grid-2 bottom-grid"><article class="panel"><div class="panel-head"><div><h3>最新告警</h3><span>按时间倒序排列</span></div><button class="text-btn" data-view="alerts">进入告警中心 →</button></div><div id="latest-alerts" class="alert-table"></div></article><article class="panel"><div class="panel-head"><div><h3>进行中的任务</h3><span>实时进度</span></div><button class="text-btn" data-view="tasks">查看任务 →</button></div><div class="task-list"><div class="task"><div class="task-icon">PC</div><div class="task-main"><b>办公网流量分析</b><span>PCAP · 1.2 GB</span><div class="progress"><i style="width:72%"></i></div></div><strong>72%</strong></div></div></article></div>
+        </section>
+
+        <section id="alerts" class="view"><div class="section-head"><div><h2>告警中心</h2><p>集中查看和处置所有检测到的安全告警</p></div><div class="filter-row"><select><option>全部严重等级</option><option>高危</option><option>中危</option><option>低危</option></select><button class="secondary-btn" id="export-alerts">导出告警</button></div></div><article class="panel"><div id="all-alerts" class="full-alert-table"></div></article></section>
+
+        <section id="chains" class="view">
+          <div class="section-head"><div><h2>攻击链分析</h2><p>把离散告警按"同一攻击者 → 受害资产 → 时间先后"串成一条完整攻击路径，还原对方是怎么一步步打进来的</p></div>
+            <div class="chain-picker">
+              <label for="chain-search">查找并选择攻击链</label>
+              <div class="chain-search-box"><input id="chain-search" type="search" placeholder="搜索链编号、攻击源或受害资产" autocomplete="off"/></div>
+              <span id="chain-search-count" aria-live="polite"></span>
+              <select id="chain-select" aria-label="选择要查看的攻击链"></select>
+            </div></div>
+          <div class="chain-tabs" role="tablist">
+            <button class="chain-tab active" data-tab="path">① 攻击路径图</button>
+            <button class="chain-tab" data-tab="profiles">② 攻击者画像</button>
+            <button class="chain-tab" data-tab="actions">③ 处置建议</button>
+            <button class="chain-tab" data-tab="stats">④ 证据与统计</button>
+          </div>
+          <div class="chain-toolbar"><div class="chain-toolbar-actions"><button class="secondary-btn" id="export-chain"><span>下载当前链证据</span></button><button class="primary-btn" id="open-chat"><span>询问这条攻击链</span></button></div><span class="chain-tip">多阶段链已优先排列。点击路径中的阶段可展开原始证据；画像、处置建议和统计位于上方标签页。</span></div>
+          <article class="panel chain-panel tab-panel" id="tab-path" data-panel="path"></article>
+          <article class="panel tab-panel hidden" id="tab-profiles" data-panel="profiles"></article>
+          <article class="panel tab-panel hidden" id="tab-actions" data-panel="actions"></article>
+          <article class="panel tab-panel hidden" id="tab-stats" data-panel="stats"></article>
+        </section>
+
+        <section id="tasks" class="view"><div class="section-head"><div><h2>分析任务</h2><p>管理文件分析任务并查看实时处理进度</p></div><button class="primary-btn" id="new-task-btn-2"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span>新建分析任务</span></button></div><article class="panel"><div class="task-detail"><div class="task-row header"><span>任务名称</span><span>输入文件</span><span>状态</span><span>进度</span><span>创建时间</span></div><div class="task-row"><b>办公网流量分析</b><span>traffic_0917.pcap</span><span class="status running">处理中</span><div class="progress"><i style="width:72%"></i></div><span>10:32</span></div><div class="task-row"><b>API 访问日志复核</b><span>api_access.json</span><span class="status running">处理中</span><div class="progress"><i style="width:41%"></i></div><span>10:18</span></div><div class="task-row"><b>边界设备日志</b><span>fw_events.csv</span><span class="status done">已完成</span><div class="progress"><i style="width:100%"></i></div><span>09:46</span></div></div></article></section>
+
+        <section id="report" class="view">
+          <div class="section-head"><div><h2>分析结果</h2><p>本次分析的整体结论与风险报告；可跳转到攻击链 / 告警 / 画像等明细</p></div>
+            <div class="report-actions"><button class="secondary-btn" id="report-json2"><span>下载证据包 JSON</span></button><button class="primary-btn" id="report-pdf2"><span>下载汇报版 PDF</span></button><button class="secondary-btn" id="ask-report"><span>询问本次结果</span></button></div></div>
+          <div id="report-body" class="report-body"></div>
+        </section>
+      </main>
+    </div>
+    <div id="drawer-mask" class="drawer-mask hidden"></div>
+    <div id="task-modal" class="modal hidden"><div class="modal-card"><button class="modal-close" id="close-modal"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button><h2>新建分析任务</h2><p>上传告警文件，创建分析任务。</p><label class="upload-box" id="upload-box"><input type="file" id="file-input" accept=".csv,.xlsx,.pcap,.pcapng,.json,.jsonl"/><span class="upload-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span><b>点击选择文件或拖拽到此处</b><small>支持 CSV / XLSX / PCAP / PCAPNG / JSON / JSONL，单文件不超过 2 GB</small></label><div id="selected-file" class="selected-file hidden"></div><label class="field-label" for="analysis-mode">模型研判策略<select id="analysis-mode" aria-describedby="analysis-mode-help"><option value="hybrid" selected>本地初判 + 云端复核（推荐）</option><option value="local">仅本地模型（数据不出本机）</option><option value="cloud">仅互联网模型（语义覆盖优先）</option></select><small id="analysis-mode-help">规则与 IOC 始终参与；模型仅复核高/中风险候选，默认最多 1% 的原始记录。</small></label><label class="field-label">分析备注（可选）<textarea id="task-note" placeholder="例如：重点关注外联和横向移动行为"></textarea></label><button class="primary-btn full" id="start-task">开始分析</button></div></div>
+    <div id="chat-panel" class="chat-panel hidden"><div class="chat-head"><b>NetGuard 分析查询</b><button id="close-chat"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div id="chat-messages" class="chat-messages"></div><div class="chat-input"><input id="chat-input" placeholder="询问当前攻击链…"/><button id="send-chat">发送</button></div></div><div id="toast" class="toast"></div>
+    <script src="app.js?v=8"></script><script src="workflow.js?v=19"></script><script src="m3-ui.js?v=30"></script><script src="m3-ext.js?v=39"></script>
+  </body>
+</html>
+

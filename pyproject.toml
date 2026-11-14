@@ -1,0 +1,13 @@
+[tool.pytest.ini_options]
+testpaths = ["backend/module2_chain/tests", "tests_integration", "tests_m1"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = "-q"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+markers = [
+    "performance: long running throughput tests",
+    "integration: end-to-end workspace tests",
+    "contract: shared schema / file protocol tests",
+]

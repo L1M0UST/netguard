@@ -1,0 +1,282 @@
+# =============================================================================
+# Module 2 - Attack Correlation & Intelligent Judgement Engine
+# =============================================================================
+# Every business threshold lives here (or in .env).  Nothing tunable is
+# hard-coded in Python.  Environment variables override this file, and a .env
+# file overrides the file too (see .env.example).
+# =============================================================================
+
+config_version: "1.0.0"
+# project_root is resolved from the location of this file unless M2_PROJECT_ROOT
+# (or --workspace-root) overrides it.
+
+app:
+  name: module2-chain
+  environment: dev          # dev | test | prod
+  fail_fast: false
+  max_events_per_task: 2000000
+  timezone: UTC
+
+# -----------------------------------------------------------------------------
+# Shared workspace (the ONLY integration surface with Module 1 and Module 3)
+# -----------------------------------------------------------------------------
+workspace:
+  root: workspace           # shared workspace root (relative to project root)
+  inbox_subdir: 04_m2_inbox
+  output_subdir: 05_m2_output
+  status_subdir: 06_status/m2
+  ready_marker: READY
+  processing_marker: PROCESSING
+  done_marker: DONE
+  failed_marker: FAILED
+  manifest_name: manifest.json
+  temp_suffix: ".tmp"
+  auto_create: true
+  claim:
+    enabled: true
+    stale_after_seconds: 900     # steal a crashed worker's lease after 15 min
+    heartbeat_seconds: 30
+    owner: null
+  scan:
+    interval_seconds: 10
+    max_tasks_per_scan: 4
+    process_all_pending: false
+  atomic_write:
+    fsync: true
+    checksum_algorithm: sha256
+
+# -----------------------------------------------------------------------------
+# Input contract (SuspiciousEventBatch.v1)
+# -----------------------------------------------------------------------------
+ingestion:
+  batch_format: parquet
+  column_layout: auto          # auto | flat | nested
+  require_manifest: true
+  verify_sha256: true
+  verify_file_size: true
+  allowed_schema_versions: ["1.0.0"]
+  fail_on_empty_batch: false
+  max_rows_per_batch: 1000000
+  reject_future_timestamps_seconds: 3600
+  reject_ancient_timestamps_year: 1990
+
+dedup:
+  by_event_id: true
+  content_hash: true
+  content_hash_time_bucket_seconds: 60
+
+# -----------------------------------------------------------------------------
+# Correlation (M2-F4 .. M2-F7)
+# -----------------------------------------------------------------------------
+correlation:
+  correlation_window_seconds: 300     # default 5 minute window
+  max_gap_seconds: 600                # linear decay window between 300s and 600s
+  min_events_per_candidate: 1
+  min_evidence_count: 2
+  link_threshold: 0.55
+  max_events_per_candidate: 5000
+  entity:
+    same_attacker_required: true
+    attacker_subnet_prefix_v4: 32     # 32 == exact IP match only
+    victim_subnet_prefix_v4: 24       # group victims by /24
+    port_similarity_threshold: 0.5
+    shared_ioc_bonus: 0.15
+  behavior:
+    rule_similarity_threshold: 0.34
+    category_affinity:
+      reconnaissance:initial_access: 0.9
+      reconnaissance:credential_access: 0.7
+      reconnaissance:discovery: 0.9
+      initial_access:execution: 0.95
+      initial_access:persistence: 0.6
+      execution:lateral_movement: 0.9
+      execution:command_and_control: 0.8
+      credential_access:lateral_movement: 0.9
+      discovery:lateral_movement: 0.85
+      command_and_control:exfiltration: 0.9
+      exfiltration:impact: 0.8
+  weights:
+    time: 0.30
+    attacker: 0.25
+    victim: 0.20
+    port: 0.10
+    protocol: 0.05
+    behavior: 0.10
+
+# -----------------------------------------------------------------------------
+# Threat intelligence (local first, no runtime HTTP required)
+# -----------------------------------------------------------------------------
+threat_intel:
+  enabled: true
+  provider: local            # local | noop
+  path: data/threat_intel
+  files:
+    ip: ip_reputation.parquet
+    domain: domains.parquet
+    hash: hashes.parquet
+    cve: cve.parquet
+  cache_size: 4096
+  min_confidence: 0.5
+  remote:                    # third party APIs stay disabled by default
+    enabled: false
+    provider: noop           # noop | http
+    base_url: null
+    api_key_env: THREAT_INTEL_API_KEY
+    timeout_seconds: 5
+
+# -----------------------------------------------------------------------------
+# ATT&CK mapping + chain building
+# -----------------------------------------------------------------------------
+attack:
+  knowledge_base: backend/module2_chain/attack/knowledge/attack_kb.yaml
+  min_technique_confidence: 0.3
+  max_candidate_techniques: 8
+  allow_multi_tactic: true
+  require_evidence_for_stage: true
+  max_stages_per_chain: 12
+
+assets:
+  enabled: true
+  path: data/assets/asset_inventory.parquet
+  default_weight: 1.0
+  criticality_weights:
+    critical: 3.0
+    high: 2.0
+    medium: 1.5
+    low: 1.0
+    unknown: 1.0
+
+# -----------------------------------------------------------------------------
+# Risk scoring (M2-F14, M2-F15)
+# -----------------------------------------------------------------------------
+risk:
+  severity_thresholds:
+    critical: 85
+    high: 70
+    medium: 45
+    low: 20
+  weights:
+    tactic_severity: 0.22
+    evidence_strength: 0.14
+    ioc: 0.14
+    asset_criticality: 0.12
+    rule_score: 0.12
+    llm_confidence: 0.06
+    m1_semantic: 0.06
+    chain_length: 0.08
+    multi_stage: 0.08
+  confidence_weights:
+    evidence: 0.30
+    rule: 0.20
+    correlation: 0.20
+    ioc: 0.10
+    llm: 0.20
+  confidence_threshold: 0.35
+  evidence:
+    min_events_for_high_confidence: 3
+    max_events_for_full_score: 6
+    penalty_per_validation_issue: 0.05
+    max_validation_penalty: 0.4
+    llm_hallucination_penalty: 0.25
+  tactic_severity:
+    TA0043: 0.35
+    TA0042: 0.35
+    TA0001: 0.85
+    TA0002: 0.80
+    TA0003: 0.75
+    TA0004: 0.80
+    TA0005: 0.60
+    TA0006: 0.80
+    TA0007: 0.40
+    TA0008: 0.90
+    TA0009: 0.70
+    TA0011: 0.75
+    TA0010: 0.90
+    TA0040: 1.00
+
+# -----------------------------------------------------------------------------
+# LLM (provider agnostic - swap vendors by editing this file or .env only)
+# -----------------------------------------------------------------------------
+llm:
+  provider: cloud_chain       # cloud_chain(OpenCode Go → Command Code → DeepSeek) | individual | finetuned | mock | disabled
+  prompt_version: attack_analysis.v1
+  prompt_dir: backend/module2_chain/llm/prompts
+  max_concurrency: 5
+  timeout_seconds: 120
+  max_retries: 2
+  temperature: 0.1
+  max_input_events: 40
+  max_evidence_chars: 12000
+  max_payload_snippet_chars: 0   # raw payload snippets are never sent by default
+  max_output_tokens: 4000
+  record_tokens: true
+  fail_open: true                # degrade to the rule-based analyser on failure
+  min_events_for_llm: 1
+  max_candidates: 60   # 每任务送 LLM 的候选上限（Top-N 按风险分），其余走规则链
+  providers:
+    opencode_go:
+      base_url: https://opencode.ai/zen/go/v1
+      model: glm-5.3-flash
+      api_key: null
+      api_key_env: OPENCODE_API_KEY
+      transport: httpx
+      response_format: none
+      extra_headers: {}
+      extra_body: {}
+    commandcode:
+      base_url: https://api.commandcode.ai/provider/v1
+      model: z-ai/glm-5.3-flash
+      api_key: null
+      api_key_env: COMMANDCODE_API_KEY
+      transport: httpx
+      response_format: none
+      extra_headers: {}
+      extra_body: {}
+    deepseek:
+      base_url: https://api.deepseek.com/v1
+      model: deepseek-flash
+      api_key: null              # set DEEPSEEK_API_KEY in .env instead
+      api_key_env: DEEPSEEK_API_KEY
+      transport: httpx           # auto | sdk | httpx
+      response_format: json_object
+      extra_headers: {}
+      extra_body: {}
+    finetuned:
+      base_url: ""               # e.g. http://model-host:8000/v1
+      model: ""                  # e.g. sec-llm-v1
+      api_key: null
+      api_key_env: FINETUNED_API_KEY
+      timeout_seconds: 30
+      transport: httpx
+      response_format: json_object
+      extra_headers: {}
+      extra_body: {}
+      system_prompt: null
+      strict: false
+    mock:
+      fixture: tests/fixtures/llm/mock_attack_analysis.json
+      latency_ms: 0
+      fail_rate: 0.0
+      failure_mode: none         # none | timeout | provider_error | invalid_json | schema_error
+      seed: 1337
+
+# -----------------------------------------------------------------------------
+# Local state (Module 2 only - never a shared business database)
+# -----------------------------------------------------------------------------
+persistence:
+  sqlite_path: workspace/06_status/m2/module2_state.db
+  enable_registry: true
+  busy_timeout_ms: 5000
+
+logging:
+  level: INFO
+  format: json                 # json | text
+  include_payload: false
+  redact_keys: [api_key, apikey, authorization, token, password, secret]
+  file: null
+
+performance:
+  enable_metrics: true
+  track_stage_timings: true
+  warn_events_per_second_below: 500
+  metrics_file: metrics.json

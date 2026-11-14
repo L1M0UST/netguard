@@ -1,0 +1,6828 @@
+[
+  {
+    "candidate_id": "cand_858a115f0752cf51",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.1"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.21",
+      "10.0.5.44",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000001",
+      "evt_000002",
+      "evt_000003",
+      "evt_000004",
+      "evt_000005",
+      "evt_000006",
+      "evt_000007",
+      "evt_000008",
+      "evt_000009",
+      "evt_000010",
+      "evt_000011",
+      "evt_000012"
+    ],
+    "first_seen": "2024-05-01T12:00:17Z",
+    "last_seen": "2024-05-01T12:06:02Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_port_scan_sweep",
+      "l1_service_discovery"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 12,
+      "max_score": 57.25,
+      "mean_score": 45.9475,
+      "sum_score": 551.37,
+      "p95_score": 53.894999999999996
+    },
+    "session_ids": [
+      "sess_scanning_00",
+      "sess_scanning_01",
+      "sess_scanning_02",
+      "sess_scanning_03"
+    ],
+    "attack_categories": [
+      "reconnaissance",
+      "discovery"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.1",
+      "category:discovery",
+      "category:reconnaissance",
+      "victim:10.0.0.12",
+      "victim:10.0.0.21",
+      "victim:10.0.5.44",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.8017,
+    "correlation_reasons": [
+      "attacker block 198.18.0.1",
+      "same session sess_scanning_00",
+      "behaviour categories reconnaissance -> reconnaissance/discovery (affinity=0.90)",
+      "behaviour categories reconnaissance -> reconnaissance (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_f5f734c4c7669f88",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.2"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000013",
+      "evt_000014",
+      "evt_000015",
+      "evt_000016",
+      "evt_000017",
+      "evt_000018"
+    ],
+    "first_seen": "2024-05-01T12:01:24Z",
+    "last_seen": "2024-05-01T12:03:23Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_auth_failure_burst",
+      "l1_brute_force_ssh"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 72.59,
+      "mean_score": 65.94500000000001,
+      "sum_score": 395.67,
+      "p95_score": 72.505
+    },
+    "session_ids": [
+      "sess_brute_force_00"
+    ],
+    "attack_categories": [
+      "brute_force"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.2",
+      "category:brute_force",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.2",
+      "same session sess_brute_force_00",
+      "behaviour categories brute_force -> brute_force (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_d3da3658419352cd",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.11",
+      "198.18.0.3"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      80,
+      8080
+    ],
+    "event_ids": [
+      "evt_000019",
+      "evt_000020",
+      "evt_000021",
+      "evt_000058",
+      "evt_000059",
+      "evt_000060"
+    ],
+    "first_seen": "2024-05-01T12:02:15Z",
+    "last_seen": "2024-05-01T12:11:04Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_exploit_cve_2021_44228",
+      "l1_webshell_upload"
+    ],
+    "ioc_hits": [
+      "CVE-2021-44228"
+    ],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 94.77,
+      "mean_score": 89.14666666666666,
+      "sum_score": 534.88,
+      "p95_score": 94.5625
+    },
+    "session_ids": [
+      "sess_exploitation_00"
+    ],
+    "attack_categories": [
+      "exploitation",
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.11",
+      "attacker:198.18.0.3",
+      "category:exfiltration",
+      "category:exploitation",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 0.9654,
+    "correlation_reasons": [
+      "attacker block 198.18.0.3",
+      "same session sess_exploitation_00",
+      "shared IOC CVE-2021-44228",
+      "attacker block 198.18.0.11",
+      "victim block 10.0.0.21"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_c9f302a055c7bab6",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.4"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      53,
+      443
+    ],
+    "event_ids": [
+      "evt_000022",
+      "evt_000023",
+      "evt_000024",
+      "evt_000025"
+    ],
+    "first_seen": "2024-05-01T12:03:39Z",
+    "last_seen": "2024-05-01T12:05:07Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_c2_beacon_periodic",
+      "l1_malicious_domain_dns"
+    ],
+    "ioc_hits": [
+      "203.0.113.66",
+      "evil-c2.example.com"
+    ],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 85.09,
+      "mean_score": 80.1425,
+      "sum_score": 320.57,
+      "p95_score": 84.991
+    },
+    "session_ids": [
+      "sess_malicious_communication_00"
+    ],
+    "attack_categories": [
+      "malicious_communication"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.4",
+      "category:malicious_communication",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.4",
+      "same session sess_malicious_communication_00",
+      "shared IOC 203.0.113.66, evil-c2.example.com"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_acb13c8440016f91",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.5"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000026",
+      "evt_000027"
+    ],
+    "first_seen": "2024-05-01T12:04:38Z",
+    "last_seen": "2024-05-01T12:05:19Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_encoded_command",
+      "l1_suspicious_powershell"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 91.05,
+      "mean_score": 88.845,
+      "sum_score": 177.69,
+      "p95_score": 90.8295
+    },
+    "session_ids": [
+      "sess_command_execution_00"
+    ],
+    "attack_categories": [
+      "command_execution",
+      "defense_evasion"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.5",
+      "category:command_execution",
+      "category:defense_evasion",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.5",
+      "same session sess_command_execution_00",
+      "behaviour categories command_execution -> command_execution/defense_evasion (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_471e7f68a10074c1",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.6"
+    ],
+    "victim_ips": [
+      "10.0.0.13",
+      "10.0.0.21",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      135,
+      445
+    ],
+    "event_ids": [
+      "evt_000028",
+      "evt_000029",
+      "evt_000030",
+      "evt_000031",
+      "evt_000032",
+      "evt_000033"
+    ],
+    "first_seen": "2024-05-01T12:05:30Z",
+    "last_seen": "2024-05-01T12:07:41Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_remote_service_creation",
+      "l1_smb_psexec_lateral"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 95.54,
+      "mean_score": 91.00999999999999,
+      "sum_score": 546.06,
+      "p95_score": 95.3575
+    },
+    "session_ids": [
+      "sess_lateral_movement_00",
+      "sess_lateral_movement_01",
+      "sess_lateral_movement_02"
+    ],
+    "attack_categories": [
+      "lateral_movement"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.6",
+      "category:lateral_movement",
+      "victim:10.0.0.13",
+      "victim:10.0.0.21",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.86,
+    "correlation_reasons": [
+      "attacker block 198.18.0.6",
+      "same session sess_lateral_movement_00",
+      "behaviour categories lateral_movement -> lateral_movement (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_12a1a8fb0acfb966",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.7"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      443,
+      8443
+    ],
+    "event_ids": [
+      "evt_000034",
+      "evt_000035"
+    ],
+    "first_seen": "2024-05-01T12:06:36Z",
+    "last_seen": "2024-05-01T12:06:42Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_data_exfil_upload",
+      "l1_large_outbound_transfer"
+    ],
+    "ioc_hits": [
+      "198.51.100.23"
+    ],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 87.63,
+      "mean_score": 87.245,
+      "sum_score": 174.49,
+      "p95_score": 87.5915
+    },
+    "session_ids": [
+      "sess_exfiltration_00"
+    ],
+    "attack_categories": [
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.7",
+      "category:exfiltration",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.7",
+      "same session sess_exfiltration_00",
+      "shared IOC 198.51.100.23"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_cb5e08fe25f1946e",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.8"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.13"
+    ],
+    "victim_ports": [
+      445
+    ],
+    "event_ids": [
+      "evt_000036",
+      "evt_000037",
+      "evt_000038",
+      "evt_000039"
+    ],
+    "first_seen": "2024-05-01T12:07:14Z",
+    "last_seen": "2024-05-01T12:08:48Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_ransomware_encryption",
+      "l1_shadow_copy_deletion"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 97.44,
+      "mean_score": 95.69749999999999,
+      "sum_score": 382.78999999999996,
+      "p95_score": 97.431
+    },
+    "session_ids": [
+      "sess_impact_00",
+      "sess_impact_01"
+    ],
+    "attack_categories": [
+      "impact",
+      "credential_access"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.8",
+      "category:credential_access",
+      "category:impact",
+      "victim:10.0.0.12",
+      "victim:10.0.0.13"
+    ],
+    "correlation_score": 0.94,
+    "correlation_reasons": [
+      "attacker block 198.18.0.8",
+      "same session sess_impact_00",
+      "behaviour categories impact -> impact/credential_access (affinity=0.80)",
+      "behaviour categories impact -> impact (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_5ae8ac1456568321",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.9"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.13",
+      "10.0.0.21",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000040",
+      "evt_000041",
+      "evt_000042",
+      "evt_000043",
+      "evt_000044",
+      "evt_000045",
+      "evt_000046",
+      "evt_000047",
+      "evt_000048",
+      "evt_000049",
+      "evt_000050",
+      "evt_000051"
+    ],
+    "first_seen": "2024-05-01T12:08:35Z",
+    "last_seen": "2024-05-01T12:13:34Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_port_scan_sweep",
+      "l1_service_discovery"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 12,
+      "max_score": 53.57,
+      "mean_score": 42.892500000000005,
+      "sum_score": 514.71,
+      "p95_score": 51.7055
+    },
+    "session_ids": [
+      "sess_scanning_00",
+      "sess_scanning_01",
+      "sess_scanning_02",
+      "sess_scanning_03"
+    ],
+    "attack_categories": [
+      "reconnaissance",
+      "discovery"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.9",
+      "category:discovery",
+      "category:reconnaissance",
+      "victim:10.0.0.12",
+      "victim:10.0.0.13",
+      "victim:10.0.0.21",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.8718,
+    "correlation_reasons": [
+      "attacker block 198.18.0.9",
+      "same session sess_scanning_00",
+      "behaviour categories reconnaissance -> reconnaissance/discovery (affinity=0.90)",
+      "behaviour categories reconnaissance -> reconnaissance (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_a06b270fdd061dbf",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.10"
+    ],
+    "victim_ips": [
+      "10.0.0.12"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000052",
+      "evt_000053",
+      "evt_000054",
+      "evt_000055",
+      "evt_000056",
+      "evt_000057"
+    ],
+    "first_seen": "2024-05-01T12:09:24Z",
+    "last_seen": "2024-05-01T12:11:53Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_auth_failure_burst",
+      "l1_brute_force_ssh"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 74.47,
+      "mean_score": 63.98666666666667,
+      "sum_score": 383.92,
+      "p95_score": 74.07
+    },
+    "session_ids": [
+      "sess_brute_force_00"
+    ],
+    "attack_categories": [
+      "brute_force"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.10",
+      "category:brute_force",
+      "victim:10.0.0.12"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.10",
+      "same session sess_brute_force_00",
+      "behaviour categories brute_force -> brute_force (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_1394df2fcebdfd5f",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.12"
+    ],
+    "victim_ips": [
+      "10.0.0.13"
+    ],
+    "victim_ports": [
+      53,
+      443
+    ],
+    "event_ids": [
+      "evt_000061",
+      "evt_000062",
+      "evt_000063",
+      "evt_000064"
+    ],
+    "first_seen": "2024-05-01T12:11:08Z",
+    "last_seen": "2024-05-01T12:12:02Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_c2_beacon_periodic",
+      "l1_malicious_domain_dns"
+    ],
+    "ioc_hits": [
+      "203.0.113.66",
+      "evil-c2.example.com"
+    ],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 87.77,
+      "mean_score": 83.4275,
+      "sum_score": 333.71,
+      "p95_score": 87.1445
+    },
+    "session_ids": [
+      "sess_malicious_communication_00"
+    ],
+    "attack_categories": [
+      "malicious_communication"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.12",
+      "category:malicious_communication",
+      "victim:10.0.0.13"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.12",
+      "same session sess_malicious_communication_00",
+      "shared IOC 203.0.113.66, evil-c2.example.com"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_a10ff193730a8692",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.13"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000065",
+      "evt_000066"
+    ],
+    "first_seen": "2024-05-01T12:12:07Z",
+    "last_seen": "2024-05-01T12:12:48Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_encoded_command",
+      "l1_suspicious_powershell"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 87.22,
+      "mean_score": 85.0,
+      "sum_score": 170.0,
+      "p95_score": 86.998
+    },
+    "session_ids": [
+      "sess_command_execution_00"
+    ],
+    "attack_categories": [
+      "command_execution",
+      "defense_evasion"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.13",
+      "category:command_execution",
+      "category:defense_evasion",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.13",
+      "same session sess_command_execution_00",
+      "behaviour categories command_execution -> command_execution/defense_evasion (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_4ddf54a54b42a837",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.14"
+    ],
+    "victim_ips": [
+      "10.0.0.13",
+      "10.0.5.44",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      135,
+      445
+    ],
+    "event_ids": [
+      "evt_000067",
+      "evt_000068",
+      "evt_000069",
+      "evt_000070",
+      "evt_000071",
+      "evt_000072"
+    ],
+    "first_seen": "2024-05-01T12:13:44Z",
+    "last_seen": "2024-05-01T12:16:03Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_remote_service_creation",
+      "l1_smb_psexec_lateral"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 95.04,
+      "mean_score": 89.91000000000001,
+      "sum_score": 539.46,
+      "p95_score": 93.995
+    },
+    "session_ids": [
+      "sess_lateral_movement_00",
+      "sess_lateral_movement_01",
+      "sess_lateral_movement_02"
+    ],
+    "attack_categories": [
+      "lateral_movement"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.14",
+      "category:lateral_movement",
+      "victim:10.0.0.13",
+      "victim:10.0.5.44",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.812,
+    "correlation_reasons": [
+      "attacker block 198.18.0.14",
+      "same session sess_lateral_movement_00",
+      "behaviour categories lateral_movement -> lateral_movement (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_768857d84f6a5649",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.15"
+    ],
+    "victim_ips": [
+      "10.0.0.12"
+    ],
+    "victim_ports": [
+      443,
+      8443
+    ],
+    "event_ids": [
+      "evt_000073",
+      "evt_000074"
+    ],
+    "first_seen": "2024-05-01T12:14:28Z",
+    "last_seen": "2024-05-01T12:15:00Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_data_exfil_upload",
+      "l1_large_outbound_transfer"
+    ],
+    "ioc_hits": [
+      "198.51.100.23"
+    ],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 96.64,
+      "mean_score": 93.39,
+      "sum_score": 186.78,
+      "p95_score": 96.315
+    },
+    "session_ids": [
+      "sess_exfiltration_00"
+    ],
+    "attack_categories": [
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.15",
+      "category:exfiltration",
+      "victim:10.0.0.12"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.15",
+      "same session sess_exfiltration_00",
+      "shared IOC 198.51.100.23"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_0987b01863b5f21a",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.16"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.13"
+    ],
+    "victim_ports": [
+      445
+    ],
+    "event_ids": [
+      "evt_000075",
+      "evt_000076",
+      "evt_000077",
+      "evt_000078"
+    ],
+    "first_seen": "2024-05-01T12:15:27Z",
+    "last_seen": "2024-05-01T12:17:09Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_ransomware_encryption",
+      "l1_shadow_copy_deletion"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 96.74,
+      "mean_score": 94.5025,
+      "sum_score": 378.01,
+      "p95_score": 96.37849999999999
+    },
+    "session_ids": [
+      "sess_impact_00",
+      "sess_impact_01"
+    ],
+    "attack_categories": [
+      "impact",
+      "credential_access"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.16",
+      "category:credential_access",
+      "category:impact",
+      "victim:10.0.0.12",
+      "victim:10.0.0.13"
+    ],
+    "correlation_score": 0.94,
+    "correlation_reasons": [
+      "attacker block 198.18.0.16",
+      "same session sess_impact_00",
+      "behaviour categories impact -> impact/credential_access (affinity=0.80)",
+      "behaviour categories impact -> impact (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_3699d80986b3fb5c",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.17"
+    ],
+    "victim_ips": [
+      "10.0.0.13",
+      "10.0.0.21",
+      "10.0.5.44",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000079",
+      "evt_000080",
+      "evt_000081",
+      "evt_000082",
+      "evt_000083",
+      "evt_000084",
+      "evt_000085",
+      "evt_000086",
+      "evt_000087",
+      "evt_000088",
+      "evt_000089",
+      "evt_000090"
+    ],
+    "first_seen": "2024-05-01T12:16:42Z",
+    "last_seen": "2024-05-01T12:21:44Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_port_scan_sweep",
+      "l1_service_discovery"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 12,
+      "max_score": 57.77,
+      "mean_score": 49.44916666666666,
+      "sum_score": 593.39,
+      "p95_score": 57.055
+    },
+    "session_ids": [
+      "sess_scanning_00",
+      "sess_scanning_01",
+      "sess_scanning_02",
+      "sess_scanning_03"
+    ],
+    "attack_categories": [
+      "reconnaissance",
+      "discovery"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.17",
+      "category:discovery",
+      "category:reconnaissance",
+      "victim:10.0.0.13",
+      "victim:10.0.0.21",
+      "victim:10.0.5.44",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.8062,
+    "correlation_reasons": [
+      "attacker block 198.18.0.17",
+      "same session sess_scanning_00",
+      "behaviour categories reconnaissance -> reconnaissance/discovery (affinity=0.90)",
+      "behaviour categories reconnaissance -> reconnaissance (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_2cebde556259ca41",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.18"
+    ],
+    "victim_ips": [
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000091",
+      "evt_000092",
+      "evt_000093",
+      "evt_000094",
+      "evt_000095",
+      "evt_000096"
+    ],
+    "first_seen": "2024-05-01T12:17:23Z",
+    "last_seen": "2024-05-01T12:19:36Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_auth_failure_burst",
+      "l1_brute_force_ssh"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 73.41,
+      "mean_score": 64.235,
+      "sum_score": 385.41,
+      "p95_score": 72.255
+    },
+    "session_ids": [
+      "sess_brute_force_00"
+    ],
+    "attack_categories": [
+      "brute_force"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.18",
+      "category:brute_force",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.18",
+      "same session sess_brute_force_00",
+      "behaviour categories brute_force -> brute_force (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_d217a4b0eaad3612",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.19"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      80,
+      8080
+    ],
+    "event_ids": [
+      "evt_000097",
+      "evt_000098",
+      "evt_000099"
+    ],
+    "first_seen": "2024-05-01T12:18:05Z",
+    "last_seen": "2024-05-01T12:18:46Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_exploit_cve_2021_44228",
+      "l1_webshell_upload"
+    ],
+    "ioc_hits": [
+      "CVE-2021-44228"
+    ],
+    "score_summary": {
+      "event_count": 3,
+      "max_score": 89.6,
+      "mean_score": 86.71333333333332,
+      "sum_score": 260.14,
+      "p95_score": 89.359
+    },
+    "session_ids": [
+      "sess_exploitation_00"
+    ],
+    "attack_categories": [
+      "exploitation",
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.19",
+      "category:exfiltration",
+      "category:exploitation",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.19",
+      "same session sess_exploitation_00",
+      "shared IOC CVE-2021-44228"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_d2fef5827b00f47c",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.20"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      53,
+      443
+    ],
+    "event_ids": [
+      "evt_000100",
+      "evt_000101",
+      "evt_000102",
+      "evt_000103"
+    ],
+    "first_seen": "2024-05-01T12:19:09Z",
+    "last_seen": "2024-05-01T12:20:30Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_c2_beacon_periodic",
+      "l1_malicious_domain_dns"
+    ],
+    "ioc_hits": [
+      "203.0.113.66",
+      "evil-c2.example.com"
+    ],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 80.48,
+      "mean_score": 78.165,
+      "sum_score": 312.66,
+      "p95_score": 80.408
+    },
+    "session_ids": [
+      "sess_malicious_communication_00"
+    ],
+    "attack_categories": [
+      "malicious_communication"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.20",
+      "category:malicious_communication",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.20",
+      "same session sess_malicious_communication_00",
+      "shared IOC 203.0.113.66, evil-c2.example.com"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_389ebe65f221bc66",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.21"
+    ],
+    "victim_ips": [
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000104",
+      "evt_000105"
+    ],
+    "first_seen": "2024-05-01T12:20:16Z",
+    "last_seen": "2024-05-01T12:20:22Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_encoded_command",
+      "l1_suspicious_powershell"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 80.54,
+      "mean_score": 79.625,
+      "sum_score": 159.25,
+      "p95_score": 80.44850000000001
+    },
+    "session_ids": [
+      "sess_command_execution_00"
+    ],
+    "attack_categories": [
+      "command_execution",
+      "defense_evasion"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.21",
+      "category:command_execution",
+      "category:defense_evasion",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.21",
+      "same session sess_command_execution_00",
+      "behaviour categories command_execution -> command_execution/defense_evasion (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_ef42336dd7c90082",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.22"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.21",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      135,
+      445
+    ],
+    "event_ids": [
+      "evt_000106",
+      "evt_000107",
+      "evt_000108",
+      "evt_000109",
+      "evt_000110",
+      "evt_000111"
+    ],
+    "first_seen": "2024-05-01T12:21:08Z",
+    "last_seen": "2024-05-01T12:23:07Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_remote_service_creation",
+      "l1_smb_psexec_lateral"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 95.04,
+      "mean_score": 89.19833333333334,
+      "sum_score": 535.19,
+      "p95_score": 94.7275
+    },
+    "session_ids": [
+      "sess_lateral_movement_00",
+      "sess_lateral_movement_01",
+      "sess_lateral_movement_02"
+    ],
+    "attack_categories": [
+      "lateral_movement"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.22",
+      "category:lateral_movement",
+      "victim:10.0.0.12",
+      "victim:10.0.0.21",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.86,
+    "correlation_reasons": [
+      "attacker block 198.18.0.22",
+      "same session sess_lateral_movement_00",
+      "behaviour categories lateral_movement -> lateral_movement (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_c456b1855120fc48",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.23",
+      "198.18.0.31",
+      "198.18.0.39"
+    ],
+    "victim_ips": [
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      443,
+      8443
+    ],
+    "event_ids": [
+      "evt_000112",
+      "evt_000113",
+      "evt_000151",
+      "evt_000152",
+      "evt_000190",
+      "evt_000191"
+    ],
+    "first_seen": "2024-05-01T12:22:44Z",
+    "last_seen": "2024-05-01T12:38:43Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_data_exfil_upload",
+      "l1_large_outbound_transfer"
+    ],
+    "ioc_hits": [
+      "198.51.100.23"
+    ],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 96.5,
+      "mean_score": 91.13333333333333,
+      "sum_score": 546.8,
+      "p95_score": 95.985
+    },
+    "session_ids": [
+      "sess_exfiltration_00"
+    ],
+    "attack_categories": [
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.23",
+      "attacker:198.18.0.31",
+      "attacker:198.18.0.39",
+      "category:exfiltration",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.935,
+    "correlation_reasons": [
+      "attacker block 198.18.0.23",
+      "same session sess_exfiltration_00",
+      "shared IOC 198.51.100.23",
+      "attacker block 198.18.0.31",
+      "attacker block 198.18.0.39",
+      "victim block 10.0.9.7"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_4efd78bd7e833e6a",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.24"
+    ],
+    "victim_ips": [
+      "10.0.5.44",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      445
+    ],
+    "event_ids": [
+      "evt_000114",
+      "evt_000115",
+      "evt_000116",
+      "evt_000117"
+    ],
+    "first_seen": "2024-05-01T12:23:09Z",
+    "last_seen": "2024-05-01T12:24:14Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_ransomware_encryption",
+      "l1_shadow_copy_deletion"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 99.98,
+      "mean_score": 96.99000000000001,
+      "sum_score": 387.96000000000004,
+      "p95_score": 99.785
+    },
+    "session_ids": [
+      "sess_impact_00",
+      "sess_impact_01"
+    ],
+    "attack_categories": [
+      "impact",
+      "credential_access"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.24",
+      "category:credential_access",
+      "category:impact",
+      "victim:10.0.5.44",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.86,
+    "correlation_reasons": [
+      "attacker block 198.18.0.24",
+      "same session sess_impact_00",
+      "behaviour categories impact -> impact/credential_access (affinity=0.80)",
+      "behaviour categories impact -> impact (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_493c95a0978475e8",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.25"
+    ],
+    "victim_ips": [
+      "10.0.0.13",
+      "10.0.0.21",
+      "10.0.5.44",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000118",
+      "evt_000119",
+      "evt_000120",
+      "evt_000121",
+      "evt_000122",
+      "evt_000123",
+      "evt_000124",
+      "evt_000125",
+      "evt_000126",
+      "evt_000127",
+      "evt_000128",
+      "evt_000129"
+    ],
+    "first_seen": "2024-05-01T12:24:26Z",
+    "last_seen": "2024-05-01T12:29:38Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_port_scan_sweep",
+      "l1_service_discovery"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 12,
+      "max_score": 59.07,
+      "mean_score": 44.369166666666665,
+      "sum_score": 532.43,
+      "p95_score": 54.94499999999999
+    },
+    "session_ids": [
+      "sess_scanning_00",
+      "sess_scanning_01",
+      "sess_scanning_02",
+      "sess_scanning_03"
+    ],
+    "attack_categories": [
+      "reconnaissance",
+      "discovery"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.25",
+      "category:discovery",
+      "category:reconnaissance",
+      "victim:10.0.0.13",
+      "victim:10.0.0.21",
+      "victim:10.0.5.44",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.838,
+    "correlation_reasons": [
+      "attacker block 198.18.0.25",
+      "same session sess_scanning_00",
+      "behaviour categories reconnaissance -> reconnaissance/discovery (affinity=0.90)",
+      "behaviour categories reconnaissance -> reconnaissance (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_2c312e7de98d7c37",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.26"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000130",
+      "evt_000131",
+      "evt_000132",
+      "evt_000133",
+      "evt_000134",
+      "evt_000135"
+    ],
+    "first_seen": "2024-05-01T12:25:20Z",
+    "last_seen": "2024-05-01T12:27:34Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_auth_failure_burst",
+      "l1_brute_force_ssh"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 74.18,
+      "mean_score": 68.52333333333333,
+      "sum_score": 411.14,
+      "p95_score": 74.1075
+    },
+    "session_ids": [
+      "sess_brute_force_00"
+    ],
+    "attack_categories": [
+      "brute_force"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.26",
+      "category:brute_force",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.26",
+      "same session sess_brute_force_00",
+      "behaviour categories brute_force -> brute_force (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_55c243cb0c94c8a2",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.27"
+    ],
+    "victim_ips": [
+      "10.0.0.13"
+    ],
+    "victim_ports": [
+      80,
+      8080
+    ],
+    "event_ids": [
+      "evt_000136",
+      "evt_000137",
+      "evt_000138"
+    ],
+    "first_seen": "2024-05-01T12:26:09Z",
+    "last_seen": "2024-05-01T12:27:11Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_exploit_cve_2021_44228",
+      "l1_webshell_upload"
+    ],
+    "ioc_hits": [
+      "CVE-2021-44228"
+    ],
+    "score_summary": {
+      "event_count": 3,
+      "max_score": 89.02,
+      "mean_score": 85.02,
+      "sum_score": 255.06,
+      "p95_score": 88.52
+    },
+    "session_ids": [
+      "sess_exploitation_00"
+    ],
+    "attack_categories": [
+      "exploitation",
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.27",
+      "category:exfiltration",
+      "category:exploitation",
+      "victim:10.0.0.13"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.27",
+      "same session sess_exploitation_00",
+      "shared IOC CVE-2021-44228"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_4c7df23e7e43fb06",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.28"
+    ],
+    "victim_ips": [
+      "10.0.0.12"
+    ],
+    "victim_ports": [
+      53,
+      443
+    ],
+    "event_ids": [
+      "evt_000139",
+      "evt_000140",
+      "evt_000141",
+      "evt_000142"
+    ],
+    "first_seen": "2024-05-01T12:27:13Z",
+    "last_seen": "2024-05-01T12:28:52Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_c2_beacon_periodic",
+      "l1_malicious_domain_dns"
+    ],
+    "ioc_hits": [
+      "203.0.113.66",
+      "evil-c2.example.com"
+    ],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 89.04,
+      "mean_score": 83.2475,
+      "sum_score": 332.99,
+      "p95_score": 88.719
+    },
+    "session_ids": [
+      "sess_malicious_communication_00"
+    ],
+    "attack_categories": [
+      "malicious_communication"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.28",
+      "category:malicious_communication",
+      "victim:10.0.0.12"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.28",
+      "same session sess_malicious_communication_00",
+      "shared IOC 203.0.113.66, evil-c2.example.com"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_b5543c0ed967a0ed",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.29"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000143",
+      "evt_000144"
+    ],
+    "first_seen": "2024-05-01T12:28:36Z",
+    "last_seen": "2024-05-01T12:29:21Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_encoded_command",
+      "l1_suspicious_powershell"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 85.05,
+      "mean_score": 81.245,
+      "sum_score": 162.49,
+      "p95_score": 84.6695
+    },
+    "session_ids": [
+      "sess_command_execution_00"
+    ],
+    "attack_categories": [
+      "command_execution",
+      "defense_evasion"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.29",
+      "category:command_execution",
+      "category:defense_evasion",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.29",
+      "same session sess_command_execution_00",
+      "behaviour categories command_execution -> command_execution/defense_evasion (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_ddcf1ab1b23c69aa",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.30"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.21",
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      135,
+      445
+    ],
+    "event_ids": [
+      "evt_000145",
+      "evt_000146",
+      "evt_000147",
+      "evt_000148",
+      "evt_000149",
+      "evt_000150"
+    ],
+    "first_seen": "2024-05-01T12:29:05Z",
+    "last_seen": "2024-05-01T12:30:53Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_remote_service_creation",
+      "l1_smb_psexec_lateral"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 94.19,
+      "mean_score": 89.39,
+      "sum_score": 536.34,
+      "p95_score": 93.7675
+    },
+    "session_ids": [
+      "sess_lateral_movement_00",
+      "sess_lateral_movement_01",
+      "sess_lateral_movement_02"
+    ],
+    "attack_categories": [
+      "lateral_movement"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.30",
+      "category:lateral_movement",
+      "victim:10.0.0.12",
+      "victim:10.0.0.21",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 0.812,
+    "correlation_reasons": [
+      "attacker block 198.18.0.30",
+      "same session sess_lateral_movement_00",
+      "behaviour categories lateral_movement -> lateral_movement (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_04b20e7c68dae5ea",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.32"
+    ],
+    "victim_ips": [
+      "10.0.0.21",
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      445
+    ],
+    "event_ids": [
+      "evt_000153",
+      "evt_000154",
+      "evt_000155",
+      "evt_000156"
+    ],
+    "first_seen": "2024-05-01T12:31:21Z",
+    "last_seen": "2024-05-01T12:32:03Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_ransomware_encryption",
+      "l1_shadow_copy_deletion"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 99.51,
+      "mean_score": 96.675,
+      "sum_score": 386.7,
+      "p95_score": 99.3315
+    },
+    "session_ids": [
+      "sess_impact_00",
+      "sess_impact_01"
+    ],
+    "attack_categories": [
+      "impact",
+      "credential_access"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.32",
+      "category:credential_access",
+      "category:impact",
+      "victim:10.0.0.21",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 0.86,
+    "correlation_reasons": [
+      "attacker block 198.18.0.32",
+      "same session sess_impact_00",
+      "behaviour categories impact -> impact/credential_access (affinity=0.80)",
+      "behaviour categories impact -> impact (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_c84d8d989ef57d02",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.33"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.13",
+      "10.0.0.21",
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000157",
+      "evt_000158",
+      "evt_000159",
+      "evt_000160",
+      "evt_000161",
+      "evt_000162",
+      "evt_000163",
+      "evt_000164",
+      "evt_000165",
+      "evt_000166",
+      "evt_000167",
+      "evt_000168"
+    ],
+    "first_seen": "2024-05-01T12:32:17Z",
+    "last_seen": "2024-05-01T12:36:32Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_port_scan_sweep",
+      "l1_service_discovery"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 12,
+      "max_score": 56.3,
+      "mean_score": 47.446666666666665,
+      "sum_score": 569.36,
+      "p95_score": 55.650999999999996
+    },
+    "session_ids": [
+      "sess_scanning_00",
+      "sess_scanning_01",
+      "sess_scanning_02",
+      "sess_scanning_03"
+    ],
+    "attack_categories": [
+      "reconnaissance",
+      "discovery"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.33",
+      "category:discovery",
+      "category:reconnaissance",
+      "victim:10.0.0.12",
+      "victim:10.0.0.13",
+      "victim:10.0.0.21",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 0.8064,
+    "correlation_reasons": [
+      "attacker block 198.18.0.33",
+      "same session sess_scanning_00",
+      "behaviour categories reconnaissance -> reconnaissance/discovery (affinity=0.90)",
+      "behaviour categories reconnaissance -> reconnaissance (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_11a7293ec3879d3e",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.34"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000169",
+      "evt_000170",
+      "evt_000171",
+      "evt_000172",
+      "evt_000173",
+      "evt_000174"
+    ],
+    "first_seen": "2024-05-01T12:33:17Z",
+    "last_seen": "2024-05-01T12:35:41Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_auth_failure_burst",
+      "l1_brute_force_ssh"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 72.48,
+      "mean_score": 66.16166666666668,
+      "sum_score": 396.97,
+      "p95_score": 72.27
+    },
+    "session_ids": [
+      "sess_brute_force_00"
+    ],
+    "attack_categories": [
+      "brute_force"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.34",
+      "category:brute_force",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.34",
+      "same session sess_brute_force_00",
+      "behaviour categories brute_force -> brute_force (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_20cd8c584312d0a5",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.35"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      80,
+      8080
+    ],
+    "event_ids": [
+      "evt_000175",
+      "evt_000176",
+      "evt_000177"
+    ],
+    "first_seen": "2024-05-01T12:34:30Z",
+    "last_seen": "2024-05-01T12:35:22Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_exploit_cve_2021_44228",
+      "l1_webshell_upload"
+    ],
+    "ioc_hits": [
+      "CVE-2021-44228"
+    ],
+    "score_summary": {
+      "event_count": 3,
+      "max_score": 94.2,
+      "mean_score": 89.70333333333333,
+      "sum_score": 269.11,
+      "p95_score": 94.09800000000001
+    },
+    "session_ids": [
+      "sess_exploitation_00"
+    ],
+    "attack_categories": [
+      "exploitation",
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.35",
+      "category:exfiltration",
+      "category:exploitation",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.35",
+      "same session sess_exploitation_00",
+      "shared IOC CVE-2021-44228"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_48290359e623661b",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.36"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      53,
+      443
+    ],
+    "event_ids": [
+      "evt_000178",
+      "evt_000179",
+      "evt_000180",
+      "evt_000181"
+    ],
+    "first_seen": "2024-05-01T12:35:21Z",
+    "last_seen": "2024-05-01T12:36:50Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_c2_beacon_periodic",
+      "l1_malicious_domain_dns"
+    ],
+    "ioc_hits": [
+      "203.0.113.66",
+      "evil-c2.example.com"
+    ],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 89.23,
+      "mean_score": 84.73,
+      "sum_score": 338.92,
+      "p95_score": 88.5805
+    },
+    "session_ids": [
+      "sess_malicious_communication_00"
+    ],
+    "attack_categories": [
+      "malicious_communication"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.36",
+      "category:malicious_communication",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.36",
+      "same session sess_malicious_communication_00",
+      "shared IOC 203.0.113.66, evil-c2.example.com"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_65dacca8f7e14b07",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.37"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000182",
+      "evt_000183"
+    ],
+    "first_seen": "2024-05-01T12:36:39Z",
+    "last_seen": "2024-05-01T12:37:17Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_encoded_command",
+      "l1_suspicious_powershell"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 87.78,
+      "mean_score": 84.515,
+      "sum_score": 169.03,
+      "p95_score": 87.45349999999999
+    },
+    "session_ids": [
+      "sess_command_execution_00"
+    ],
+    "attack_categories": [
+      "command_execution",
+      "defense_evasion"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.37",
+      "category:command_execution",
+      "category:defense_evasion",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.37",
+      "same session sess_command_execution_00",
+      "behaviour categories command_execution -> command_execution/defense_evasion (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_8f105993a3d4da4a",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.38"
+    ],
+    "victim_ips": [
+      "10.0.0.13",
+      "10.0.0.21",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      135,
+      445
+    ],
+    "event_ids": [
+      "evt_000184",
+      "evt_000185",
+      "evt_000186",
+      "evt_000187",
+      "evt_000188",
+      "evt_000189"
+    ],
+    "first_seen": "2024-05-01T12:37:15Z",
+    "last_seen": "2024-05-01T12:39:14Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_remote_service_creation",
+      "l1_smb_psexec_lateral"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 94.65,
+      "mean_score": 91.18333333333334,
+      "sum_score": 547.1,
+      "p95_score": 94.555
+    },
+    "session_ids": [
+      "sess_lateral_movement_00",
+      "sess_lateral_movement_01",
+      "sess_lateral_movement_02"
+    ],
+    "attack_categories": [
+      "lateral_movement"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.38",
+      "category:lateral_movement",
+      "victim:10.0.0.13",
+      "victim:10.0.0.21",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.812,
+    "correlation_reasons": [
+      "attacker block 198.18.0.38",
+      "same session sess_lateral_movement_00",
+      "behaviour categories lateral_movement -> lateral_movement (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_bfcd028452182563",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.40"
+    ],
+    "victim_ips": [
+      "10.0.0.21",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      445
+    ],
+    "event_ids": [
+      "evt_000192",
+      "evt_000193",
+      "evt_000194",
+      "evt_000195"
+    ],
+    "first_seen": "2024-05-01T12:39:24Z",
+    "last_seen": "2024-05-01T12:40:50Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_ransomware_encryption",
+      "l1_shadow_copy_deletion"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 98.53,
+      "mean_score": 96.475,
+      "sum_score": 385.9,
+      "p95_score": 98.40549999999999
+    },
+    "session_ids": [
+      "sess_impact_00",
+      "sess_impact_01"
+    ],
+    "attack_categories": [
+      "impact",
+      "credential_access"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.40",
+      "category:credential_access",
+      "category:impact",
+      "victim:10.0.0.21",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.86,
+    "correlation_reasons": [
+      "attacker block 198.18.0.40",
+      "same session sess_impact_00",
+      "behaviour categories impact -> impact/credential_access (affinity=0.80)",
+      "behaviour categories impact -> impact (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_ff665b65154822d9",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.41"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.13",
+      "10.0.0.21",
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000196",
+      "evt_000197",
+      "evt_000198",
+      "evt_000199",
+      "evt_000200",
+      "evt_000201",
+      "evt_000202",
+      "evt_000203",
+      "evt_000204",
+      "evt_000205",
+      "evt_000206",
+      "evt_000207"
+    ],
+    "first_seen": "2024-05-01T12:40:34Z",
+    "last_seen": "2024-05-01T12:44:00Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_port_scan_sweep",
+      "l1_service_discovery"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 12,
+      "max_score": 58.66,
+      "mean_score": 50.17916666666667,
+      "sum_score": 602.15,
+      "p95_score": 58.610499999999995
+    },
+    "session_ids": [
+      "sess_scanning_00",
+      "sess_scanning_01",
+      "sess_scanning_02",
+      "sess_scanning_03"
+    ],
+    "attack_categories": [
+      "reconnaissance",
+      "discovery"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.41",
+      "category:discovery",
+      "category:reconnaissance",
+      "victim:10.0.0.12",
+      "victim:10.0.0.13",
+      "victim:10.0.0.21",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 0.8718,
+    "correlation_reasons": [
+      "attacker block 198.18.0.41",
+      "same session sess_scanning_00",
+      "behaviour categories reconnaissance -> reconnaissance/discovery (affinity=0.90)",
+      "behaviour categories reconnaissance -> reconnaissance (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_6d7fe73c8f7e7713",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.42"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000208",
+      "evt_000209",
+      "evt_000210",
+      "evt_000211",
+      "evt_000212",
+      "evt_000213"
+    ],
+    "first_seen": "2024-05-01T12:41:42Z",
+    "last_seen": "2024-05-01T12:43:40Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_auth_failure_burst",
+      "l1_brute_force_ssh"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 74.85,
+      "mean_score": 68.97666666666667,
+      "sum_score": 413.86,
+      "p95_score": 74.8125
+    },
+    "session_ids": [
+      "sess_brute_force_00"
+    ],
+    "attack_categories": [
+      "brute_force"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.42",
+      "category:brute_force",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.42",
+      "same session sess_brute_force_00",
+      "behaviour categories brute_force -> brute_force (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_d30e3912648e7b01",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.43",
+      "198.18.0.51"
+    ],
+    "victim_ips": [
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      80,
+      8080
+    ],
+    "event_ids": [
+      "evt_000214",
+      "evt_000215",
+      "evt_000216",
+      "evt_000253",
+      "evt_000254",
+      "evt_000255"
+    ],
+    "first_seen": "2024-05-01T12:42:09Z",
+    "last_seen": "2024-05-01T12:51:27Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_exploit_cve_2021_44228",
+      "l1_webshell_upload"
+    ],
+    "ioc_hits": [
+      "CVE-2021-44228"
+    ],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 92.0,
+      "mean_score": 86.27666666666666,
+      "sum_score": 517.66,
+      "p95_score": 91.3725
+    },
+    "session_ids": [
+      "sess_exploitation_00"
+    ],
+    "attack_categories": [
+      "exploitation",
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.43",
+      "attacker:198.18.0.51",
+      "category:exfiltration",
+      "category:exploitation",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.9622,
+    "correlation_reasons": [
+      "attacker block 198.18.0.43",
+      "same session sess_exploitation_00",
+      "shared IOC CVE-2021-44228",
+      "attacker block 198.18.0.51",
+      "victim block 10.0.9.7"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_59b6cfc0e85b03bf",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.44"
+    ],
+    "victim_ips": [
+      "10.0.0.13"
+    ],
+    "victim_ports": [
+      53,
+      443
+    ],
+    "event_ids": [
+      "evt_000217",
+      "evt_000218",
+      "evt_000219",
+      "evt_000220"
+    ],
+    "first_seen": "2024-05-01T12:43:18Z",
+    "last_seen": "2024-05-01T12:44:20Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_c2_beacon_periodic",
+      "l1_malicious_domain_dns"
+    ],
+    "ioc_hits": [
+      "203.0.113.66",
+      "evil-c2.example.com"
+    ],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 84.84,
+      "mean_score": 80.08500000000001,
+      "sum_score": 320.34000000000003,
+      "p95_score": 84.78450000000001
+    },
+    "session_ids": [
+      "sess_malicious_communication_00"
+    ],
+    "attack_categories": [
+      "malicious_communication"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.44",
+      "category:malicious_communication",
+      "victim:10.0.0.13"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.44",
+      "same session sess_malicious_communication_00",
+      "shared IOC 203.0.113.66, evil-c2.example.com"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_375185e2094fa2ff",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.45"
+    ],
+    "victim_ips": [
+      "10.0.0.13"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000221",
+      "evt_000222"
+    ],
+    "first_seen": "2024-05-01T12:44:28Z",
+    "last_seen": "2024-05-01T12:45:08Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_encoded_command",
+      "l1_suspicious_powershell"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 84.84,
+      "mean_score": 84.035,
+      "sum_score": 168.07,
+      "p95_score": 84.7595
+    },
+    "session_ids": [
+      "sess_command_execution_00"
+    ],
+    "attack_categories": [
+      "command_execution",
+      "defense_evasion"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.45",
+      "category:command_execution",
+      "category:defense_evasion",
+      "victim:10.0.0.13"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.45",
+      "same session sess_command_execution_00",
+      "behaviour categories command_execution -> command_execution/defense_evasion (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_9ca7b5947d968445",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.46"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.21",
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      135,
+      445
+    ],
+    "event_ids": [
+      "evt_000223",
+      "evt_000224",
+      "evt_000225",
+      "evt_000226",
+      "evt_000227",
+      "evt_000228"
+    ],
+    "first_seen": "2024-05-01T12:45:29Z",
+    "last_seen": "2024-05-01T12:47:32Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_remote_service_creation",
+      "l1_smb_psexec_lateral"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 94.67,
+      "mean_score": 91.45166666666667,
+      "sum_score": 548.71,
+      "p95_score": 94.60249999999999
+    },
+    "session_ids": [
+      "sess_lateral_movement_00",
+      "sess_lateral_movement_01",
+      "sess_lateral_movement_02"
+    ],
+    "attack_categories": [
+      "lateral_movement"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.46",
+      "category:lateral_movement",
+      "victim:10.0.0.12",
+      "victim:10.0.0.21",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 0.86,
+    "correlation_reasons": [
+      "attacker block 198.18.0.46",
+      "same session sess_lateral_movement_00",
+      "behaviour categories lateral_movement -> lateral_movement (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_a4615d068557c0e2",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.47"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      443,
+      8443
+    ],
+    "event_ids": [
+      "evt_000229",
+      "evt_000230"
+    ],
+    "first_seen": "2024-05-01T12:46:36Z",
+    "last_seen": "2024-05-01T12:46:53Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_data_exfil_upload",
+      "l1_large_outbound_transfer"
+    ],
+    "ioc_hits": [
+      "198.51.100.23"
+    ],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 95.13,
+      "mean_score": 91.49,
+      "sum_score": 182.98,
+      "p95_score": 94.76599999999999
+    },
+    "session_ids": [
+      "sess_exfiltration_00"
+    ],
+    "attack_categories": [
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.47",
+      "category:exfiltration",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.47",
+      "same session sess_exfiltration_00",
+      "shared IOC 198.51.100.23"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_cd6ef0c1248266ac",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.48"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      445
+    ],
+    "event_ids": [
+      "evt_000231",
+      "evt_000232",
+      "evt_000233",
+      "evt_000234"
+    ],
+    "first_seen": "2024-05-01T12:47:43Z",
+    "last_seen": "2024-05-01T12:49:04Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_ransomware_encryption",
+      "l1_shadow_copy_deletion"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 96.21,
+      "mean_score": 94.3775,
+      "sum_score": 377.51,
+      "p95_score": 96.0735
+    },
+    "session_ids": [
+      "sess_impact_00",
+      "sess_impact_01"
+    ],
+    "attack_categories": [
+      "impact",
+      "credential_access"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.48",
+      "category:credential_access",
+      "category:impact",
+      "victim:10.0.0.12",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 0.94,
+    "correlation_reasons": [
+      "attacker block 198.18.0.48",
+      "same session sess_impact_00",
+      "behaviour categories impact -> impact/credential_access (affinity=0.80)",
+      "behaviour categories impact -> impact (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_90207af58c9be6d1",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.49"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.21",
+      "10.0.5.44",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000235",
+      "evt_000236",
+      "evt_000237",
+      "evt_000238",
+      "evt_000239",
+      "evt_000240",
+      "evt_000241",
+      "evt_000242",
+      "evt_000243",
+      "evt_000244",
+      "evt_000245",
+      "evt_000246"
+    ],
+    "first_seen": "2024-05-01T12:48:41Z",
+    "last_seen": "2024-05-01T12:53:30Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_port_scan_sweep",
+      "l1_service_discovery"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 12,
+      "max_score": 59.18,
+      "mean_score": 49.49333333333333,
+      "sum_score": 593.92,
+      "p95_score": 58.861
+    },
+    "session_ids": [
+      "sess_scanning_00",
+      "sess_scanning_01",
+      "sess_scanning_02",
+      "sess_scanning_03"
+    ],
+    "attack_categories": [
+      "reconnaissance",
+      "discovery"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.49",
+      "category:discovery",
+      "category:reconnaissance",
+      "victim:10.0.0.12",
+      "victim:10.0.0.21",
+      "victim:10.0.5.44",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.8391,
+    "correlation_reasons": [
+      "attacker block 198.18.0.49",
+      "same session sess_scanning_00",
+      "behaviour categories reconnaissance -> reconnaissance/discovery (affinity=0.90)",
+      "behaviour categories reconnaissance -> reconnaissance (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_902791b7d8ce960b",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.50"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000247",
+      "evt_000248",
+      "evt_000249",
+      "evt_000250",
+      "evt_000251",
+      "evt_000252"
+    ],
+    "first_seen": "2024-05-01T12:49:26Z",
+    "last_seen": "2024-05-01T12:51:24Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_auth_failure_burst",
+      "l1_brute_force_ssh"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 68.41,
+      "mean_score": 64.03333333333333,
+      "sum_score": 384.2,
+      "p95_score": 68.24249999999999
+    },
+    "session_ids": [
+      "sess_brute_force_00"
+    ],
+    "attack_categories": [
+      "brute_force"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.50",
+      "category:brute_force",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.50",
+      "same session sess_brute_force_00",
+      "behaviour categories brute_force -> brute_force (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_25617679bfaabc55",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.52"
+    ],
+    "victim_ips": [
+      "10.0.0.12"
+    ],
+    "victim_ports": [
+      53,
+      443
+    ],
+    "event_ids": [
+      "evt_000256",
+      "evt_000257",
+      "evt_000258",
+      "evt_000259"
+    ],
+    "first_seen": "2024-05-01T12:51:35Z",
+    "last_seen": "2024-05-01T12:52:18Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_c2_beacon_periodic",
+      "l1_malicious_domain_dns"
+    ],
+    "ioc_hits": [
+      "203.0.113.66",
+      "evil-c2.example.com"
+    ],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 85.52,
+      "mean_score": 81.99249999999999,
+      "sum_score": 327.96999999999997,
+      "p95_score": 85.262
+    },
+    "session_ids": [
+      "sess_malicious_communication_00"
+    ],
+    "attack_categories": [
+      "malicious_communication"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.52",
+      "category:malicious_communication",
+      "victim:10.0.0.12"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.52",
+      "same session sess_malicious_communication_00",
+      "shared IOC 203.0.113.66, evil-c2.example.com"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_5978ea0f103f2ec2",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.53"
+    ],
+    "victim_ips": [
+      "10.0.0.13"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000260",
+      "evt_000261"
+    ],
+    "first_seen": "2024-05-01T12:52:26Z",
+    "last_seen": "2024-05-01T12:52:31Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_encoded_command",
+      "l1_suspicious_powershell"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 83.4,
+      "mean_score": 82.155,
+      "sum_score": 164.31,
+      "p95_score": 83.27550000000001
+    },
+    "session_ids": [
+      "sess_command_execution_00"
+    ],
+    "attack_categories": [
+      "command_execution",
+      "defense_evasion"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.53",
+      "category:command_execution",
+      "category:defense_evasion",
+      "victim:10.0.0.13"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.53",
+      "same session sess_command_execution_00",
+      "behaviour categories command_execution -> command_execution/defense_evasion (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_ac996a888293adda",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.54"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.13",
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      135,
+      445
+    ],
+    "event_ids": [
+      "evt_000262",
+      "evt_000263",
+      "evt_000264",
+      "evt_000265",
+      "evt_000266",
+      "evt_000267"
+    ],
+    "first_seen": "2024-05-01T12:53:39Z",
+    "last_seen": "2024-05-01T12:55:33Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_remote_service_creation",
+      "l1_smb_psexec_lateral"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 95.36,
+      "mean_score": 89.56333333333333,
+      "sum_score": 537.38,
+      "p95_score": 94.3975
+    },
+    "session_ids": [
+      "sess_lateral_movement_00",
+      "sess_lateral_movement_01",
+      "sess_lateral_movement_02"
+    ],
+    "attack_categories": [
+      "lateral_movement"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.54",
+      "category:lateral_movement",
+      "victim:10.0.0.12",
+      "victim:10.0.0.13",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 0.908,
+    "correlation_reasons": [
+      "attacker block 198.18.0.54",
+      "same session sess_lateral_movement_00",
+      "behaviour categories lateral_movement -> lateral_movement (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_d99a1af780a90a84",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.55"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      443,
+      8443
+    ],
+    "event_ids": [
+      "evt_000268",
+      "evt_000269"
+    ],
+    "first_seen": "2024-05-01T12:54:25Z",
+    "last_seen": "2024-05-01T12:54:44Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_data_exfil_upload",
+      "l1_large_outbound_transfer"
+    ],
+    "ioc_hits": [
+      "198.51.100.23"
+    ],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 95.04,
+      "mean_score": 90.515,
+      "sum_score": 181.03,
+      "p95_score": 94.5875
+    },
+    "session_ids": [
+      "sess_exfiltration_00"
+    ],
+    "attack_categories": [
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.55",
+      "category:exfiltration",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.55",
+      "same session sess_exfiltration_00",
+      "shared IOC 198.51.100.23"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_8ebd613d1bc3482d",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.56"
+    ],
+    "victim_ips": [
+      "10.0.0.13",
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      445
+    ],
+    "event_ids": [
+      "evt_000270",
+      "evt_000271",
+      "evt_000272",
+      "evt_000273"
+    ],
+    "first_seen": "2024-05-01T12:55:24Z",
+    "last_seen": "2024-05-01T12:56:08Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_ransomware_encryption",
+      "l1_shadow_copy_deletion"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 98.95,
+      "mean_score": 95.625,
+      "sum_score": 382.5,
+      "p95_score": 98.50450000000001
+    },
+    "session_ids": [
+      "sess_impact_00",
+      "sess_impact_01"
+    ],
+    "attack_categories": [
+      "impact",
+      "credential_access"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.56",
+      "category:credential_access",
+      "category:impact",
+      "victim:10.0.0.13",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 0.94,
+    "correlation_reasons": [
+      "attacker block 198.18.0.56",
+      "same session sess_impact_00",
+      "behaviour categories impact -> impact/credential_access (affinity=0.80)",
+      "behaviour categories impact -> impact (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_913f1d892d5dc81f",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.57"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.21",
+      "10.0.5.44",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000274",
+      "evt_000275",
+      "evt_000276",
+      "evt_000277",
+      "evt_000278",
+      "evt_000279",
+      "evt_000280",
+      "evt_000281",
+      "evt_000282",
+      "evt_000283",
+      "evt_000284",
+      "evt_000285"
+    ],
+    "first_seen": "2024-05-01T12:56:33Z",
+    "last_seen": "2024-05-01T13:00:57Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_port_scan_sweep",
+      "l1_service_discovery"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 12,
+      "max_score": 59.96,
+      "mean_score": 51.185833333333335,
+      "sum_score": 614.23,
+      "p95_score": 59.8885
+    },
+    "session_ids": [
+      "sess_scanning_00",
+      "sess_scanning_01",
+      "sess_scanning_02",
+      "sess_scanning_03"
+    ],
+    "attack_categories": [
+      "reconnaissance",
+      "discovery"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.57",
+      "category:discovery",
+      "category:reconnaissance",
+      "victim:10.0.0.12",
+      "victim:10.0.0.21",
+      "victim:10.0.5.44",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.8391,
+    "correlation_reasons": [
+      "attacker block 198.18.0.57",
+      "same session sess_scanning_00",
+      "behaviour categories reconnaissance -> reconnaissance/discovery (affinity=0.90)",
+      "behaviour categories reconnaissance -> reconnaissance (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_56a1b06de86f2119",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.58"
+    ],
+    "victim_ips": [
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000286",
+      "evt_000287",
+      "evt_000288",
+      "evt_000289",
+      "evt_000290",
+      "evt_000291"
+    ],
+    "first_seen": "2024-05-01T12:57:11Z",
+    "last_seen": "2024-05-01T12:59:23Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_auth_failure_burst",
+      "l1_brute_force_ssh"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 71.52,
+      "mean_score": 65.39666666666666,
+      "sum_score": 392.38,
+      "p95_score": 70.9675
+    },
+    "session_ids": [
+      "sess_brute_force_00"
+    ],
+    "attack_categories": [
+      "brute_force"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.58",
+      "category:brute_force",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.58",
+      "same session sess_brute_force_00",
+      "behaviour categories brute_force -> brute_force (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_2d32bdfa5217b929",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.59",
+      "198.18.0.67"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      80,
+      8080
+    ],
+    "event_ids": [
+      "evt_000292",
+      "evt_000293",
+      "evt_000294",
+      "evt_000331",
+      "evt_000332",
+      "evt_000333"
+    ],
+    "first_seen": "2024-05-01T12:58:26Z",
+    "last_seen": "2024-05-01T13:07:27Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_exploit_cve_2021_44228",
+      "l1_webshell_upload"
+    ],
+    "ioc_hits": [
+      "CVE-2021-44228"
+    ],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 92.99,
+      "mean_score": 88.37,
+      "sum_score": 530.22,
+      "p95_score": 92.82999999999998
+    },
+    "session_ids": [
+      "sess_exploitation_00"
+    ],
+    "attack_categories": [
+      "exploitation",
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.59",
+      "attacker:198.18.0.67",
+      "category:exfiltration",
+      "category:exploitation",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 0.9632,
+    "correlation_reasons": [
+      "attacker block 198.18.0.59",
+      "same session sess_exploitation_00",
+      "shared IOC CVE-2021-44228",
+      "attacker block 198.18.0.67",
+      "victim block 10.0.5.44"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_eee5cb534e0fe779",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.60"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      53,
+      443
+    ],
+    "event_ids": [
+      "evt_000295",
+      "evt_000296",
+      "evt_000297",
+      "evt_000298"
+    ],
+    "first_seen": "2024-05-01T12:59:27Z",
+    "last_seen": "2024-05-01T13:00:42Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_c2_beacon_periodic",
+      "l1_malicious_domain_dns"
+    ],
+    "ioc_hits": [
+      "203.0.113.66",
+      "evil-c2.example.com"
+    ],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 89.92,
+      "mean_score": 87.365,
+      "sum_score": 349.46,
+      "p95_score": 89.7175
+    },
+    "session_ids": [
+      "sess_malicious_communication_00"
+    ],
+    "attack_categories": [
+      "malicious_communication"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.60",
+      "category:malicious_communication",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.60",
+      "same session sess_malicious_communication_00",
+      "shared IOC 203.0.113.66, evil-c2.example.com"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_1b00f50796d7c49d",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.61"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000299",
+      "evt_000300"
+    ],
+    "first_seen": "2024-05-01T13:00:11Z",
+    "last_seen": "2024-05-01T13:00:17Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_encoded_command",
+      "l1_suspicious_powershell"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 86.8,
+      "mean_score": 82.245,
+      "sum_score": 164.49,
+      "p95_score": 86.3445
+    },
+    "session_ids": [
+      "sess_command_execution_00"
+    ],
+    "attack_categories": [
+      "command_execution",
+      "defense_evasion"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.61",
+      "category:command_execution",
+      "category:defense_evasion",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.61",
+      "same session sess_command_execution_00",
+      "behaviour categories command_execution -> command_execution/defense_evasion (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_20c1fd989a36c835",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.62"
+    ],
+    "victim_ips": [
+      "10.0.0.13",
+      "10.0.5.44",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      135,
+      445
+    ],
+    "event_ids": [
+      "evt_000301",
+      "evt_000302",
+      "evt_000303",
+      "evt_000304",
+      "evt_000305",
+      "evt_000306"
+    ],
+    "first_seen": "2024-05-01T13:01:25Z",
+    "last_seen": "2024-05-01T13:03:57Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_remote_service_creation",
+      "l1_smb_psexec_lateral"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 94.22,
+      "mean_score": 89.985,
+      "sum_score": 539.91,
+      "p95_score": 93.6275
+    },
+    "session_ids": [
+      "sess_lateral_movement_00",
+      "sess_lateral_movement_01",
+      "sess_lateral_movement_02"
+    ],
+    "attack_categories": [
+      "lateral_movement"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.62",
+      "category:lateral_movement",
+      "victim:10.0.0.13",
+      "victim:10.0.5.44",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.812,
+    "correlation_reasons": [
+      "attacker block 198.18.0.62",
+      "same session sess_lateral_movement_00",
+      "behaviour categories lateral_movement -> lateral_movement (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_5ca94b36be4ddd1a",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.63",
+      "198.18.0.71",
+      "198.18.0.79"
+    ],
+    "victim_ips": [
+      "10.0.0.12"
+    ],
+    "victim_ports": [
+      443,
+      8443
+    ],
+    "event_ids": [
+      "evt_000307",
+      "evt_000308",
+      "evt_000346",
+      "evt_000347",
+      "evt_000385",
+      "evt_000386"
+    ],
+    "first_seen": "2024-05-01T13:02:33Z",
+    "last_seen": "2024-05-01T13:18:31Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_data_exfil_upload",
+      "l1_large_outbound_transfer"
+    ],
+    "ioc_hits": [
+      "198.51.100.23"
+    ],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 96.05,
+      "mean_score": 90.68333333333334,
+      "sum_score": 544.1,
+      "p95_score": 95.70249999999999
+    },
+    "session_ids": [
+      "sess_exfiltration_00"
+    ],
+    "attack_categories": [
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.63",
+      "attacker:198.18.0.71",
+      "attacker:198.18.0.79",
+      "category:exfiltration",
+      "victim:10.0.0.12"
+    ],
+    "correlation_score": 0.9304,
+    "correlation_reasons": [
+      "attacker block 198.18.0.63",
+      "same session sess_exfiltration_00",
+      "shared IOC 198.51.100.23",
+      "attacker block 198.18.0.71",
+      "attacker block 198.18.0.79",
+      "victim block 10.0.0.12"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_5a1de7b51deea5ea",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.64"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      445
+    ],
+    "event_ids": [
+      "evt_000309",
+      "evt_000310",
+      "evt_000311",
+      "evt_000312"
+    ],
+    "first_seen": "2024-05-01T13:03:23Z",
+    "last_seen": "2024-05-01T13:03:56Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_ransomware_encryption",
+      "l1_shadow_copy_deletion"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 96.07,
+      "mean_score": 94.8825,
+      "sum_score": 379.53,
+      "p95_score": 95.8675
+    },
+    "session_ids": [
+      "sess_impact_00",
+      "sess_impact_01"
+    ],
+    "attack_categories": [
+      "impact",
+      "credential_access"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.64",
+      "category:credential_access",
+      "category:impact",
+      "victim:10.0.0.12",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.86,
+    "correlation_reasons": [
+      "attacker block 198.18.0.64",
+      "same session sess_impact_00",
+      "behaviour categories impact -> impact/credential_access (affinity=0.80)",
+      "behaviour categories impact -> impact (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_97b74c3271f9083c",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.65"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.13",
+      "10.0.0.21",
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000313",
+      "evt_000314",
+      "evt_000315",
+      "evt_000316",
+      "evt_000317",
+      "evt_000318",
+      "evt_000319",
+      "evt_000320",
+      "evt_000321",
+      "evt_000322",
+      "evt_000323",
+      "evt_000324"
+    ],
+    "first_seen": "2024-05-01T13:04:19Z",
+    "last_seen": "2024-05-01T13:09:08Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_port_scan_sweep",
+      "l1_service_discovery"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 12,
+      "max_score": 54.24,
+      "mean_score": 43.61083333333334,
+      "sum_score": 523.33,
+      "p95_score": 52.172
+    },
+    "session_ids": [
+      "sess_scanning_00",
+      "sess_scanning_01",
+      "sess_scanning_02",
+      "sess_scanning_03"
+    ],
+    "attack_categories": [
+      "reconnaissance",
+      "discovery"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.65",
+      "category:discovery",
+      "category:reconnaissance",
+      "victim:10.0.0.12",
+      "victim:10.0.0.13",
+      "victim:10.0.0.21",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 0.8064,
+    "correlation_reasons": [
+      "attacker block 198.18.0.65",
+      "same session sess_scanning_00",
+      "behaviour categories reconnaissance -> reconnaissance/discovery (affinity=0.90)",
+      "behaviour categories reconnaissance -> reconnaissance (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_88a4d46a82abc004",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.66"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000325",
+      "evt_000326",
+      "evt_000327",
+      "evt_000328",
+      "evt_000329",
+      "evt_000330"
+    ],
+    "first_seen": "2024-05-01T13:05:41Z",
+    "last_seen": "2024-05-01T13:08:14Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_auth_failure_burst",
+      "l1_brute_force_ssh"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 72.91,
+      "mean_score": 67.66166666666668,
+      "sum_score": 405.97,
+      "p95_score": 72.4
+    },
+    "session_ids": [
+      "sess_brute_force_00"
+    ],
+    "attack_categories": [
+      "brute_force"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.66",
+      "category:brute_force",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.66",
+      "same session sess_brute_force_00",
+      "behaviour categories brute_force -> brute_force (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_1a61b88b074a04be",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.68"
+    ],
+    "victim_ips": [
+      "10.0.0.12"
+    ],
+    "victim_ports": [
+      53,
+      443
+    ],
+    "event_ids": [
+      "evt_000334",
+      "evt_000335",
+      "evt_000336",
+      "evt_000337"
+    ],
+    "first_seen": "2024-05-01T13:07:23Z",
+    "last_seen": "2024-05-01T13:09:10Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_c2_beacon_periodic",
+      "l1_malicious_domain_dns"
+    ],
+    "ioc_hits": [
+      "203.0.113.66",
+      "evil-c2.example.com"
+    ],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 89.5,
+      "mean_score": 80.1675,
+      "sum_score": 320.67,
+      "p95_score": 88.57600000000001
+    },
+    "session_ids": [
+      "sess_malicious_communication_00"
+    ],
+    "attack_categories": [
+      "malicious_communication"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.68",
+      "category:malicious_communication",
+      "victim:10.0.0.12"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.68",
+      "same session sess_malicious_communication_00",
+      "shared IOC 203.0.113.66, evil-c2.example.com"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_2d54d3b7cd5d35e4",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.69"
+    ],
+    "victim_ips": [
+      "10.0.0.13"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000338",
+      "evt_000339"
+    ],
+    "first_seen": "2024-05-01T13:08:13Z",
+    "last_seen": "2024-05-01T13:08:33Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_encoded_command",
+      "l1_suspicious_powershell"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 91.93,
+      "mean_score": 89.73500000000001,
+      "sum_score": 179.47000000000003,
+      "p95_score": 91.71050000000001
+    },
+    "session_ids": [
+      "sess_command_execution_00"
+    ],
+    "attack_categories": [
+      "command_execution",
+      "defense_evasion"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.69",
+      "category:command_execution",
+      "category:defense_evasion",
+      "victim:10.0.0.13"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.69",
+      "same session sess_command_execution_00",
+      "behaviour categories command_execution -> command_execution/defense_evasion (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_b3bbe63420cf1098",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.70"
+    ],
+    "victim_ips": [
+      "10.0.0.13",
+      "10.0.0.21",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      135,
+      445
+    ],
+    "event_ids": [
+      "evt_000340",
+      "evt_000341",
+      "evt_000342",
+      "evt_000343",
+      "evt_000344",
+      "evt_000345"
+    ],
+    "first_seen": "2024-05-01T13:09:06Z",
+    "last_seen": "2024-05-01T13:11:12Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_remote_service_creation",
+      "l1_smb_psexec_lateral"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 94.13,
+      "mean_score": 89.39999999999999,
+      "sum_score": 536.4,
+      "p95_score": 93.4575
+    },
+    "session_ids": [
+      "sess_lateral_movement_00",
+      "sess_lateral_movement_01",
+      "sess_lateral_movement_02"
+    ],
+    "attack_categories": [
+      "lateral_movement"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.70",
+      "category:lateral_movement",
+      "victim:10.0.0.13",
+      "victim:10.0.0.21",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.86,
+    "correlation_reasons": [
+      "attacker block 198.18.0.70",
+      "same session sess_lateral_movement_00",
+      "behaviour categories lateral_movement -> lateral_movement (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_9c3953264b4ec6d5",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.72"
+    ],
+    "victim_ips": [
+      "10.0.0.21",
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      445
+    ],
+    "event_ids": [
+      "evt_000348",
+      "evt_000349",
+      "evt_000350",
+      "evt_000351"
+    ],
+    "first_seen": "2024-05-01T13:11:31Z",
+    "last_seen": "2024-05-01T13:13:03Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_ransomware_encryption",
+      "l1_shadow_copy_deletion"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 99.48,
+      "mean_score": 96.8275,
+      "sum_score": 387.31,
+      "p95_score": 99.0135
+    },
+    "session_ids": [
+      "sess_impact_00",
+      "sess_impact_01"
+    ],
+    "attack_categories": [
+      "impact",
+      "credential_access"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.72",
+      "category:credential_access",
+      "category:impact",
+      "victim:10.0.0.21",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 0.86,
+    "correlation_reasons": [
+      "attacker block 198.18.0.72",
+      "same session sess_impact_00",
+      "behaviour categories impact -> impact/credential_access (affinity=0.80)",
+      "behaviour categories impact -> impact (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_b9758aeaf0d32ba8",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.73"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.21",
+      "10.0.5.44",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000352",
+      "evt_000353",
+      "evt_000354",
+      "evt_000355",
+      "evt_000356",
+      "evt_000357",
+      "evt_000358",
+      "evt_000359",
+      "evt_000360",
+      "evt_000361",
+      "evt_000362",
+      "evt_000363"
+    ],
+    "first_seen": "2024-05-01T13:12:13Z",
+    "last_seen": "2024-05-01T13:17:16Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_port_scan_sweep",
+      "l1_service_discovery"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 12,
+      "max_score": 58.37,
+      "mean_score": 50.178333333333335,
+      "sum_score": 602.14,
+      "p95_score": 58.304
+    },
+    "session_ids": [
+      "sess_scanning_00",
+      "sess_scanning_01",
+      "sess_scanning_02",
+      "sess_scanning_03"
+    ],
+    "attack_categories": [
+      "reconnaissance",
+      "discovery"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.73",
+      "category:discovery",
+      "category:reconnaissance",
+      "victim:10.0.0.12",
+      "victim:10.0.0.21",
+      "victim:10.0.5.44",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.8061,
+    "correlation_reasons": [
+      "attacker block 198.18.0.73",
+      "same session sess_scanning_00",
+      "behaviour categories reconnaissance -> reconnaissance/discovery (affinity=0.90)",
+      "behaviour categories reconnaissance -> reconnaissance (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_6ea579877aa3733c",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.74"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000364",
+      "evt_000365",
+      "evt_000366",
+      "evt_000367",
+      "evt_000368",
+      "evt_000369"
+    ],
+    "first_seen": "2024-05-01T13:13:40Z",
+    "last_seen": "2024-05-01T13:15:35Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_auth_failure_burst",
+      "l1_brute_force_ssh"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 74.53,
+      "mean_score": 64.51333333333334,
+      "sum_score": 387.08,
+      "p95_score": 74.245
+    },
+    "session_ids": [
+      "sess_brute_force_00"
+    ],
+    "attack_categories": [
+      "brute_force"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.74",
+      "category:brute_force",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.74",
+      "same session sess_brute_force_00",
+      "behaviour categories brute_force -> brute_force (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_6120c81327c7c787",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.75",
+      "198.18.0.83"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      80,
+      8080
+    ],
+    "event_ids": [
+      "evt_000370",
+      "evt_000371",
+      "evt_000372",
+      "evt_000409",
+      "evt_000410",
+      "evt_000411"
+    ],
+    "first_seen": "2024-05-01T13:14:10Z",
+    "last_seen": "2024-05-01T13:23:02Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_exploit_cve_2021_44228",
+      "l1_webshell_upload"
+    ],
+    "ioc_hits": [
+      "CVE-2021-44228"
+    ],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 90.78,
+      "mean_score": 87.71666666666665,
+      "sum_score": 526.3,
+      "p95_score": 90.71000000000001
+    },
+    "session_ids": [
+      "sess_exploitation_00"
+    ],
+    "attack_categories": [
+      "exploitation",
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.75",
+      "attacker:198.18.0.83",
+      "category:exfiltration",
+      "category:exploitation",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 0.9636,
+    "correlation_reasons": [
+      "attacker block 198.18.0.75",
+      "same session sess_exploitation_00",
+      "shared IOC CVE-2021-44228",
+      "attacker block 198.18.0.83",
+      "victim block 10.0.0.21"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_eb5d6e67df0a3d9b",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.76"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      53,
+      443
+    ],
+    "event_ids": [
+      "evt_000373",
+      "evt_000374",
+      "evt_000375",
+      "evt_000376"
+    ],
+    "first_seen": "2024-05-01T13:15:28Z",
+    "last_seen": "2024-05-01T13:16:51Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_c2_beacon_periodic",
+      "l1_malicious_domain_dns"
+    ],
+    "ioc_hits": [
+      "203.0.113.66",
+      "evil-c2.example.com"
+    ],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 89.26,
+      "mean_score": 84.715,
+      "sum_score": 338.86,
+      "p95_score": 89.1985
+    },
+    "session_ids": [
+      "sess_malicious_communication_00"
+    ],
+    "attack_categories": [
+      "malicious_communication"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.76",
+      "category:malicious_communication",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.76",
+      "same session sess_malicious_communication_00",
+      "shared IOC 203.0.113.66, evil-c2.example.com"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_eec9ab2cb5bb76fb",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.77"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000377",
+      "evt_000378"
+    ],
+    "first_seen": "2024-05-01T13:16:38Z",
+    "last_seen": "2024-05-01T13:16:45Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_encoded_command",
+      "l1_suspicious_powershell"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 88.52,
+      "mean_score": 86.36,
+      "sum_score": 172.72,
+      "p95_score": 88.304
+    },
+    "session_ids": [
+      "sess_command_execution_00"
+    ],
+    "attack_categories": [
+      "command_execution",
+      "defense_evasion"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.77",
+      "category:command_execution",
+      "category:defense_evasion",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.77",
+      "same session sess_command_execution_00",
+      "behaviour categories command_execution -> command_execution/defense_evasion (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_d207a9303d470f55",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.78"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.13",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      135,
+      445
+    ],
+    "event_ids": [
+      "evt_000379",
+      "evt_000380",
+      "evt_000381",
+      "evt_000382",
+      "evt_000383",
+      "evt_000384"
+    ],
+    "first_seen": "2024-05-01T13:17:28Z",
+    "last_seen": "2024-05-01T13:20:16Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_remote_service_creation",
+      "l1_smb_psexec_lateral"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 93.87,
+      "mean_score": 88.95166666666667,
+      "sum_score": 533.71,
+      "p95_score": 93.2025
+    },
+    "session_ids": [
+      "sess_lateral_movement_00",
+      "sess_lateral_movement_01",
+      "sess_lateral_movement_02"
+    ],
+    "attack_categories": [
+      "lateral_movement"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.78",
+      "category:lateral_movement",
+      "victim:10.0.0.12",
+      "victim:10.0.0.13",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.86,
+    "correlation_reasons": [
+      "attacker block 198.18.0.78",
+      "same session sess_lateral_movement_00",
+      "behaviour categories lateral_movement -> lateral_movement (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_3537f788bfab8776",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.80"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.13"
+    ],
+    "victim_ports": [
+      445
+    ],
+    "event_ids": [
+      "evt_000387",
+      "evt_000388",
+      "evt_000389",
+      "evt_000390"
+    ],
+    "first_seen": "2024-05-01T13:19:39Z",
+    "last_seen": "2024-05-01T13:20:56Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_ransomware_encryption",
+      "l1_shadow_copy_deletion"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 97.68,
+      "mean_score": 97.135,
+      "sum_score": 388.54,
+      "p95_score": 97.68
+    },
+    "session_ids": [
+      "sess_impact_00",
+      "sess_impact_01"
+    ],
+    "attack_categories": [
+      "impact",
+      "credential_access"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.80",
+      "category:credential_access",
+      "category:impact",
+      "victim:10.0.0.12",
+      "victim:10.0.0.13"
+    ],
+    "correlation_score": 0.94,
+    "correlation_reasons": [
+      "attacker block 198.18.0.80",
+      "same session sess_impact_00",
+      "behaviour categories impact -> impact/credential_access (affinity=0.80)",
+      "behaviour categories impact -> impact (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_592c47c95ed7be0d",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.81"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.13",
+      "10.0.0.21",
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000391",
+      "evt_000392",
+      "evt_000393",
+      "evt_000394",
+      "evt_000395",
+      "evt_000396",
+      "evt_000397",
+      "evt_000398",
+      "evt_000399",
+      "evt_000400",
+      "evt_000401",
+      "evt_000402"
+    ],
+    "first_seen": "2024-05-01T13:20:43Z",
+    "last_seen": "2024-05-01T13:25:40Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_port_scan_sweep",
+      "l1_service_discovery"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 12,
+      "max_score": 59.06,
+      "mean_score": 46.5625,
+      "sum_score": 558.75,
+      "p95_score": 57.366
+    },
+    "session_ids": [
+      "sess_scanning_00",
+      "sess_scanning_01",
+      "sess_scanning_02",
+      "sess_scanning_03"
+    ],
+    "attack_categories": [
+      "reconnaissance",
+      "discovery"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.81",
+      "category:discovery",
+      "category:reconnaissance",
+      "victim:10.0.0.12",
+      "victim:10.0.0.13",
+      "victim:10.0.0.21",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 0.8064,
+    "correlation_reasons": [
+      "attacker block 198.18.0.81",
+      "same session sess_scanning_00",
+      "behaviour categories reconnaissance -> reconnaissance/discovery (affinity=0.90)",
+      "behaviour categories reconnaissance -> reconnaissance (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_e106ea3c885fce38",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.82"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000403",
+      "evt_000404",
+      "evt_000405",
+      "evt_000406",
+      "evt_000407",
+      "evt_000408"
+    ],
+    "first_seen": "2024-05-01T13:21:45Z",
+    "last_seen": "2024-05-01T13:24:17Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_auth_failure_burst",
+      "l1_brute_force_ssh"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 72.71,
+      "mean_score": 62.4,
+      "sum_score": 374.4,
+      "p95_score": 70.9575
+    },
+    "session_ids": [
+      "sess_brute_force_00"
+    ],
+    "attack_categories": [
+      "brute_force"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.82",
+      "category:brute_force",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.82",
+      "same session sess_brute_force_00",
+      "behaviour categories brute_force -> brute_force (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_775b5b238f804779",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.84"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      53,
+      443
+    ],
+    "event_ids": [
+      "evt_000412",
+      "evt_000413",
+      "evt_000414",
+      "evt_000415"
+    ],
+    "first_seen": "2024-05-01T13:23:20Z",
+    "last_seen": "2024-05-01T13:24:52Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_c2_beacon_periodic",
+      "l1_malicious_domain_dns"
+    ],
+    "ioc_hits": [
+      "203.0.113.66",
+      "evil-c2.example.com"
+    ],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 78.25,
+      "mean_score": 73.78,
+      "sum_score": 295.12,
+      "p95_score": 77.7625
+    },
+    "session_ids": [
+      "sess_malicious_communication_00"
+    ],
+    "attack_categories": [
+      "malicious_communication"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.84",
+      "category:malicious_communication",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.84",
+      "same session sess_malicious_communication_00",
+      "shared IOC 203.0.113.66, evil-c2.example.com"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_0ac005dbfaaea0e0",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.85"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000416",
+      "evt_000417"
+    ],
+    "first_seen": "2024-05-01T13:24:13Z",
+    "last_seen": "2024-05-01T13:24:24Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_encoded_command",
+      "l1_suspicious_powershell"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 81.17,
+      "mean_score": 78.82,
+      "sum_score": 157.64,
+      "p95_score": 80.935
+    },
+    "session_ids": [
+      "sess_command_execution_00"
+    ],
+    "attack_categories": [
+      "command_execution",
+      "defense_evasion"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.85",
+      "category:command_execution",
+      "category:defense_evasion",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.85",
+      "same session sess_command_execution_00",
+      "behaviour categories command_execution -> command_execution/defense_evasion (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_6e5c2c39724ac9db",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.86"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.21",
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      135,
+      445
+    ],
+    "event_ids": [
+      "evt_000418",
+      "evt_000419",
+      "evt_000420",
+      "evt_000421",
+      "evt_000422",
+      "evt_000423"
+    ],
+    "first_seen": "2024-05-01T13:25:20Z",
+    "last_seen": "2024-05-01T13:27:02Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_remote_service_creation",
+      "l1_smb_psexec_lateral"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 93.0,
+      "mean_score": 87.66333333333334,
+      "sum_score": 525.98,
+      "p95_score": 91.8125
+    },
+    "session_ids": [
+      "sess_lateral_movement_00",
+      "sess_lateral_movement_01",
+      "sess_lateral_movement_02"
+    ],
+    "attack_categories": [
+      "lateral_movement"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.86",
+      "category:lateral_movement",
+      "victim:10.0.0.12",
+      "victim:10.0.0.21",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 0.86,
+    "correlation_reasons": [
+      "attacker block 198.18.0.86",
+      "same session sess_lateral_movement_00",
+      "behaviour categories lateral_movement -> lateral_movement (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_a73135852c3f2208",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.87"
+    ],
+    "victim_ips": [
+      "10.0.0.13"
+    ],
+    "victim_ports": [
+      443,
+      8443
+    ],
+    "event_ids": [
+      "evt_000424",
+      "evt_000425"
+    ],
+    "first_seen": "2024-05-01T13:26:41Z",
+    "last_seen": "2024-05-01T13:27:16Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_data_exfil_upload",
+      "l1_large_outbound_transfer"
+    ],
+    "ioc_hits": [
+      "198.51.100.23"
+    ],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 89.09,
+      "mean_score": 89.08,
+      "sum_score": 178.16,
+      "p95_score": 89.089
+    },
+    "session_ids": [
+      "sess_exfiltration_00"
+    ],
+    "attack_categories": [
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.87",
+      "category:exfiltration",
+      "victim:10.0.0.13"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.87",
+      "same session sess_exfiltration_00",
+      "shared IOC 198.51.100.23"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_ace52746e6e82d68",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.88"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      445
+    ],
+    "event_ids": [
+      "evt_000426",
+      "evt_000427",
+      "evt_000428",
+      "evt_000429"
+    ],
+    "first_seen": "2024-05-01T13:27:07Z",
+    "last_seen": "2024-05-01T13:28:24Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_ransomware_encryption",
+      "l1_shadow_copy_deletion"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 99.99,
+      "mean_score": 97.91499999999999,
+      "sum_score": 391.65999999999997,
+      "p95_score": 99.948
+    },
+    "session_ids": [
+      "sess_impact_00",
+      "sess_impact_01"
+    ],
+    "attack_categories": [
+      "impact",
+      "credential_access"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.88",
+      "category:credential_access",
+      "category:impact",
+      "victim:10.0.0.12",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 0.94,
+    "correlation_reasons": [
+      "attacker block 198.18.0.88",
+      "same session sess_impact_00",
+      "behaviour categories impact -> impact/credential_access (affinity=0.80)",
+      "behaviour categories impact -> impact (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_8c9256da465e840e",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.89"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.13",
+      "10.0.5.44",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000430",
+      "evt_000431",
+      "evt_000432",
+      "evt_000433",
+      "evt_000434",
+      "evt_000435",
+      "evt_000436",
+      "evt_000437",
+      "evt_000438",
+      "evt_000439",
+      "evt_000440",
+      "evt_000441"
+    ],
+    "first_seen": "2024-05-01T13:28:43Z",
+    "last_seen": "2024-05-01T13:33:40Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_port_scan_sweep",
+      "l1_service_discovery"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 12,
+      "max_score": 59.45,
+      "mean_score": 47.5325,
+      "sum_score": 570.39,
+      "p95_score": 58.944
+    },
+    "session_ids": [
+      "sess_scanning_00",
+      "sess_scanning_01",
+      "sess_scanning_02",
+      "sess_scanning_03"
+    ],
+    "attack_categories": [
+      "reconnaissance",
+      "discovery"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.89",
+      "category:discovery",
+      "category:reconnaissance",
+      "victim:10.0.0.12",
+      "victim:10.0.0.13",
+      "victim:10.0.5.44",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.8391,
+    "correlation_reasons": [
+      "attacker block 198.18.0.89",
+      "same session sess_scanning_00",
+      "behaviour categories reconnaissance -> reconnaissance/discovery (affinity=0.90)",
+      "behaviour categories reconnaissance -> reconnaissance (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_ebeb4eddd95da861",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.90"
+    ],
+    "victim_ips": [
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000442",
+      "evt_000443",
+      "evt_000444",
+      "evt_000445",
+      "evt_000446",
+      "evt_000447"
+    ],
+    "first_seen": "2024-05-01T13:29:34Z",
+    "last_seen": "2024-05-01T13:32:22Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_auth_failure_burst",
+      "l1_brute_force_ssh"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 71.46,
+      "mean_score": 63.81833333333333,
+      "sum_score": 382.90999999999997,
+      "p95_score": 70.78
+    },
+    "session_ids": [
+      "sess_brute_force_00"
+    ],
+    "attack_categories": [
+      "brute_force"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.90",
+      "category:brute_force",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.90",
+      "same session sess_brute_force_00",
+      "behaviour categories brute_force -> brute_force (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_27b1e3adec9ab872",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.91"
+    ],
+    "victim_ips": [
+      "10.0.0.13"
+    ],
+    "victim_ports": [
+      80,
+      8080
+    ],
+    "event_ids": [
+      "evt_000448",
+      "evt_000449",
+      "evt_000450"
+    ],
+    "first_seen": "2024-05-01T13:30:35Z",
+    "last_seen": "2024-05-01T13:31:22Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_exploit_cve_2021_44228",
+      "l1_webshell_upload"
+    ],
+    "ioc_hits": [
+      "CVE-2021-44228"
+    ],
+    "score_summary": {
+      "event_count": 3,
+      "max_score": 88.58,
+      "mean_score": 86.41666666666667,
+      "sum_score": 259.25,
+      "p95_score": 88.443
+    },
+    "session_ids": [
+      "sess_exploitation_00"
+    ],
+    "attack_categories": [
+      "exploitation",
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.91",
+      "category:exfiltration",
+      "category:exploitation",
+      "victim:10.0.0.13"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.91",
+      "same session sess_exploitation_00",
+      "shared IOC CVE-2021-44228"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_77e9436712b25647",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.100",
+      "198.18.0.92"
+    ],
+    "victim_ips": [
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      53,
+      443
+    ],
+    "event_ids": [
+      "evt_000451",
+      "evt_000452",
+      "evt_000453",
+      "evt_000454",
+      "evt_000490",
+      "evt_000491",
+      "evt_000492",
+      "evt_000493"
+    ],
+    "first_seen": "2024-05-01T13:31:35Z",
+    "last_seen": "2024-05-01T13:40:23Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_c2_beacon_periodic",
+      "l1_malicious_domain_dns"
+    ],
+    "ioc_hits": [
+      "203.0.113.66",
+      "evil-c2.example.com"
+    ],
+    "score_summary": {
+      "event_count": 8,
+      "max_score": 89.87,
+      "mean_score": 79.85375,
+      "sum_score": 638.83,
+      "p95_score": 87.812
+    },
+    "session_ids": [
+      "sess_malicious_communication_00"
+    ],
+    "attack_categories": [
+      "malicious_communication"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.100",
+      "attacker:198.18.0.92",
+      "category:malicious_communication",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.9743,
+    "correlation_reasons": [
+      "attacker block 198.18.0.92",
+      "same session sess_malicious_communication_00",
+      "shared IOC 203.0.113.66, evil-c2.example.com",
+      "attacker block 198.18.0.100",
+      "victim block 10.0.9.7"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_ac0f2cca0b9a2bc4",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.93"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000455",
+      "evt_000456"
+    ],
+    "first_seen": "2024-05-01T13:32:20Z",
+    "last_seen": "2024-05-01T13:32:53Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_encoded_command",
+      "l1_suspicious_powershell"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 81.79,
+      "mean_score": 78.815,
+      "sum_score": 157.63,
+      "p95_score": 81.4925
+    },
+    "session_ids": [
+      "sess_command_execution_00"
+    ],
+    "attack_categories": [
+      "command_execution",
+      "defense_evasion"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.93",
+      "category:command_execution",
+      "category:defense_evasion",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.93",
+      "same session sess_command_execution_00",
+      "behaviour categories command_execution -> command_execution/defense_evasion (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_e543139dbb98c81c",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.94"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.21",
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      135,
+      445
+    ],
+    "event_ids": [
+      "evt_000457",
+      "evt_000458",
+      "evt_000459",
+      "evt_000460",
+      "evt_000461",
+      "evt_000462"
+    ],
+    "first_seen": "2024-05-01T13:33:10Z",
+    "last_seen": "2024-05-01T13:34:31Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_remote_service_creation",
+      "l1_smb_psexec_lateral"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 95.37,
+      "mean_score": 92.19666666666666,
+      "sum_score": 553.18,
+      "p95_score": 95.1875
+    },
+    "session_ids": [
+      "sess_lateral_movement_00",
+      "sess_lateral_movement_01",
+      "sess_lateral_movement_02"
+    ],
+    "attack_categories": [
+      "lateral_movement"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.94",
+      "category:lateral_movement",
+      "victim:10.0.0.12",
+      "victim:10.0.0.21",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 0.86,
+    "correlation_reasons": [
+      "attacker block 198.18.0.94",
+      "same session sess_lateral_movement_00",
+      "behaviour categories lateral_movement -> lateral_movement (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_3a4a95cf41b7513b",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.103",
+      "198.18.0.111",
+      "198.18.0.95"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      443,
+      8443
+    ],
+    "event_ids": [
+      "evt_000463",
+      "evt_000464",
+      "evt_000502",
+      "evt_000503",
+      "evt_000541",
+      "evt_000542"
+    ],
+    "first_seen": "2024-05-01T13:34:21Z",
+    "last_seen": "2024-05-01T13:50:52Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_data_exfil_upload",
+      "l1_large_outbound_transfer"
+    ],
+    "ioc_hits": [
+      "198.51.100.23"
+    ],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 95.26,
+      "mean_score": 88.72000000000001,
+      "sum_score": 532.32,
+      "p95_score": 93.78750000000001
+    },
+    "session_ids": [
+      "sess_exfiltration_00"
+    ],
+    "attack_categories": [
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.103",
+      "attacker:198.18.0.111",
+      "attacker:198.18.0.95",
+      "category:exfiltration",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 0.9232,
+    "correlation_reasons": [
+      "attacker block 198.18.0.95",
+      "same session sess_exfiltration_00",
+      "shared IOC 198.51.100.23",
+      "attacker block 198.18.0.103",
+      "attacker block 198.18.0.111",
+      "victim block 10.0.5.44"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_fe91338b73308186",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.96"
+    ],
+    "victim_ips": [
+      "10.0.0.13",
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      445
+    ],
+    "event_ids": [
+      "evt_000465",
+      "evt_000466",
+      "evt_000467",
+      "evt_000468"
+    ],
+    "first_seen": "2024-05-01T13:35:26Z",
+    "last_seen": "2024-05-01T13:36:49Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_ransomware_encryption",
+      "l1_shadow_copy_deletion"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 95.89,
+      "mean_score": 95.10499999999999,
+      "sum_score": 380.41999999999996,
+      "p95_score": 95.88399999999999
+    },
+    "session_ids": [
+      "sess_impact_00",
+      "sess_impact_01"
+    ],
+    "attack_categories": [
+      "impact",
+      "credential_access"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.96",
+      "category:credential_access",
+      "category:impact",
+      "victim:10.0.0.13",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 0.94,
+    "correlation_reasons": [
+      "attacker block 198.18.0.96",
+      "same session sess_impact_00",
+      "behaviour categories impact -> impact/credential_access (affinity=0.80)",
+      "behaviour categories impact -> impact (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_a61d41be3c89f630",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.97"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.13",
+      "10.0.5.44",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000469",
+      "evt_000470",
+      "evt_000471",
+      "evt_000472",
+      "evt_000473",
+      "evt_000474",
+      "evt_000475",
+      "evt_000476",
+      "evt_000477",
+      "evt_000478",
+      "evt_000479",
+      "evt_000480"
+    ],
+    "first_seen": "2024-05-01T13:36:27Z",
+    "last_seen": "2024-05-01T13:41:18Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_port_scan_sweep",
+      "l1_service_discovery"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 12,
+      "max_score": 58.26,
+      "mean_score": 45.11000000000001,
+      "sum_score": 541.32,
+      "p95_score": 58.2545
+    },
+    "session_ids": [
+      "sess_scanning_00",
+      "sess_scanning_01",
+      "sess_scanning_02",
+      "sess_scanning_03"
+    ],
+    "attack_categories": [
+      "reconnaissance",
+      "discovery"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.97",
+      "category:discovery",
+      "category:reconnaissance",
+      "victim:10.0.0.12",
+      "victim:10.0.0.13",
+      "victim:10.0.5.44",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.8391,
+    "correlation_reasons": [
+      "attacker block 198.18.0.97",
+      "same session sess_scanning_00",
+      "behaviour categories reconnaissance -> reconnaissance/discovery (affinity=0.90)",
+      "behaviour categories reconnaissance -> reconnaissance (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_d9d1e37a40f2f8fd",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.98"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000481",
+      "evt_000482",
+      "evt_000483",
+      "evt_000484",
+      "evt_000485",
+      "evt_000486"
+    ],
+    "first_seen": "2024-05-01T13:37:11Z",
+    "last_seen": "2024-05-01T13:40:02Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_auth_failure_burst",
+      "l1_brute_force_ssh"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 68.37,
+      "mean_score": 62.31666666666666,
+      "sum_score": 373.9,
+      "p95_score": 68.265
+    },
+    "session_ids": [
+      "sess_brute_force_00"
+    ],
+    "attack_categories": [
+      "brute_force"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.98",
+      "category:brute_force",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.98",
+      "same session sess_brute_force_00",
+      "behaviour categories brute_force -> brute_force (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_ba971ee607abc2fd",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.99"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      80,
+      8080
+    ],
+    "event_ids": [
+      "evt_000487",
+      "evt_000488",
+      "evt_000489"
+    ],
+    "first_seen": "2024-05-01T13:38:21Z",
+    "last_seen": "2024-05-01T13:39:05Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_exploit_cve_2021_44228",
+      "l1_webshell_upload"
+    ],
+    "ioc_hits": [
+      "CVE-2021-44228"
+    ],
+    "score_summary": {
+      "event_count": 3,
+      "max_score": 94.49,
+      "mean_score": 88.85666666666667,
+      "sum_score": 266.57,
+      "p95_score": 94.10799999999999
+    },
+    "session_ids": [
+      "sess_exploitation_00"
+    ],
+    "attack_categories": [
+      "exploitation",
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.99",
+      "category:exfiltration",
+      "category:exploitation",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.99",
+      "same session sess_exploitation_00",
+      "shared IOC CVE-2021-44228"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_b980757663670825",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.101"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000494",
+      "evt_000495"
+    ],
+    "first_seen": "2024-05-01T13:40:36Z",
+    "last_seen": "2024-05-01T13:41:21Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_encoded_command",
+      "l1_suspicious_powershell"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 84.08,
+      "mean_score": 80.89,
+      "sum_score": 161.78,
+      "p95_score": 83.761
+    },
+    "session_ids": [
+      "sess_command_execution_00"
+    ],
+    "attack_categories": [
+      "command_execution",
+      "defense_evasion"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.101",
+      "category:command_execution",
+      "category:defense_evasion",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.101",
+      "same session sess_command_execution_00",
+      "behaviour categories command_execution -> command_execution/defense_evasion (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_615c123d1d23f985",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.102"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.13",
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      135,
+      445
+    ],
+    "event_ids": [
+      "evt_000496",
+      "evt_000497",
+      "evt_000498",
+      "evt_000499",
+      "evt_000500",
+      "evt_000501"
+    ],
+    "first_seen": "2024-05-01T13:41:36Z",
+    "last_seen": "2024-05-01T13:44:05Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_remote_service_creation",
+      "l1_smb_psexec_lateral"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 91.98,
+      "mean_score": 90.63166666666666,
+      "sum_score": 543.79,
+      "p95_score": 91.8175
+    },
+    "session_ids": [
+      "sess_lateral_movement_00",
+      "sess_lateral_movement_01",
+      "sess_lateral_movement_02"
+    ],
+    "attack_categories": [
+      "lateral_movement"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.102",
+      "category:lateral_movement",
+      "victim:10.0.0.12",
+      "victim:10.0.0.13",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 0.86,
+    "correlation_reasons": [
+      "attacker block 198.18.0.102",
+      "same session sess_lateral_movement_00",
+      "behaviour categories lateral_movement -> lateral_movement (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_595bb75692b7a003",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.104"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      445
+    ],
+    "event_ids": [
+      "evt_000504",
+      "evt_000505",
+      "evt_000506",
+      "evt_000507"
+    ],
+    "first_seen": "2024-05-01T13:43:12Z",
+    "last_seen": "2024-05-01T13:44:25Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_ransomware_encryption",
+      "l1_shadow_copy_deletion"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 98.17,
+      "mean_score": 95.86,
+      "sum_score": 383.44,
+      "p95_score": 98.104
+    },
+    "session_ids": [
+      "sess_impact_00",
+      "sess_impact_01"
+    ],
+    "attack_categories": [
+      "impact",
+      "credential_access"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.104",
+      "category:credential_access",
+      "category:impact",
+      "victim:10.0.0.12",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 0.86,
+    "correlation_reasons": [
+      "attacker block 198.18.0.104",
+      "same session sess_impact_00",
+      "behaviour categories impact -> impact/credential_access (affinity=0.80)",
+      "behaviour categories impact -> impact (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_88f9734d287be1d1",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.105"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.21",
+      "10.0.5.44",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000508",
+      "evt_000509",
+      "evt_000510",
+      "evt_000511",
+      "evt_000512",
+      "evt_000513",
+      "evt_000514",
+      "evt_000515",
+      "evt_000516",
+      "evt_000517",
+      "evt_000518",
+      "evt_000519"
+    ],
+    "first_seen": "2024-05-01T13:44:30Z",
+    "last_seen": "2024-05-01T13:49:46Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_port_scan_sweep",
+      "l1_service_discovery"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 12,
+      "max_score": 59.29,
+      "mean_score": 48.99,
+      "sum_score": 587.88,
+      "p95_score": 58.305499999999995
+    },
+    "session_ids": [
+      "sess_scanning_00",
+      "sess_scanning_01",
+      "sess_scanning_02",
+      "sess_scanning_03"
+    ],
+    "attack_categories": [
+      "reconnaissance",
+      "discovery"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.105",
+      "category:discovery",
+      "category:reconnaissance",
+      "victim:10.0.0.12",
+      "victim:10.0.0.21",
+      "victim:10.0.5.44",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.8049,
+    "correlation_reasons": [
+      "attacker block 198.18.0.105",
+      "same session sess_scanning_00",
+      "behaviour categories reconnaissance -> reconnaissance/discovery (affinity=0.90)",
+      "behaviour categories reconnaissance -> reconnaissance (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_f6937a357ce05798",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.106"
+    ],
+    "victim_ips": [
+      "10.0.0.13"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000520",
+      "evt_000521",
+      "evt_000522",
+      "evt_000523",
+      "evt_000524",
+      "evt_000525"
+    ],
+    "first_seen": "2024-05-01T13:45:28Z",
+    "last_seen": "2024-05-01T13:47:01Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_auth_failure_burst",
+      "l1_brute_force_ssh"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 70.82,
+      "mean_score": 67.03166666666667,
+      "sum_score": 402.19,
+      "p95_score": 70.61749999999999
+    },
+    "session_ids": [
+      "sess_brute_force_00"
+    ],
+    "attack_categories": [
+      "brute_force"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.106",
+      "category:brute_force",
+      "victim:10.0.0.13"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.106",
+      "same session sess_brute_force_00",
+      "behaviour categories brute_force -> brute_force (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_a9ba271fd710d4b4",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.107",
+      "198.18.0.115"
+    ],
+    "victim_ips": [
+      "10.0.0.12"
+    ],
+    "victim_ports": [
+      80,
+      8080
+    ],
+    "event_ids": [
+      "evt_000526",
+      "evt_000527",
+      "evt_000528",
+      "evt_000565",
+      "evt_000566",
+      "evt_000567"
+    ],
+    "first_seen": "2024-05-01T13:46:36Z",
+    "last_seen": "2024-05-01T13:55:22Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_exploit_cve_2021_44228",
+      "l1_webshell_upload"
+    ],
+    "ioc_hits": [
+      "CVE-2021-44228"
+    ],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 94.64,
+      "mean_score": 88.73333333333333,
+      "sum_score": 532.4,
+      "p95_score": 94.28750000000001
+    },
+    "session_ids": [
+      "sess_exploitation_00"
+    ],
+    "attack_categories": [
+      "exploitation",
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.107",
+      "attacker:198.18.0.115",
+      "category:exfiltration",
+      "category:exploitation",
+      "victim:10.0.0.12"
+    ],
+    "correlation_score": 0.967,
+    "correlation_reasons": [
+      "attacker block 198.18.0.107",
+      "same session sess_exploitation_00",
+      "shared IOC CVE-2021-44228",
+      "attacker block 198.18.0.115",
+      "victim block 10.0.0.12"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_6f17239881096977",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.108"
+    ],
+    "victim_ips": [
+      "10.0.0.13"
+    ],
+    "victim_ports": [
+      53,
+      443
+    ],
+    "event_ids": [
+      "evt_000529",
+      "evt_000530",
+      "evt_000531",
+      "evt_000532"
+    ],
+    "first_seen": "2024-05-01T13:47:21Z",
+    "last_seen": "2024-05-01T13:49:17Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_c2_beacon_periodic",
+      "l1_malicious_domain_dns"
+    ],
+    "ioc_hits": [
+      "203.0.113.66",
+      "evil-c2.example.com"
+    ],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 85.89,
+      "mean_score": 80.755,
+      "sum_score": 323.02,
+      "p95_score": 85.587
+    },
+    "session_ids": [
+      "sess_malicious_communication_00"
+    ],
+    "attack_categories": [
+      "malicious_communication"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.108",
+      "category:malicious_communication",
+      "victim:10.0.0.13"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.108",
+      "same session sess_malicious_communication_00",
+      "shared IOC 203.0.113.66, evil-c2.example.com"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_e55eb43231a061d1",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.109"
+    ],
+    "victim_ips": [
+      "10.0.5.44"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000533",
+      "evt_000534"
+    ],
+    "first_seen": "2024-05-01T13:48:11Z",
+    "last_seen": "2024-05-01T13:48:41Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_encoded_command",
+      "l1_suspicious_powershell"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 81.48,
+      "mean_score": 79.565,
+      "sum_score": 159.13,
+      "p95_score": 81.28850000000001
+    },
+    "session_ids": [
+      "sess_command_execution_00"
+    ],
+    "attack_categories": [
+      "command_execution",
+      "defense_evasion"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.109",
+      "category:command_execution",
+      "category:defense_evasion",
+      "victim:10.0.5.44"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.109",
+      "same session sess_command_execution_00",
+      "behaviour categories command_execution -> command_execution/defense_evasion (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_d44faa984b3c58d4",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.110"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.21",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      135,
+      445
+    ],
+    "event_ids": [
+      "evt_000535",
+      "evt_000536",
+      "evt_000537",
+      "evt_000538",
+      "evt_000539",
+      "evt_000540"
+    ],
+    "first_seen": "2024-05-01T13:49:17Z",
+    "last_seen": "2024-05-01T13:50:48Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_remote_service_creation",
+      "l1_smb_psexec_lateral"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 94.22,
+      "mean_score": 91.02833333333332,
+      "sum_score": 546.17,
+      "p95_score": 93.75
+    },
+    "session_ids": [
+      "sess_lateral_movement_00",
+      "sess_lateral_movement_01",
+      "sess_lateral_movement_02"
+    ],
+    "attack_categories": [
+      "lateral_movement"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.110",
+      "category:lateral_movement",
+      "victim:10.0.0.12",
+      "victim:10.0.0.21",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.812,
+    "correlation_reasons": [
+      "attacker block 198.18.0.110",
+      "same session sess_lateral_movement_00",
+      "behaviour categories lateral_movement -> lateral_movement (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_1a4035a46cbd87b3",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.112"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      445
+    ],
+    "event_ids": [
+      "evt_000543",
+      "evt_000544",
+      "evt_000545",
+      "evt_000546"
+    ],
+    "first_seen": "2024-05-01T13:51:25Z",
+    "last_seen": "2024-05-01T13:52:30Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_ransomware_encryption",
+      "l1_shadow_copy_deletion"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 98.86,
+      "mean_score": 97.255,
+      "sum_score": 389.02,
+      "p95_score": 98.752
+    },
+    "session_ids": [
+      "sess_impact_00",
+      "sess_impact_01"
+    ],
+    "attack_categories": [
+      "impact",
+      "credential_access"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.112",
+      "category:credential_access",
+      "category:impact",
+      "victim:10.0.0.12",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 0.94,
+    "correlation_reasons": [
+      "attacker block 198.18.0.112",
+      "same session sess_impact_00",
+      "behaviour categories impact -> impact/credential_access (affinity=0.80)",
+      "behaviour categories impact -> impact (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_0ade4429ee807c4d",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.113"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.21",
+      "10.0.5.44",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      21,
+      22,
+      23
+    ],
+    "event_ids": [
+      "evt_000547",
+      "evt_000548",
+      "evt_000549",
+      "evt_000550",
+      "evt_000551",
+      "evt_000552",
+      "evt_000553",
+      "evt_000554",
+      "evt_000555",
+      "evt_000556",
+      "evt_000557",
+      "evt_000558"
+    ],
+    "first_seen": "2024-05-01T13:52:25Z",
+    "last_seen": "2024-05-01T13:56:43Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_port_scan_sweep",
+      "l1_service_discovery"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 12,
+      "max_score": 59.31,
+      "mean_score": 46.92333333333334,
+      "sum_score": 563.08,
+      "p95_score": 59.2605
+    },
+    "session_ids": [
+      "sess_scanning_00",
+      "sess_scanning_01",
+      "sess_scanning_02",
+      "sess_scanning_03"
+    ],
+    "attack_categories": [
+      "reconnaissance",
+      "discovery"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.113",
+      "category:discovery",
+      "category:reconnaissance",
+      "victim:10.0.0.12",
+      "victim:10.0.0.21",
+      "victim:10.0.5.44",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.8064,
+    "correlation_reasons": [
+      "attacker block 198.18.0.113",
+      "same session sess_scanning_00",
+      "behaviour categories reconnaissance -> reconnaissance/discovery (affinity=0.90)",
+      "behaviour categories reconnaissance -> reconnaissance (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_03e794183e1b0c04",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.114"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      22,
+      3389
+    ],
+    "event_ids": [
+      "evt_000559",
+      "evt_000560",
+      "evt_000561",
+      "evt_000562",
+      "evt_000563",
+      "evt_000564"
+    ],
+    "first_seen": "2024-05-01T13:53:36Z",
+    "last_seen": "2024-05-01T13:55:47Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_auth_failure_burst",
+      "l1_brute_force_ssh"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 71.7,
+      "mean_score": 65.17,
+      "sum_score": 391.02,
+      "p95_score": 71.665
+    },
+    "session_ids": [
+      "sess_brute_force_00"
+    ],
+    "attack_categories": [
+      "brute_force"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.114",
+      "category:brute_force",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.114",
+      "same session sess_brute_force_00",
+      "behaviour categories brute_force -> brute_force (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_3e51218a522c5c96",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.116"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      53,
+      443
+    ],
+    "event_ids": [
+      "evt_000568",
+      "evt_000569",
+      "evt_000570",
+      "evt_000571"
+    ],
+    "first_seen": "2024-05-01T13:55:09Z",
+    "last_seen": "2024-05-01T13:55:53Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_c2_beacon_periodic",
+      "l1_malicious_domain_dns"
+    ],
+    "ioc_hits": [
+      "203.0.113.66",
+      "evil-c2.example.com"
+    ],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 83.8,
+      "mean_score": 79.89,
+      "sum_score": 319.56,
+      "p95_score": 83.66649999999998
+    },
+    "session_ids": [
+      "sess_malicious_communication_00"
+    ],
+    "attack_categories": [
+      "malicious_communication"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.116",
+      "category:malicious_communication",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.116",
+      "same session sess_malicious_communication_00",
+      "shared IOC 203.0.113.66, evil-c2.example.com"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_86b9d161acad34d5",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.117"
+    ],
+    "victim_ips": [
+      "10.0.0.21"
+    ],
+    "victim_ports": [
+      445,
+      5985
+    ],
+    "event_ids": [
+      "evt_000572",
+      "evt_000573"
+    ],
+    "first_seen": "2024-05-01T13:56:38Z",
+    "last_seen": "2024-05-01T13:56:45Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_encoded_command",
+      "l1_suspicious_powershell"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 91.35,
+      "mean_score": 85.335,
+      "sum_score": 170.67,
+      "p95_score": 90.74849999999999
+    },
+    "session_ids": [
+      "sess_command_execution_00"
+    ],
+    "attack_categories": [
+      "command_execution",
+      "defense_evasion"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.117",
+      "category:command_execution",
+      "category:defense_evasion",
+      "victim:10.0.0.21"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.117",
+      "same session sess_command_execution_00",
+      "behaviour categories command_execution -> command_execution/defense_evasion (affinity=0.80)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_d2a7290d0545dbbc",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.118"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.0.21",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      135,
+      445
+    ],
+    "event_ids": [
+      "evt_000574",
+      "evt_000575",
+      "evt_000576",
+      "evt_000577",
+      "evt_000578",
+      "evt_000579"
+    ],
+    "first_seen": "2024-05-01T13:57:44Z",
+    "last_seen": "2024-05-01T14:00:27Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_remote_service_creation",
+      "l1_smb_psexec_lateral"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 6,
+      "max_score": 92.62,
+      "mean_score": 88.51833333333333,
+      "sum_score": 531.11,
+      "p95_score": 92.3125
+    },
+    "session_ids": [
+      "sess_lateral_movement_00",
+      "sess_lateral_movement_01",
+      "sess_lateral_movement_02"
+    ],
+    "attack_categories": [
+      "lateral_movement"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.118",
+      "category:lateral_movement",
+      "victim:10.0.0.12",
+      "victim:10.0.0.21",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.86,
+    "correlation_reasons": [
+      "attacker block 198.18.0.118",
+      "same session sess_lateral_movement_00",
+      "behaviour categories lateral_movement -> lateral_movement (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_6b5668e70c0cfcdd",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.119"
+    ],
+    "victim_ips": [
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      443,
+      8443
+    ],
+    "event_ids": [
+      "evt_000580",
+      "evt_000581"
+    ],
+    "first_seen": "2024-05-01T13:58:28Z",
+    "last_seen": "2024-05-01T13:59:08Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_data_exfil_upload",
+      "l1_large_outbound_transfer"
+    ],
+    "ioc_hits": [
+      "198.51.100.23"
+    ],
+    "score_summary": {
+      "event_count": 2,
+      "max_score": 90.5,
+      "mean_score": 88.37,
+      "sum_score": 176.74,
+      "p95_score": 90.28699999999999
+    },
+    "session_ids": [
+      "sess_exfiltration_00"
+    ],
+    "attack_categories": [
+      "exfiltration"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.119",
+      "category:exfiltration",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 1.0,
+    "correlation_reasons": [
+      "attacker block 198.18.0.119",
+      "same session sess_exfiltration_00",
+      "shared IOC 198.51.100.23"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  },
+  {
+    "candidate_id": "cand_6698b94e485cbd9d",
+    "task_id": "task_fixture_candidates",
+    "attacker_ips": [
+      "198.18.0.120"
+    ],
+    "victim_ips": [
+      "10.0.0.12",
+      "10.0.9.7"
+    ],
+    "victim_ports": [
+      445
+    ],
+    "event_ids": [
+      "evt_000582",
+      "evt_000583",
+      "evt_000584",
+      "evt_000585"
+    ],
+    "first_seen": "2024-05-01T13:59:45Z",
+    "last_seen": "2024-05-01T14:01:01Z",
+    "protocols": [
+      "tcp"
+    ],
+    "rule_hits": [
+      "l1_ransomware_encryption",
+      "l1_shadow_copy_deletion"
+    ],
+    "ioc_hits": [],
+    "score_summary": {
+      "event_count": 4,
+      "max_score": 96.03,
+      "mean_score": 94.33,
+      "sum_score": 377.32,
+      "p95_score": 95.913
+    },
+    "session_ids": [
+      "sess_impact_00",
+      "sess_impact_01"
+    ],
+    "attack_categories": [
+      "impact",
+      "credential_access"
+    ],
+    "cluster_keys": [
+      "attacker:198.18.0.120",
+      "category:credential_access",
+      "category:impact",
+      "victim:10.0.0.12",
+      "victim:10.0.9.7"
+    ],
+    "correlation_score": 0.86,
+    "correlation_reasons": [
+      "attacker block 198.18.0.120",
+      "same session sess_impact_00",
+      "behaviour categories impact -> impact/credential_access (affinity=0.80)",
+      "behaviour categories impact -> impact (affinity=0.80)",
+      "similar rule hits (similarity=1.00)",
+      "similar rule hits (similarity=0.50)"
+    ],
+    "threat_intel": [],
+    "techniques": []
+  }
+]

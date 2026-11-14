@@ -1,0 +1,32 @@
+# 密钥与环境
+.env
+**/.env
+!**/.env.example
+
+# 运行时数据
+workspace/*
+!workspace/.gitkeep
+logs/
+m3/data/
+data/threat_intel/*.parquet
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 测试/临时工作区（含真实密钥的运行时产物）
+workspace_test/
+workspacebridgetest*
+output/
+tmp/
+m3/shared_workspace/
+m3/__pycache__/

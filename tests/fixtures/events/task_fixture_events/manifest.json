@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "task_fixture_events",
+  "batch_id": "batch_000001",
+  "producer": "module1_fake",
+  "created_at": "2024-05-01T12:00:00+00:00",
+  "event_count": 1000,
+  "files": [
+    {
+      "path": "batch_000001.parquet",
+      "sha256": "ce504a7ac04d671d0f7f46ef6344ab9d0538b35d2e8302e9ef9064ab4d3b3812",
+      "size_bytes": 69542,
+      "row_count": 1000,
+      "schema_version": "1.0.0"
+    }
+  ],
+  "metadata": {
+    "generator": "module2_chain.devtools.synthetic"
+  },
+  "checksum": "0ee753b41683c675b734ce4004c327abe2cbb35f3d77cf39445c0a636e4b0607"
+}

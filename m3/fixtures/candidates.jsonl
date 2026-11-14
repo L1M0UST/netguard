@@ -1,0 +1,1 @@
+{"alert_id":"A-fixture-001","title":"SSH 暴力破解尝试","severity":"high","evidence":"同一来源连续登录失败","source":"192.0.2.10","target":"198.51.100.20","mitre":"T1110"}

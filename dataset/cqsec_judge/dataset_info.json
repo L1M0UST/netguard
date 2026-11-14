@@ -1,0 +1,8 @@
+{
+  "cqsec_judge_train": {
+    "file_name": "train.jsonl"
+  },
+  "cqsec_judge_val": {
+    "file_name": "val.jsonl"
+  }
+}

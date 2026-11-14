@@ -1,0 +1,1 @@
+{"chain_id":"C-fixture-001","task_id":"T-fixture-001","severity":"high","nodes":["192.0.2.10","198.51.100.20"],"evidence_ids":["A-fixture-001"],"explanation":"外部来源对服务器进行凭证攻击。"}

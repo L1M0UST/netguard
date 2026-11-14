@@ -1,0 +1,138 @@
+{
+  "SQL注入攻击": {
+    "aliases": ["sql_injection", "SQLi", "sqli"],
+    "mitre": "T1190 Exploit Public-Facing Application",
+    "intro": "攻击者把恶意 SQL 片段注入 Web 参数，欺骗后端数据库执行非预期查询，可越权读取、篡改甚至删除数据。",
+    "signs": "参数中出现 union select、or 1=1、sleep()、information_schema、注释符 -- 等。",
+    "detection": "WAF 规则 + 参数化查询审计 + 数据库异常查询日志（长 sleep、批量 UNION）。",
+    "mitigation": "全面使用参数化查询/预编译语句；最小权限数据库账号；WAF 拦截特征；对报错信息脱敏。"
+  },
+  "XSS跨站脚本攻击": {
+    "aliases": ["xss", "cross site scripting", "跨站脚本"],
+    "mitre": "T1059.007 JavaScript/JScript Execution",
+    "intro": "把恶意脚本注入页面，在其他用户的浏览器中执行，可窃取会话 Cookie、伪造操作、挂马。",
+    "signs": "载荷含 <script>、javascript:、onerror=/onload= 事件、document.cookie。",
+    "detection": "输出编码审计 + CSP 报告 + DOM 防护规则；关注反射点与存储点。",
+    "mitigation": "输出 HTML 实体编码；启用 CSP；HttpOnly Cookie；输入白名单过滤。"
+  },
+  "目录遍历攻击": {
+    "aliases": ["path_traversal", "目录穿越", "路径遍历", "../"],
+    "mitre": "T1083 File and Directory Discovery",
+    "intro": "利用 ../ 序列或编码变体跳出 Web 根目录，读取任意系统文件（配置、密钥、口令文件）。",
+    "signs": "URL/参数中出现 ../、%2e%2e%2f、..\\、/etc/passwd、.ssh/id_rsa、.env。",
+    "detection": "对规范化后的路径做越界检查；审计异常文件读取请求。",
+    "mitigation": "路径白名单与 realpath 校验；Web 容器禁用目录列出；敏感文件移出 Web 根。"
+  },
+  "文件包含攻击": {
+    "aliases": ["file_inclusion", "LFI", "RFI", "php://input"],
+    "mitre": "T1059.004 Unix Shell",
+    "intro": "让服务端 include 攻击者控制的文件路径（本地 LFI / 远程 RFI），配合伪协议可直接执行代码。",
+    "signs": "参数含 php://、data://、expect://、zip://、phar://、include=、require=。",
+    "detection": "监控伪协议访问与 include 参数；审计 PHP error log。",
+    "mitigation": "禁止动态 include；关闭 allow_url_include；文件路径白名单。"
+  },
+  "远程命令执行攻击": {
+    "aliases": ["command_injection", "RCE", "命令注入", "命令执行"],
+    "mitre": "T1059 Command and Scripting Interpreter",
+    "intro": "通过拼接系统命令的注入点执行任意命令（whoami、cat /etc/passwd、反弹 shell），是危害最高的 Web 攻击之一。",
+    "signs": "载荷含 ; cat、| whoami、$(cmd)、反引号执行、powershell -enc、/bin/bash。",
+    "detection": "命令审计日志、异常进程树（Web 服务进程拉起 shell）、出网行为。",
+    "mitigation": "禁用 shell 拼接函数；输入严格校验；最小权限运行；EDR 监控子进程。"
+  },
+  "CSRF攻击": {
+    "aliases": ["csrf", "跨站请求伪造"],
+    "mitre": "T1189 Drive-by Compromise",
+    "intro": "诱导已登录用户的浏览器在不知情下向目标站点发起状态变更请求（转账、改密、删号），利用的是服务器对浏览器凭证的信任。",
+    "signs": "敏感状态变更端点（transfer/change-password/admin 等）收到缺少合法 CSRF Token 的 POST，且载荷含攻击者标记（attacker 邮箱、role=admin 等）。",
+    "detection": "校验 CSRF Token 与 Referer/Origin；监控敏感端点的异常参数模式。",
+    "mitigation": "所有状态变更接口强制 Anti-CSRF Token；SameSite Cookie；关键操作二次确认。"
+  },
+  "Java反序列化漏洞利用攻击": {
+    "aliases": ["java_deserialization", "反序列化", "readObject"],
+    "mitre": "T1203 Exploitation for Client Execution",
+    "intro": "向 Java 服务提交恶意序列化对象（AC ED 00 05 魔数、rO0A Base64），在 readObject 时触发 Gadget 链执行任意代码。",
+    "signs": "载荷含 ac ed 00 05、rO0A、java.util.PriorityQueue、InvokerTransformer 等 Gadget 特征。",
+    "detection": "流量中反序列化魔数检测；Java 进程异常命令执行告警。",
+    "mitigation": "升级组件（commons-collections 等）；反序列化过滤器（JEP 290）；避免接收原生序列化数据。"
+  },
+  "文件上传攻击": {
+    "aliases": ["file_upload", "webshell上传", "恶意文件上传"],
+    "mitre": "T1505.003 Web Shell",
+    "intro": "绕过校验上传可执行脚本（shell.php/jsp/aspx）获得 Webshell，进而完全控制服务器。",
+    "signs": "multipart 上传的 filename 为 .php/.jsp/.aspx，或内容含 <?php eval、<%@ page。",
+    "detection": "上传目录禁执行 + 文件类型白名单；对上传内容做脚本特征扫描。",
+    "mitigation": "重命名存储、隔离上传目录、内容检测、CDN/WAF 拦截。"
+  },
+  "扫描探测攻击": {
+    "aliases": ["scanner", "multi_path_scan", "扫描", "目录爆破", "port_scan"],
+    "mitre": "T1046 Network Service Discovery / T1595 Active Scanning",
+    "intro": "用 nmap/nikto/sqlmap 等工具或高频路径探测收集目标信息（开放端口、存在路径、技术栈），是攻击的前置侦察阶段。",
+    "signs": "单源短时间大量 404、敏感路径（/.git、/wp-admin、/.env）探测、UA 带 sqlmap/nikto、端口快速轮询。",
+    "detection": "频率阈值 + 敏感路径命中 + 扫描器 UA 特征（我们 M1 的 multi_path_scan 检测）。",
+    "mitigation": "封禁扫描源；隐藏技术栈指纹；非必要端口关闭；蜜罐诱捕。"
+  },
+  "暴力破解攻击": {
+    "aliases": ["brute_force", "爆破", "口令爆破"],
+    "mitre": "T1110 Brute Force",
+    "intro": "对登录口、API 口高频尝试弱口令/字典，获取合法账号后以正常身份作案。",
+    "signs": "单源对 /login 短时间大量 401/402、多账号撞库、成功前大量失败。",
+    "detection": "失败次数阈值 + 图验证码触发 + 异常时间段登录。",
+    "mitigation": "账户锁定/退避、MFA、IP 信誉拦截、强口令策略。"
+  },
+  "Webshell通信攻击": {
+    "aliases": ["webshell", "冰蝎", "哥斯拉", "behinder"],
+    "mitre": "T1505.003 Web Shell",
+    "intro": "攻击者已植入 Webshell 后的持续通信：加密 POST 流量下发指令、回传数据，行为隐蔽。",
+    "signs": "固定路径高频加密 POST、响应为加密块、与上传事件时间相邻。",
+    "detection": "上传事件关联 + 加密流量熵分析 + 文件完整性监控。",
+    "mitigation": "清除 Webshell 并排查持久化；密钥轮换；对上传目录做基线监控。"
+  },
+  "C2回连攻击": {
+    "aliases": ["c2", "c2回连", "远控", "beacon"],
+    "mitre": "T1071 Application Layer Protocol",
+    "intro": "失陷主机周期性外连攻击者控制端（C2），接收指令、回传数据（如 gate.php?host=c2server 类心跳）。",
+    "signs": "固定间隔外连、长连接心跳、POST 体含主机标识、目的 IP 命中威胁情报。",
+    "detection": "出站流量周期性分析 + 威胁情报 IP/域名匹配 + DNS 隧道检测。",
+    "mitigation": "出站白名单、断开 C2 并隔离主机、排查横向移动痕迹。"
+  },
+  "SSRF攻击": {
+    "aliases": ["ssrf", "服务端请求伪造"],
+    "mitre": "T1190 Exploit Public-Facing Application",
+    "intro": "诱使服务端向任意地址发起请求，可探测内网、访问云元数据（169.254.169.254）窃取凭证。",
+    "signs": "URL 参数指向内网 IP、云元数据地址、file:// 协议、非常规端口。",
+    "detection": "出站请求目的审计 + 元数据地址访问告警。",
+    "mitigation": "出站白名单、禁用非必要协议、云上启用元数据v2（需 Token）。"
+  },
+  "XXE攻击": {
+    "aliases": ["xxe", "xml外部实体"],
+    "mitre": "T1005 Data from Local System",
+    "intro": "XML 解析器允许外部实体时，通过 SYSTEM 声明读取本地文件或发起 SSRF。",
+    "signs": "载荷含 <!DOCTYPE、ENTITY、SYSTEM 关键词。",
+    "detection": "XML 解析异常日志、包含外部实体的请求告警。",
+    "mitigation": "禁用 DTD/外部实体（parser 特性关闭）；升级 XML 库。"
+  },
+  "SSTI攻击": {
+    "aliases": ["ssti", "模板注入"],
+    "mitre": "T1059 Command and Scripting Interpreter",
+    "intro": "用户输入被直接拼进服务端模板（Jinja2/Twig/Freemarker）编译执行，可造成 RCE。",
+    "signs": "载荷含 {{7*7}}、${7*7}、<%=、config 自省、__class__.__mro__。",
+    "detection": "模板表达式特征检测；页面渲染结果异常数值回显。",
+    "mitigation": "模板沙箱、禁止用户输入进模板、逻辑与模板分离。"
+  },
+  "正常访问": {
+    "aliases": ["normal", "benign"],
+    "mitre": "",
+    "intro": "常规业务访问，无可疑特征。",
+    "signs": "路径与业务匹配，载荷正常，频率符合基线。",
+    "detection": "基线建模、与攻击特征比对无命中。",
+    "mitigation": "无需处置；纳入基线持续观测。"
+  },
+  "domains": {
+    "note": "域名情报条目（来自威胁情报源标注的黑产组织信息）可在此扩充，例如：",
+    "示例.evil-c2.example.com": {
+      "org": "示例黑产组织（占位）",
+      "intro": "用于演示的恶意 C2 域名条目格式。",
+      "source": "manual"
+    }
+  }
+}

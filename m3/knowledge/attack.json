@@ -1,0 +1,5 @@
+[
+  {"id":"attack-T1110","text":"T1110 表示暴力破解类技术。认证失败是调查线索，本身不能证明账户已被攻破。","source":"https://attack.mitre.org/techniques/T1110/"},
+  {"id":"attack-T1190","text":"T1190 表示利用面向公网应用。应结合具体漏洞、应用版本与服务器日志核实利用是否成功。","source":"https://attack.mitre.org/techniques/T1190/"},
+  {"id":"attack-T1059","text":"T1059 表示命令和脚本解释器。请求载荷中的命令字符串不等于服务器实际执行了命令，需要主机或应用侧证据。","source":"https://attack.mitre.org/techniques/T1059/"}
+]

@@ -1,0 +1,180 @@
+{
+  "$defs": {
+    "Chain": {
+      "additionalProperties": true,
+      "properties": {
+        "chain_id": {
+          "title": "Chain Id",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "info",
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "stages": {
+          "items": {
+            "$ref": "#/$defs/Stage"
+          },
+          "title": "Stages",
+          "type": "array"
+        },
+        "edges": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Edges",
+          "type": "array"
+        }
+      },
+      "required": [
+        "chain_id",
+        "severity",
+        "stages"
+      ],
+      "title": "Chain",
+      "type": "object"
+    },
+    "Stage": {
+      "additionalProperties": true,
+      "properties": {
+        "stage_id": {
+          "title": "Stage Id",
+          "type": "string"
+        },
+        "tactic": {
+          "title": "Tactic",
+          "type": "string"
+        },
+        "technique": {
+          "title": "Technique",
+          "type": "string"
+        },
+        "evidence_event_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidence Event Ids",
+          "type": "array"
+        },
+        "confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "time_range": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "title": "Time Range",
+          "type": "array"
+        }
+      },
+      "required": [
+        "stage_id",
+        "tactic",
+        "technique",
+        "evidence_event_ids",
+        "confidence",
+        "time_range"
+      ],
+      "title": "Stage",
+      "type": "object"
+    }
+  },
+  "additionalProperties": true,
+  "properties": {
+    "schema_version": {
+      "const": "AttackChainBundle.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "task_id": {
+      "title": "Task Id",
+      "type": "string"
+    },
+    "alerts": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Alerts",
+      "type": "array"
+    },
+    "chains": {
+      "items": {
+        "$ref": "#/$defs/Chain"
+      },
+      "title": "Chains",
+      "type": "array"
+    },
+    "evidence": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Evidence",
+      "type": "array"
+    },
+    "profiles": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Profiles",
+      "type": "array"
+    },
+    "metrics": {
+      "additionalProperties": true,
+      "title": "Metrics",
+      "type": "object"
+    },
+    "report": {
+      "additionalProperties": true,
+      "title": "Report",
+      "type": "object"
+    },
+    "degraded": {
+      "default": false,
+      "title": "Degraded",
+      "type": "boolean"
+    },
+    "versions": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Versions",
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema_version",
+    "task_id",
+    "alerts",
+    "chains",
+    "evidence",
+    "versions"
+  ],
+  "title": "Bundle",
+  "type": "object"
+}

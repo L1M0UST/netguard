@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>M1 文件分析</title>
+<style>
+body{font:16px/1.7 system-ui,sans-serif;background:#f4f6f9;color:#243047;margin:0}main{max-width:820px;margin:48px auto;padding:30px;background:white;border-radius:14px}h1{margin-top:0}label{display:block;margin:18px 0 5px}input,select,button{font:inherit;padding:9px;border:1px solid #bdc7d4;border-radius:6px}select,input{box-sizing:border-box;width:100%}button{cursor:pointer;background:#235fc3;color:white;margin:16px 8px 0 0}button:disabled{opacity:.5;cursor:wait}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f0f3f8;padding:18px}small{color:#5c6676}.error{color:#a52020}
+</style>
+<main>
+<h1>选择文件并分析</h1>
+<p>将上传完成的文件放入共享目录的 <code>incoming</code> 文件夹，再从下方选择。不需要手动创建任务 JSON。</p>
+<label for="token">接口访问令牌（服务启用认证时填写）</label>
+<input id="token" type="password" autocomplete="off" placeholder="本机未启用认证时可留空">
+<label for="files">已上传文件</label><select id="files"><option value="">请刷新文件列表</option></select>
+<button id="refresh">刷新文件</button><button id="submit">开始分析</button>
+<p><small>分析使用 M1 的服务端配置，启用模型或在线情报时可能产生调用费用。文件上传由 M3 或共享目录完成。</small></p>
+<p id="message" role="status"></p>
+<label for="task">查询任务（可粘贴已有任务 ID）</label><input id="task" placeholder="api-…">
+<button id="query">查询状态</button>
+<pre id="result">尚未提交任务</pre>
+</main>
+<script>
+const el=id=>document.getElementById(id); let timer=null, pendingRequest=null;
+async function api(path,body){
+ const headers={};if(el('token').value)headers.Authorization='Bearer '+el('token').value;
+ if(body)headers['Content-Type']='application/json';
+ const response=await fetch(path,{method:body?'POST':'GET',headers,body:body?JSON.stringify(body):undefined});
+ const data=await response.json();if(!response.ok)throw new Error(data.error?.message||'请求失败');return data;
+}
+function message(text,error=false){el('message').textContent=text;el('message').className=error?'error':'';}
+async function refresh(){try{const data=await api('/v1/files');el('files').replaceChildren();
+ for(const f of data.files){const option=document.createElement('option');option.value=f.file_id;option.textContent=f.name+'（'+f.size_bytes+' 字节）';el('files').append(option);}
+ message(data.files.length?'请选择文件后开始分析':'没有可用文件，请确认上传完成且格式受支持');pendingRequest=null;
+ }catch(e){message(e.message,true);}}
+async function query(){clearTimeout(timer);const id=el('task').value.trim();if(!/^api-[a-f0-9]{32}$/.test(id)){message('请输入有效的任务 ID',true);return;}
+ try{const data=await api('/v1/tasks/'+id);const names={QUEUED:'排队中',RUNNING:'正在分析',SUCCEEDED:'分析完成',FAILED:'分析失败'};
+ message(names[data.state]||data.state,data.state==='FAILED');el('result').textContent=JSON.stringify(data,null,2);
+ if(data.state==='QUEUED'||data.state==='RUNNING')timer=setTimeout(query,2000);
+ }catch(e){message(e.message,true);}}
+el('refresh').onclick=refresh;el('query').onclick=query;
+el('files').onchange=()=>{pendingRequest=null;};
+el('submit').onclick=async()=>{if(!el('files').value){message('请先选择文件',true);return;}
+ el('submit').disabled=true;
+ // Reuse the id after an uncertain network failure to avoid duplicate processing.
+ if(!pendingRequest)pendingRequest={request_id:crypto.randomUUID(),file_id:el('files').value};
+ try{const data=await api('/v1/tasks',pendingRequest);el('task').value=data.task_id;pendingRequest=null;await query();}
+ catch(e){message(e.message+'；网络失败可重试，文件变更请刷新列表。',true);}
+ finally{el('submit').disabled=false;}};
+refresh();
+</script>
+</html>

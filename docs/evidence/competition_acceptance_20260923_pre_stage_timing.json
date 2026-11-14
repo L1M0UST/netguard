@@ -1,0 +1,335 @@
+{
+  "schema_version": "NetGuardCompetitionAcceptance.v1",
+  "created_at": "2026-09-23T13:18:03.874645+00:00",
+  "mode": "local_m1_and_deterministic_m2",
+  "input_file": "E:\\platform_taishi\\taishi_platform\\tests_integration\\fixtures\\suite\\01_main_10k.csv",
+  "input_sha256": "14bfcd58b921ba9bd61c2d350a2fd77e8b4fd59f19a5dde010b47136030d2655",
+  "repetitions": 3,
+  "environment": {
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "platform": "win32",
+    "local_model_base_url": "http://127.0.0.1:8008"
+  },
+  "performance": {
+    "input_rows": 10200,
+    "median_elapsed_seconds": 10.902,
+    "p95_elapsed_seconds": 11.095,
+    "median_input_throughput_events_per_second": 935.61,
+    "runs": [
+      {
+        "task_id": "49c7cd777d074dba8bf359a007fcff44",
+        "elapsed_seconds": 11.095,
+        "input_rows": 10200,
+        "m1_normalized_rows": 9830,
+        "m1_suspicious_sessions": 72,
+        "m1_filter_counts": {
+          "filtered_empty": 0,
+          "filtered_meaningless": 0,
+          "filtered_duplicate": 250,
+          "filtered_whitelist": 120
+        },
+        "m1_duration_seconds": 6.125,
+        "m1_plus_bridge_m2_bundle_seconds": 11.047,
+        "m2_duration_seconds": 4.922,
+        "m1_cascade": {
+          "local_hits": 24,
+          "escalations": 0,
+          "local_failures": 0,
+          "enabled": true
+        },
+        "m1_model_version": null,
+        "m1_llm_provider_calls": {},
+        "m2_chain_count": 59,
+        "bundle_present": true
+      },
+      {
+        "task_id": "93a5caf300374be8897e79b086582f6a",
+        "elapsed_seconds": 10.815,
+        "input_rows": 10200,
+        "m1_normalized_rows": 9830,
+        "m1_suspicious_sessions": 72,
+        "m1_filter_counts": {
+          "filtered_empty": 0,
+          "filtered_meaningless": 0,
+          "filtered_duplicate": 250,
+          "filtered_whitelist": 120
+        },
+        "m1_duration_seconds": 6.032,
+        "m1_plus_bridge_m2_bundle_seconds": 10.782,
+        "m2_duration_seconds": 4.75,
+        "m1_cascade": {
+          "local_hits": 24,
+          "escalations": 0,
+          "local_failures": 0,
+          "enabled": true
+        },
+        "m1_model_version": null,
+        "m1_llm_provider_calls": {},
+        "m2_chain_count": 59,
+        "bundle_present": true
+      },
+      {
+        "task_id": "b9ab90b8fe9841a79d83b3914feae534",
+        "elapsed_seconds": 10.902,
+        "input_rows": 10200,
+        "m1_normalized_rows": 9830,
+        "m1_suspicious_sessions": 72,
+        "m1_filter_counts": {
+          "filtered_empty": 0,
+          "filtered_meaningless": 0,
+          "filtered_duplicate": 250,
+          "filtered_whitelist": 120
+        },
+        "m1_duration_seconds": 6.047,
+        "m1_plus_bridge_m2_bundle_seconds": 10.875,
+        "m2_duration_seconds": 4.828,
+        "m1_cascade": {
+          "local_hits": 24,
+          "escalations": 0,
+          "local_failures": 0,
+          "enabled": true
+        },
+        "m1_model_version": null,
+        "m1_llm_provider_calls": {},
+        "m2_chain_count": 59,
+        "bundle_present": true
+      }
+    ],
+    "timing_note": "End-to-end includes M1, Bridge, M2 and bundle assembly; M2 duration includes Bridge/assembly overhead in the current public metric split."
+  },
+  "quality": {
+    "scope": "synthetic_competition_fixture_m1_screening_only",
+    "label_column": "attack_type(结果列，需参赛选手判断输出)",
+    "rows": 10200,
+    "predicted_from_m1_rows": 9830,
+    "rows_without_an_m1_event_after_filters": 370,
+    "classes": [
+      "CSRF攻击",
+      "Java反序列化漏洞利用攻击",
+      "SQL注入攻击",
+      "XSS跨站脚本攻击",
+      "扫描探测攻击",
+      "文件上传攻击",
+      "文件包含攻击",
+      "正常访问",
+      "目录遍历攻击",
+      "远程命令执行攻击"
+    ],
+    "multiclass_accuracy": 0.994313725490196,
+    "macro_f1": 0.9409630557456644,
+    "per_class": {
+      "CSRF攻击": {
+        "support": 30,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "Java反序列化漏洞利用攻击": {
+        "support": 30,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "SQL注入攻击": {
+        "support": 63,
+        "precision": 1.0,
+        "recall": 0.8571428571428571,
+        "f1": 0.923076923076923
+      },
+      "XSS跨站脚本攻击": {
+        "support": 30,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "扫描探测攻击": {
+        "support": 95,
+        "precision": 1.0,
+        "recall": 0.8421052631578947,
+        "f1": 0.9142857142857143
+      },
+      "文件上传攻击": {
+        "support": 39,
+        "precision": 1.0,
+        "recall": 0.7692307692307693,
+        "f1": 0.8695652173913044
+      },
+      "文件包含攻击": {
+        "support": 30,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "正常访问": {
+        "support": 9789,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "目录遍历攻击": {
+        "support": 30,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "远程命令执行攻击": {
+        "support": 39,
+        "precision": 0.5416666666666666,
+        "recall": 1.0,
+        "f1": 0.7027027027027027
+      }
+    },
+    "confusion_matrix_actual_by_predicted": {
+      "CSRF攻击": {
+        "CSRF攻击": 30,
+        "Java反序列化漏洞利用攻击": 0,
+        "SQL注入攻击": 0,
+        "XSS跨站脚本攻击": 0,
+        "扫描探测攻击": 0,
+        "文件上传攻击": 0,
+        "文件包含攻击": 0,
+        "正常访问": 0,
+        "目录遍历攻击": 0,
+        "远程命令执行攻击": 0
+      },
+      "Java反序列化漏洞利用攻击": {
+        "CSRF攻击": 0,
+        "Java反序列化漏洞利用攻击": 30,
+        "SQL注入攻击": 0,
+        "XSS跨站脚本攻击": 0,
+        "扫描探测攻击": 0,
+        "文件上传攻击": 0,
+        "文件包含攻击": 0,
+        "正常访问": 0,
+        "目录遍历攻击": 0,
+        "远程命令执行攻击": 0
+      },
+      "SQL注入攻击": {
+        "CSRF攻击": 0,
+        "Java反序列化漏洞利用攻击": 0,
+        "SQL注入攻击": 54,
+        "XSS跨站脚本攻击": 0,
+        "扫描探测攻击": 0,
+        "文件上传攻击": 0,
+        "文件包含攻击": 0,
+        "正常访问": 0,
+        "目录遍历攻击": 0,
+        "远程命令执行攻击": 9
+      },
+      "XSS跨站脚本攻击": {
+        "CSRF攻击": 0,
+        "Java反序列化漏洞利用攻击": 0,
+        "SQL注入攻击": 0,
+        "XSS跨站脚本攻击": 30,
+        "扫描探测攻击": 0,
+        "文件上传攻击": 0,
+        "文件包含攻击": 0,
+        "正常访问": 0,
+        "目录遍历攻击": 0,
+        "远程命令执行攻击": 0
+      },
+      "扫描探测攻击": {
+        "CSRF攻击": 0,
+        "Java反序列化漏洞利用攻击": 0,
+        "SQL注入攻击": 0,
+        "XSS跨站脚本攻击": 0,
+        "扫描探测攻击": 80,
+        "文件上传攻击": 0,
+        "文件包含攻击": 0,
+        "正常访问": 0,
+        "目录遍历攻击": 0,
+        "远程命令执行攻击": 15
+      },
+      "文件上传攻击": {
+        "CSRF攻击": 0,
+        "Java反序列化漏洞利用攻击": 0,
+        "SQL注入攻击": 0,
+        "XSS跨站脚本攻击": 0,
+        "扫描探测攻击": 0,
+        "文件上传攻击": 30,
+        "文件包含攻击": 0,
+        "正常访问": 0,
+        "目录遍历攻击": 0,
+        "远程命令执行攻击": 9
+      },
+      "文件包含攻击": {
+        "CSRF攻击": 0,
+        "Java反序列化漏洞利用攻击": 0,
+        "SQL注入攻击": 0,
+        "XSS跨站脚本攻击": 0,
+        "扫描探测攻击": 0,
+        "文件上传攻击": 0,
+        "文件包含攻击": 30,
+        "正常访问": 0,
+        "目录遍历攻击": 0,
+        "远程命令执行攻击": 0
+      },
+      "正常访问": {
+        "CSRF攻击": 0,
+        "Java反序列化漏洞利用攻击": 0,
+        "SQL注入攻击": 0,
+        "XSS跨站脚本攻击": 0,
+        "扫描探测攻击": 0,
+        "文件上传攻击": 0,
+        "文件包含攻击": 0,
+        "正常访问": 9789,
+        "目录遍历攻击": 0,
+        "远程命令执行攻击": 0
+      },
+      "目录遍历攻击": {
+        "CSRF攻击": 0,
+        "Java反序列化漏洞利用攻击": 0,
+        "SQL注入攻击": 0,
+        "XSS跨站脚本攻击": 0,
+        "扫描探测攻击": 0,
+        "文件上传攻击": 0,
+        "文件包含攻击": 0,
+        "正常访问": 0,
+        "目录遍历攻击": 30,
+        "远程命令执行攻击": 0
+      },
+      "远程命令执行攻击": {
+        "CSRF攻击": 0,
+        "Java反序列化漏洞利用攻击": 0,
+        "SQL注入攻击": 0,
+        "XSS跨站脚本攻击": 0,
+        "扫描探测攻击": 0,
+        "文件上传攻击": 0,
+        "文件包含攻击": 0,
+        "正常访问": 0,
+        "目录遍历攻击": 0,
+        "远程命令执行攻击": 39
+      }
+    },
+    "binary_attack_detection": {
+      "confusion": {
+        "tp": 386,
+        "fp": 25,
+        "tn": 9789,
+        "fn": 0
+      },
+      "precision": 0.9391727493917275,
+      "recall": 1.0,
+      "f1": 0.9686323713927227,
+      "false_positive_rate": 0.002547381292031791
+    },
+    "unknown_attack_predictions": 25,
+    "ground_truth_excluded_before_analysis": true,
+    "mapping_plan_files_checked": 1,
+    "m1_rule_version": "m1-rules-1.4",
+    "m1_model_version": null,
+    "m1_llm_provider_calls": {},
+    "m1_cascade": {
+      "local_hits": 24,
+      "escalations": 0,
+      "local_failures": 0,
+      "enabled": true
+    }
+  },
+  "data_provenance": {
+    "fixture_generator": "scripts/build_test_suite.py",
+    "fixture_seed": 20260922,
+    "official_or_synthetic": "synthetic deterministic acceptance fixture; not an official blind test or production sample",
+    "truth_handling": "the analyzer receives the original file but M1 removes the ground-truth column before schema profiling/mapping; this script reads that column only after all analysis is complete"
+  }
+}

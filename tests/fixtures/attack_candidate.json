@@ -1,0 +1,127 @@
+{
+  "candidate_id": "cand_fixture_0001",
+  "task_id": "task_deepseek_probe",
+  "attacker_ips": [
+    "203.0.113.45"
+  ],
+  "victim_ips": [
+    "10.0.0.12"
+  ],
+  "victim_ports": [
+    22,
+    80,
+    8080
+  ],
+  "event_ids": [
+    "evt_000001",
+    "evt_000002",
+    "evt_000003"
+  ],
+  "first_seen": "2024-05-01T12:00:10+00:00",
+  "last_seen": "2024-05-01T12:03:40+00:00",
+  "protocols": [
+    "tcp"
+  ],
+  "rule_hits": [
+    "l1_port_scan_sweep",
+    "l1_exploit_cve_2021_44228",
+    "l1_brute_force_ssh"
+  ],
+  "ioc_hits": [
+    "CVE-2021-44228"
+  ],
+  "attack_categories": [
+    "reconnaissance",
+    "exploitation",
+    "brute_force"
+  ],
+  "score_summary": {
+    "event_count": 3,
+    "max_score": 94.0,
+    "mean_score": 70.0,
+    "sum_score": 210.0,
+    "p95_score": 94.0
+  },
+  "correlation_score": 0.72,
+  "candidate_techniques": [
+    {
+      "tactic_id": "TA0043",
+      "tactic_name": "Reconnaissance",
+      "technique_id": "T1595",
+      "technique_name": "Active Scanning",
+      "confidence": 0.72,
+      "evidence_event_ids": [
+        "evt_000001"
+      ],
+      "reason": "rule keywords: port scan sweep"
+    },
+    {
+      "tactic_id": "TA0001",
+      "tactic_name": "Initial Access",
+      "technique_id": "T1190",
+      "technique_name": "Exploit Public-Facing Application",
+      "confidence": 0.83,
+      "evidence_event_ids": [
+        "evt_000002"
+      ],
+      "reason": "CVE-2021-44228 exploitation attempt"
+    },
+    {
+      "tactic_id": "TA0006",
+      "tactic_name": "Credential Access",
+      "technique_id": "T1110",
+      "technique_name": "Brute Force",
+      "confidence": 0.7,
+      "evidence_event_ids": [
+        "evt_000003"
+      ],
+      "reason": "failed authentication burst"
+    }
+  ],
+  "event_summaries": [
+    {
+      "event_id": "evt_000001",
+      "timestamp": "2024-05-01T12:00:10+00:00",
+      "src_ip": "203.0.113.45",
+      "dst_ip": "10.0.0.12",
+      "dst_port": 22,
+      "protocol": "tcp",
+      "matched_rules": [
+        "l1_port_scan_sweep"
+      ],
+      "ioc_hits": [],
+      "score": 48.0,
+      "reason": "nmap style port scan across many destination ports"
+    },
+    {
+      "event_id": "evt_000002",
+      "timestamp": "2024-05-01T12:01:05+00:00",
+      "src_ip": "203.0.113.45",
+      "dst_ip": "10.0.0.12",
+      "dst_port": 8080,
+      "protocol": "tcp",
+      "matched_rules": [
+        "l1_exploit_cve_2021_44228"
+      ],
+      "ioc_hits": [
+        "CVE-2021-44228"
+      ],
+      "score": 94.0,
+      "reason": "CVE-2021-44228 exploitation attempt"
+    },
+    {
+      "event_id": "evt_000003",
+      "timestamp": "2024-05-01T12:03:40+00:00",
+      "src_ip": "203.0.113.45",
+      "dst_ip": "10.0.0.12",
+      "dst_port": 80,
+      "protocol": "tcp",
+      "matched_rules": [
+        "l1_brute_force_ssh"
+      ],
+      "ioc_hits": [],
+      "score": 68.0,
+      "reason": "repeated failed login user=admin"
+    }
+  ]
+}

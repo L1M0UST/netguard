@@ -1,0 +1,16 @@
+{
+  "input_rows": 100000,
+  "elapsed_seconds": 10.5,
+  "metrics": {
+    "input_records": 100000,
+    "normalized_records": 100000,
+    "all_sessions": 100000,
+    "suspicious_sessions": 0,
+    "attack_campaigns": 0,
+    "l3_candidates": 0,
+    "l3_judgements": 0
+  },
+  "llm_calls": 0,
+  "note": "Synthetic short-payload CSV, LLM and external feeds disabled; includes Parquet output.",
+  "peak_working_set_mib": 382.3
+}

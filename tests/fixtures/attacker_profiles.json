@@ -1,0 +1,1166 @@
+[
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_b4ee15999ad6",
+    "task_id": "task_fixture_00",
+    "attacker_ips": [
+      "198.18.0.3"
+    ],
+    "domains": [],
+    "usernames": [],
+    "tools": [],
+    "techniques": [
+      "T1041",
+      "T1048",
+      "T1068"
+    ],
+    "tactics": [
+      "TA0001",
+      "TA0002",
+      "TA0004"
+    ],
+    "target_assets": [
+      "10.0.5.44"
+    ],
+    "target_ports": [
+      80,
+      8080
+    ],
+    "first_seen": "2024-05-01T12:02:33Z",
+    "last_seen": "2024-05-01T12:03:43Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "high": 1
+    },
+    "behavior_summary": "source 198.18.0.3 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Initial Access -> Execution -> Privilege Escalation. ATT&CK techniques: T1041, T1048, T1068. Activity window: 2024-05-01T12:02:33+00:00 to 2024-05-01T12:03:43+00:00.",
+    "confidence": 0.7324,
+    "evidence_event_ids": [
+      "evt_000019",
+      "evt_000020",
+      "evt_000021"
+    ],
+    "chain_ids": [
+      "chain_28f3b2c3695117b4f42f"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "high",
+    "risk_score": 70.55,
+    "observed_iocs": [
+      "CVE-2021-44228"
+    ],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_0e5087bf826c",
+    "task_id": "task_fixture_00",
+    "attacker_ips": [
+      "198.18.0.4"
+    ],
+    "domains": [
+      "evil-c2.example.com"
+    ],
+    "usernames": [],
+    "tools": [],
+    "techniques": [
+      "T1071",
+      "T1105",
+      "T1566"
+    ],
+    "tactics": [
+      "TA0042",
+      "TA0001",
+      "TA0011"
+    ],
+    "target_assets": [
+      "10.0.9.7"
+    ],
+    "target_ports": [
+      53,
+      443
+    ],
+    "first_seen": "2024-05-01T12:03:15Z",
+    "last_seen": "2024-05-01T12:03:58Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "medium": 1
+    },
+    "behavior_summary": "source 198.18.0.4 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Resource Development -> Initial Access -> Command and Control. ATT&CK techniques: T1071, T1105, T1566. Activity window: 2024-05-01T12:03:15+00:00 to 2024-05-01T12:03:58+00:00.",
+    "confidence": 0.7661,
+    "evidence_event_ids": [
+      "evt_000022",
+      "evt_000023",
+      "evt_000024"
+    ],
+    "chain_ids": [
+      "chain_87aa41df7a8ad24e62b9"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "medium",
+    "risk_score": 69.36,
+    "observed_iocs": [
+      "203.0.113.66",
+      "evil-c2.example.com"
+    ],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_7c2aafea46c1",
+    "task_id": "task_fixture_00",
+    "attacker_ips": [
+      "198.18.0.2"
+    ],
+    "domains": [],
+    "usernames": [
+      "admin"
+    ],
+    "tools": [],
+    "techniques": [
+      "T1078",
+      "T1110",
+      "T1133"
+    ],
+    "tactics": [
+      "TA0001",
+      "TA0005",
+      "TA0006"
+    ],
+    "target_assets": [
+      "10.0.9.7"
+    ],
+    "target_ports": [
+      22,
+      3389
+    ],
+    "first_seen": "2024-05-01T12:01:19Z",
+    "last_seen": "2024-05-01T12:04:05Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "medium": 1
+    },
+    "behavior_summary": "source 198.18.0.2 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Initial Access -> Defense Evasion -> Credential Access. ATT&CK techniques: T1078, T1110, T1133. Activity window: 2024-05-01T12:01:19+00:00 to 2024-05-01T12:04:05+00:00.",
+    "confidence": 0.6391,
+    "evidence_event_ids": [
+      "evt_000013",
+      "evt_000014",
+      "evt_000015"
+    ],
+    "chain_ids": [
+      "chain_b505d9c83c19083f5937"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "medium",
+    "risk_score": 53.74,
+    "observed_iocs": [],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_3ebe27a5987f",
+    "task_id": "task_fixture_00",
+    "attacker_ips": [
+      "198.18.0.1"
+    ],
+    "domains": [],
+    "usernames": [],
+    "tools": [
+      "nmap"
+    ],
+    "techniques": [
+      "T1046",
+      "T1082",
+      "T1087"
+    ],
+    "tactics": [
+      "TA0043",
+      "TA0007"
+    ],
+    "target_assets": [
+      "10.0.0.12",
+      "10.0.0.13",
+      "10.0.0.21",
+      "10.0.9.7"
+    ],
+    "target_ports": [
+      21,
+      22,
+      23
+    ],
+    "first_seen": "2024-05-01T12:00:36Z",
+    "last_seen": "2024-05-01T12:03:43Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "medium": 1
+    },
+    "behavior_summary": "source 198.18.0.1 was linked to 1 attack chain(s) against 4 target asset(s). Observed progress: Reconnaissance -> Discovery. ATT&CK techniques: T1046, T1082, T1087. Activity window: 2024-05-01T12:00:36+00:00 to 2024-05-01T12:03:43+00:00.",
+    "confidence": 0.5869,
+    "evidence_event_ids": [
+      "evt_000001",
+      "evt_000002",
+      "evt_000003"
+    ],
+    "chain_ids": [
+      "chain_2b23fe1536570557cfef"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "medium",
+    "risk_score": 51.05,
+    "observed_iocs": [],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_01a135a8da3f",
+    "task_id": "task_fixture_00",
+    "attacker_ips": [
+      "198.18.0.5"
+    ],
+    "domains": [],
+    "usernames": [],
+    "tools": [],
+    "techniques": [
+      "T1027",
+      "T1059"
+    ],
+    "tactics": [
+      "TA0002",
+      "TA0005"
+    ],
+    "target_assets": [
+      "10.0.0.21"
+    ],
+    "target_ports": [
+      445,
+      5985
+    ],
+    "first_seen": "2024-05-01T12:04:19Z",
+    "last_seen": "2024-05-01T12:04:39Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "medium": 1
+    },
+    "behavior_summary": "source 198.18.0.5 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Execution -> Defense Evasion. ATT&CK techniques: T1027, T1059. Activity window: 2024-05-01T12:04:19+00:00 to 2024-05-01T12:04:39+00:00.",
+    "confidence": 0.5645,
+    "evidence_event_ids": [
+      "evt_000026",
+      "evt_000027"
+    ],
+    "chain_ids": [
+      "chain_a76f2bbe9428c2cbeb21"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "medium",
+    "risk_score": 50.8,
+    "observed_iocs": [],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_d1e2ebf6d3a1",
+    "task_id": "task_fixture_01",
+    "attacker_ips": [
+      "198.18.0.9"
+    ],
+    "domains": [
+      "evil-c2.example.com"
+    ],
+    "usernames": [],
+    "tools": [],
+    "techniques": [
+      "T1071",
+      "T1105",
+      "T1566"
+    ],
+    "tactics": [
+      "TA0042",
+      "TA0001",
+      "TA0011"
+    ],
+    "target_assets": [
+      "10.0.9.7"
+    ],
+    "target_ports": [
+      53,
+      443
+    ],
+    "first_seen": "2024-05-01T12:03:14Z",
+    "last_seen": "2024-05-01T12:04:17Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "medium": 1
+    },
+    "behavior_summary": "source 198.18.0.9 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Resource Development -> Initial Access -> Command and Control. ATT&CK techniques: T1071, T1105, T1566. Activity window: 2024-05-01T12:03:14+00:00 to 2024-05-01T12:04:17+00:00.",
+    "confidence": 0.7666,
+    "evidence_event_ids": [
+      "evt_000022",
+      "evt_000023",
+      "evt_000024"
+    ],
+    "chain_ids": [
+      "chain_87bfe6cb1fc8d702b2ea"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "medium",
+    "risk_score": 69.39,
+    "observed_iocs": [
+      "203.0.113.66",
+      "evil-c2.example.com"
+    ],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_f211e603e3cf",
+    "task_id": "task_fixture_01",
+    "attacker_ips": [
+      "198.18.0.8"
+    ],
+    "domains": [],
+    "usernames": [],
+    "tools": [],
+    "techniques": [
+      "T1041",
+      "T1048",
+      "T1068"
+    ],
+    "tactics": [
+      "TA0001",
+      "TA0002",
+      "TA0004"
+    ],
+    "target_assets": [
+      "10.0.9.7"
+    ],
+    "target_ports": [
+      80,
+      8080
+    ],
+    "first_seen": "2024-05-01T12:02:08Z",
+    "last_seen": "2024-05-01T12:02:44Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "medium": 1
+    },
+    "behavior_summary": "source 198.18.0.8 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Initial Access -> Execution -> Privilege Escalation. ATT&CK techniques: T1041, T1048, T1068. Activity window: 2024-05-01T12:02:08+00:00 to 2024-05-01T12:02:44+00:00.",
+    "confidence": 0.717,
+    "evidence_event_ids": [
+      "evt_000019",
+      "evt_000020",
+      "evt_000021"
+    ],
+    "chain_ids": [
+      "chain_b624554c43c6d7ca737e"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "medium",
+    "risk_score": 66.62,
+    "observed_iocs": [
+      "CVE-2021-44228"
+    ],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_f9a88efad728",
+    "task_id": "task_fixture_01",
+    "attacker_ips": [
+      "198.18.0.7"
+    ],
+    "domains": [],
+    "usernames": [
+      "admin"
+    ],
+    "tools": [],
+    "techniques": [
+      "T1078",
+      "T1110",
+      "T1133"
+    ],
+    "tactics": [
+      "TA0001",
+      "TA0005",
+      "TA0006"
+    ],
+    "target_assets": [
+      "10.0.0.21"
+    ],
+    "target_ports": [
+      22,
+      3389
+    ],
+    "first_seen": "2024-05-01T12:01:23Z",
+    "last_seen": "2024-05-01T12:03:36Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "medium": 1
+    },
+    "behavior_summary": "source 198.18.0.7 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Initial Access -> Defense Evasion -> Credential Access. ATT&CK techniques: T1078, T1110, T1133. Activity window: 2024-05-01T12:01:23+00:00 to 2024-05-01T12:03:36+00:00.",
+    "confidence": 0.6394,
+    "evidence_event_ids": [
+      "evt_000013",
+      "evt_000014",
+      "evt_000015"
+    ],
+    "chain_ids": [
+      "chain_d186507814b56e03da12"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "medium",
+    "risk_score": 59.76,
+    "observed_iocs": [],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_5b4665a2d797",
+    "task_id": "task_fixture_01",
+    "attacker_ips": [
+      "198.18.0.10"
+    ],
+    "domains": [],
+    "usernames": [],
+    "tools": [],
+    "techniques": [
+      "T1027",
+      "T1059"
+    ],
+    "tactics": [
+      "TA0002",
+      "TA0005"
+    ],
+    "target_assets": [
+      "10.0.0.13"
+    ],
+    "target_ports": [
+      445,
+      5985
+    ],
+    "first_seen": "2024-05-01T12:04:42Z",
+    "last_seen": "2024-05-01T12:04:58Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "medium": 1
+    },
+    "behavior_summary": "source 198.18.0.10 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Execution -> Defense Evasion. ATT&CK techniques: T1027, T1059. Activity window: 2024-05-01T12:04:42+00:00 to 2024-05-01T12:04:58+00:00.",
+    "confidence": 0.5595,
+    "evidence_event_ids": [
+      "evt_000026",
+      "evt_000027"
+    ],
+    "chain_ids": [
+      "chain_dac91d19fcf72ab72405"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "medium",
+    "risk_score": 56.5,
+    "observed_iocs": [],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_16e4361d5390",
+    "task_id": "task_fixture_01",
+    "attacker_ips": [
+      "198.18.0.6"
+    ],
+    "domains": [],
+    "usernames": [],
+    "tools": [
+      "nmap"
+    ],
+    "techniques": [
+      "T1046",
+      "T1082",
+      "T1087"
+    ],
+    "tactics": [
+      "TA0043",
+      "TA0007"
+    ],
+    "target_assets": [
+      "10.0.0.13",
+      "10.0.0.21",
+      "10.0.5.44",
+      "10.0.9.7"
+    ],
+    "target_ports": [
+      21,
+      22,
+      23
+    ],
+    "first_seen": "2024-05-01T12:00:11Z",
+    "last_seen": "2024-05-01T12:04:31Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "medium": 1
+    },
+    "behavior_summary": "source 198.18.0.6 was linked to 1 attack chain(s) against 4 target asset(s). Observed progress: Reconnaissance -> Discovery. ATT&CK techniques: T1046, T1082, T1087. Activity window: 2024-05-01T12:00:11+00:00 to 2024-05-01T12:04:31+00:00.",
+    "confidence": 0.5822,
+    "evidence_event_ids": [
+      "evt_000001",
+      "evt_000002",
+      "evt_000003"
+    ],
+    "chain_ids": [
+      "chain_bdf31b036379b1851e55"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "medium",
+    "risk_score": 51.16,
+    "observed_iocs": [],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_0f6242a76f69",
+    "task_id": "task_fixture_02",
+    "attacker_ips": [
+      "198.18.0.13"
+    ],
+    "domains": [],
+    "usernames": [],
+    "tools": [],
+    "techniques": [
+      "T1041",
+      "T1048",
+      "T1068"
+    ],
+    "tactics": [
+      "TA0001",
+      "TA0002",
+      "TA0004"
+    ],
+    "target_assets": [
+      "10.0.0.21"
+    ],
+    "target_ports": [
+      80,
+      8080
+    ],
+    "first_seen": "2024-05-01T12:02:12Z",
+    "last_seen": "2024-05-01T12:03:02Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "high": 1
+    },
+    "behavior_summary": "source 198.18.0.13 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Initial Access -> Execution -> Privilege Escalation. ATT&CK techniques: T1041, T1048, T1068. Activity window: 2024-05-01T12:02:12+00:00 to 2024-05-01T12:03:02+00:00.",
+    "confidence": 0.7266,
+    "evidence_event_ids": [
+      "evt_000019",
+      "evt_000020",
+      "evt_000021"
+    ],
+    "chain_ids": [
+      "chain_955a9aff37a7c9fa0188"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "high",
+    "risk_score": 73.19,
+    "observed_iocs": [
+      "CVE-2021-44228"
+    ],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_36ca714fd0d3",
+    "task_id": "task_fixture_02",
+    "attacker_ips": [
+      "198.18.0.14"
+    ],
+    "domains": [
+      "evil-c2.example.com"
+    ],
+    "usernames": [],
+    "tools": [],
+    "techniques": [
+      "T1071",
+      "T1105",
+      "T1566"
+    ],
+    "tactics": [
+      "TA0042",
+      "TA0001",
+      "TA0011"
+    ],
+    "target_assets": [
+      "10.0.5.44"
+    ],
+    "target_ports": [
+      53,
+      443
+    ],
+    "first_seen": "2024-05-01T12:03:20Z",
+    "last_seen": "2024-05-01T12:04:52Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "high": 1
+    },
+    "behavior_summary": "source 198.18.0.14 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Resource Development -> Initial Access -> Command and Control. ATT&CK techniques: T1071, T1105, T1566. Activity window: 2024-05-01T12:03:20+00:00 to 2024-05-01T12:04:52+00:00.",
+    "confidence": 0.7515,
+    "evidence_event_ids": [
+      "evt_000022",
+      "evt_000023",
+      "evt_000024"
+    ],
+    "chain_ids": [
+      "chain_92c8f0a3a46a35a799be"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "high",
+    "risk_score": 71.49,
+    "observed_iocs": [
+      "203.0.113.66",
+      "evil-c2.example.com"
+    ],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_e7c3aa702cc7",
+    "task_id": "task_fixture_02",
+    "attacker_ips": [
+      "198.18.0.12"
+    ],
+    "domains": [],
+    "usernames": [
+      "admin"
+    ],
+    "tools": [],
+    "techniques": [
+      "T1078",
+      "T1110",
+      "T1133"
+    ],
+    "tactics": [
+      "TA0001",
+      "TA0005",
+      "TA0006"
+    ],
+    "target_assets": [
+      "10.0.0.21"
+    ],
+    "target_ports": [
+      22,
+      3389
+    ],
+    "first_seen": "2024-05-01T12:01:45Z",
+    "last_seen": "2024-05-01T12:04:17Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "medium": 1
+    },
+    "behavior_summary": "source 198.18.0.12 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Initial Access -> Defense Evasion -> Credential Access. ATT&CK techniques: T1078, T1110, T1133. Activity window: 2024-05-01T12:01:45+00:00 to 2024-05-01T12:04:17+00:00.",
+    "confidence": 0.6404,
+    "evidence_event_ids": [
+      "evt_000013",
+      "evt_000014",
+      "evt_000015"
+    ],
+    "chain_ids": [
+      "chain_e8e7dcb59ad43883008b"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "medium",
+    "risk_score": 59.83,
+    "observed_iocs": [],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_03160ee02610",
+    "task_id": "task_fixture_02",
+    "attacker_ips": [
+      "198.18.0.11"
+    ],
+    "domains": [],
+    "usernames": [],
+    "tools": [
+      "nmap"
+    ],
+    "techniques": [
+      "T1046",
+      "T1082",
+      "T1087"
+    ],
+    "tactics": [
+      "TA0043",
+      "TA0007"
+    ],
+    "target_assets": [
+      "10.0.0.12",
+      "10.0.0.13",
+      "10.0.0.21",
+      "10.0.5.44"
+    ],
+    "target_ports": [
+      21,
+      22,
+      23
+    ],
+    "first_seen": "2024-05-01T12:00:43Z",
+    "last_seen": "2024-05-01T12:05:40Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "medium": 1
+    },
+    "behavior_summary": "source 198.18.0.11 was linked to 1 attack chain(s) against 4 target asset(s). Observed progress: Reconnaissance -> Discovery. ATT&CK techniques: T1046, T1082, T1087. Activity window: 2024-05-01T12:00:43+00:00 to 2024-05-01T12:05:40+00:00.",
+    "confidence": 0.5744,
+    "evidence_event_ids": [
+      "evt_000001",
+      "evt_000002",
+      "evt_000003"
+    ],
+    "chain_ids": [
+      "chain_a32955d69edf90e47736"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "medium",
+    "risk_score": 51.09,
+    "observed_iocs": [],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_fc39fd54efa3",
+    "task_id": "task_fixture_02",
+    "attacker_ips": [
+      "198.18.0.15"
+    ],
+    "domains": [],
+    "usernames": [],
+    "tools": [],
+    "techniques": [
+      "T1027",
+      "T1059"
+    ],
+    "tactics": [
+      "TA0002",
+      "TA0005"
+    ],
+    "target_assets": [
+      "10.0.0.21"
+    ],
+    "target_ports": [
+      445,
+      5985
+    ],
+    "first_seen": "2024-05-01T12:04:13Z",
+    "last_seen": "2024-05-01T12:04:24Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "medium": 1
+    },
+    "behavior_summary": "source 198.18.0.15 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Execution -> Defense Evasion. ATT&CK techniques: T1027, T1059. Activity window: 2024-05-01T12:04:13+00:00 to 2024-05-01T12:04:24+00:00.",
+    "confidence": 0.5623,
+    "evidence_event_ids": [
+      "evt_000026",
+      "evt_000027"
+    ],
+    "chain_ids": [
+      "chain_9594f2689e753a567225"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "medium",
+    "risk_score": 50.67,
+    "observed_iocs": [],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_4cb9b0df5461",
+    "task_id": "task_fixture_03",
+    "attacker_ips": [
+      "198.18.0.19"
+    ],
+    "domains": [
+      "evil-c2.example.com"
+    ],
+    "usernames": [],
+    "tools": [],
+    "techniques": [
+      "T1071",
+      "T1105",
+      "T1566"
+    ],
+    "tactics": [
+      "TA0042",
+      "TA0001",
+      "TA0011"
+    ],
+    "target_assets": [
+      "10.0.0.13"
+    ],
+    "target_ports": [
+      53,
+      443
+    ],
+    "first_seen": "2024-05-01T12:03:06Z",
+    "last_seen": "2024-05-01T12:04:29Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "high": 1
+    },
+    "behavior_summary": "source 198.18.0.19 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Resource Development -> Initial Access -> Command and Control. ATT&CK techniques: T1071, T1105, T1566. Activity window: 2024-05-01T12:03:06+00:00 to 2024-05-01T12:04:29+00:00.",
+    "confidence": 0.7748,
+    "evidence_event_ids": [
+      "evt_000022",
+      "evt_000023",
+      "evt_000024"
+    ],
+    "chain_ids": [
+      "chain_84d6ea2c0f80abc33dd9"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "high",
+    "risk_score": 81.89,
+    "observed_iocs": [
+      "203.0.113.66",
+      "evil-c2.example.com"
+    ],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_17ee16eab16c",
+    "task_id": "task_fixture_03",
+    "attacker_ips": [
+      "198.18.0.18"
+    ],
+    "domains": [],
+    "usernames": [],
+    "tools": [],
+    "techniques": [
+      "T1041",
+      "T1048",
+      "T1068"
+    ],
+    "tactics": [
+      "TA0001",
+      "TA0002",
+      "TA0004"
+    ],
+    "target_assets": [
+      "10.0.9.7"
+    ],
+    "target_ports": [
+      80,
+      8080
+    ],
+    "first_seen": "2024-05-01T12:02:22Z",
+    "last_seen": "2024-05-01T12:03:06Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "medium": 1
+    },
+    "behavior_summary": "source 198.18.0.18 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Initial Access -> Execution -> Privilege Escalation. ATT&CK techniques: T1041, T1048, T1068. Activity window: 2024-05-01T12:02:22+00:00 to 2024-05-01T12:03:06+00:00.",
+    "confidence": 0.73,
+    "evidence_event_ids": [
+      "evt_000019",
+      "evt_000020",
+      "evt_000021"
+    ],
+    "chain_ids": [
+      "chain_a32c70c8010bdd3ffe22"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "medium",
+    "risk_score": 67.4,
+    "observed_iocs": [
+      "CVE-2021-44228"
+    ],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_caa7392a7c5a",
+    "task_id": "task_fixture_03",
+    "attacker_ips": [
+      "198.18.0.17"
+    ],
+    "domains": [],
+    "usernames": [
+      "admin"
+    ],
+    "tools": [],
+    "techniques": [
+      "T1078",
+      "T1110",
+      "T1133"
+    ],
+    "tactics": [
+      "TA0001",
+      "TA0005",
+      "TA0006"
+    ],
+    "target_assets": [
+      "10.0.0.12"
+    ],
+    "target_ports": [
+      22,
+      3389
+    ],
+    "first_seen": "2024-05-01T12:01:10Z",
+    "last_seen": "2024-05-01T12:03:19Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "medium": 1
+    },
+    "behavior_summary": "source 198.18.0.17 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Initial Access -> Defense Evasion -> Credential Access. ATT&CK techniques: T1078, T1110, T1133. Activity window: 2024-05-01T12:01:10+00:00 to 2024-05-01T12:03:19+00:00.",
+    "confidence": 0.6402,
+    "evidence_event_ids": [
+      "evt_000013",
+      "evt_000014",
+      "evt_000015"
+    ],
+    "chain_ids": [
+      "chain_ac83ea71c709f9743732"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "medium",
+    "risk_score": 65.81,
+    "observed_iocs": [],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_715e0c3836b7",
+    "task_id": "task_fixture_03",
+    "attacker_ips": [
+      "198.18.0.16"
+    ],
+    "domains": [],
+    "usernames": [],
+    "tools": [
+      "nmap"
+    ],
+    "techniques": [
+      "T1046",
+      "T1082",
+      "T1087"
+    ],
+    "tactics": [
+      "TA0043",
+      "TA0007"
+    ],
+    "target_assets": [
+      "10.0.0.12",
+      "10.0.0.21",
+      "10.0.5.44",
+      "10.0.9.7"
+    ],
+    "target_ports": [
+      21,
+      22,
+      23
+    ],
+    "first_seen": "2024-05-01T12:00:32Z",
+    "last_seen": "2024-05-01T12:04:14Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "medium": 1
+    },
+    "behavior_summary": "source 198.18.0.16 was linked to 1 attack chain(s) against 4 target asset(s). Observed progress: Reconnaissance -> Discovery. ATT&CK techniques: T1046, T1082, T1087. Activity window: 2024-05-01T12:00:32+00:00 to 2024-05-01T12:04:14+00:00.",
+    "confidence": 0.5814,
+    "evidence_event_ids": [
+      "evt_000001",
+      "evt_000002",
+      "evt_000003"
+    ],
+    "chain_ids": [
+      "chain_ef552367b414dbfe74cd"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "medium",
+    "risk_score": 51.12,
+    "observed_iocs": [],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  },
+  {
+    "schema_version": "1.0.0",
+    "attacker_id": "attacker_635d3965b171",
+    "task_id": "task_fixture_03",
+    "attacker_ips": [
+      "198.18.0.20"
+    ],
+    "domains": [],
+    "usernames": [],
+    "tools": [],
+    "techniques": [
+      "T1027",
+      "T1059"
+    ],
+    "tactics": [
+      "TA0002",
+      "TA0005"
+    ],
+    "target_assets": [
+      "10.0.9.7"
+    ],
+    "target_ports": [
+      445,
+      5985
+    ],
+    "first_seen": "2024-05-01T12:04:24Z",
+    "last_seen": "2024-05-01T12:05:02Z",
+    "attack_count": 1,
+    "severity_distribution": {
+      "low": 1
+    },
+    "behavior_summary": "source 198.18.0.20 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Execution -> Defense Evasion. ATT&CK techniques: T1027, T1059. Activity window: 2024-05-01T12:04:24+00:00 to 2024-05-01T12:05:02+00:00.",
+    "confidence": 0.5656,
+    "evidence_event_ids": [
+      "evt_000026",
+      "evt_000027"
+    ],
+    "chain_ids": [
+      "chain_81b18fc50b5ed9a44cfd"
+    ],
+    "attribution": "Not Determined",
+    "attribution_confidence": 0.0,
+    "attribution_evidence_event_ids": [],
+    "max_severity": "low",
+    "risk_score": 44.86,
+    "observed_iocs": [],
+    "attack_patterns": [],
+    "llm_degraded": false,
+    "notes": [
+      "Attribution (group, identity, country) is intentionally left undetermined: no supporting evidence was available."
+    ],
+    "attributes": {}
+  }
+]

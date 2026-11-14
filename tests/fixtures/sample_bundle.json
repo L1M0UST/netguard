@@ -1,0 +1,4039 @@
+{
+  "task_id": "task_fixture_00",
+  "alerts": [
+    {
+      "schema_version": "1.0.0",
+      "alert_id": "alert_736a8934cb88c83a",
+      "task_id": "task_fixture_00",
+      "chain_id": "chain_28f3b2c3695117b4f42f",
+      "title": "Initial access attempt: 198.18.0.3 -> 10.0.5.44 (3 stages)",
+      "description": "Mock analysis for candidate cand_e723aa7dbaab9eb0: 3 evidence event(s) grouped by the correlation engine.",
+      "severity": "high",
+      "confidence": 0.7324,
+      "risk_score": 70.55,
+      "created_at": "2026-09-20T03:19:49.811708Z",
+      "first_seen": "2024-05-01T12:02:33Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "attacker_ips": [
+        "198.18.0.3"
+      ],
+      "victim_ips": [
+        "10.0.5.44"
+      ],
+      "mitre_tactics": [
+        "TA0001",
+        "TA0002",
+        "TA0004"
+      ],
+      "mitre_techniques": [
+        "T1041",
+        "T1048",
+        "T1068"
+      ],
+      "evidence_event_ids": [
+        "evt_000019",
+        "evt_000020",
+        "evt_000021"
+      ],
+      "fingerprint": "af_38323d87afde831728559eeea8f742b5f8eb2ed8",
+      "source": "module2_chain",
+      "status": "new",
+      "llm_degraded": false,
+      "risk_factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.85,
+          "contribution": 0.187,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000019"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000019",
+            "evt_000020",
+            "evt_000021"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.8,
+          "contribution": 0.112,
+          "description": "1 malicious / 1 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 0.25,
+          "contribution": 0.03,
+          "description": "victim asset weight 1.50",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.9372,
+          "contribution": 0.1125,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 1.0,
+          "contribution": 0.08,
+          "description": "3 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "tags": [
+        "module2",
+        "severity:high",
+        "tactic:TA0001",
+        "tactic:TA0002",
+        "tactic:TA0004",
+        "technique:T1041",
+        "technique:T1048",
+        "technique:T1068"
+      ]
+    },
+    {
+      "schema_version": "1.0.0",
+      "alert_id": "alert_73a87c1f4845a0e2",
+      "task_id": "task_fixture_00",
+      "chain_id": "chain_87aa41df7a8ad24e62b9",
+      "title": "Attack infrastructure preparation: 198.18.0.4 -> 10.0.9.7 (3 stages)",
+      "description": "Mock analysis for candidate cand_4217066c6573e1d5: 3 evidence event(s) grouped by the correlation engine.",
+      "severity": "medium",
+      "confidence": 0.7661,
+      "risk_score": 69.36,
+      "created_at": "2026-09-20T03:19:49.811751Z",
+      "first_seen": "2024-05-01T12:03:15Z",
+      "last_seen": "2024-05-01T12:03:58Z",
+      "attacker_ips": [
+        "198.18.0.4"
+      ],
+      "victim_ips": [
+        "10.0.9.7"
+      ],
+      "mitre_tactics": [
+        "TA0042",
+        "TA0001",
+        "TA0011"
+      ],
+      "mitre_techniques": [
+        "T1566",
+        "T1071",
+        "T1105"
+      ],
+      "evidence_event_ids": [
+        "evt_000024",
+        "evt_000022",
+        "evt_000023"
+      ],
+      "fingerprint": "af_0d9e1379479f1ca6e864386f89bb9ac39d31b92a",
+      "source": "module2_chain",
+      "status": "new",
+      "llm_degraded": false,
+      "risk_factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.85,
+          "contribution": 0.187,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000022"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000024",
+            "evt_000022",
+            "evt_000023"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 1.0,
+          "contribution": 0.14,
+          "description": "2 malicious / 2 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "victim asset weight 1.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.8554,
+          "contribution": 0.1026,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 1.0,
+          "contribution": 0.08,
+          "description": "3 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "tags": [
+        "module2",
+        "severity:medium",
+        "tactic:TA0001",
+        "tactic:TA0011",
+        "tactic:TA0042",
+        "technique:T1071",
+        "technique:T1105",
+        "technique:T1566"
+      ]
+    },
+    {
+      "schema_version": "1.0.0",
+      "alert_id": "alert_3b65f540c0b1cab7",
+      "task_id": "task_fixture_00",
+      "chain_id": "chain_b505d9c83c19083f5937",
+      "title": "Initial access attempt: 198.18.0.2 -> 10.0.9.7 (3 stages)",
+      "description": "Mock analysis for candidate cand_0ac4fc38d34ad32d: 3 evidence event(s) grouped by the correlation engine.",
+      "severity": "medium",
+      "confidence": 0.6391,
+      "risk_score": 53.74,
+      "created_at": "2026-09-20T03:19:49.811659Z",
+      "first_seen": "2024-05-01T12:01:19Z",
+      "last_seen": "2024-05-01T12:04:05Z",
+      "attacker_ips": [
+        "198.18.0.2"
+      ],
+      "victim_ips": [
+        "10.0.9.7"
+      ],
+      "mitre_tactics": [
+        "TA0001",
+        "TA0005",
+        "TA0006"
+      ],
+      "mitre_techniques": [
+        "T1078",
+        "T1110",
+        "T1133"
+      ],
+      "evidence_event_ids": [
+        "evt_000013",
+        "evt_000014",
+        "evt_000015"
+      ],
+      "fingerprint": "af_ee9c258fd7d58ee03b80535736bf6b30b1d412f1",
+      "source": "module2_chain",
+      "status": "new",
+      "llm_degraded": false,
+      "risk_factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.85,
+          "contribution": 0.187,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000013"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000013",
+            "evt_000014",
+            "evt_000015"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "0 malicious / 0 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "victim asset weight 1.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.7203,
+          "contribution": 0.0864,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 1.0,
+          "contribution": 0.08,
+          "description": "3 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "tags": [
+        "module2",
+        "severity:medium",
+        "tactic:TA0001",
+        "tactic:TA0005",
+        "tactic:TA0006",
+        "technique:T1078",
+        "technique:T1110",
+        "technique:T1133"
+      ]
+    },
+    {
+      "schema_version": "1.0.0",
+      "alert_id": "alert_16bf8e4c1585df6c",
+      "task_id": "task_fixture_00",
+      "chain_id": "chain_2b23fe1536570557cfef",
+      "title": "Reconnaissance activity: 198.18.0.1 -> 10.0.0.12, 10.0.0.13 (3 stages)",
+      "description": "Mock analysis for candidate cand_9ae8dd501bd9a3cf: 3 evidence event(s) grouped by the correlation engine.",
+      "severity": "medium",
+      "confidence": 0.5869,
+      "risk_score": 51.05,
+      "created_at": "2026-09-20T03:19:49.811584Z",
+      "first_seen": "2024-05-01T12:00:36Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "attacker_ips": [
+        "198.18.0.1"
+      ],
+      "victim_ips": [
+        "10.0.0.12",
+        "10.0.0.13",
+        "10.0.0.21",
+        "10.0.9.7"
+      ],
+      "mitre_tactics": [
+        "TA0043",
+        "TA0007"
+      ],
+      "mitre_techniques": [
+        "T1082",
+        "T1087",
+        "T1046"
+      ],
+      "evidence_event_ids": [
+        "evt_000002",
+        "evt_000003",
+        "evt_000001"
+      ],
+      "fingerprint": "af_273e189edaa3f612be65b9e0c6ab5966748ad774",
+      "source": "module2_chain",
+      "status": "new",
+      "llm_degraded": false,
+      "risk_factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.4,
+          "contribution": 0.088,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000001"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.6,
+          "contribution": 0.096,
+          "description": "3 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000002",
+            "evt_000003",
+            "evt_000001"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "0 malicious / 0 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 1.0,
+          "contribution": 0.12,
+          "description": "victim asset weight 3.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.5878,
+          "contribution": 0.0705,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "3 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "2 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "tags": [
+        "module2",
+        "severity:medium",
+        "tactic:TA0007",
+        "tactic:TA0043",
+        "technique:T1046",
+        "technique:T1082",
+        "technique:T1087"
+      ]
+    },
+    {
+      "schema_version": "1.0.0",
+      "alert_id": "alert_65df77b97bb0e6ea",
+      "task_id": "task_fixture_00",
+      "chain_id": "chain_a76f2bbe9428c2cbeb21",
+      "title": "Code execution observed: 198.18.0.5 -> 10.0.0.21 (2 stages)",
+      "description": "Mock analysis for candidate cand_d752aa7f194ced7e: 2 evidence event(s) grouped by the correlation engine.",
+      "severity": "medium",
+      "confidence": 0.5645,
+      "risk_score": 50.8,
+      "created_at": "2026-09-20T03:19:49.811790Z",
+      "first_seen": "2024-05-01T12:04:19Z",
+      "last_seen": "2024-05-01T12:04:39Z",
+      "attacker_ips": [
+        "198.18.0.5"
+      ],
+      "victim_ips": [
+        "10.0.0.21"
+      ],
+      "mitre_tactics": [
+        "TA0002",
+        "TA0005"
+      ],
+      "mitre_techniques": [
+        "T1027",
+        "T1059"
+      ],
+      "evidence_event_ids": [
+        "evt_000026",
+        "evt_000027"
+      ],
+      "fingerprint": "af_61158b249de39fe96941dca789e229d9ac967532",
+      "source": "module2_chain",
+      "status": "new",
+      "llm_degraded": false,
+      "risk_factors": [
+        {
+          "name": "tactic_severity",
+          "weight": 0.22,
+          "value": 0.8,
+          "contribution": 0.176,
+          "description": "ATT&CK tactic impact of the most severe stage",
+          "evidence_event_ids": [
+            "evt_000026"
+          ]
+        },
+        {
+          "name": "evidence_strength",
+          "weight": 0.16,
+          "value": 0.3333,
+          "contribution": 0.0533,
+          "description": "2 evidence event(s) back this chain",
+          "evidence_event_ids": [
+            "evt_000026",
+            "evt_000027"
+          ]
+        },
+        {
+          "name": "ioc",
+          "weight": 0.14,
+          "value": 0.0,
+          "contribution": 0.0,
+          "description": "0 malicious / 0 total threat-intelligence hit(s)",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "asset_criticality",
+          "weight": 0.12,
+          "value": 0.5,
+          "contribution": 0.06,
+          "description": "victim asset weight 2.00",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "rule_score",
+          "weight": 0.12,
+          "value": 0.8224,
+          "contribution": 0.0987,
+          "description": "normalised Module 1 detection score",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "llm_confidence",
+          "weight": 0.08,
+          "value": 0.5,
+          "contribution": 0.04,
+          "description": "validated LLM semantic confidence",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "chain_length",
+          "weight": 0.08,
+          "value": 0.4,
+          "contribution": 0.032,
+          "description": "2 stage(s) in the chain",
+          "evidence_event_ids": []
+        },
+        {
+          "name": "multi_stage",
+          "weight": 0.08,
+          "value": 0.6,
+          "contribution": 0.048,
+          "description": "2 distinct tactic(s)",
+          "evidence_event_ids": []
+        }
+      ],
+      "tags": [
+        "module2",
+        "severity:medium",
+        "tactic:TA0002",
+        "tactic:TA0005",
+        "technique:T1027",
+        "technique:T1059"
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_089925d53b8f7d11",
+      "entity_type": "cve",
+      "value": "CVE-2021-44228",
+      "role": "indicator",
+      "confidence": 0.85,
+      "evidence_event_ids": [
+        "evt_000019",
+        "evt_000020",
+        "evt_000021"
+      ],
+      "chain_ids": [
+        "chain_28f3b2c3695117b4f42f"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:02:33Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [
+        "ioc-hit"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_b709fafe419c2194",
+      "entity_type": "domain",
+      "value": "evil-c2.example.com",
+      "role": "indicator",
+      "confidence": 0.85,
+      "evidence_event_ids": [
+        "evt_000022",
+        "evt_000023",
+        "evt_000024"
+      ],
+      "chain_ids": [
+        "chain_87aa41df7a8ad24e62b9"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:03:15Z",
+      "last_seen": "2024-05-01T12:03:58Z",
+      "source": "module2_chain",
+      "tags": [
+        "ioc-hit"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_05afe96870fcc953",
+      "entity_type": "domain",
+      "value": "evil-c2.example.com",
+      "role": "infrastructure",
+      "confidence": 0.55,
+      "evidence_event_ids": [
+        "evt_000022",
+        "evt_000023",
+        "evt_000024"
+      ],
+      "chain_ids": [
+        "chain_87aa41df7a8ad24e62b9"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:03:15Z",
+      "last_seen": "2024-05-01T12:03:58Z",
+      "source": "module2_chain",
+      "tags": [],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_75601802590a5f41",
+      "entity_type": "ip",
+      "value": "10.0.0.12",
+      "role": "victim",
+      "confidence": 0.9,
+      "evidence_event_ids": [],
+      "chain_ids": [
+        "chain_2b23fe1536570557cfef"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:00:36Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [
+        "correlated-victim"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_d7ef7c38286b6da7",
+      "entity_type": "ip",
+      "value": "10.0.0.13",
+      "role": "victim",
+      "confidence": 0.9,
+      "evidence_event_ids": [
+        "evt_000001",
+        "evt_000002",
+        "evt_000003"
+      ],
+      "chain_ids": [
+        "chain_2b23fe1536570557cfef"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:00:36Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [
+        "correlated-victim"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_a145887b95686436",
+      "entity_type": "ip",
+      "value": "10.0.0.21",
+      "role": "victim",
+      "confidence": 0.9,
+      "evidence_event_ids": [
+        "evt_000026",
+        "evt_000027"
+      ],
+      "chain_ids": [
+        "chain_2b23fe1536570557cfef",
+        "chain_a76f2bbe9428c2cbeb21"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:00:36Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [
+        "correlated-victim"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_90ab8041a8f921ed",
+      "entity_type": "ip",
+      "value": "10.0.5.44",
+      "role": "victim",
+      "confidence": 0.9,
+      "evidence_event_ids": [
+        "evt_000019",
+        "evt_000020",
+        "evt_000021"
+      ],
+      "chain_ids": [
+        "chain_28f3b2c3695117b4f42f"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:02:33Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [
+        "correlated-victim"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_dd5a39dc0089ff53",
+      "entity_type": "ip",
+      "value": "10.0.9.7",
+      "role": "victim",
+      "confidence": 0.9,
+      "evidence_event_ids": [
+        "evt_000013",
+        "evt_000014",
+        "evt_000015",
+        "evt_000022",
+        "evt_000023",
+        "evt_000024"
+      ],
+      "chain_ids": [
+        "chain_2b23fe1536570557cfef",
+        "chain_b505d9c83c19083f5937",
+        "chain_87aa41df7a8ad24e62b9"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:00:36Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [
+        "correlated-victim"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_fa33f9c86711149a",
+      "entity_type": "ip",
+      "value": "198.18.0.1",
+      "role": "attacker",
+      "confidence": 0.95,
+      "evidence_event_ids": [
+        "evt_000001",
+        "evt_000002",
+        "evt_000003"
+      ],
+      "chain_ids": [
+        "chain_2b23fe1536570557cfef"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:00:36Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [
+        "correlated-attacker"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_19fe9356c7524ef8",
+      "entity_type": "ip",
+      "value": "198.18.0.2",
+      "role": "attacker",
+      "confidence": 0.95,
+      "evidence_event_ids": [
+        "evt_000013",
+        "evt_000014",
+        "evt_000015"
+      ],
+      "chain_ids": [
+        "chain_b505d9c83c19083f5937"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:01:19Z",
+      "last_seen": "2024-05-01T12:04:05Z",
+      "source": "module2_chain",
+      "tags": [
+        "correlated-attacker"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_bb33d5bc1d12ea3f",
+      "entity_type": "ip",
+      "value": "198.18.0.3",
+      "role": "attacker",
+      "confidence": 0.95,
+      "evidence_event_ids": [
+        "evt_000019",
+        "evt_000020",
+        "evt_000021"
+      ],
+      "chain_ids": [
+        "chain_28f3b2c3695117b4f42f"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:02:33Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [
+        "correlated-attacker"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_032a4d05adc605f6",
+      "entity_type": "ip",
+      "value": "198.18.0.4",
+      "role": "attacker",
+      "confidence": 0.95,
+      "evidence_event_ids": [
+        "evt_000022",
+        "evt_000023",
+        "evt_000024"
+      ],
+      "chain_ids": [
+        "chain_87aa41df7a8ad24e62b9"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:03:15Z",
+      "last_seen": "2024-05-01T12:03:58Z",
+      "source": "module2_chain",
+      "tags": [
+        "correlated-attacker"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_b832064c8ff24cf4",
+      "entity_type": "ip",
+      "value": "198.18.0.5",
+      "role": "attacker",
+      "confidence": 0.95,
+      "evidence_event_ids": [
+        "evt_000026",
+        "evt_000027"
+      ],
+      "chain_ids": [
+        "chain_a76f2bbe9428c2cbeb21"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:04:19Z",
+      "last_seen": "2024-05-01T12:04:39Z",
+      "source": "module2_chain",
+      "tags": [
+        "correlated-attacker"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_4a9edae0ad31437b",
+      "entity_type": "ip",
+      "value": "203.0.113.66",
+      "role": "indicator",
+      "confidence": 0.85,
+      "evidence_event_ids": [
+        "evt_000022",
+        "evt_000023",
+        "evt_000024"
+      ],
+      "chain_ids": [
+        "chain_87aa41df7a8ad24e62b9"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:03:15Z",
+      "last_seen": "2024-05-01T12:03:58Z",
+      "source": "module2_chain",
+      "tags": [
+        "ioc-hit"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_c66769548f749ce8",
+      "entity_type": "port",
+      "value": "21",
+      "role": "target",
+      "confidence": 0.8,
+      "evidence_event_ids": [
+        "evt_000001"
+      ],
+      "chain_ids": [
+        "chain_2b23fe1536570557cfef"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:00:36Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_3232675bdc17ea20",
+      "entity_type": "port",
+      "value": "22",
+      "role": "target",
+      "confidence": 0.8,
+      "evidence_event_ids": [
+        "evt_000002",
+        "evt_000013",
+        "evt_000015"
+      ],
+      "chain_ids": [
+        "chain_2b23fe1536570557cfef",
+        "chain_b505d9c83c19083f5937"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:00:36Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_ea9b75c93a866387",
+      "entity_type": "port",
+      "value": "23",
+      "role": "target",
+      "confidence": 0.8,
+      "evidence_event_ids": [
+        "evt_000003"
+      ],
+      "chain_ids": [
+        "chain_2b23fe1536570557cfef"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:00:36Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_8dd7fafe8f4d5710",
+      "entity_type": "port",
+      "value": "3389",
+      "role": "target",
+      "confidence": 0.8,
+      "evidence_event_ids": [
+        "evt_000014"
+      ],
+      "chain_ids": [
+        "chain_b505d9c83c19083f5937"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:01:19Z",
+      "last_seen": "2024-05-01T12:04:05Z",
+      "source": "module2_chain",
+      "tags": [],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_ab1690987ee815aa",
+      "entity_type": "port",
+      "value": "443",
+      "role": "target",
+      "confidence": 0.8,
+      "evidence_event_ids": [
+        "evt_000022",
+        "evt_000024"
+      ],
+      "chain_ids": [
+        "chain_87aa41df7a8ad24e62b9"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:03:15Z",
+      "last_seen": "2024-05-01T12:03:58Z",
+      "source": "module2_chain",
+      "tags": [],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_77f2024fb0e620bc",
+      "entity_type": "port",
+      "value": "445",
+      "role": "target",
+      "confidence": 0.8,
+      "evidence_event_ids": [
+        "evt_000026"
+      ],
+      "chain_ids": [
+        "chain_a76f2bbe9428c2cbeb21"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:04:19Z",
+      "last_seen": "2024-05-01T12:04:39Z",
+      "source": "module2_chain",
+      "tags": [],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_20a906a979d22551",
+      "entity_type": "port",
+      "value": "53",
+      "role": "target",
+      "confidence": 0.8,
+      "evidence_event_ids": [
+        "evt_000023"
+      ],
+      "chain_ids": [
+        "chain_87aa41df7a8ad24e62b9"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:03:15Z",
+      "last_seen": "2024-05-01T12:03:58Z",
+      "source": "module2_chain",
+      "tags": [],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_c8334296208c9bb3",
+      "entity_type": "port",
+      "value": "5985",
+      "role": "target",
+      "confidence": 0.8,
+      "evidence_event_ids": [
+        "evt_000027"
+      ],
+      "chain_ids": [
+        "chain_a76f2bbe9428c2cbeb21"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:04:19Z",
+      "last_seen": "2024-05-01T12:04:39Z",
+      "source": "module2_chain",
+      "tags": [],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_880ba2356543f1f7",
+      "entity_type": "port",
+      "value": "80",
+      "role": "target",
+      "confidence": 0.8,
+      "evidence_event_ids": [
+        "evt_000019",
+        "evt_000021"
+      ],
+      "chain_ids": [
+        "chain_28f3b2c3695117b4f42f"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:02:33Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_89b9112065c1a9a2",
+      "entity_type": "port",
+      "value": "8080",
+      "role": "target",
+      "confidence": 0.8,
+      "evidence_event_ids": [
+        "evt_000020"
+      ],
+      "chain_ids": [
+        "chain_28f3b2c3695117b4f42f"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:02:33Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_10197622aad7cea7",
+      "entity_type": "protocol",
+      "value": "tcp",
+      "role": "unknown",
+      "confidence": 0.7,
+      "evidence_event_ids": [
+        "evt_000001",
+        "evt_000002",
+        "evt_000003",
+        "evt_000013",
+        "evt_000014",
+        "evt_000015",
+        "evt_000019",
+        "evt_000020",
+        "evt_000021",
+        "evt_000022",
+        "evt_000023",
+        "evt_000024",
+        "evt_000026",
+        "evt_000027"
+      ],
+      "chain_ids": [
+        "chain_2b23fe1536570557cfef",
+        "chain_b505d9c83c19083f5937",
+        "chain_28f3b2c3695117b4f42f",
+        "chain_87aa41df7a8ad24e62b9",
+        "chain_a76f2bbe9428c2cbeb21"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:00:36Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_026413efd8af40b7",
+      "entity_type": "technique",
+      "value": "T1027",
+      "role": "unknown",
+      "confidence": 0.6,
+      "evidence_event_ids": [
+        "evt_000026"
+      ],
+      "chain_ids": [
+        "chain_a76f2bbe9428c2cbeb21"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:04:19Z",
+      "last_seen": "2024-05-01T12:04:39Z",
+      "source": "module2_chain",
+      "tags": [
+        "TA0002"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_b02baf3884c154ae",
+      "entity_type": "technique",
+      "value": "T1041",
+      "role": "unknown",
+      "confidence": 0.6,
+      "evidence_event_ids": [
+        "evt_000019"
+      ],
+      "chain_ids": [
+        "chain_28f3b2c3695117b4f42f"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:02:33Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [
+        "TA0001"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_72d922e0a1d8c6fb",
+      "entity_type": "technique",
+      "value": "T1046",
+      "role": "unknown",
+      "confidence": 0.6,
+      "evidence_event_ids": [
+        "evt_000001"
+      ],
+      "chain_ids": [
+        "chain_2b23fe1536570557cfef"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:00:36Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [
+        "TA0007"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_b2db803a57ce4b19",
+      "entity_type": "technique",
+      "value": "T1048",
+      "role": "unknown",
+      "confidence": 0.6,
+      "evidence_event_ids": [
+        "evt_000020"
+      ],
+      "chain_ids": [
+        "chain_28f3b2c3695117b4f42f"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:02:33Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [
+        "TA0002"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_1afa10c78915caaa",
+      "entity_type": "technique",
+      "value": "T1059",
+      "role": "unknown",
+      "confidence": 0.6,
+      "evidence_event_ids": [
+        "evt_000027"
+      ],
+      "chain_ids": [
+        "chain_a76f2bbe9428c2cbeb21"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:04:19Z",
+      "last_seen": "2024-05-01T12:04:39Z",
+      "source": "module2_chain",
+      "tags": [
+        "TA0005"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_2a25bbdf6d2431ad",
+      "entity_type": "technique",
+      "value": "T1068",
+      "role": "unknown",
+      "confidence": 0.6,
+      "evidence_event_ids": [
+        "evt_000021"
+      ],
+      "chain_ids": [
+        "chain_28f3b2c3695117b4f42f"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:02:33Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [
+        "TA0004"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_cc8815f85847600d",
+      "entity_type": "technique",
+      "value": "T1071",
+      "role": "unknown",
+      "confidence": 0.6,
+      "evidence_event_ids": [
+        "evt_000022"
+      ],
+      "chain_ids": [
+        "chain_87aa41df7a8ad24e62b9"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:03:15Z",
+      "last_seen": "2024-05-01T12:03:58Z",
+      "source": "module2_chain",
+      "tags": [
+        "TA0001"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_ca534e427d6db31f",
+      "entity_type": "technique",
+      "value": "T1078",
+      "role": "unknown",
+      "confidence": 0.6,
+      "evidence_event_ids": [
+        "evt_000013"
+      ],
+      "chain_ids": [
+        "chain_b505d9c83c19083f5937"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:01:19Z",
+      "last_seen": "2024-05-01T12:04:05Z",
+      "source": "module2_chain",
+      "tags": [
+        "TA0001"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_359166b5b9caa35f",
+      "entity_type": "technique",
+      "value": "T1082",
+      "role": "unknown",
+      "confidence": 0.6,
+      "evidence_event_ids": [
+        "evt_000002"
+      ],
+      "chain_ids": [
+        "chain_2b23fe1536570557cfef"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:00:36Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [
+        "TA0043"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_d4c6280afe6a93db",
+      "entity_type": "technique",
+      "value": "T1087",
+      "role": "unknown",
+      "confidence": 0.6,
+      "evidence_event_ids": [
+        "evt_000003"
+      ],
+      "chain_ids": [
+        "chain_2b23fe1536570557cfef"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:00:36Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [
+        "TA0043"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_f4cf6e95b83e7ad1",
+      "entity_type": "technique",
+      "value": "T1105",
+      "role": "unknown",
+      "confidence": 0.6,
+      "evidence_event_ids": [
+        "evt_000023"
+      ],
+      "chain_ids": [
+        "chain_87aa41df7a8ad24e62b9"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:03:15Z",
+      "last_seen": "2024-05-01T12:03:58Z",
+      "source": "module2_chain",
+      "tags": [
+        "TA0011"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_def1e8e92419ba41",
+      "entity_type": "technique",
+      "value": "T1110",
+      "role": "unknown",
+      "confidence": 0.6,
+      "evidence_event_ids": [
+        "evt_000014"
+      ],
+      "chain_ids": [
+        "chain_b505d9c83c19083f5937"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:01:19Z",
+      "last_seen": "2024-05-01T12:04:05Z",
+      "source": "module2_chain",
+      "tags": [
+        "TA0005"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_2aeddb74adb34b86",
+      "entity_type": "technique",
+      "value": "T1133",
+      "role": "unknown",
+      "confidence": 0.6,
+      "evidence_event_ids": [
+        "evt_000015"
+      ],
+      "chain_ids": [
+        "chain_b505d9c83c19083f5937"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:01:19Z",
+      "last_seen": "2024-05-01T12:04:05Z",
+      "source": "module2_chain",
+      "tags": [
+        "TA0006"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_0cda8f98773d668d",
+      "entity_type": "technique",
+      "value": "T1566",
+      "role": "unknown",
+      "confidence": 0.6,
+      "evidence_event_ids": [
+        "evt_000024"
+      ],
+      "chain_ids": [
+        "chain_87aa41df7a8ad24e62b9"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:03:15Z",
+      "last_seen": "2024-05-01T12:03:58Z",
+      "source": "module2_chain",
+      "tags": [
+        "TA0042"
+      ],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_a63ece82b4e6d095",
+      "entity_type": "tool",
+      "value": "nmap",
+      "role": "tool",
+      "confidence": 0.6,
+      "evidence_event_ids": [
+        "evt_000001",
+        "evt_000002",
+        "evt_000003"
+      ],
+      "chain_ids": [
+        "chain_2b23fe1536570557cfef"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:00:36Z",
+      "last_seen": "2024-05-01T12:03:43Z",
+      "source": "module2_chain",
+      "tags": [],
+      "attributes": {}
+    },
+    {
+      "schema_version": "1.0.0",
+      "entity_id": "ent_965937330bede1ce",
+      "entity_type": "username",
+      "value": "admin",
+      "role": "unknown",
+      "confidence": 0.5,
+      "evidence_event_ids": [
+        "evt_000013",
+        "evt_000014",
+        "evt_000015"
+      ],
+      "chain_ids": [
+        "chain_b505d9c83c19083f5937"
+      ],
+      "task_id": "task_fixture_00",
+      "first_seen": "2024-05-01T12:01:19Z",
+      "last_seen": "2024-05-01T12:04:05Z",
+      "source": "module2_chain",
+      "tags": [],
+      "attributes": {}
+    }
+  ],
+  "report": {
+    "schema_version": "1.0.0",
+    "report_id": "report_task_fixture_00",
+    "task_id": "task_fixture_00",
+    "generated_at": "2026-09-20T03:19:49.813208Z",
+    "overview": "Task task_fixture_00: 27 suspicious event(s) correlated into 5 candidate group(s) and 5 attack event(s). Severity distribution: critical=0, high=1, medium=4, low=0, info=0. Highest risk event: chain_28f3b2c3695117b4f42f (high, score 70.5) from 198.18.0.3 targeting 10.0.5.44 across 3 stage(s). 5 attacker profile(s) and 41 threat entity/entities were derived from evidence. Attribution (threat group / identity) was not determined: no supporting evidence was available.",
+    "statistics": {
+      "total_suspicious_events": 27,
+      "deduplicated_events": 0,
+      "total_attack_candidates": 5,
+      "total_attack_events": 5,
+      "critical_count": 0,
+      "high_count": 1,
+      "medium_count": 4,
+      "low_count": 0,
+      "info_count": 0,
+      "attacker_count": 5,
+      "victim_count": 5,
+      "technique_count": 14,
+      "tactic_count": 9,
+      "entity_count": 41,
+      "ioc_hit_count": 3,
+      "llm_calls": 5,
+      "llm_failures": 0,
+      "llm_degraded_chains": 0
+    },
+    "attack_events": [
+      {
+        "chain_id": "chain_2b23fe1536570557cfef",
+        "alert_id": "alert_16bf8e4c1585df6c",
+        "title": "Reconnaissance activity: 198.18.0.1 -> 10.0.0.12, 10.0.0.13 (3 stages)",
+        "summary": "Mock analysis for candidate cand_9ae8dd501bd9a3cf: 3 evidence event(s) grouped by the correlation engine.",
+        "severity": "medium",
+        "confidence": 0.5869,
+        "risk_score": 51.05,
+        "attacker_ips": [
+          "198.18.0.1"
+        ],
+        "victim_ips": [
+          "10.0.0.12",
+          "10.0.0.13",
+          "10.0.0.21",
+          "10.0.9.7"
+        ],
+        "victim_ports": [
+          21,
+          22,
+          23
+        ],
+        "mitre_tactics": [
+          "TA0043",
+          "TA0007"
+        ],
+        "mitre_techniques": [
+          "T1082",
+          "T1087",
+          "T1046"
+        ],
+        "stage_count": 3,
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ],
+        "first_seen": "2024-05-01T12:00:36Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "llm_degraded": false,
+        "risk_factors": [
+          {
+            "name": "tactic_severity",
+            "weight": 0.22,
+            "value": 0.4,
+            "contribution": 0.088,
+            "description": "ATT&CK tactic impact of the most severe stage",
+            "evidence_event_ids": [
+              "evt_000001"
+            ]
+          },
+          {
+            "name": "evidence_strength",
+            "weight": 0.16,
+            "value": 0.6,
+            "contribution": 0.096,
+            "description": "3 evidence event(s) back this chain",
+            "evidence_event_ids": [
+              "evt_000002",
+              "evt_000003",
+              "evt_000001"
+            ]
+          },
+          {
+            "name": "ioc",
+            "weight": 0.14,
+            "value": 0.0,
+            "contribution": 0.0,
+            "description": "0 malicious / 0 total threat-intelligence hit(s)",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "asset_criticality",
+            "weight": 0.12,
+            "value": 1.0,
+            "contribution": 0.12,
+            "description": "victim asset weight 3.00",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "rule_score",
+            "weight": 0.12,
+            "value": 0.5878,
+            "contribution": 0.0705,
+            "description": "normalised Module 1 detection score",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "llm_confidence",
+            "weight": 0.08,
+            "value": 0.5,
+            "contribution": 0.04,
+            "description": "validated LLM semantic confidence",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "chain_length",
+            "weight": 0.08,
+            "value": 0.6,
+            "contribution": 0.048,
+            "description": "3 stage(s) in the chain",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "multi_stage",
+            "weight": 0.08,
+            "value": 0.6,
+            "contribution": 0.048,
+            "description": "2 distinct tactic(s)",
+            "evidence_event_ids": []
+          }
+        ],
+        "uncertainties": [
+          "analysis produced by MockLLMProvider (no real model was called)"
+        ]
+      },
+      {
+        "chain_id": "chain_b505d9c83c19083f5937",
+        "alert_id": "alert_3b65f540c0b1cab7",
+        "title": "Initial access attempt: 198.18.0.2 -> 10.0.9.7 (3 stages)",
+        "summary": "Mock analysis for candidate cand_0ac4fc38d34ad32d: 3 evidence event(s) grouped by the correlation engine.",
+        "severity": "medium",
+        "confidence": 0.6391,
+        "risk_score": 53.74,
+        "attacker_ips": [
+          "198.18.0.2"
+        ],
+        "victim_ips": [
+          "10.0.9.7"
+        ],
+        "victim_ports": [
+          22,
+          3389
+        ],
+        "mitre_tactics": [
+          "TA0001",
+          "TA0005",
+          "TA0006"
+        ],
+        "mitre_techniques": [
+          "T1078",
+          "T1110",
+          "T1133"
+        ],
+        "stage_count": 3,
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ],
+        "first_seen": "2024-05-01T12:01:19Z",
+        "last_seen": "2024-05-01T12:04:05Z",
+        "llm_degraded": false,
+        "risk_factors": [
+          {
+            "name": "tactic_severity",
+            "weight": 0.22,
+            "value": 0.85,
+            "contribution": 0.187,
+            "description": "ATT&CK tactic impact of the most severe stage",
+            "evidence_event_ids": [
+              "evt_000013"
+            ]
+          },
+          {
+            "name": "evidence_strength",
+            "weight": 0.16,
+            "value": 0.6,
+            "contribution": 0.096,
+            "description": "3 evidence event(s) back this chain",
+            "evidence_event_ids": [
+              "evt_000013",
+              "evt_000014",
+              "evt_000015"
+            ]
+          },
+          {
+            "name": "ioc",
+            "weight": 0.14,
+            "value": 0.0,
+            "contribution": 0.0,
+            "description": "0 malicious / 0 total threat-intelligence hit(s)",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "asset_criticality",
+            "weight": 0.12,
+            "value": 0.0,
+            "contribution": 0.0,
+            "description": "victim asset weight 1.00",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "rule_score",
+            "weight": 0.12,
+            "value": 0.7203,
+            "contribution": 0.0864,
+            "description": "normalised Module 1 detection score",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "llm_confidence",
+            "weight": 0.08,
+            "value": 0.5,
+            "contribution": 0.04,
+            "description": "validated LLM semantic confidence",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "chain_length",
+            "weight": 0.08,
+            "value": 0.6,
+            "contribution": 0.048,
+            "description": "3 stage(s) in the chain",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "multi_stage",
+            "weight": 0.08,
+            "value": 1.0,
+            "contribution": 0.08,
+            "description": "3 distinct tactic(s)",
+            "evidence_event_ids": []
+          }
+        ],
+        "uncertainties": [
+          "analysis produced by MockLLMProvider (no real model was called)"
+        ]
+      },
+      {
+        "chain_id": "chain_28f3b2c3695117b4f42f",
+        "alert_id": "alert_736a8934cb88c83a",
+        "title": "Initial access attempt: 198.18.0.3 -> 10.0.5.44 (3 stages)",
+        "summary": "Mock analysis for candidate cand_e723aa7dbaab9eb0: 3 evidence event(s) grouped by the correlation engine.",
+        "severity": "high",
+        "confidence": 0.7324,
+        "risk_score": 70.55,
+        "attacker_ips": [
+          "198.18.0.3"
+        ],
+        "victim_ips": [
+          "10.0.5.44"
+        ],
+        "victim_ports": [
+          80,
+          8080
+        ],
+        "mitre_tactics": [
+          "TA0001",
+          "TA0002",
+          "TA0004"
+        ],
+        "mitre_techniques": [
+          "T1041",
+          "T1048",
+          "T1068"
+        ],
+        "stage_count": 3,
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ],
+        "first_seen": "2024-05-01T12:02:33Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "llm_degraded": false,
+        "risk_factors": [
+          {
+            "name": "tactic_severity",
+            "weight": 0.22,
+            "value": 0.85,
+            "contribution": 0.187,
+            "description": "ATT&CK tactic impact of the most severe stage",
+            "evidence_event_ids": [
+              "evt_000019"
+            ]
+          },
+          {
+            "name": "evidence_strength",
+            "weight": 0.16,
+            "value": 0.6,
+            "contribution": 0.096,
+            "description": "3 evidence event(s) back this chain",
+            "evidence_event_ids": [
+              "evt_000019",
+              "evt_000020",
+              "evt_000021"
+            ]
+          },
+          {
+            "name": "ioc",
+            "weight": 0.14,
+            "value": 0.8,
+            "contribution": 0.112,
+            "description": "1 malicious / 1 total threat-intelligence hit(s)",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "asset_criticality",
+            "weight": 0.12,
+            "value": 0.25,
+            "contribution": 0.03,
+            "description": "victim asset weight 1.50",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "rule_score",
+            "weight": 0.12,
+            "value": 0.9372,
+            "contribution": 0.1125,
+            "description": "normalised Module 1 detection score",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "llm_confidence",
+            "weight": 0.08,
+            "value": 0.5,
+            "contribution": 0.04,
+            "description": "validated LLM semantic confidence",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "chain_length",
+            "weight": 0.08,
+            "value": 0.6,
+            "contribution": 0.048,
+            "description": "3 stage(s) in the chain",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "multi_stage",
+            "weight": 0.08,
+            "value": 1.0,
+            "contribution": 0.08,
+            "description": "3 distinct tactic(s)",
+            "evidence_event_ids": []
+          }
+        ],
+        "uncertainties": [
+          "analysis produced by MockLLMProvider (no real model was called)"
+        ]
+      },
+      {
+        "chain_id": "chain_87aa41df7a8ad24e62b9",
+        "alert_id": "alert_73a87c1f4845a0e2",
+        "title": "Attack infrastructure preparation: 198.18.0.4 -> 10.0.9.7 (3 stages)",
+        "summary": "Mock analysis for candidate cand_4217066c6573e1d5: 3 evidence event(s) grouped by the correlation engine.",
+        "severity": "medium",
+        "confidence": 0.7661,
+        "risk_score": 69.36,
+        "attacker_ips": [
+          "198.18.0.4"
+        ],
+        "victim_ips": [
+          "10.0.9.7"
+        ],
+        "victim_ports": [
+          53,
+          443
+        ],
+        "mitre_tactics": [
+          "TA0042",
+          "TA0001",
+          "TA0011"
+        ],
+        "mitre_techniques": [
+          "T1566",
+          "T1071",
+          "T1105"
+        ],
+        "stage_count": 3,
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ],
+        "first_seen": "2024-05-01T12:03:15Z",
+        "last_seen": "2024-05-01T12:03:58Z",
+        "llm_degraded": false,
+        "risk_factors": [
+          {
+            "name": "tactic_severity",
+            "weight": 0.22,
+            "value": 0.85,
+            "contribution": 0.187,
+            "description": "ATT&CK tactic impact of the most severe stage",
+            "evidence_event_ids": [
+              "evt_000022"
+            ]
+          },
+          {
+            "name": "evidence_strength",
+            "weight": 0.16,
+            "value": 0.6,
+            "contribution": 0.096,
+            "description": "3 evidence event(s) back this chain",
+            "evidence_event_ids": [
+              "evt_000024",
+              "evt_000022",
+              "evt_000023"
+            ]
+          },
+          {
+            "name": "ioc",
+            "weight": 0.14,
+            "value": 1.0,
+            "contribution": 0.14,
+            "description": "2 malicious / 2 total threat-intelligence hit(s)",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "asset_criticality",
+            "weight": 0.12,
+            "value": 0.0,
+            "contribution": 0.0,
+            "description": "victim asset weight 1.00",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "rule_score",
+            "weight": 0.12,
+            "value": 0.8554,
+            "contribution": 0.1026,
+            "description": "normalised Module 1 detection score",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "llm_confidence",
+            "weight": 0.08,
+            "value": 0.5,
+            "contribution": 0.04,
+            "description": "validated LLM semantic confidence",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "chain_length",
+            "weight": 0.08,
+            "value": 0.6,
+            "contribution": 0.048,
+            "description": "3 stage(s) in the chain",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "multi_stage",
+            "weight": 0.08,
+            "value": 1.0,
+            "contribution": 0.08,
+            "description": "3 distinct tactic(s)",
+            "evidence_event_ids": []
+          }
+        ],
+        "uncertainties": [
+          "analysis produced by MockLLMProvider (no real model was called)"
+        ]
+      },
+      {
+        "chain_id": "chain_a76f2bbe9428c2cbeb21",
+        "alert_id": "alert_65df77b97bb0e6ea",
+        "title": "Code execution observed: 198.18.0.5 -> 10.0.0.21 (2 stages)",
+        "summary": "Mock analysis for candidate cand_d752aa7f194ced7e: 2 evidence event(s) grouped by the correlation engine.",
+        "severity": "medium",
+        "confidence": 0.5645,
+        "risk_score": 50.8,
+        "attacker_ips": [
+          "198.18.0.5"
+        ],
+        "victim_ips": [
+          "10.0.0.21"
+        ],
+        "victim_ports": [
+          445,
+          5985
+        ],
+        "mitre_tactics": [
+          "TA0002",
+          "TA0005"
+        ],
+        "mitre_techniques": [
+          "T1027",
+          "T1059"
+        ],
+        "stage_count": 2,
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ],
+        "first_seen": "2024-05-01T12:04:19Z",
+        "last_seen": "2024-05-01T12:04:39Z",
+        "llm_degraded": false,
+        "risk_factors": [
+          {
+            "name": "tactic_severity",
+            "weight": 0.22,
+            "value": 0.8,
+            "contribution": 0.176,
+            "description": "ATT&CK tactic impact of the most severe stage",
+            "evidence_event_ids": [
+              "evt_000026"
+            ]
+          },
+          {
+            "name": "evidence_strength",
+            "weight": 0.16,
+            "value": 0.3333,
+            "contribution": 0.0533,
+            "description": "2 evidence event(s) back this chain",
+            "evidence_event_ids": [
+              "evt_000026",
+              "evt_000027"
+            ]
+          },
+          {
+            "name": "ioc",
+            "weight": 0.14,
+            "value": 0.0,
+            "contribution": 0.0,
+            "description": "0 malicious / 0 total threat-intelligence hit(s)",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "asset_criticality",
+            "weight": 0.12,
+            "value": 0.5,
+            "contribution": 0.06,
+            "description": "victim asset weight 2.00",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "rule_score",
+            "weight": 0.12,
+            "value": 0.8224,
+            "contribution": 0.0987,
+            "description": "normalised Module 1 detection score",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "llm_confidence",
+            "weight": 0.08,
+            "value": 0.5,
+            "contribution": 0.04,
+            "description": "validated LLM semantic confidence",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "chain_length",
+            "weight": 0.08,
+            "value": 0.4,
+            "contribution": 0.032,
+            "description": "2 stage(s) in the chain",
+            "evidence_event_ids": []
+          },
+          {
+            "name": "multi_stage",
+            "weight": 0.08,
+            "value": 0.6,
+            "contribution": 0.048,
+            "description": "2 distinct tactic(s)",
+            "evidence_event_ids": []
+          }
+        ],
+        "uncertainties": [
+          "analysis produced by MockLLMProvider (no real model was called)"
+        ]
+      }
+    ],
+    "attackers": [
+      {
+        "attacker_id": "attacker_b4ee15999ad6",
+        "attacker_ips": [
+          "198.18.0.3"
+        ],
+        "attack_count": 1,
+        "max_severity": "high",
+        "risk_score": 70.55,
+        "techniques": [
+          "T1041",
+          "T1048",
+          "T1068"
+        ],
+        "target_assets": [
+          "10.0.5.44"
+        ],
+        "behavior_summary": "source 198.18.0.3 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Initial Access -> Execution -> Privilege Escalation. ATT&CK techniques: T1041, T1048, T1068. Activity window: 2024-05-01T12:02:33+00:00 to 2024-05-01T12:03:43+00:00.",
+        "confidence": 0.7324,
+        "attribution": "Not Determined",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      },
+      {
+        "attacker_id": "attacker_0e5087bf826c",
+        "attacker_ips": [
+          "198.18.0.4"
+        ],
+        "attack_count": 1,
+        "max_severity": "medium",
+        "risk_score": 69.36,
+        "techniques": [
+          "T1071",
+          "T1105",
+          "T1566"
+        ],
+        "target_assets": [
+          "10.0.9.7"
+        ],
+        "behavior_summary": "source 198.18.0.4 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Resource Development -> Initial Access -> Command and Control. ATT&CK techniques: T1071, T1105, T1566. Activity window: 2024-05-01T12:03:15+00:00 to 2024-05-01T12:03:58+00:00.",
+        "confidence": 0.7661,
+        "attribution": "Not Determined",
+        "evidence_event_ids": [
+          "evt_000022",
+          "evt_000023",
+          "evt_000024"
+        ]
+      },
+      {
+        "attacker_id": "attacker_7c2aafea46c1",
+        "attacker_ips": [
+          "198.18.0.2"
+        ],
+        "attack_count": 1,
+        "max_severity": "medium",
+        "risk_score": 53.74,
+        "techniques": [
+          "T1078",
+          "T1110",
+          "T1133"
+        ],
+        "target_assets": [
+          "10.0.9.7"
+        ],
+        "behavior_summary": "source 198.18.0.2 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Initial Access -> Defense Evasion -> Credential Access. ATT&CK techniques: T1078, T1110, T1133. Activity window: 2024-05-01T12:01:19+00:00 to 2024-05-01T12:04:05+00:00.",
+        "confidence": 0.6391,
+        "attribution": "Not Determined",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      },
+      {
+        "attacker_id": "attacker_3ebe27a5987f",
+        "attacker_ips": [
+          "198.18.0.1"
+        ],
+        "attack_count": 1,
+        "max_severity": "medium",
+        "risk_score": 51.05,
+        "techniques": [
+          "T1046",
+          "T1082",
+          "T1087"
+        ],
+        "target_assets": [
+          "10.0.0.12",
+          "10.0.0.13",
+          "10.0.0.21",
+          "10.0.9.7"
+        ],
+        "behavior_summary": "source 198.18.0.1 was linked to 1 attack chain(s) against 4 target asset(s). Observed progress: Reconnaissance -> Discovery. ATT&CK techniques: T1046, T1082, T1087. Activity window: 2024-05-01T12:00:36+00:00 to 2024-05-01T12:03:43+00:00.",
+        "confidence": 0.5869,
+        "attribution": "Not Determined",
+        "evidence_event_ids": [
+          "evt_000001",
+          "evt_000002",
+          "evt_000003"
+        ]
+      },
+      {
+        "attacker_id": "attacker_01a135a8da3f",
+        "attacker_ips": [
+          "198.18.0.5"
+        ],
+        "attack_count": 1,
+        "max_severity": "medium",
+        "risk_score": 50.8,
+        "techniques": [
+          "T1027",
+          "T1059"
+        ],
+        "target_assets": [
+          "10.0.0.21"
+        ],
+        "behavior_summary": "source 198.18.0.5 was linked to 1 attack chain(s) against 1 target asset(s). Observed progress: Execution -> Defense Evasion. ATT&CK techniques: T1027, T1059. Activity window: 2024-05-01T12:04:19+00:00 to 2024-05-01T12:04:39+00:00.",
+        "confidence": 0.5645,
+        "attribution": "Not Determined",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      }
+    ],
+    "victims": [
+      {
+        "victim_ip": "10.0.9.7",
+        "attack_count": 3,
+        "max_severity": "medium",
+        "tactics": [
+          "TA0001",
+          "TA0005",
+          "TA0006",
+          "TA0007",
+          "TA0011",
+          "TA0042",
+          "TA0043"
+        ],
+        "techniques": [
+          "T1046",
+          "T1071",
+          "T1078",
+          "T1082",
+          "T1087",
+          "T1105",
+          "T1110",
+          "T1133",
+          "T1566"
+        ],
+        "targeted_ports": [
+          21,
+          22,
+          23,
+          53,
+          443,
+          3389
+        ],
+        "asset_weight": 1.0,
+        "first_seen": "2024-05-01T12:00:36Z",
+        "last_seen": "2024-05-01T12:04:05Z",
+        "evidence_event_ids": [
+          "evt_000001",
+          "evt_000002",
+          "evt_000003",
+          "evt_000013",
+          "evt_000014",
+          "evt_000015",
+          "evt_000022",
+          "evt_000023",
+          "evt_000024"
+        ]
+      },
+      {
+        "victim_ip": "10.0.0.21",
+        "attack_count": 2,
+        "max_severity": "medium",
+        "tactics": [
+          "TA0002",
+          "TA0005",
+          "TA0007",
+          "TA0043"
+        ],
+        "techniques": [
+          "T1027",
+          "T1046",
+          "T1059",
+          "T1082",
+          "T1087"
+        ],
+        "targeted_ports": [
+          21,
+          22,
+          23,
+          445,
+          5985
+        ],
+        "asset_weight": 1.0,
+        "first_seen": "2024-05-01T12:00:36Z",
+        "last_seen": "2024-05-01T12:04:39Z",
+        "evidence_event_ids": [
+          "evt_000001",
+          "evt_000002",
+          "evt_000003",
+          "evt_000026",
+          "evt_000027"
+        ]
+      },
+      {
+        "victim_ip": "10.0.0.12",
+        "attack_count": 1,
+        "max_severity": "medium",
+        "tactics": [
+          "TA0007",
+          "TA0043"
+        ],
+        "techniques": [
+          "T1046",
+          "T1082",
+          "T1087"
+        ],
+        "targeted_ports": [
+          21,
+          22,
+          23
+        ],
+        "asset_weight": 1.0,
+        "first_seen": "2024-05-01T12:00:36Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "evidence_event_ids": [
+          "evt_000001",
+          "evt_000002",
+          "evt_000003"
+        ]
+      },
+      {
+        "victim_ip": "10.0.0.13",
+        "attack_count": 1,
+        "max_severity": "medium",
+        "tactics": [
+          "TA0007",
+          "TA0043"
+        ],
+        "techniques": [
+          "T1046",
+          "T1082",
+          "T1087"
+        ],
+        "targeted_ports": [
+          21,
+          22,
+          23
+        ],
+        "asset_weight": 1.0,
+        "first_seen": "2024-05-01T12:00:36Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "evidence_event_ids": [
+          "evt_000001",
+          "evt_000002",
+          "evt_000003"
+        ]
+      },
+      {
+        "victim_ip": "10.0.5.44",
+        "attack_count": 1,
+        "max_severity": "high",
+        "tactics": [
+          "TA0001",
+          "TA0002",
+          "TA0004"
+        ],
+        "techniques": [
+          "T1041",
+          "T1048",
+          "T1068"
+        ],
+        "targeted_ports": [
+          80,
+          8080
+        ],
+        "asset_weight": 1.0,
+        "first_seen": "2024-05-01T12:02:33Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      }
+    ],
+    "threat_entities": [
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_089925d53b8f7d11",
+        "entity_type": "cve",
+        "value": "CVE-2021-44228",
+        "role": "indicator",
+        "confidence": 0.85,
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ],
+        "chain_ids": [
+          "chain_28f3b2c3695117b4f42f"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:02:33Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [
+          "ioc-hit"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_b709fafe419c2194",
+        "entity_type": "domain",
+        "value": "evil-c2.example.com",
+        "role": "indicator",
+        "confidence": 0.85,
+        "evidence_event_ids": [
+          "evt_000022",
+          "evt_000023",
+          "evt_000024"
+        ],
+        "chain_ids": [
+          "chain_87aa41df7a8ad24e62b9"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:03:15Z",
+        "last_seen": "2024-05-01T12:03:58Z",
+        "source": "module2_chain",
+        "tags": [
+          "ioc-hit"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_05afe96870fcc953",
+        "entity_type": "domain",
+        "value": "evil-c2.example.com",
+        "role": "infrastructure",
+        "confidence": 0.55,
+        "evidence_event_ids": [
+          "evt_000022",
+          "evt_000023",
+          "evt_000024"
+        ],
+        "chain_ids": [
+          "chain_87aa41df7a8ad24e62b9"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:03:15Z",
+        "last_seen": "2024-05-01T12:03:58Z",
+        "source": "module2_chain",
+        "tags": [],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_75601802590a5f41",
+        "entity_type": "ip",
+        "value": "10.0.0.12",
+        "role": "victim",
+        "confidence": 0.9,
+        "evidence_event_ids": [],
+        "chain_ids": [
+          "chain_2b23fe1536570557cfef"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:00:36Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [
+          "correlated-victim"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_d7ef7c38286b6da7",
+        "entity_type": "ip",
+        "value": "10.0.0.13",
+        "role": "victim",
+        "confidence": 0.9,
+        "evidence_event_ids": [
+          "evt_000001",
+          "evt_000002",
+          "evt_000003"
+        ],
+        "chain_ids": [
+          "chain_2b23fe1536570557cfef"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:00:36Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [
+          "correlated-victim"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_a145887b95686436",
+        "entity_type": "ip",
+        "value": "10.0.0.21",
+        "role": "victim",
+        "confidence": 0.9,
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ],
+        "chain_ids": [
+          "chain_2b23fe1536570557cfef",
+          "chain_a76f2bbe9428c2cbeb21"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:00:36Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [
+          "correlated-victim"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_90ab8041a8f921ed",
+        "entity_type": "ip",
+        "value": "10.0.5.44",
+        "role": "victim",
+        "confidence": 0.9,
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ],
+        "chain_ids": [
+          "chain_28f3b2c3695117b4f42f"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:02:33Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [
+          "correlated-victim"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_dd5a39dc0089ff53",
+        "entity_type": "ip",
+        "value": "10.0.9.7",
+        "role": "victim",
+        "confidence": 0.9,
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015",
+          "evt_000022",
+          "evt_000023",
+          "evt_000024"
+        ],
+        "chain_ids": [
+          "chain_2b23fe1536570557cfef",
+          "chain_b505d9c83c19083f5937",
+          "chain_87aa41df7a8ad24e62b9"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:00:36Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [
+          "correlated-victim"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_fa33f9c86711149a",
+        "entity_type": "ip",
+        "value": "198.18.0.1",
+        "role": "attacker",
+        "confidence": 0.95,
+        "evidence_event_ids": [
+          "evt_000001",
+          "evt_000002",
+          "evt_000003"
+        ],
+        "chain_ids": [
+          "chain_2b23fe1536570557cfef"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:00:36Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [
+          "correlated-attacker"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_19fe9356c7524ef8",
+        "entity_type": "ip",
+        "value": "198.18.0.2",
+        "role": "attacker",
+        "confidence": 0.95,
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ],
+        "chain_ids": [
+          "chain_b505d9c83c19083f5937"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:01:19Z",
+        "last_seen": "2024-05-01T12:04:05Z",
+        "source": "module2_chain",
+        "tags": [
+          "correlated-attacker"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_bb33d5bc1d12ea3f",
+        "entity_type": "ip",
+        "value": "198.18.0.3",
+        "role": "attacker",
+        "confidence": 0.95,
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ],
+        "chain_ids": [
+          "chain_28f3b2c3695117b4f42f"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:02:33Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [
+          "correlated-attacker"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_032a4d05adc605f6",
+        "entity_type": "ip",
+        "value": "198.18.0.4",
+        "role": "attacker",
+        "confidence": 0.95,
+        "evidence_event_ids": [
+          "evt_000022",
+          "evt_000023",
+          "evt_000024"
+        ],
+        "chain_ids": [
+          "chain_87aa41df7a8ad24e62b9"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:03:15Z",
+        "last_seen": "2024-05-01T12:03:58Z",
+        "source": "module2_chain",
+        "tags": [
+          "correlated-attacker"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_b832064c8ff24cf4",
+        "entity_type": "ip",
+        "value": "198.18.0.5",
+        "role": "attacker",
+        "confidence": 0.95,
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ],
+        "chain_ids": [
+          "chain_a76f2bbe9428c2cbeb21"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:04:19Z",
+        "last_seen": "2024-05-01T12:04:39Z",
+        "source": "module2_chain",
+        "tags": [
+          "correlated-attacker"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_4a9edae0ad31437b",
+        "entity_type": "ip",
+        "value": "203.0.113.66",
+        "role": "indicator",
+        "confidence": 0.85,
+        "evidence_event_ids": [
+          "evt_000022",
+          "evt_000023",
+          "evt_000024"
+        ],
+        "chain_ids": [
+          "chain_87aa41df7a8ad24e62b9"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:03:15Z",
+        "last_seen": "2024-05-01T12:03:58Z",
+        "source": "module2_chain",
+        "tags": [
+          "ioc-hit"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_c66769548f749ce8",
+        "entity_type": "port",
+        "value": "21",
+        "role": "target",
+        "confidence": 0.8,
+        "evidence_event_ids": [
+          "evt_000001"
+        ],
+        "chain_ids": [
+          "chain_2b23fe1536570557cfef"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:00:36Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_3232675bdc17ea20",
+        "entity_type": "port",
+        "value": "22",
+        "role": "target",
+        "confidence": 0.8,
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000013",
+          "evt_000015"
+        ],
+        "chain_ids": [
+          "chain_2b23fe1536570557cfef",
+          "chain_b505d9c83c19083f5937"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:00:36Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_ea9b75c93a866387",
+        "entity_type": "port",
+        "value": "23",
+        "role": "target",
+        "confidence": 0.8,
+        "evidence_event_ids": [
+          "evt_000003"
+        ],
+        "chain_ids": [
+          "chain_2b23fe1536570557cfef"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:00:36Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_8dd7fafe8f4d5710",
+        "entity_type": "port",
+        "value": "3389",
+        "role": "target",
+        "confidence": 0.8,
+        "evidence_event_ids": [
+          "evt_000014"
+        ],
+        "chain_ids": [
+          "chain_b505d9c83c19083f5937"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:01:19Z",
+        "last_seen": "2024-05-01T12:04:05Z",
+        "source": "module2_chain",
+        "tags": [],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_ab1690987ee815aa",
+        "entity_type": "port",
+        "value": "443",
+        "role": "target",
+        "confidence": 0.8,
+        "evidence_event_ids": [
+          "evt_000022",
+          "evt_000024"
+        ],
+        "chain_ids": [
+          "chain_87aa41df7a8ad24e62b9"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:03:15Z",
+        "last_seen": "2024-05-01T12:03:58Z",
+        "source": "module2_chain",
+        "tags": [],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_77f2024fb0e620bc",
+        "entity_type": "port",
+        "value": "445",
+        "role": "target",
+        "confidence": 0.8,
+        "evidence_event_ids": [
+          "evt_000026"
+        ],
+        "chain_ids": [
+          "chain_a76f2bbe9428c2cbeb21"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:04:19Z",
+        "last_seen": "2024-05-01T12:04:39Z",
+        "source": "module2_chain",
+        "tags": [],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_20a906a979d22551",
+        "entity_type": "port",
+        "value": "53",
+        "role": "target",
+        "confidence": 0.8,
+        "evidence_event_ids": [
+          "evt_000023"
+        ],
+        "chain_ids": [
+          "chain_87aa41df7a8ad24e62b9"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:03:15Z",
+        "last_seen": "2024-05-01T12:03:58Z",
+        "source": "module2_chain",
+        "tags": [],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_c8334296208c9bb3",
+        "entity_type": "port",
+        "value": "5985",
+        "role": "target",
+        "confidence": 0.8,
+        "evidence_event_ids": [
+          "evt_000027"
+        ],
+        "chain_ids": [
+          "chain_a76f2bbe9428c2cbeb21"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:04:19Z",
+        "last_seen": "2024-05-01T12:04:39Z",
+        "source": "module2_chain",
+        "tags": [],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_880ba2356543f1f7",
+        "entity_type": "port",
+        "value": "80",
+        "role": "target",
+        "confidence": 0.8,
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000021"
+        ],
+        "chain_ids": [
+          "chain_28f3b2c3695117b4f42f"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:02:33Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_89b9112065c1a9a2",
+        "entity_type": "port",
+        "value": "8080",
+        "role": "target",
+        "confidence": 0.8,
+        "evidence_event_ids": [
+          "evt_000020"
+        ],
+        "chain_ids": [
+          "chain_28f3b2c3695117b4f42f"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:02:33Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_10197622aad7cea7",
+        "entity_type": "protocol",
+        "value": "tcp",
+        "role": "unknown",
+        "confidence": 0.7,
+        "evidence_event_ids": [
+          "evt_000001",
+          "evt_000002",
+          "evt_000003",
+          "evt_000013",
+          "evt_000014",
+          "evt_000015",
+          "evt_000019",
+          "evt_000020",
+          "evt_000021",
+          "evt_000022",
+          "evt_000023",
+          "evt_000024",
+          "evt_000026",
+          "evt_000027"
+        ],
+        "chain_ids": [
+          "chain_2b23fe1536570557cfef",
+          "chain_b505d9c83c19083f5937",
+          "chain_28f3b2c3695117b4f42f",
+          "chain_87aa41df7a8ad24e62b9",
+          "chain_a76f2bbe9428c2cbeb21"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:00:36Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_026413efd8af40b7",
+        "entity_type": "technique",
+        "value": "T1027",
+        "role": "unknown",
+        "confidence": 0.6,
+        "evidence_event_ids": [
+          "evt_000026"
+        ],
+        "chain_ids": [
+          "chain_a76f2bbe9428c2cbeb21"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:04:19Z",
+        "last_seen": "2024-05-01T12:04:39Z",
+        "source": "module2_chain",
+        "tags": [
+          "TA0002"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_b02baf3884c154ae",
+        "entity_type": "technique",
+        "value": "T1041",
+        "role": "unknown",
+        "confidence": 0.6,
+        "evidence_event_ids": [
+          "evt_000019"
+        ],
+        "chain_ids": [
+          "chain_28f3b2c3695117b4f42f"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:02:33Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [
+          "TA0001"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_72d922e0a1d8c6fb",
+        "entity_type": "technique",
+        "value": "T1046",
+        "role": "unknown",
+        "confidence": 0.6,
+        "evidence_event_ids": [
+          "evt_000001"
+        ],
+        "chain_ids": [
+          "chain_2b23fe1536570557cfef"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:00:36Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [
+          "TA0007"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_b2db803a57ce4b19",
+        "entity_type": "technique",
+        "value": "T1048",
+        "role": "unknown",
+        "confidence": 0.6,
+        "evidence_event_ids": [
+          "evt_000020"
+        ],
+        "chain_ids": [
+          "chain_28f3b2c3695117b4f42f"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:02:33Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [
+          "TA0002"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_1afa10c78915caaa",
+        "entity_type": "technique",
+        "value": "T1059",
+        "role": "unknown",
+        "confidence": 0.6,
+        "evidence_event_ids": [
+          "evt_000027"
+        ],
+        "chain_ids": [
+          "chain_a76f2bbe9428c2cbeb21"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:04:19Z",
+        "last_seen": "2024-05-01T12:04:39Z",
+        "source": "module2_chain",
+        "tags": [
+          "TA0005"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_2a25bbdf6d2431ad",
+        "entity_type": "technique",
+        "value": "T1068",
+        "role": "unknown",
+        "confidence": 0.6,
+        "evidence_event_ids": [
+          "evt_000021"
+        ],
+        "chain_ids": [
+          "chain_28f3b2c3695117b4f42f"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:02:33Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [
+          "TA0004"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_cc8815f85847600d",
+        "entity_type": "technique",
+        "value": "T1071",
+        "role": "unknown",
+        "confidence": 0.6,
+        "evidence_event_ids": [
+          "evt_000022"
+        ],
+        "chain_ids": [
+          "chain_87aa41df7a8ad24e62b9"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:03:15Z",
+        "last_seen": "2024-05-01T12:03:58Z",
+        "source": "module2_chain",
+        "tags": [
+          "TA0001"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_ca534e427d6db31f",
+        "entity_type": "technique",
+        "value": "T1078",
+        "role": "unknown",
+        "confidence": 0.6,
+        "evidence_event_ids": [
+          "evt_000013"
+        ],
+        "chain_ids": [
+          "chain_b505d9c83c19083f5937"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:01:19Z",
+        "last_seen": "2024-05-01T12:04:05Z",
+        "source": "module2_chain",
+        "tags": [
+          "TA0001"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_359166b5b9caa35f",
+        "entity_type": "technique",
+        "value": "T1082",
+        "role": "unknown",
+        "confidence": 0.6,
+        "evidence_event_ids": [
+          "evt_000002"
+        ],
+        "chain_ids": [
+          "chain_2b23fe1536570557cfef"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:00:36Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [
+          "TA0043"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_d4c6280afe6a93db",
+        "entity_type": "technique",
+        "value": "T1087",
+        "role": "unknown",
+        "confidence": 0.6,
+        "evidence_event_ids": [
+          "evt_000003"
+        ],
+        "chain_ids": [
+          "chain_2b23fe1536570557cfef"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:00:36Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [
+          "TA0043"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_f4cf6e95b83e7ad1",
+        "entity_type": "technique",
+        "value": "T1105",
+        "role": "unknown",
+        "confidence": 0.6,
+        "evidence_event_ids": [
+          "evt_000023"
+        ],
+        "chain_ids": [
+          "chain_87aa41df7a8ad24e62b9"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:03:15Z",
+        "last_seen": "2024-05-01T12:03:58Z",
+        "source": "module2_chain",
+        "tags": [
+          "TA0011"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_def1e8e92419ba41",
+        "entity_type": "technique",
+        "value": "T1110",
+        "role": "unknown",
+        "confidence": 0.6,
+        "evidence_event_ids": [
+          "evt_000014"
+        ],
+        "chain_ids": [
+          "chain_b505d9c83c19083f5937"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:01:19Z",
+        "last_seen": "2024-05-01T12:04:05Z",
+        "source": "module2_chain",
+        "tags": [
+          "TA0005"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_2aeddb74adb34b86",
+        "entity_type": "technique",
+        "value": "T1133",
+        "role": "unknown",
+        "confidence": 0.6,
+        "evidence_event_ids": [
+          "evt_000015"
+        ],
+        "chain_ids": [
+          "chain_b505d9c83c19083f5937"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:01:19Z",
+        "last_seen": "2024-05-01T12:04:05Z",
+        "source": "module2_chain",
+        "tags": [
+          "TA0006"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_0cda8f98773d668d",
+        "entity_type": "technique",
+        "value": "T1566",
+        "role": "unknown",
+        "confidence": 0.6,
+        "evidence_event_ids": [
+          "evt_000024"
+        ],
+        "chain_ids": [
+          "chain_87aa41df7a8ad24e62b9"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:03:15Z",
+        "last_seen": "2024-05-01T12:03:58Z",
+        "source": "module2_chain",
+        "tags": [
+          "TA0042"
+        ],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_a63ece82b4e6d095",
+        "entity_type": "tool",
+        "value": "nmap",
+        "role": "tool",
+        "confidence": 0.6,
+        "evidence_event_ids": [
+          "evt_000001",
+          "evt_000002",
+          "evt_000003"
+        ],
+        "chain_ids": [
+          "chain_2b23fe1536570557cfef"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:00:36Z",
+        "last_seen": "2024-05-01T12:03:43Z",
+        "source": "module2_chain",
+        "tags": [],
+        "attributes": {}
+      },
+      {
+        "schema_version": "1.0.0",
+        "entity_id": "ent_965937330bede1ce",
+        "entity_type": "username",
+        "value": "admin",
+        "role": "unknown",
+        "confidence": 0.5,
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ],
+        "chain_ids": [
+          "chain_b505d9c83c19083f5937"
+        ],
+        "task_id": "task_fixture_00",
+        "first_seen": "2024-05-01T12:01:19Z",
+        "last_seen": "2024-05-01T12:04:05Z",
+        "source": "module2_chain",
+        "tags": [],
+        "attributes": {}
+      }
+    ],
+    "highlights": [
+      {
+        "highlight_id": "hl_chain_28f3b2c3695117b4f42f_1",
+        "title": "HIGH attack: 198.18.0.3 -> 10.0.5.44 (3 stage(s))",
+        "description": "Mock analysis for candidate cand_e723aa7dbaab9eb0: 3 evidence event(s) grouped by the correlation engine.",
+        "severity": "high",
+        "chain_id": "chain_28f3b2c3695117b4f42f",
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ]
+      },
+      {
+        "highlight_id": "hl_chain_87aa41df7a8ad24e62b9_2",
+        "title": "MEDIUM attack: 198.18.0.4 -> 10.0.9.7 (3 stage(s))",
+        "description": "Mock analysis for candidate cand_4217066c6573e1d5: 3 evidence event(s) grouped by the correlation engine.",
+        "severity": "medium",
+        "chain_id": "chain_87aa41df7a8ad24e62b9",
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ]
+      },
+      {
+        "highlight_id": "hl_chain_b505d9c83c19083f5937_3",
+        "title": "MEDIUM attack: 198.18.0.2 -> 10.0.9.7 (3 stage(s))",
+        "description": "Mock analysis for candidate cand_0ac4fc38d34ad32d: 3 evidence event(s) grouped by the correlation engine.",
+        "severity": "medium",
+        "chain_id": "chain_b505d9c83c19083f5937",
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ]
+      },
+      {
+        "highlight_id": "hl_chain_2b23fe1536570557cfef_4",
+        "title": "MEDIUM attack: 198.18.0.1 -> 10.0.0.12, 10.0.0.13 (3 stage(s))",
+        "description": "Mock analysis for candidate cand_9ae8dd501bd9a3cf: 3 evidence event(s) grouped by the correlation engine.",
+        "severity": "medium",
+        "chain_id": "chain_2b23fe1536570557cfef",
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ]
+      },
+      {
+        "highlight_id": "hl_chain_a76f2bbe9428c2cbeb21_5",
+        "title": "MEDIUM attack: 198.18.0.5 -> 10.0.0.21 (2 stage(s))",
+        "description": "Mock analysis for candidate cand_d752aa7f194ced7e: 2 evidence event(s) grouped by the correlation engine.",
+        "severity": "medium",
+        "chain_id": "chain_a76f2bbe9428c2cbeb21",
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "mitigation_id": "mit_fbccb407e306",
+        "title": "Inspect command-and-control exfiltration channels",
+        "description": "Exfiltration over a command-and-control channel is suspected. Block the channel, capture flow metadata and verify what data left the network.",
+        "recommendation_type": "evidence_based",
+        "priority": "critical",
+        "related_techniques": [
+          "T1041"
+        ],
+        "related_entities": [
+          "10.0.5.44"
+        ],
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ],
+        "evidence_chain_ids": [
+          "chain_28f3b2c3695117b4f42f"
+        ]
+      },
+      {
+        "mitigation_id": "mit_7276f80d00d6",
+        "title": "Block and inspect command-and-control channels",
+        "description": "Possible C2/beaconing behaviour was observed. Sinkhole or block the identified infrastructure, enable TLS inspection for egress and review scheduled outbound flows for beaconing periodicity.",
+        "recommendation_type": "evidence_based",
+        "priority": "high",
+        "related_techniques": [
+          "T1071"
+        ],
+        "related_entities": [
+          "10.0.9.7"
+        ],
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ],
+        "evidence_chain_ids": [
+          "chain_87aa41df7a8ad24e62b9"
+        ]
+      },
+      {
+        "mitigation_id": "mit_906680c412c2",
+        "title": "Block the identified malicious infrastructure",
+        "description": "Threat intelligence marked an indicator of this chain as malicious. Block it at the perimeter, hunt for historical connections and review any host that contacted it.",
+        "recommendation_type": "evidence_based",
+        "priority": "high",
+        "related_techniques": [
+          "T1041",
+          "T1048",
+          "T1068",
+          "T1071",
+          "T1105",
+          "T1566"
+        ],
+        "related_entities": [
+          "198.18.0.3",
+          "198.18.0.4"
+        ],
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021",
+          "evt_000022",
+          "evt_000023",
+          "evt_000024"
+        ],
+        "evidence_chain_ids": [
+          "chain_28f3b2c3695117b4f42f",
+          "chain_87aa41df7a8ad24e62b9"
+        ]
+      },
+      {
+        "mitigation_id": "mit_a57ec46ac5d8",
+        "title": "Constrain command and scripting interpreters",
+        "description": "Command interpreter activity was observed. Restrict interpreter use to approved administrative paths, enable script block logging and alert on encoded or obfuscated command lines.",
+        "recommendation_type": "evidence_based",
+        "priority": "high",
+        "related_techniques": [
+          "T1059"
+        ],
+        "related_entities": [
+          "10.0.0.21"
+        ],
+        "evidence_event_ids": [
+          "evt_000026",
+          "evt_000027"
+        ],
+        "evidence_chain_ids": [
+          "chain_a76f2bbe9428c2cbeb21"
+        ]
+      },
+      {
+        "mitigation_id": "mit_a44f37b364c2",
+        "title": "Enable MFA and rate limiting for authentication",
+        "description": "Repeated authentication failures were observed on 22, 3389. Enforce MFA, account lockout / rate limiting and block a source after a bounded number of failures.",
+        "recommendation_type": "evidence_based",
+        "priority": "high",
+        "related_techniques": [
+          "T1110"
+        ],
+        "related_entities": [
+          "10.0.9.7"
+        ],
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ],
+        "evidence_chain_ids": [
+          "chain_b505d9c83c19083f5937"
+        ]
+      },
+      {
+        "mitigation_id": "mit_b8feb68b0d47",
+        "title": "Monitor alternative-protocol egress",
+        "description": "Exfiltration over an alternative protocol (DNS/ICMP/...) is suspected. Enforce DNS egress control, inspect ICMP volume and restrict unauthorised protocols at the perimeter.",
+        "recommendation_type": "evidence_based",
+        "priority": "high",
+        "related_techniques": [
+          "T1048"
+        ],
+        "related_entities": [
+          "10.0.5.44"
+        ],
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ],
+        "evidence_chain_ids": [
+          "chain_28f3b2c3695117b4f42f"
+        ]
+      },
+      {
+        "mitigation_id": "mit_ae79e9b99dcd",
+        "title": "Remediate CVE-2021-44228",
+        "description": "The evidence references CVE-2021-44228. Identify the affected component on the target asset, apply the vendor patch and verify the fix with a targeted scan.",
+        "recommendation_type": "evidence_based",
+        "priority": "high",
+        "related_techniques": [
+          "T1041",
+          "T1048",
+          "T1068"
+        ],
+        "related_entities": [
+          "10.0.5.44"
+        ],
+        "evidence_event_ids": [
+          "evt_000019",
+          "evt_000020",
+          "evt_000021"
+        ],
+        "evidence_chain_ids": [
+          "chain_28f3b2c3695117b4f42f"
+        ]
+      },
+      {
+        "mitigation_id": "mit_834f422d995c",
+        "title": "Review account usage and access policy",
+        "description": "Valid-account abuse is suspected. Review recent logins for the involved accounts, enforce least privilege and rotate credentials used from unexpected sources.",
+        "recommendation_type": "evidence_based",
+        "priority": "high",
+        "related_techniques": [
+          "T1078"
+        ],
+        "related_entities": [
+          "10.0.9.7"
+        ],
+        "evidence_event_ids": [
+          "evt_000013",
+          "evt_000014",
+          "evt_000015"
+        ],
+        "evidence_chain_ids": [
+          "chain_b505d9c83c19083f5937"
+        ]
+      },
+      {
+        "mitigation_id": "mit_a3b797208180",
+        "title": "Control the ingress of tooling and second-stage payloads",
+        "description": "Tool or payload transfer was observed. Restrict outbound downloads, block unauthorised file transfer services and inspect proxy logs.",
+        "recommendation_type": "evidence_based",
+        "priority": "medium",
+        "related_techniques": [
+          "T1105"
+        ],
+        "related_entities": [
+          "10.0.9.7"
+        ],
+        "evidence_event_ids": [
+          "evt_000024",
+          "evt_000022",
+          "evt_000023"
+        ],
+        "evidence_chain_ids": [
+          "chain_87aa41df7a8ad24e62b9"
+        ]
+      },
+      {
+        "mitigation_id": "mit_6d2c0ba5a114",
+        "title": "Restrict and monitor internal reconnaissance",
+        "description": "Service/port scanning was detected. Segment the network, restrict east-west traffic to required flows and alert on scan-like patterns.",
+        "recommendation_type": "evidence_based",
+        "priority": "medium",
+        "related_techniques": [
+          "T1046"
+        ],
+        "related_entities": [
+          "10.0.0.12",
+          "10.0.0.13",
+          "10.0.0.21",
+          "10.0.9.7"
+        ],
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ],
+        "evidence_chain_ids": [
+          "chain_2b23fe1536570557cfef"
+        ]
+      },
+      {
+        "mitigation_id": "mit_28055641a0c0",
+        "title": "Monitor host information discovery",
+        "description": "System information discovery was observed. Alert on discovery commands issued from non-administrative contexts.",
+        "recommendation_type": "evidence_based",
+        "priority": "low",
+        "related_techniques": [
+          "T1082"
+        ],
+        "related_entities": [
+          "10.0.0.12",
+          "10.0.0.13",
+          "10.0.0.21",
+          "10.0.9.7"
+        ],
+        "evidence_event_ids": [
+          "evt_000002",
+          "evt_000003",
+          "evt_000001"
+        ],
+        "evidence_chain_ids": [
+          "chain_2b23fe1536570557cfef"
+        ]
+      }
+    ],
+    "evidence_summary": {
+      "total_input_events": 27,
+      "unique_events": 27,
+      "events_in_chains": 27,
+      "events_without_chain": 0,
+      "candidate_count": 5,
+      "dropped_llm_evidence": 0,
+      "validation_issues": 0,
+      "per_stage": {
+        "ingested": 27,
+        "deduplicated": 27,
+        "candidates": 5,
+        "chains": 5,
+        "merged_chains": 0
+      }
+    },
+    "llm_meta": {
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "max_concurrency": 5,
+      "fallback_enabled": true,
+      "calls": 5,
+      "successes": 5,
+      "failures": 0,
+      "fallbacks": 0,
+      "retries": 0,
+      "input_tokens": 10475,
+      "output_tokens": 1000,
+      "latency_p50_ms": 0.026,
+      "latency_p95_ms": 0.061,
+      "latency_p99_ms": 0.0666
+    },
+    "metrics": {
+      "task_id": "task_fixture_00",
+      "started_at": "2026-09-20T03:19:49.812185Z",
+      "finished_at": "2026-09-20T03:19:49.811845Z",
+      "total_duration_ms": 105.067,
+      "stage_timings": [
+        {
+          "stage": "validation",
+          "duration_ms": 3.527,
+          "items": null,
+          "details": {}
+        },
+        {
+          "stage": "ingestion",
+          "duration_ms": 11.882,
+          "items": null,
+          "details": {}
+        },
+        {
+          "stage": "deduplication",
+          "duration_ms": 3.462,
+          "items": null,
+          "details": {}
+        },
+        {
+          "stage": "normalization",
+          "duration_ms": 4.309,
+          "items": null,
+          "details": {}
+        },
+        {
+          "stage": "correlation",
+          "duration_ms": 27.471,
+          "items": null,
+          "details": {}
+        },
+        {
+          "stage": "threat_intel",
+          "duration_ms": 3.239,
+          "items": null,
+          "details": {}
+        },
+        {
+          "stage": "technique_mapping",
+          "duration_ms": 10.811,
+          "items": null,
+          "details": {}
+        },
+        {
+          "stage": "technique_mapping",
+          "duration_ms": 4.732,
+          "items": null,
+          "details": {}
+        },
+        {
+          "stage": "technique_mapping",
+          "duration_ms": 5.507,
+          "items": null,
+          "details": {}
+        },
+        {
+          "stage": "technique_mapping",
+          "duration_ms": 4.517,
+          "items": null,
+          "details": {}
+        },
+        {
+          "stage": "technique_mapping",
+          "duration_ms": 3.879,
+          "items": null,
+          "details": {}
+        },
+        {
+          "stage": "llm_analysis",
+          "duration_ms": 5.594,
+          "items": null,
+          "details": {}
+        },
+        {
+          "stage": "evidence_validation",
+          "duration_ms": 3.965,
+          "items": null,
+          "details": {}
+        },
+        {
+          "stage": "event_deduplication",
+          "duration_ms": 2.511,
+          "items": null,
+          "details": {}
+        },
+        {
+          "stage": "profiling",
+          "duration_ms": 2.93,
+          "items": null,
+          "details": {}
+        },
+        {
+          "stage": "entity_extraction",
+          "duration_ms": 3.845,
+          "items": null,
+          "details": {}
+        },
+        {
+          "stage": "report_generation",
+          "duration_ms": 2.886,
+          "items": null,
+          "details": {}
+        }
+      ],
+      "events_ingested": 27,
+      "events_deduplicated": 0,
+      "events_unique": 27,
+      "events_in_chains": 27,
+      "candidates": 5,
+      "chains": 5,
+      "alerts": 5,
+      "llm_calls": 5,
+      "llm_failures": 0,
+      "llm_tokens_input": 10475,
+      "llm_tokens_output": 1000,
+      "llm_latency_p50_ms": 0.026,
+      "llm_latency_p95_ms": 0.061,
+      "llm_latency_p99_ms": 0.0666,
+      "events_per_second": 256.979,
+      "candidates_per_second": 47.589,
+      "llm_calls_per_candidate": 1.0,
+      "llm_call_ratio": 0.185185,
+      "peak_memory_mb": 99.14,
+      "extra": {
+        "llm": {
+          "provider": "mock",
+          "model": "mock-model",
+          "prompt_version": "attack_analysis.v1",
+          "max_concurrency": 5,
+          "fallback_enabled": true,
+          "calls": 5,
+          "successes": 5,
+          "failures": 0,
+          "fallbacks": 0,
+          "retries": 0,
+          "input_tokens": 10475,
+          "output_tokens": 1000,
+          "latency_p50_ms": 0.026,
+          "latency_p95_ms": 0.061,
+          "latency_p99_ms": 0.0666
+        },
+        "threat_intel": {
+          "provider": "local",
+          "enabled": true,
+          "base_dir": "/home/huhongyuan/PycharmProjects/NetworkAttackAnalysisSystem/data/threat_intel",
+          "tables": {
+            "ip": 5,
+            "domain": 3,
+            "hash": 2,
+            "cve": 2
+          },
+          "errors": [],
+          "lookups": 13,
+          "hits": 3,
+          "cache_entries": 13
+        },
+        "provider": "mock",
+        "model": "mock-model",
+        "prompt_version": "attack_analysis.v1",
+        "knowledge_base": "1.0.0"
+      }
+    },
+    "data_contract": {
+      "suspicious_event_batch": "1.0.0",
+      "attack_chain": "1.0.0",
+      "alert": "1.0.0",
+      "attacker_profile": "1.0.0",
+      "threat_entity": "1.0.0",
+      "risk_event_report": "1.0.0",
+      "producer": "module2_chain",
+      "transport": "shared_workspace"
+    }
+  },
+  "metrics": {
+    "task_id": "task_fixture_00",
+    "started_at": "2026-09-20T03:19:49.812185Z",
+    "finished_at": "2026-09-20T03:19:49.811845Z",
+    "total_duration_ms": 105.067,
+    "stage_timings": [
+      {
+        "stage": "validation",
+        "duration_ms": 3.527,
+        "items": null,
+        "details": {}
+      },
+      {
+        "stage": "ingestion",
+        "duration_ms": 11.882,
+        "items": null,
+        "details": {}
+      },
+      {
+        "stage": "deduplication",
+        "duration_ms": 3.462,
+        "items": null,
+        "details": {}
+      },
+      {
+        "stage": "normalization",
+        "duration_ms": 4.309,
+        "items": null,
+        "details": {}
+      },
+      {
+        "stage": "correlation",
+        "duration_ms": 27.471,
+        "items": null,
+        "details": {}
+      },
+      {
+        "stage": "threat_intel",
+        "duration_ms": 3.239,
+        "items": null,
+        "details": {}
+      },
+      {
+        "stage": "technique_mapping",
+        "duration_ms": 10.811,
+        "items": null,
+        "details": {}
+      },
+      {
+        "stage": "technique_mapping",
+        "duration_ms": 4.732,
+        "items": null,
+        "details": {}
+      },
+      {
+        "stage": "technique_mapping",
+        "duration_ms": 5.507,
+        "items": null,
+        "details": {}
+      },
+      {
+        "stage": "technique_mapping",
+        "duration_ms": 4.517,
+        "items": null,
+        "details": {}
+      },
+      {
+        "stage": "technique_mapping",
+        "duration_ms": 3.879,
+        "items": null,
+        "details": {}
+      },
+      {
+        "stage": "llm_analysis",
+        "duration_ms": 5.594,
+        "items": null,
+        "details": {}
+      },
+      {
+        "stage": "evidence_validation",
+        "duration_ms": 3.965,
+        "items": null,
+        "details": {}
+      },
+      {
+        "stage": "event_deduplication",
+        "duration_ms": 2.511,
+        "items": null,
+        "details": {}
+      },
+      {
+        "stage": "profiling",
+        "duration_ms": 2.93,
+        "items": null,
+        "details": {}
+      },
+      {
+        "stage": "entity_extraction",
+        "duration_ms": 3.845,
+        "items": null,
+        "details": {}
+      },
+      {
+        "stage": "report_generation",
+        "duration_ms": 2.886,
+        "items": null,
+        "details": {}
+      }
+    ],
+    "events_ingested": 27,
+    "events_deduplicated": 0,
+    "events_unique": 27,
+    "events_in_chains": 27,
+    "candidates": 5,
+    "chains": 5,
+    "alerts": 5,
+    "llm_calls": 5,
+    "llm_failures": 0,
+    "llm_tokens_input": 10475,
+    "llm_tokens_output": 1000,
+    "llm_latency_p50_ms": 0.026,
+    "llm_latency_p95_ms": 0.061,
+    "llm_latency_p99_ms": 0.0666,
+    "events_per_second": 256.979,
+    "candidates_per_second": 47.589,
+    "llm_calls_per_candidate": 1.0,
+    "llm_call_ratio": 0.185185,
+    "peak_memory_mb": 99.14,
+    "extra": {
+      "llm": {
+        "provider": "mock",
+        "model": "mock-model",
+        "prompt_version": "attack_analysis.v1",
+        "max_concurrency": 5,
+        "fallback_enabled": true,
+        "calls": 5,
+        "successes": 5,
+        "failures": 0,
+        "fallbacks": 0,
+        "retries": 0,
+        "input_tokens": 10475,
+        "output_tokens": 1000,
+        "latency_p50_ms": 0.026,
+        "latency_p95_ms": 0.061,
+        "latency_p99_ms": 0.0666
+      },
+      "threat_intel": {
+        "provider": "local",
+        "enabled": true,
+        "base_dir": "/home/huhongyuan/PycharmProjects/NetworkAttackAnalysisSystem/data/threat_intel",
+        "tables": {
+          "ip": 5,
+          "domain": 3,
+          "hash": 2,
+          "cve": 2
+        },
+        "errors": [],
+        "lookups": 13,
+        "hits": 3,
+        "cache_entries": 13
+      },
+      "provider": "mock",
+      "model": "mock-model",
+      "prompt_version": "attack_analysis.v1",
+      "knowledge_base": "1.0.0"
+    }
+  }
+}

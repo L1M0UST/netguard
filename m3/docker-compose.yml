@@ -1,0 +1,15 @@
+services:
+  netguard-m3:
+    build: .
+    ports:
+      - "8001:8001"
+    environment:
+      NETGUARD_DATA_DIR: /app/data
+      NETGUARD_WORKSPACE: /app/shared_workspace
+    volumes:
+      - netguard-data:/app/data
+      - netguard-shared-workspace:/app/shared_workspace
+    command: uvicorn server:app --host 0.0.0.0 --port 8001
+volumes:
+  netguard-data:
+  netguard-shared-workspace:
