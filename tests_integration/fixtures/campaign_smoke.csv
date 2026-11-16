@@ -1,0 +1,10 @@
+﻿timestamp,user_agent,method,src_ip,dst_ip,url_path,request_body,attack_type(结果列，需参赛选手判断输出)
+2025-10-21 08:00:00,Mozilla/5.0 (X11; Linux x86_64),GET,10.25.73.34,10.60.33.18,/api/login?u=admin' OR 1=1--,,SQL注入攻击
+2025-10-21 08:00:25,Mozilla/5.0 (X11; Linux x86_64),GET,10.25.73.34,10.60.33.18,"/api/login?u=admin' UNION SELECT 1,2,3--",,SQL注入攻击
+2025-10-21 08:00:50,Mozilla/5.0 (X11; Linux x86_64),GET,10.25.73.34,10.60.33.18,/api/login?u=x'; DROP TABLE users--,,SQL注入攻击
+2025-10-21 08:20:00,Mozilla/5.0,GET,10.25.73.34,10.60.33.99,/search?q=<script>alert(1)</script>,,XSS攻击
+2025-10-21 08:20:30,Mozilla/5.0,GET,10.25.73.34,10.60.33.99,/search?q=<img src=x onerror=alert(2)>,,XSS攻击
+2025-10-21 08:25:00,Mozilla/5.0,GET,10.53.116.227,10.60.33.18,/api/login?u=root' AND 1=1#,,SQL注入攻击
+2025-10-21 08:25:30,Mozilla/5.0,GET,10.53.116.227,10.60.33.18,/api/login?u=root' SLEEP(5)#,,SQL注入攻击
+2025-10-21 22:00:00,curl/8.0,GET,10.99.99.99,10.60.77.5,/static/../../../../etc/passwd,,目录遍历攻击
+2025-10-21 22:00:40,curl/8.0,GET,10.99.99.99,10.60.77.5,/static/..%2f..%2f..%2fetc%2fshadow,,目录遍历攻击

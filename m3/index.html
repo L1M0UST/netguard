@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NetGuard · 网络攻击预警</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%233768ef'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'>N</text></svg>" />
-    <link rel="stylesheet" href="styles.css?v=30" />
+    <link rel="stylesheet" href="styles.css?v=39" />
 
   </head>
   <body>
@@ -49,12 +49,16 @@
             </div></div>
           <div class="chain-tabs" role="tablist">
             <button class="chain-tab active" data-tab="path">① 攻击路径图</button>
-            <button class="chain-tab" data-tab="profiles">② 攻击者画像</button>
-            <button class="chain-tab" data-tab="actions">③ 处置建议</button>
-            <button class="chain-tab" data-tab="stats">④ 证据与统计</button>
+            <button class="chain-tab" data-tab="graph">② 关联图</button>
+            <button class="chain-tab" data-tab="campaigns">③ 攻击活动</button>
+            <button class="chain-tab" data-tab="profiles">④ 攻击者画像</button>
+            <button class="chain-tab" data-tab="actions">⑤ 处置建议</button>
+            <button class="chain-tab" data-tab="stats">⑥ 证据与统计</button>
           </div>
           <div class="chain-toolbar"><div class="chain-toolbar-actions"><button class="secondary-btn" id="export-chain"><span>下载当前链证据</span></button><button class="primary-btn" id="open-chat"><span>询问这条攻击链</span></button></div><span class="chain-tip">多阶段链已优先排列。点击路径中的阶段可展开原始证据；画像、处置建议和统计位于上方标签页。</span></div>
           <article class="panel chain-panel tab-panel" id="tab-path" data-panel="path"></article>
+          <article class="panel tab-panel hidden" id="tab-graph" data-panel="graph"></article>
+          <article class="panel tab-panel hidden" id="tab-campaigns" data-panel="campaigns"></article>
           <article class="panel tab-panel hidden" id="tab-profiles" data-panel="profiles"></article>
           <article class="panel tab-panel hidden" id="tab-actions" data-panel="actions"></article>
           <article class="panel tab-panel hidden" id="tab-stats" data-panel="stats"></article>
@@ -72,7 +76,7 @@
     <div id="drawer-mask" class="drawer-mask hidden"></div>
     <div id="task-modal" class="modal hidden"><div class="modal-card"><button class="modal-close" id="close-modal"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button><h2>新建分析任务</h2><p>上传告警文件，创建分析任务。</p><label class="upload-box" id="upload-box"><input type="file" id="file-input" accept=".csv,.xlsx,.pcap,.pcapng,.json,.jsonl"/><span class="upload-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span><b>点击选择文件或拖拽到此处</b><small>支持 CSV / XLSX / PCAP / PCAPNG / JSON / JSONL，单文件不超过 2 GB</small></label><div id="selected-file" class="selected-file hidden"></div><label class="field-label" for="analysis-mode">模型研判策略<select id="analysis-mode" aria-describedby="analysis-mode-help"><option value="hybrid" selected>本地初判 + 云端复核（推荐）</option><option value="local">仅本地模型（数据不出本机）</option><option value="cloud">仅互联网模型（语义覆盖优先）</option></select><small id="analysis-mode-help">规则与 IOC 始终参与；模型仅复核高/中风险候选，默认最多 1% 的原始记录。</small></label><label class="field-label">分析备注（可选）<textarea id="task-note" placeholder="例如：重点关注外联和横向移动行为"></textarea></label><button class="primary-btn full" id="start-task">开始分析</button></div></div>
     <div id="chat-panel" class="chat-panel hidden"><div class="chat-head"><b>NetGuard 分析查询</b><button id="close-chat"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><div id="chat-messages" class="chat-messages"></div><div class="chat-input"><input id="chat-input" placeholder="询问当前攻击链…"/><button id="send-chat">发送</button></div></div><div id="toast" class="toast"></div>
-    <script src="app.js?v=8"></script><script src="workflow.js?v=19"></script><script src="m3-ui.js?v=30"></script><script src="m3-ext.js?v=39"></script>
+    <script src="app.js?v=8"></script><script src="workflow.js?v=20"></script><script src="m3-ui.js?v=46"></script><script src="m3-ext.js?v=44"></script>
   </body>
 </html>
 

@@ -1,0 +1,479 @@
+{
+  "checked_at_utc": "2026-11-14T10:48:50.627910+00:00",
+  "scope": "Metadata inspection; archive hashes are publisher metadata, not locally verified downloads.",
+  "sources": [
+    {
+      "kind": "zenodo",
+      "name": "5789064",
+      "url": "https://zenodo.org/api/records/5789064",
+      "http_status": 200,
+      "id": 5789064,
+      "created": "2022-02-24T12:57:30.494302+00:00",
+      "modified": "2024-06-28T13:26:18.224418+00:00",
+      "doi": "10.5281/zenodo.5789064",
+      "title": "AIT Log Data Set V2.0",
+      "version": "v2_0",
+      "publication_date": "2022-02-24",
+      "license": {
+        "id": "cc-by-nc-sa-4.0"
+      },
+      "files": [
+        {
+          "key": "shaw.zip",
+          "size": 17594549155,
+          "checksum": "md5:872bbec7ffe12f14e06364e328a96088",
+          "links": {
+            "self": "https://zenodo.org/api/records/5789064/files/shaw.zip/content"
+          }
+        },
+        {
+          "key": "wheeler.zip",
+          "size": 19593129576,
+          "checksum": "md5:e3f5605d867fcc644f93ae6c736cdb30",
+          "links": {
+            "self": "https://zenodo.org/api/records/5789064/files/wheeler.zip/content"
+          }
+        },
+        {
+          "key": "russellmitchell.zip",
+          "size": 7132670599,
+          "checksum": "md5:78e9b7d169b438f03816019b52ab3ff7",
+          "links": {
+            "self": "https://zenodo.org/api/records/5789064/files/russellmitchell.zip/content"
+          }
+        },
+        {
+          "key": "wilson.zip",
+          "size": 26544770737,
+          "checksum": "md5:952dd37cb262ef0054ad6d5371bdbe70",
+          "links": {
+            "self": "https://zenodo.org/api/records/5789064/files/wilson.zip/content"
+          }
+        },
+        {
+          "key": "wardbeck.zip",
+          "size": 17163231368,
+          "checksum": "md5:ff524634e64c7779def2eb804e8c52ac",
+          "links": {
+            "self": "https://zenodo.org/api/records/5789064/files/wardbeck.zip/content"
+          }
+        },
+        {
+          "key": "fox.zip",
+          "size": 15837626707,
+          "checksum": "md5:b6cd133398fbed6f3e7434dafbc45756",
+          "links": {
+            "self": "https://zenodo.org/api/records/5789064/files/fox.zip/content"
+          }
+        },
+        {
+          "key": "harrison.zip",
+          "size": 16773705987,
+          "checksum": "md5:4fbe3dd17a194776b2851116f8b51380",
+          "links": {
+            "self": "https://zenodo.org/api/records/5789064/files/harrison.zip/content"
+          }
+        },
+        {
+          "key": "santos.zip",
+          "size": 10004843924,
+          "checksum": "md5:fbd2663a41c83f345aa08a7fb11a6c6c",
+          "links": {
+            "self": "https://zenodo.org/api/records/5789064/files/santos.zip/content"
+          }
+        }
+      ],
+      "total_file_bytes": 130644528053,
+      "status": "metadata_verified"
+    },
+    {
+      "kind": "zenodo",
+      "name": "19483937",
+      "url": "https://zenodo.org/api/records/19483937",
+      "http_status": 200,
+      "id": 19483937,
+      "created": "2026-04-13T13:37:35.785337+00:00",
+      "modified": "2026-04-13T13:38:36.893468+00:00",
+      "doi": "10.5281/zenodo.19483937",
+      "title": "AIT Log Data Set V2.1",
+      "version": "v2_1",
+      "publication_date": "2026-04-09",
+      "license": {
+        "id": "cc-by-nc-sa-4.0"
+      },
+      "files": [
+        {
+          "key": "wheeler.zip",
+          "size": 19593129576,
+          "checksum": "md5:e3f5605d867fcc644f93ae6c736cdb30",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/wheeler.zip/content"
+          }
+        },
+        {
+          "key": "russellmitchell.zip",
+          "size": 7132670599,
+          "checksum": "md5:78e9b7d169b438f03816019b52ab3ff7",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/russellmitchell.zip/content"
+          }
+        },
+        {
+          "key": "wilson.zip",
+          "size": 26544770737,
+          "checksum": "md5:952dd37cb262ef0054ad6d5371bdbe70",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/wilson.zip/content"
+          }
+        },
+        {
+          "key": "wardbeck.zip",
+          "size": 17163231368,
+          "checksum": "md5:ff524634e64c7779def2eb804e8c52ac",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/wardbeck.zip/content"
+          }
+        },
+        {
+          "key": "fox.zip",
+          "size": 15837626707,
+          "checksum": "md5:b6cd133398fbed6f3e7434dafbc45756",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/fox.zip/content"
+          }
+        },
+        {
+          "key": "harrison.zip",
+          "size": 16773705987,
+          "checksum": "md5:4fbe3dd17a194776b2851116f8b51380",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/harrison.zip/content"
+          }
+        },
+        {
+          "key": "santos.zip",
+          "size": 10004843924,
+          "checksum": "md5:fbd2663a41c83f345aa08a7fb11a6c6c",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/santos.zip/content"
+          }
+        },
+        {
+          "key": "fox_no-pcaps.zip",
+          "size": 688586900,
+          "checksum": "md5:27b09dd2876ec08ee99a9b53e8718c92",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/fox_no-pcaps.zip/content"
+          }
+        },
+        {
+          "key": "harrison_no-pcaps.zip",
+          "size": 667985140,
+          "checksum": "md5:4e837053ce4c5496227e0a3b65048c1c",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/harrison_no-pcaps.zip/content"
+          }
+        },
+        {
+          "key": "shaw_no-pcaps.zip",
+          "size": 1319137852,
+          "checksum": "md5:f890a1f52bc9f893b44254ad86118e39",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/shaw_no-pcaps.zip/content"
+          }
+        },
+        {
+          "key": "wardbeck_no-pcaps.zip",
+          "size": 818462147,
+          "checksum": "md5:14eeacd83571a83615c2cce1f6a6eacf",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/wardbeck_no-pcaps.zip/content"
+          }
+        },
+        {
+          "key": "wheeler_no-pcaps.zip",
+          "size": 767673839,
+          "checksum": "md5:774a146275a22707ee78bcb4574aca23",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/wheeler_no-pcaps.zip/content"
+          }
+        },
+        {
+          "key": "wilson_no-pcaps.zip",
+          "size": 1083526183,
+          "checksum": "md5:98285593473dc05d0a6899f7cdefcd2d",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/wilson_no-pcaps.zip/content"
+          }
+        },
+        {
+          "key": "shaw.zip",
+          "size": 17594549155,
+          "checksum": "md5:872bbec7ffe12f14e06364e328a96088",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/shaw.zip/content"
+          }
+        },
+        {
+          "key": "russellmitchell_no-pcaps.zip",
+          "size": 522084364,
+          "checksum": "md5:abb43a46c70939ad9f98669e3510d2b7",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/russellmitchell_no-pcaps.zip/content"
+          }
+        },
+        {
+          "key": "santos_no-pcaps.zip",
+          "size": 576734274,
+          "checksum": "md5:cb484a2c55ea03c63c556f0531fe8367",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/santos_no-pcaps.zip/content"
+          }
+        }
+      ],
+      "total_file_bytes": 137088718752,
+      "status": "metadata_verified"
+    },
+    {
+      "kind": "zenodo",
+      "name": "8263181",
+      "url": "https://zenodo.org/api/records/8263181",
+      "http_status": 200,
+      "id": 8263181,
+      "created": "2023-08-21T08:11:43.676403+00:00",
+      "modified": "2024-10-14T05:42:15.066656+00:00",
+      "doi": "10.5281/zenodo.8263181",
+      "title": "AIT Alert Data Set",
+      "version": "1",
+      "publication_date": "2023-08-18",
+      "license": {
+        "id": "cc-by-4.0"
+      },
+      "files": [
+        {
+          "key": "ait_ads.zip",
+          "size": 96202946,
+          "checksum": "md5:43db6b1f0996e0024befd617706c50e9",
+          "links": {
+            "self": "https://zenodo.org/api/records/8263181/files/ait_ads.zip/content"
+          }
+        },
+        {
+          "key": "labels.csv",
+          "size": 3703,
+          "checksum": "md5:60ff33796c77fd2136c4d1a4bc841bd9",
+          "links": {
+            "self": "https://zenodo.org/api/records/8263181/files/labels.csv/content"
+          }
+        }
+      ],
+      "total_file_bytes": 96206649,
+      "status": "metadata_verified"
+    },
+    {
+      "kind": "zenodo",
+      "name": "17178461",
+      "url": "https://zenodo.org/api/records/17178461",
+      "http_status": 200,
+      "id": 17178461,
+      "created": "2025-09-22T16:48:30.297658+00:00",
+      "modified": "2025-09-22T16:48:30.572171+00:00",
+      "doi": "10.5281/zenodo.17178461",
+      "title": "A Thirty-Day Dataset of Malicious HTTP Requests Blocked by OWASP ModSecurity on a Production Web Server",
+      "version": null,
+      "publication_date": "2025-09-22",
+      "license": {
+        "id": "cc-by-4.0"
+      },
+      "files": [
+        {
+          "key": "owasp.zip",
+          "size": 29524147,
+          "checksum": "md5:95b7a8237abc163d8ca31e49f7318efd",
+          "links": {
+            "self": "https://zenodo.org/api/records/17178461/files/owasp.zip/content"
+          }
+        }
+      ],
+      "total_file_bytes": 29524147,
+      "status": "metadata_verified"
+    },
+    {
+      "kind": "zenodo",
+      "name": "20001206",
+      "url": "https://zenodo.org/api/records/20001206",
+      "http_status": 200,
+      "id": 20001206,
+      "created": "2026-05-03T11:32:52.860656+00:00",
+      "modified": "2026-05-03T11:32:53.167017+00:00",
+      "doi": "10.5281/zenodo.20001206",
+      "title": "Web Server Log Dataset",
+      "version": null,
+      "publication_date": "2026-05-03",
+      "license": {
+        "id": "mit-license"
+      },
+      "files": [
+        {
+          "key": "organization-x.zip",
+          "size": 2135289,
+          "checksum": "md5:b4bf79effa6f3ee1b9e53f278d916620",
+          "links": {
+            "self": "https://zenodo.org/api/records/20001206/files/organization-x.zip/content"
+          }
+        },
+        {
+          "key": "organization-y.zip",
+          "size": 390765762,
+          "checksum": "md5:b1925ff7f043c391d501cfd404e0df10",
+          "links": {
+            "self": "https://zenodo.org/api/records/20001206/files/organization-y.zip/content"
+          }
+        }
+      ],
+      "total_file_bytes": 392901051,
+      "status": "metadata_verified"
+    },
+    {
+      "kind": "github",
+      "name": "OTRF/Security-Datasets",
+      "url": "https://api.github.com/repos/OTRF/Security-Datasets",
+      "http_status": 200,
+      "full_name": "OTRF/Security-Datasets",
+      "html_url": "https://github.com/OTRF/Security-Datasets",
+      "default_branch": "master",
+      "license": {
+        "key": "mit",
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "url": "https://api.github.com/licenses/mit",
+        "node_id": "MDc6TGljZW5zZTEz"
+      },
+      "pushed_at": "2024-03-20T20:19:19Z",
+      "archived": false,
+      "status": "metadata_verified"
+    },
+    {
+      "kind": "github",
+      "name": "splunk/attack_data",
+      "url": "https://api.github.com/repos/splunk/attack_data",
+      "http_status": 200,
+      "full_name": "splunk/attack_data",
+      "html_url": "https://github.com/splunk/attack_data",
+      "default_branch": "master",
+      "license": {
+        "key": "apache-2.0",
+        "name": "Apache License 2.0",
+        "spdx_id": "Apache-2.0",
+        "url": "https://api.github.com/licenses/apache-2.0",
+        "node_id": "MDc6TGljZW5zZTI="
+      },
+      "pushed_at": "2026-11-12T17:00:47Z",
+      "archived": false,
+      "status": "metadata_verified"
+    },
+    {
+      "kind": "github",
+      "name": "CrowdStrike/CyberSOCEval_data",
+      "url": "https://api.github.com/repos/CrowdStrike/CyberSOCEval_data",
+      "http_status": 200,
+      "full_name": "CrowdStrike/CyberSOCEval_data",
+      "html_url": "https://github.com/CrowdStrike/CyberSOCEval_data",
+      "default_branch": "main",
+      "license": {
+        "key": "other",
+        "name": "Other",
+        "spdx_id": "NOASSERTION",
+        "url": null,
+        "node_id": "MDc6TGljZW5zZTA="
+      },
+      "pushed_at": "2025-09-22T15:31:29Z",
+      "archived": false,
+      "status": "metadata_verified"
+    },
+    {
+      "kind": "github",
+      "name": "maveryn/cti-bench",
+      "url": "https://api.github.com/repos/maveryn/cti-bench",
+      "http_status": 200,
+      "full_name": "maveryn/cti-bench",
+      "html_url": "https://github.com/maveryn/cti-bench",
+      "default_branch": "main",
+      "license": {
+        "key": "other",
+        "name": "Other",
+        "spdx_id": "NOASSERTION",
+        "url": null,
+        "node_id": "MDc6TGljZW5zZTA="
+      },
+      "pushed_at": "2026-05-07T10:45:24Z",
+      "archived": false,
+      "status": "metadata_verified"
+    },
+    {
+      "kind": "github",
+      "name": "cybermetric/CyberMetric",
+      "url": "https://api.github.com/repos/cybermetric/CyberMetric",
+      "http_status": 200,
+      "full_name": "cybermetric/CyberMetric",
+      "html_url": "https://github.com/cybermetric/CyberMetric",
+      "default_branch": "main",
+      "license": null,
+      "pushed_at": "2026-05-27T14:51:00Z",
+      "archived": false,
+      "status": "metadata_verified"
+    },
+    {
+      "kind": "github",
+      "name": "splunk/botsv3",
+      "url": "https://api.github.com/repos/splunk/botsv3",
+      "http_status": 200,
+      "full_name": "splunk/botsv3",
+      "html_url": "https://github.com/splunk/botsv3",
+      "default_branch": "master",
+      "license": {
+        "key": "cc0-1.0",
+        "name": "Creative Commons Zero v1.0 Universal",
+        "spdx_id": "CC0-1.0",
+        "url": "https://api.github.com/licenses/cc0-1.0",
+        "node_id": "MDc6TGljZW5zZTY="
+      },
+      "pushed_at": "2020-06-18T13:56:56Z",
+      "archived": false,
+      "status": "metadata_verified"
+    },
+    {
+      "kind": "huggingface",
+      "name": "Qwen/Qwen3-8B",
+      "url": "https://huggingface.co/api/models/Qwen/Qwen3-8B",
+      "http_status": 200,
+      "id": "Qwen/Qwen3-8B",
+      "sha": "b968826d9c46dd6066d109eabc6255188de91218",
+      "lastModified": "2025-07-26T03:49:13.000Z",
+      "gated": false,
+      "cardData": {
+        "library_name": "transformers",
+        "license": "apache-2.0",
+        "license_link": "https://huggingface.co/Qwen/Qwen3-8B/blob/main/LICENSE",
+        "pipeline_tag": "text-generation",
+        "base_model": [
+          "Qwen/Qwen3-8B-Base"
+        ]
+      },
+      "safetensors": {
+        "parameters": {
+          "BF16": 8190735360
+        },
+        "total": 8190735360
+      },
+      "status": "metadata_verified"
+    },
+    {
+      "kind": "mendeley",
+      "name": "zhzd5j9ffy-v2",
+      "url": "https://data.mendeley.com/public-api/datasets/zhzd5j9ffy/versions/2",
+      "status": "unverified",
+      "error": "HTTPError: HTTP Error 404: Not Found"
+    }
+  ]
+}

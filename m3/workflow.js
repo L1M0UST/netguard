@@ -398,11 +398,22 @@ function renderBundle() {
   section('处理版本',JSON.stringify(bundle.versions));
 }
 (async () => {
-  try {
+  // boot 自动恢复任务。曾出现过一次脚本加载竞态（flow 停在初始文案、任务未选中，
+  // 看起来像"功能丢了"），故失败后自动重试一次再报错。
+  const boot = async () => {
     await refreshTasks();
     const saved = localStorage.getItem('netguard.task');
     const task = taskList.find(t => t.task_id === saved) || taskList.at(-1);
     if (task) await selectTask(task);
     else { renderAlerts(); document.querySelector('.chain-panel').textContent = '暂无攻击链，请先完成分析任务。'; }
-  } catch(e) { flowStatus('服务连接失败：' + e.message + '。请刷新重试。'); }
+  };
+  try {
+    await boot();
+  } catch(e) {
+    flowStatus('启动异常（' + e.message + '），2 秒后自动重试…');
+    setTimeout(async () => {
+      try { await boot(); }
+      catch(e2) { flowStatus('服务连接失败：' + e2.message + '。请刷新重试。'); }
+    }, 2000);
+  }
 })();

@@ -1,0 +1,35 @@
+{
+  "revision": "0654501399e7cbd560db9501965dc09c567a5563",
+  "files": [
+    {
+      "path": "CybersecurityBenchmarks/datasets/crwd_meta/malware_analysis/questions.json",
+      "url": "https://raw.githubusercontent.com/meta-llama/PurpleLlama/0654501399e7cbd560db9501965dc09c567a5563/CybersecurityBenchmarks/datasets/crwd_meta/malware_analysis/questions.json",
+      "type": "list",
+      "items": 609,
+      "keys": [
+        "question",
+        "options",
+        "correct_options",
+        "topic",
+        "difficulty",
+        "sha256",
+        "attack"
+      ]
+    },
+    {
+      "path": "CybersecurityBenchmarks/datasets/crwd_meta/threat_intel_reasoning/report_questions.json",
+      "url": "https://raw.githubusercontent.com/meta-llama/PurpleLlama/0654501399e7cbd560db9501965dc09c567a5563/CybersecurityBenchmarks/datasets/crwd_meta/threat_intel_reasoning/report_questions.json",
+      "type": "list",
+      "items": 588,
+      "keys": [
+        "question_text",
+        "options",
+        "correct_answer",
+        "url_source",
+        "report_id",
+        "source",
+        "question_id"
+      ]
+    }
+  ]
+}

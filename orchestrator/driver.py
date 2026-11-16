@@ -41,6 +41,8 @@ M1_CONFIG_TEMPLATE = {
     "schema_profile_sample_size": 200,
     "output": {"format": "parquet", "require_parquet": True, "batch_size": 1000, "batch_bytes": 8388608},
     "threatbook": {"enabled": False},
+    # 第二层 ML 检测器（m1-ml-1.0）：模型缺失/降级时 M1 自动 fail-open 回纯规则
+    "ml_detector": {"enabled": True},
     "enable_l3_semantic_judge": True,
     "l3_max_ratio": 0.01,
     "llm": {

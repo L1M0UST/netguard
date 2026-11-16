@@ -1,6 +1,8 @@
 // M3 renders producer-supplied facts and relationships only.
 const SEV_CN = { critical: '严重', high: '高危', medium: '中危', low: '低危', info: '信息' };
 const SEV_ORDER = { critical: 0, high: 1, medium: 2, low: 3, info: 4 };
+// 等级主色（与 styles.css :root --sev-* 同源，SVG 无法用 CSS 变量时使用）
+const SEV_HEX = { critical: '#9f1239', high: '#b4232f', medium: '#a05a12', low: '#0e7c8c', info: '#4b5b74' };
 const ANALYSIS_MODE_CN = {local:'仅本地模型', cloud:'仅互联网模型', hybrid:'本地初判 + 云端复核'};
 function analysisModeCN(mode) { return ANALYSIS_MODE_CN[mode] || ANALYSIS_MODE_CN.hybrid; }
 function sevCN(sev) { return SEV_CN[sev] || sev || '未分级'; }
@@ -74,6 +76,18 @@ function attBadge(raw) {
 }
 const SOURCE_CN = { rule: '规则引擎', m1: '接入初筛', m2: '攻击关联研判', llm: '模型研判', 'llm_generated':'模型研判', rule_based:'规则引擎', knowledge_base:'安全知识库', analyst_verified:'人工确认', 'm1-session':'会话初筛' };
 function srcCn(s) { return SOURCE_CN[s] || s || '系统'; }
+// M1 规则键 → 展示名（判断依据块用）；ml_ 前缀=ML 检测器对同一规则的判定
+const RULE_CN = {
+  sql_injection:'SQL 注入特征', command_injection:'命令注入特征', java_deserialization:'Java 反序列化特征',
+  path_traversal:'路径遍历特征', file_inclusion:'文件包含特征', file_upload:'文件上传特征',
+  xss:'XSS 脚本特征', csrf:'CSRF 缺陷特征', scanner:'扫描器特征', flow_scan:'流量行为分析',
+  multi_path_scan:'多路径探测', prompt_injection:'提示注入', ioc_match:'威胁情报命中', suspicious:'会话行为异常',
+};
+function ruleCn(r) {
+  const s = String(r || '');
+  if (s.startsWith('ml_')) return 'ML 模型·' + (RULE_CN[s.slice(3)] || s.slice(3));
+  return RULE_CN[s] || s;
+}
 const overviewFacts=element('article',undefined,document.querySelector('#overview'),'panel task-facts');
 function renderOverview() {
   overviewFacts.replaceChildren(); element('h3','当前任务概览',overviewFacts);
@@ -259,6 +273,29 @@ async function openAlertDetail(alert) {
    ['攻击源',d.source||'未提供',''],['受害资产',d.target||'未提供',''],['发生时间',fmtTime(d.timestamp),''],['置信度',d.confidence==null?'未提供':Math.round(d.confidence*100)+'%','']]
     .forEach(([label,value,cls])=>{const item=element('div',undefined,facts);element('small',label,item);element('b',value,item,cls);});
   const why=element('section',undefined,alertDialog,'alert-detail-callout');element('b','为什么需要关注',why);element('p',riskReasonCn(d.risk_reason||d.reason),why);
+  // 单事件研判报告：本地垂域模型按需生成（能力②）；失败回退确定性汇总，来源诚实标注
+  const reportSec=element('section',undefined,alertDialog,'alert-detail-callout');
+  const reportHead=element('div',undefined,reportSec,'alert-report-head');
+  element('b','单事件研判报告',reportHead);
+  const genBtn=element('button','生成研判报告',reportHead,'secondary-btn');
+  const reportOut=element('div',undefined,reportSec,'alert-event-report');
+  element('small','四段研判（事件概述/攻击证据/风险等级/处置建议）：本地垂域模型只做文字组织，所有数字取自系统统计；本地模型未启用时给出确定性汇总。',reportOut);
+  genBtn.onclick=async()=>{
+    genBtn.disabled=true;genBtn.textContent='本地模型研判中（约 10~30 秒）…';
+    try{
+      const rep=await api('/tasks/'+alert.task_id+'/alert/'+encodeURIComponent(alert.alert_id)+'/event-report',post({}));
+      reportOut.replaceChildren();
+      const badge=element('span',rep.source==='cqsec'?'来源：本地垂域模型':'来源：确定性汇总（本地模型未启用）',reportOut,'meta-badge');
+      if(rep.cached) badge.textContent+='（缓存）';
+      if(rep.note) element('small',rep.note,reportOut,'corr-note');
+      element('pre',rep.report||'（空）',reportOut,'event-report-text');
+      genBtn.textContent='重新生成';
+    }catch(e){
+      element('p','生成失败：'+e.message,reportOut,'corr-note');
+      genBtn.textContent='重试';
+    }
+    genBtn.disabled=false;
+  };
   const related=d.related_chains||[];
   element('h3','关联攻击链（'+related.length+'）',alertDialog);
   const links=element('div',undefined,alertDialog,'alert-detail-links');
@@ -287,6 +324,38 @@ function svgClip(str, maxUnits) {
   for (const ch of String(str)) { w += /[\u4e00-\u9fff，。（）]/.test(ch) ? 2 : 1; if (w > maxUnits) return out + '…'; out += ch; }
   return out;
 }
+// —— 关联理由中文化：M2 关联引擎的 LinkDecision reasons 是确定性英文短语，展示层映射 ——
+const CORR_REASON_PATTERNS = [
+  [/^attacker block (.+)$/i, '攻击源分块 $1'],
+  [/^victim block (.+)$/i, '受害目标分块 $1'],
+  [/^identical attacker (.+)$/i, '同一攻击源 $1'],
+  [/^attackers inside the same subnet \((.+)\/(.+)\)$/i, '攻击源同网段（$1 / $2）'],
+  [/^identical victim (.+)$/i, '同一受害资产 $1'],
+  [/^victims inside the same subnet \((.+)\/(.+)\)$/i, '受害资产同网段（$1 / $2）'],
+  [/^same destination port (.+)$/i, '相同目的端口 $1'],
+  [/^same (?:Module 1 )?session (.+)$/i, '同一会话 $1'],
+  [/^shared IOC (.+)$/i, '共享威胁情报 $1'],
+  [/^behaviour categories (.+?) -> (.+?) \(affinity=([\d.]+)\)$/i, '行为类别 $1 → $2（亲和度 $3）'],
+  [/^similar rule hits \(similarity=([\d.]+)\)$/i, '命中相似规则（相似度 $1）'],
+  [/^events occur within (\d+)s \(inside the correlation window\)$/i, '间隔 $1 秒（关联窗口内）'],
+  [/^events are (\d+)s apart \(inside the extended gap limit\)$/i, '间隔 $1 秒（扩展窗口内）'],
+];
+function corrReasonCn(text) {
+  const s = String(text || '');
+  for (const [re, rep] of CORR_REASON_PATTERNS) { if (re.test(s)) return s.replace(re, rep); }
+  return s;
+}
+// —— 不确定项/缺失证据中文化（chain.uncertainties 里的已知模式；未知原文保留） ——
+const UNCERTAINTY_PATTERNS = [
+  [/^Multiple ATT&CK stages were proposed but only one evidence event supports/i, '模型提出了多个阶段，但仅有一条证据事件支持，链已折叠为单阶段'],
+  [/^LLM analysis was unavailable/i, '大模型研判不可用，本链按确定性规则构建'],
+  [/degraded to deterministic rules/i, '大模型研判不可用，已按确定性规则建链'],
+];
+function uncertaintyCn(text) {
+  const s = String(text || '');
+  for (const [re, rep] of UNCERTAINTY_PATTERNS) { if (re.test(s)) return rep; }
+  return s;
+}
 renderChain=function() {
   const panel=document.getElementById('tab-path')||document.querySelector('.chain-panel'); panel.replaceChildren();
   if(!currentChain) {element('p','当前任务没有攻击链。请在上方选择一条链，或先在"分析任务"里完成任务。',panel);return;}
@@ -298,6 +367,23 @@ renderChain=function() {
   if(card.score!=null){ element('span',('风险分 '+card.score+'/100'),meta,'meta-badge'); }
   const atk=(currentChain.attacker_ips||[]).join('、'), vic=(currentChain.victim_ips||[]).join('、');
   if(atk||vic){ element('span',(atk||'?')+' → '+(vic||'?'),meta,'meta-flow').title='攻击源 → 受害资产'; }
+  if(currentChain.correlation_score>0){ element('span','关联分 '+currentChain.correlation_score,meta,'meta-badge').title='关联引擎对这条链内部告警两两判定的平均得分（0~1）'; }
+  if(currentChain.campaign_id){const cb=element('span','所属攻击活动 '+(currentChain.campaign_id||'').slice(5,13),meta,'meta-badge campaign-link');cb.title='这条链与其它链被归并为一次跨链攻击活动，点击在"攻击活动"标签页查看全貌';cb.style.cursor='pointer';cb.onclick=()=>{const btn=document.querySelector('[data-tab="campaigns"]');if(btn)btn.click();};}
+  const corrReasons=currentChain.correlation_reasons||[];
+  if(corrReasons.length){
+    const why=element('section',undefined,panel,'detail-section corr-section');
+    element('h3','关联依据（这些告警为何被归为一条链）',why);
+    const ul=element('ul',undefined,why,'corr-reasons');
+    corrReasons.slice(0,8).forEach(r=>{const li=element('li',corrReasonCn(r),ul);li.title=r;});
+  }
+  const missItems=[...(currentChain.uncertainties||[]).map(uncertaintyCn), ...((currentChain.confidence_card||{}).penalties||[]).map(p=>p.reason)].filter(Boolean);
+  if(missItems.length){
+    const miss=element('section',undefined,panel,'detail-section corr-section');
+    element('h3','缺失证据与不确定项（哪些结论还不满）',miss);
+    element('small','确定性校验项已译为中文；英文行保留大模型自述原文（仅作核对用途，不参与打分）。',miss,'corr-note');
+    const ul2=element('ul',undefined,miss,'corr-reasons');
+    [...new Set(missItems)].slice(0,8).forEach(u=>element('li',u,ul2));
+  }
   const viewport=element('div',undefined,panel,'graph-viewport');
   const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
   const stages=currentChain.stages||[]; const boxW=520, gap=112, height=Math.max(170,stages.length*gap+30);
@@ -314,13 +400,76 @@ renderChain=function() {
     details(evidence,'该阶段说明',{ 战术:attCn(stage.tactic).cn+'（'+(attCn(stage.tactic).code||stage.tactic||'—')+'）',
       技术:attCn(stage.technique).cn+'（'+(attCn(stage.technique).code||stage.technique||'—')+'）',
       置信度:stage.confidence, 时间:(stage.time_range||[]).map(fmtTime).join(' 至 '), 来源:srcCn(stage.source) });
-    details(evidence,'关联证据（原始请求，已脱敏）',(currentTask.bundle?.evidence||[]).filter(e=>(stage.evidence_event_ids||[]).includes(e.event_id)).slice(0,20));
+    // —— 从原始数据到判断：命中规则 → 判断结论 → 保留意见 ——
+    const basis=element('section',undefined,evidence,'detail-section judge-section');
+    element('h3','从原始数据到判断',basis);
+    const evRows=(currentTask.bundle?.evidence||[]).filter(e=>(stage.evidence_event_ids||[]).includes(e.event_id)).slice(0,20);
+    const rules=[...new Set(evRows.flatMap(e=>e.matched_rules||[]))];
+    const step1=element('div',undefined,basis,'judge-step');
+    element('b','① 原始数据',step1,'judge-k');
+    const chipWrap=element('div',undefined,step1,'judge-chips');
+    if(rules.length) rules.forEach(r=>element('span',ruleCn(r),chipWrap,'judge-chip'));
+    else element('span','证据行未携带规则标签',chipWrap,'judge-chip');
+    element('span',`本阶段 ${evRows.length} 条原始请求（已脱敏，见下方证据）`,step1,'judge-note');
+    // 处理前原貌：上传文件中的原始日志行（source_row 锚点；旧产物无此字段自动隐藏）
+    const rawRows=evRows.filter(e=>e.source_row!=null||e.request_body||e.user_agent);
+    if(rawRows.length){
+      const rawBlock=element('div',undefined,step1,'judge-raw');
+      element('b','处理前原貌（上传文件中的原始日志）',rawBlock,'judge-raw-t');
+      rawRows.slice(0,5).forEach(e=>{
+        const file=String(e.source_file||'').split('/').pop().split('\\').pop()||'上传文件';
+        const lines=[];
+        if(e.source_row!=null) lines.push(`${file} · 第 ${e.source_row} 行`);
+        if(e.url_path) lines.push('请求: '+e.url_path);
+        if(e.user_agent) lines.push('UA: '+e.user_agent);
+        if(e.request_body) lines.push('载荷: '+e.request_body);
+        const pre=element('div',undefined,rawBlock,'judge-raw-line');
+        lines.forEach(l=>element('div',l,pre));
+        if(e.source_row!=null) pre.title=`原始日志锚点：${file} 第 ${e.source_row} 行`;
+      });
+      if(rawRows.length>5) element('span',`其余 ${rawRows.length-5} 条见下方关联证据`,rawBlock,'judge-note');
+    }
+    const step2=element('div',undefined,basis,'judge-step');
+    element('b','② 得出判断',step2,'judge-k');
+    const verdict=element('span',undefined,step2,'judge-verdict'); verdict.innerHTML=attBadge(stage.technique);
+    const nar=String(stage.narrative||'').trim();
+    if(nar){ const p=element('p',undefined,step2,'judge-narrative'); p.textContent='判断原文：'+nar; p.title=nar; }
+    element('span',`来源 ${srcCn(stage.source)} · 置信度 ${stage.confidence}`,step2,'judge-note');
+    const techCode=(attCn(stage.technique).code||'').toUpperCase();
+    const holds=(currentChain.uncertainties||[]).filter(u=>techCode&&String(u).toUpperCase().includes(techCode)).map(uncertaintyCn);
+    if(holds.length){
+      const step3=element('div',undefined,basis,'judge-step');
+      element('b','③ 保留意见',step3,'judge-k');
+      [...new Set(holds)].slice(0,3).forEach(h=>element('p',h,step3,'judge-hold'));
+    }
+    details(evidence,'关联证据（原始请求，已脱敏）',evRows);
   }
   (currentChain.edges||[]).forEach(([from,to],i)=>{
     const a=positions.get(from),b=positions.get(to); if(!a||!b)return;
     const x=boxW+60+(i%8)*20;
-    shape('path',{d:`M ${boxW+40} ${a.y+42} H ${x} V ${b.y+42} H ${boxW+48}`,fill:'none',stroke:'#6375cf','stroke-width':2});
+    const connector=shape('path',{d:`M ${boxW+40} ${a.y+42} H ${x} V ${b.y+42} H ${boxW+48}`,fill:'none',stroke:'#6375cf','stroke-width':2});
     shape('path',{d:`M ${boxW+50} ${b.y+37} L ${boxW+40} ${b.y+42} L ${boxW+50} ${b.y+47}`,fill:'none',stroke:'#6375cf','stroke-width':2});
+    const fi=stages.findIndex(s=>s.stage_id===from), ti=stages.findIndex(s=>s.stage_id===to);
+    const edgeTitle=document.createElementNS(svg.namespaceURI,'title');
+    edgeTitle.textContent='阶段 '+(fi+1)+' → 阶段 '+(ti+1)+'：按 ATT&CK 战术推进排序；两阶段因果性由各自证据支撑，仅时间接近不会构成关联（引擎要求同源/同目标/同会话/共享情报等证据）';
+    connector.append(edgeTitle);
+    // 阶段间时间间隔徽章：让"证据时间跨度"可读（战术序推进≠时间因果）。
+    // 只标正间隔；时间重叠（同证据窗，战术序并列）不占版面，语义见悬浮说明。
+    const t1=Date.parse(((stages[fi]||{}).time_range||[])[1]||''), t2=Date.parse(((stages[ti]||{}).time_range||[])[0]||'');
+    if(!isNaN(t1)&&!isNaN(t2)&&t2>t1){
+      const gapSec=Math.round((t2-t1)/1000);
+      const label=gapSec>=0?('间隔 '+fmtDuration(gapSec)):'时间重叠';
+      const midY=(a.y+b.y)/2+42, bx=x-36;
+      const badge=shape('g',{class:'edge-gap-badge'});
+      const br=document.createElementNS(svg.namespaceURI,'rect');
+      br.setAttribute('x',bx);br.setAttribute('y',midY-11);br.setAttribute('width',72);br.setAttribute('height',22);br.setAttribute('rx',11);
+      br.setAttribute('fill','#fff');br.setAttribute('stroke','#c9d6f0');badge.append(br);
+      const bt=document.createElementNS(svg.namespaceURI,'text');
+      bt.setAttribute('x',bx+36);bt.setAttribute('y',midY+4);bt.setAttribute('font-size','10.5');bt.setAttribute('fill','#5a6a85');bt.setAttribute('text-anchor','middle');bt.setAttribute('pointer-events','none');
+      bt.textContent=svgClip(label,13);badge.append(bt);
+      const btitle=document.createElementNS(svg.namespaceURI,'title');
+      btitle.textContent='相邻两阶段证据时间的间隔（阶段按战术序排列，间隔不代表因果推断）';badge.append(btitle);
+    }
   });
   stages.forEach((stage,idx)=>{
     const p=positions.get(stage.stage_id);
@@ -330,6 +479,11 @@ renderChain=function() {
     rect.setAttribute('x',p.x);rect.setAttribute('y',p.y);rect.setAttribute('width',boxW);rect.setAttribute('height',86);
     rect.setAttribute('rx',12);rect.setAttribute('fill','#eef4ff');rect.setAttribute('stroke','#b7c9f2');rect.setAttribute('class','chain-stage-box');
     g.append(rect);
+    // 左侧等级色条：一眼看出这条链的整体危险等级（与置信度卡/告警同色语）
+    const sevBar=document.createElementNS(svg.namespaceURI,'rect');
+    sevBar.setAttribute('x',p.x);sevBar.setAttribute('y',p.y);sevBar.setAttribute('width',6);sevBar.setAttribute('height',86);
+    sevBar.setAttribute('rx',3);sevBar.setAttribute('fill',(SEV_HEX[currentChain.severity]||SEV_HEX.info));
+    g.append(sevBar);
     const line=(dy,size,txt,fill,weight)=>{const el2=document.createElementNS(svg.namespaceURI,'text');el2.setAttribute('x',p.x+16);el2.setAttribute('y',p.y+dy);el2.setAttribute('font-size',size);el2.setAttribute('fill',fill);el2.setAttribute('font-weight',weight||'400');el2.setAttribute('pointer-events','none');el2.textContent=txt;g.append(el2);};
     line(26,'15','阶段 '+(idx+1)+' · '+svgClip(t.cn,44),'#1b2a52','700');
     line(49,'12.5',svgClip(te.cn,58),'#2c3e66');
@@ -340,6 +494,13 @@ renderChain=function() {
   });
   const controls=element('div',undefined,panel,'chain-actions');let zoom=1;
   [['放大',.2],['缩小',-.2],['复位',0]].forEach(([label,step])=>{element('button',label,controls).onclick=()=>{zoom=step?Math.max(.5,Math.min(2,zoom+step)):1;svg.style.zoom=zoom;};});
+  element('small','也可在图上直接滚动缩放、按住拖动平移。',controls,'chain-zoom-tip');
+  viewport.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(.5,Math.min(2,zoom+(e.deltaY>0?-.1:.1)));svg.style.zoom=zoom;},{passive:false});
+  let dragFrom=null;
+  viewport.addEventListener('pointerdown',e=>{dragFrom={x:e.clientX,y:e.clientY,l:viewport.scrollLeft,t:viewport.scrollTop};});
+  window.addEventListener('pointerup',()=>{dragFrom=null;});
+  viewport.addEventListener('pointermove',e=>{if(!dragFrom)return;viewport.scrollLeft=dragFrom.l-(e.clientX-dragFrom.x);viewport.scrollTop=dragFrom.t-(e.clientY-dragFrom.y);});
+  element('p','连线表示阶段间的战术推进顺序，每一步的因果性由该阶段证据支撑——仅时间接近的告警不会被系统归入同一条链（引擎要求同源 / 同目标 / 同会话 / 共享情报等证据，异源且无共享情报会被直接否决）。',panel,'panel-intro chain-edge-note');
   if(stages[0])showStage(stages[0]);
 };
 
@@ -451,13 +612,362 @@ function populateChainSelector(query=chainSearchInput?.value||'') {
 }
 if(chainSearchInput) chainSearchInput.addEventListener('input',()=>populateChainSelector());
 
+// —— 攻击活动实体关系图（主流"实体图"语汇的轻量版：攻击源 | 链 | 受害资产 三列二部图） ——
+async function openChainById(id) {
+  currentChain=await api('/attack-chains/'+encodeURIComponent(id));
+  populateChainSelector(); renderChain();
+  const pb=document.querySelector('[data-tab="path"]'); if(pb)pb.click();
+}
+function campaignGraph(cp, host, chainById) {
+  const all=(cp.members||[]);
+  const chains=all.slice(0,12), extraChains=all.length-chains.length;
+  const attackers=(cp.attacker_ips||[]).slice(0,6), victims=(cp.victim_ips||[]).slice(0,6);
+  const svgNS='http://www.w3.org/2000/svg';
+  const rowH=40, W=860;
+  const rows=Math.max(chains.length, attackers.length, victims.length, 2);
+  const H=rows*rowH+34;
+  const wrap=element('div',undefined,host,'graph-viewport campaign-graph');
+  const svg=document.createElementNS(svgNS,'svg');
+  svg.setAttribute('width',W);svg.setAttribute('height',H);svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  svg.setAttribute('role','img');svg.setAttribute('aria-label','攻击活动实体关系图');wrap.append(svg);
+  const mk=(tag,attrs,text,parent)=>{const n=document.createElementNS(svgNS,tag);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));if(text!==undefined)n.textContent=text;(parent||svg).append(n);return n;};
+  const col={a:16,aw:180, c:300,cw:250, v:664,vw:180};
+  const chainY=i=>i*rowH+24, sideY=i=>i*rowH+24;
+  const chainMid=(chainY(0)+chainY(Math.max(chains.length-1,0))+30)/2;
+  const srcNodes=attackers.length?attackers.map((ip,i)=>({label:ip,y:sideY(i)})):[{label:'来源未提供',y:chainMid-15,ph:true}];
+  const vicNodes=victims.length?victims.map((ip,i)=>({label:ip,y:sideY(i)})):[{label:'目标未提供',y:chainMid-15,ph:true}];
+  mk('text',{x:col.a+8,y:12,'font-size':11,fill:'#5d6b84','font-weight':'600'},'攻击源');
+  mk('text',{x:col.c+8,y:12,'font-size':11,fill:'#5d6b84','font-weight':'600'},'攻击链（按时间）');
+  mk('text',{x:col.v+8,y:12,'font-size':11,fill:'#5d6b84','font-weight':'600'},'受害资产');
+  // 边：谁发起这条链 / 这条链打了谁（成员链的实体归属取自 bundle chains，缺省用占位节点）
+  chains.forEach((m,i)=>{
+    const y=chainY(i)+15;
+    const full=chainById.get(m.chain_id);
+    const srcs=(full&&full.attacker_ips&&full.attacker_ips.length)?full.attacker_ips.slice(0,3):[];
+    const tcts=(full&&full.victim_ips&&full.victim_ips.length)?full.victim_ips.slice(0,3):[];
+    (srcs.length?srcs:[{__ph:true}]).forEach(s=>{
+      const node=s.__ph?srcNodes.find(n=>n.ph):srcNodes.find(n=>n.label===s);
+      if(!node)return;
+      const edge=mk('line',{x1:col.a+col.aw,y1:node.y+15,x2:col.c,y2:y,stroke:'#b9c6e8','stroke-width':1.5,opacity:.85});
+      const t=document.createElementNS(svgNS,'title');t.textContent='链 '+m.chain_id+' 由攻击源 '+(s.__ph?'（未提供）':s)+' 发起';edge.append(t);
+    });
+    (tcts.length?tcts:[{__ph:true}]).forEach(v=>{
+      const node=v.__ph?vicNodes.find(n=>n.ph):vicNodes.find(n=>n.label===v);
+      if(!node)return;
+      const edge=mk('line',{x1:col.c+col.cw,y1:y,x2:col.v,y2:node.y+15,stroke:'#b9c6e8','stroke-width':1.5,opacity:.85});
+      const t=document.createElementNS(svgNS,'title');t.textContent='链 '+m.chain_id+' 命中资产 '+(v.__ph?'（未提供）':v);edge.append(t);
+    });
+  });
+  // 节点：攻击源
+  srcNodes.forEach(n=>{
+    mk('rect',{x:col.a,y:n.y,width:col.aw,height:30,rx:8,fill:n.ph?'#f7f9fc':'#fff7ef',stroke:n.ph?'#b6c2d8':'#eab24a','stroke-dasharray':n.ph?'4 3':'none'});
+    const t=document.createElementNS(svgNS,'text');t.setAttribute('x',col.a+10);t.setAttribute('y',n.y+19);t.setAttribute('font-size',12);t.setAttribute('fill',n.ph?'#8a94a8':'#8a5a12');t.setAttribute('font-weight','600');t.textContent=svgClip(n.label,18);svg.append(t);
+  });
+  // 节点：受害资产
+  vicNodes.forEach(n=>{
+    mk('rect',{x:col.v,y:n.y,width:col.vw,height:30,rx:8,fill:n.ph?'#f7f9fc':'#eff6ff',stroke:n.ph?'#b6c2d8':'#7fa7e8','stroke-dasharray':n.ph?'4 3':'none'});
+    const t=document.createElementNS(svgNS,'text');t.setAttribute('x',col.v+10);t.setAttribute('y',n.y+19);t.setAttribute('font-size',12);t.setAttribute('fill',n.ph?'#8a94a8':'#2b4c86');t.setAttribute('font-weight','600');t.textContent=svgClip(n.label,18);svg.append(t);
+  });
+  // 节点：链芯片（可点击）
+  chains.forEach((m,i)=>{
+    const y=chainY(i);
+    const g=mk('g',{class:'camp-node linked',tabindex:0,role:'button','aria-label':'查看链 '+m.chain_id});
+    mk('rect',{x:col.c,y,width:col.cw,height:30,rx:8,fill:'#eef4ff',stroke:SEV_HEX[m.severity]||SEV_HEX.info,'stroke-width':1.5},undefined,g);
+    mk('circle',{cx:col.c+12,cy:y+15,r:4,fill:SEV_HEX[m.severity]||SEV_HEX.info},undefined,g);
+    const t=document.createElementNS(svgNS,'text');
+    t.setAttribute('x',col.c+22);t.setAttribute('y',y+19);t.setAttribute('font-size',11.5);t.setAttribute('fill','#263650');t.setAttribute('pointer-events','none');
+    t.textContent=svgClip(m.chain_id,17)+' · '+((m.risk_score==null?'—':m.risk_score)+'分');
+    g.append(t);
+    const sub=document.createElementNS(svgNS,'title');sub.textContent=m.chain_id+' · '+sevCN(m.severity)+' · 点击查看路径图与证据';g.append(sub);
+    g.style.cursor='pointer';
+    g.addEventListener('click',()=>openChainById(m.chain_id));
+    g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openChainById(m.chain_id);}});
+  });
+  if(extraChains>0) element('small','…另有 '+extraChains+' 条成员链未画入图（详见下方成员列表）。',host,'panel-intro');
+}
+
+// —— 任务级关联图（NetworkX 后端建图：坐标/社区/中心性预计算，前端渲染并保留全部交互） ——
+const GRAPH_PALETTE = ['#dbe7ff', '#dff3ea', '#fdeee0', '#f3e6fb', '#e0f4f7', '#fbe3e6'];
+function renderTaskGraph(b, host) {
+  const g=b.graph;
+  element('p','这张图由 NetworkX 在后端建图：节点=攻击源 / 受害资产 / 攻击链，边=发起 / 命中 / 战役归并；底色相同的节点是社区发现聚出的同一活动簇。节点可拖拽、滚轮缩放、悬浮高亮关联边；点击链节点跳转路径图，点击 IP 展开它涉及的链。',host,'panel-intro');
+  if(!g||!g.nodes||!g.nodes.length){ element('p','本任务结果包未包含关联图（重新分析后生成）；下方"攻击活动"页仍有战役归并明细。',host,'empty-state'); return; }
+  const st=g.stats||{};
+  // —— 聚焦视图：下拉选择独立链/战役，只看局部三列图；全景保留 ——
+  const focusBar=element('div',undefined,host,'graph-focus-bar');
+  element('span','聚焦视图',focusBar,'graph-focus-label');
+  const focusSel=element('select',undefined,focusBar,'graph-focus');
+  focusSel.setAttribute('aria-label','聚焦到某条独立链或某个战役');
+  const focusWrap=element('div',undefined,host,'task-graph-focus');
+  const chainById=new Map([...(currentTask.chains||[]), ...(b.chains||[])].map(c=>[c.chain_id,c]));
+  const graphChains=(g.nodes||[]).filter(n=>n.type==='chain');
+  const campIds=[...new Set(graphChains.map(n=>n.campaign_id).filter(Boolean))];
+  const focusCamps=(b.campaigns||[]).filter(c=>campIds.includes(c.campaign_id))
+    .sort((x,y)=>(y.chain_count||0)-(x.chain_count||0));
+  const soloChains=graphChains.filter(n=>!n.campaign_id)
+    .sort((x,y)=>(y.risk_score||0)-(x.risk_score||0));
+  const addOpt=(val,text)=>{const o=document.createElement('option');o.value=val;o.textContent=text;focusSel.append(o);};
+  addOpt('all','全景 · 全部节点（'+st.node_count+'）');
+  focusCamps.forEach(cp=>addOpt('camp:'+cp.campaign_id,
+    '战役 '+(cp.campaign_id||'').slice(5,13)+' · '+(cp.chain_count||0)+' 链 · '+(cp.attacker_ips||[]).slice(0,1).join('')+' → '+(cp.victim_ips||[]).slice(0,1).join('')));
+  soloChains.forEach(n=>addOpt('chain:'+n.chain_id,
+    '独立链 '+n.label+' · 风险 '+(n.risk_score==null?'—':n.risk_score)+' · '+(n.stage_count||0)+' 阶段'));
+  function renderFocus(){
+    const v=focusSel.value;
+    focusWrap.replaceChildren();
+    if(v==='all'){ renderFull(); return; }
+    if(v.indexOf('camp:')===0){
+      const cp=(b.campaigns||[]).find(c=>'camp:'+c.campaign_id===v);
+      if(!cp){ element('p','该战役数据不可用。',focusWrap,'empty-state'); return; }
+      const card=element('div',undefined,focusWrap,'campaign-card');
+      campaignGraph(cp, card, chainById);
+      if(cp.reasons&&cp.reasons.length){
+        const why=element('div',undefined,card,'campaign-why');
+        element('b','归并依据：',why);
+        const ul=element('ul',undefined,why,'corr-reasons');
+        cp.reasons.slice(0,6).forEach(r=>element('li',r,ul));
+      }
+      return;
+    }
+    const cid=v.slice(6);
+    const n=graphChains.find(x=>x.chain_id===cid);
+    if(!n){ element('p','该链数据不可用。',focusWrap,'empty-state'); return; }
+    const edges=g.edges||[];
+    const atts=[...new Set(edges.filter(e=>e.target===cid&&e.type==='launches').map(e=>e.source.replace(/^ip:/,'')))];
+    const vics=[...new Set(edges.filter(e=>e.source===cid&&e.type==='targets').map(e=>e.target.replace(/^ip:/,'')))];
+    const fake={campaign_id:'solo-'+cid, members:[{chain_id:cid, severity:n.severity, risk_score:n.risk_score,
+      stage_count:n.stage_count, first_seen:n.first_seen, last_seen:n.last_seen}],
+      attacker_ips:atts, victim_ips:vics, reasons:[]};
+    const card=element('div',undefined,focusWrap,'campaign-card');
+    element('small','这是独立链的局部视图：'+(atts.length?atts.join('、'):'来源未提供')+' → '+cid+(vics.length?(' → '+vics.join('、')):'')+'。完整证据点击链芯片进入路径图。',card,'campaign-times');
+    campaignGraph(fake, card, chainById);
+  }
+  focusSel.onchange=renderFocus;
+  function renderFull() {
+  const statsBar=element('div',undefined,focusWrap,'graph-stats');
+  [['节点',st.node_count],['边',st.edge_count],['连通簇',st.component_count],['社区',st.community_count]].forEach(([k,v])=>{const c=element('span',undefined,statsBar,'graph-stat');element('small',k,c);element('b',String(v??'—'),c);});
+  if(g.note){ element('small',g.note,statsBar,'graph-note').title='大规模任务的截断策略：保证图可读，完整链仍走链选择器'; }
+  const legend=element('div',undefined,focusWrap,'graph-legend');
+  const lgChip=element('span',undefined,legend,'lg-item'); element('i',undefined,lgChip,'lg-sw lg-chain'); element('small','链节点（描边=危险等级，底色=社区）',lgChip);
+  const lgA=element('span',undefined,legend,'lg-item'); element('i',undefined,lgA,'lg-sw lg-att'); element('small','攻击源',lgA);
+  const lgV=element('span',undefined,legend,'lg-item'); element('i',undefined,lgV,'lg-sw lg-vic'); element('small','受害资产',lgV);
+  const lgE=element('span',undefined,legend,'lg-item'); element('i',undefined,lgE,'lg-line'); element('small','发起 / 命中',lgE);
+  const lgC=element('span',undefined,legend,'lg-item'); element('i',undefined,lgC,'lg-line lg-camp'); element('small','战役归并',lgC);
+
+  const W=(g.canvas&&g.canvas.width)||900, H=(g.canvas&&g.canvas.height)||600;
+  const wrap=element('div',undefined,focusWrap,'graph-viewport task-graph');
+  wrap.style.maxWidth=(W+24)+'px';
+  const svgNS='http://www.w3.org/2000/svg';
+  const svg=document.createElementNS(svgNS,'svg');
+  svg.setAttribute('width',W);svg.setAttribute('height',H);svg.setAttribute('viewBox','0 0 '+W+' '+H);
+  svg.setAttribute('role','img');svg.setAttribute('aria-label','任务关联图');wrap.append(svg);
+  const defs=document.createElementNS(svgNS,'defs');svg.append(defs);
+  const marker=document.createElementNS(svgNS,'marker');
+  marker.setAttribute('id','graph-arrow');marker.setAttribute('viewBox','0 0 10 10');
+  marker.setAttribute('refX','8.5');marker.setAttribute('refY','5');marker.setAttribute('markerWidth','6.5');marker.setAttribute('markerHeight','6.5');marker.setAttribute('orient','auto-start-reverse');
+  const mp=document.createElementNS(svgNS,'path');mp.setAttribute('d','M 0 1 L 9 5 L 0 9 z');mp.setAttribute('fill','#8fa3c8');marker.append(mp);defs.append(marker);
+  const dots=document.createElementNS(svgNS,'pattern');
+  dots.setAttribute('id','dotgrid');dots.setAttribute('width','22');dots.setAttribute('height','22');dots.setAttribute('patternUnits','userSpaceOnUse');
+  const dot=document.createElementNS(svgNS,'circle');dot.setAttribute('cx','1.4');dot.setAttribute('cy','1.4');dot.setAttribute('r','1.2');dot.setAttribute('fill','#dbe4f3');
+  dots.append(dot);defs.append(dots);
+  const bg=document.createElementNS(svgNS,'rect');
+  bg.setAttribute('x',0);bg.setAttribute('y',0);bg.setAttribute('width',W);bg.setAttribute('height',H);
+  bg.setAttribute('fill','url(#dotgrid)');bg.setAttribute('rx',12);
+  svg.append(bg);
+  const nodeById=new Map((g.nodes||[]).map(n=>[n.id,n]));
+  const HALF={chain:[63,22], ip:[56,17]};
+  const edgeEls=[], nodeEls=new Map();
+  const fmtGap=s=>s>=60?fmtDuration(s):(s+' 秒');
+  function trim(sx,sy,tx,ty,hs,ht){
+    const dx=tx-sx, dy=ty-sy, len=Math.hypot(dx,dy)||1;
+    const ux=dx/len, uy=dy/len;
+    const off=(half)=>Math.min(half[0]/Math.abs(ux||1e-9), half[1]/Math.abs(uy||1e-9))+3;
+    return [sx+ux*off(hs), sy+uy*off(hs), tx-ux*off(ht), ty-uy*off(ht)];
+  }
+  function relayoutEdge(rec){
+    const s=nodeById.get(rec.s), t=nodeById.get(rec.t); if(!s||!t)return;
+    const pts=trim(s.x,s.y,t.x,t.y,HALF[s.type]||HALF.chain,HALF[t.type]||HALF.chain);
+    rec.el.setAttribute('x1',pts[0]);rec.el.setAttribute('y1',pts[1]);
+    rec.el.setAttribute('x2',pts[2]);rec.el.setAttribute('y2',pts[3]);
+  }
+  function drawEdge(e) {
+    const s=nodeById.get(e.source), t=nodeById.get(e.target); if(!s||!t)return;
+    const line=document.createElementNS(svgNS,'line');
+    line.setAttribute('stroke',e.type==='campaign'?'#e0a05a':'#aebfe2');
+    line.setAttribute('stroke-width',e.type==='campaign'?2:1.6);
+    if(e.type==='campaign')line.setAttribute('stroke-dasharray','6 4');
+    line.setAttribute('marker-end','url(#graph-arrow)');
+    line.setAttribute('class','graph-edge');
+    const title=document.createElementNS(svgNS,'title');
+    title.textContent=(e.reason||e.type)+((e.gap_seconds!=null)?(' · 间隔 '+fmtGap(e.gap_seconds)):'');
+    line.append(title); svg.append(line);
+    const rec={el:line,s:e.source,t:e.target};
+    relayoutEdge(rec); edgeEls.push(rec);
+  }
+  function drawNode(n) {
+    const gEl=document.createElementNS(svgNS,'g');
+    gEl.setAttribute('class','graph-node');gEl.setAttribute('tabindex','0');gEl.setAttribute('role','button');
+    gEl.setAttribute('transform','translate('+n.x+','+n.y+')');
+    // 垫层矩形当静态投影（CSS drop-shadow 在 260+ 节点下会拖垮合成）
+    const sh=document.createElementNS(svgNS,'rect');
+    const shW=n.type==='chain'?126:112, shH=n.type==='chain'?44:34, shX=n.type==='chain'?-61.5:-54.5, shY=n.type==='chain'?-20:-15;
+    sh.setAttribute('x',shX+2);sh.setAttribute('y',shY+3);sh.setAttribute('width',shW);sh.setAttribute('height',shH);sh.setAttribute('rx',n.type==='chain'?10:9);
+    sh.setAttribute('fill','rgba(23,35,60,.10)');
+    gEl.append(sh);
+    if(n.type==='chain'){
+      gEl.setAttribute('aria-label','链 '+n.label+' 查看路径图');
+      const r=document.createElementNS(svgNS,'rect');
+      r.setAttribute('x',-63);r.setAttribute('y',-22);r.setAttribute('width',126);r.setAttribute('height',44);r.setAttribute('rx',10);
+      r.setAttribute('fill',GRAPH_PALETTE[(n.community??0)%GRAPH_PALETTE.length]);
+      r.setAttribute('stroke',SEV_HEX[n.severity]||SEV_HEX.info);r.setAttribute('stroke-width','2.2');
+      gEl.append(r);
+      const dotC=document.createElementNS(svgNS,'circle');
+      dotC.setAttribute('cx',-45);dotC.setAttribute('cy',0);dotC.setAttribute('r',5);
+      dotC.setAttribute('fill',SEV_HEX[n.severity]||SEV_HEX.info);
+      gEl.append(dotC);
+      const t1=document.createElementNS(svgNS,'text');
+      t1.setAttribute('x',-33);t1.setAttribute('y',-4);t1.setAttribute('font-size','11');t1.setAttribute('font-weight','700');t1.setAttribute('fill','#263650');
+      t1.textContent=svgClip(n.label,15);gEl.append(t1);
+      const t2=document.createElementNS(svgNS,'text');
+      t2.setAttribute('x',-33);t2.setAttribute('y',11);t2.setAttribute('font-size','10');t2.setAttribute('fill','#5d6b84');
+      t2.textContent='风险 '+(n.risk_score==null?'—':n.risk_score)+' · '+(n.stage_count||0)+' 阶段';gEl.append(t2);
+      const title=document.createElementNS(svgNS,'title');
+      title.textContent='攻击链 '+n.chain_id+' · '+sevCN(n.severity)+' · 风险分 '+(n.risk_score??'—')+' · '+(n.stage_count||0)+' 阶段'+(n.campaign_id?(' · 属于活动 '+n.campaign_id):'')+' · 点击查看路径图';
+      gEl.append(title);
+    } else {
+      const isAtt=(n.roles||[]).includes('attacker'), isVic=(n.roles||[]).includes('victim');
+      gEl.setAttribute('aria-label','IP '+n.label);
+      const r=document.createElementNS(svgNS,'rect');
+      r.setAttribute('x',-56);r.setAttribute('y',-17);r.setAttribute('width',112);r.setAttribute('height',34);r.setAttribute('rx',9);
+      r.setAttribute('fill',isAtt&&isVic?'#f3e6fb':isAtt?'#fff3e2':'#e9f3ff');
+      r.setAttribute('stroke',isAtt&&isVic?'#a78bfa':isAtt?'#eab24a':'#7fa7e8');r.setAttribute('stroke-width','1.8');
+      gEl.append(r);
+      const t=document.createElementNS(svgNS,'text');
+      t.setAttribute('x',0);t.setAttribute('y',4.5);t.setAttribute('font-size','11.5');t.setAttribute('font-weight','700');
+      t.setAttribute('text-anchor','middle');t.setAttribute('fill',isAtt&&isVic?'#6d3fb0':isAtt?'#8a5a12':'#2b4c86');
+      t.textContent=svgClip(n.label,15);gEl.append(t);
+      const title=document.createElementNS(svgNS,'title');
+      title.textContent=(isAtt&&isVic?'攻击源+受害资产':isAtt?'攻击源':'受害资产')+' '+n.label+' · 关联 '+(n.degree||0)+' 条边 · 点击查看涉及的链';
+      gEl.append(title);
+    }
+    gEl.style.cursor='pointer';
+    svg.append(gEl);
+    nodeEls.set(n.id,{el:gEl,node:n});
+    return gEl;
+  }
+  (g.edges||[]).forEach(drawEdge);
+  (g.nodes||[]).forEach(drawNode);
+  function highlight(id) {
+    edgeEls.forEach(rec=>{
+      const on=!id||rec.s===id||rec.t===id;
+      rec.el.style.opacity=on?'1':'0.18';
+    });
+    nodeEls.forEach((entry,nid)=>{
+      const neighbor=!id||nid===id||edgeEls.some(rec=>(rec.s===id&&rec.t===nid)||(rec.t===id&&rec.s===nid));
+      entry.el.style.opacity=neighbor?'1':'0.28';
+    });
+  }
+  const info=element('div',undefined,focusWrap,'task-graph-info');
+  element('span','点击 IP 节点后，这里会列出它涉及的攻击链。',info,'graph-info-hint');
+  function showIp(n) {
+    info.replaceChildren();
+    const isAtt=(n.roles||[]).includes('attacker'), isVic=(n.roles||[]).includes('victim');
+    element('b',(isAtt&&isVic?'攻击源 + 受害资产':isAtt?'攻击源':'受害资产')+' '+n.label+' · 关联 '+(n.degree||0)+' 条边',info);
+    const list=element('ul',undefined,info,'corr-reasons');
+    (g.edges||[]).filter(e=>e.source==='ip:'+n.label||e.target==='ip:'+n.label).forEach(e=>{
+      const otherId=e.source==='ip:'+n.label?e.target:e.source;
+      const other=nodeById.get(otherId);
+      if(other&&other.type==='chain'){
+        const li=element('li',svgClip(other.label,16)+' · '+(other.risk_score??'—')+' 分 · ',list);
+        const btn=element('button','查看链',li,'trace-btn');
+        btn.onclick=()=>openChainById(other.chain_id);
+      }
+    });
+    if(!list.children.length) element('li','（无可展开的链）',list);
+  }
+  nodeEls.forEach((entry)=>{
+    const node=entry.node, el=entry.el;
+    el.addEventListener('pointerenter',()=>highlight(node.id));
+    el.addEventListener('pointerleave',()=>highlight(null));
+    let drag=null;
+    el.addEventListener('pointerdown',e=>{
+      drag={sx:e.clientX,sy:e.clientY,ox:node.x,oy:node.y,moved:false};
+      el.setPointerCapture&&el.setPointerCapture(e.pointerId);
+      e.preventDefault();
+    });
+    el.addEventListener('pointermove',e=>{
+      if(!drag)return;
+      const dx=e.clientX-drag.sx, dy=e.clientY-drag.sy;
+      if(Math.abs(dx)+Math.abs(dy)>3)drag.moved=true;
+      if(!drag.moved)return;
+      node.x=drag.ox+dx; node.y=drag.oy+dy;
+      el.setAttribute('transform','translate('+node.x+','+node.y+')');
+      edgeEls.forEach(rec=>{ if(rec.s===node.id||rec.t===node.id) relayoutEdge(rec); });
+    });
+    el.addEventListener('pointerup',e=>{
+      const wasDrag=drag&&drag.moved; drag=null;
+      if(wasDrag)return;
+      if(node.type==='chain')openChainById(node.chain_id); else showIp(node);
+    });
+    el.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();node.type==='chain'?openChainById(node.chain_id):showIp(node);}});
+  });
+  let zoom=1;
+  wrap.addEventListener('wheel',ev=>{ev.preventDefault();zoom=Math.max(.5,Math.min(2.5,zoom+(ev.deltaY>0?-.1:.1)));svg.style.zoom=zoom;},{passive:false});
+  let pan=null;
+  wrap.addEventListener('pointerdown',ev=>{if(ev.target!==bg)return;pan={x:ev.clientX,y:ev.clientY,l:wrap.scrollLeft,t:wrap.scrollTop};});
+  window.addEventListener('pointerup',()=>{pan=null;});
+  wrap.addEventListener('pointermove',ev=>{if(!pan)return;wrap.scrollLeft=pan.l-(ev.clientX-pan.x);wrap.scrollTop=pan.t-(ev.clientY-pan.y);});
+  }
+  renderFocus();
+}
+
 renderBundle=function() {
   const sorted=sortChains(currentTask.chains||[]);
   populateChainSelector();
   const b=currentTask.bundle; if(!b) return;
   const tab=id=>document.getElementById(id);
 
-  // —— ② 攻击者画像：紧凑表格，不再铺 JSON 卡 ——
+  // —— ② 关联图：NetworkX 建图（后端算坐标/社区，前端渲染保留交互） ——
+  const gph=tab('tab-graph'); if(gph){ gph.replaceChildren(); renderTaskGraph(b, gph); }
+
+  // —— ③ 攻击活动：跨链归并视图（同源/同目标 + 时间相容才合并，理由逐条落档） ——
+  const camp=tab('tab-campaigns'); if(camp){ camp.replaceChildren();
+    element('p','「攻击活动」把多条攻击链归并成一次完整行动：同一来源反复进攻，或多个来源协同打击同一资产。上方实体图展示"哪个来源 → 哪些链 → 打了哪些资产"，每条归并都给出理由；互相独立的链不在此页列出（它们可在上方链选择器单独查看）。',camp,'panel-intro');
+    const camps=(b.campaigns||[]).slice().sort((x,y)=>(SEV_ORDER[x.severity]??9)-(SEV_ORDER[y.severity]??9)||(y.chain_count||0)-(x.chain_count||0));
+    if(!camps.length){ element('p','本任务没有发现跨链攻击活动（各链相互独立）。',camp,'empty-state'); }
+    // 每条链的攻击源/受害归属：详情接口剥离了 bundle.chains，用任务顶层全量 chains 兜底
+    const chainById=new Map([...(currentTask.chains||[]), ...(b.chains||[])].map(c=>[c.chain_id,c]));
+    camps.forEach(cp=>{
+      const card=element('div',undefined,camp,'campaign-card');
+      const head=element('div',undefined,card,'campaign-head');
+      element('b',cp.campaign_id,head).title=cp.campaign_id;
+      element('span',sevCN(cp.severity),head,'alert-sev '+(cp.severity||'info'));
+      element('span',(cp.chain_count||0)+' 条链',head,'meta-badge');
+      if(cp.multistage_count){ element('span','多阶段 '+cp.multistage_count,head,'meta-badge'); }
+      const src=(cp.attacker_ips||[]).join('、')||'来源未提供', tgt=(cp.victim_ips||[]).join('、')||'目标未提供';
+      element('span',src+' → '+tgt,head,'meta-flow').title='攻击源 → 受害资产';
+      element('small','时间跨度 '+(cp.first_seen?fmtTime(cp.first_seen):'—')+' 至 '+(cp.last_seen?fmtTime(cp.last_seen):'—')+' · 主要战术 '+attCodes(cp.top_tactics,ATT_TACTIC),card,'campaign-times');
+      campaignGraph(cp, card, chainById);
+      if(cp.reasons&&cp.reasons.length){
+        const why=element('div',undefined,card,'campaign-why');
+        element('b','归并依据：',why);
+        const ul=element('ul',undefined,why,'corr-reasons');
+        cp.reasons.slice(0,6).forEach(r=>element('li',r,ul));
+      }
+      const members=element('div',undefined,card,'campaign-members');
+      (cp.members||[]).slice(0,20).forEach(m=>{
+        const row=element('div',undefined,members,'campaign-member');
+        element('span',m.chain_id,row,'campaign-chain-id');
+        element('span',sevCN(m.severity),row,'alert-sev '+(m.severity||'info'));
+        element('span',((m.risk_score==null?'—':m.risk_score)+'/100 分 · '+(m.stage_count||0)+' 阶段 · '+(m.first_seen?fmtTime(m.first_seen):'—')),row,'campaign-member-meta');
+        const open=element('button','查看链',row,'trace-btn');
+        open.onclick=async()=>{ currentChain=await api('/attack-chains/'+encodeURIComponent(m.chain_id)); populateChainSelector(); renderChain(); const pb=document.querySelector('[data-tab="path"]'); if(pb)pb.click(); };
+      });
+      if((cp.members||[]).length>20) element('small','…其余 '+(cp.members.length-20)+' 条成员链可在攻击链页搜索链编号查看。',members,'panel-intro');
+    });
+  }
+
+  // —— ④ 攻击者画像：紧凑表格，不再铺 JSON 卡 ——
   const prof=tab('tab-profiles'); if(prof){ prof.replaceChildren();
     element('p','每个"攻击者画像"聚合同一来源 IP 的全部行为：打了谁、打了几次、用了哪些手段、是否已被其他链共用。',prof,'panel-intro');
     const list=(b.profiles||[]).slice().sort((x,y)=>(y.attack_count||0)-(x.attack_count||0));
@@ -481,7 +991,7 @@ renderBundle=function() {
     }
   }
 
-  // —— ③ 处置建议：列表 ——
+  // —— ⑤ 处置建议：列表 ——
   const act=tab('tab-actions'); if(act){ act.replaceChildren();
     element('p','按优先级排序的处置建议。每条标注依据来源，方便核对是规则命中还是模型判断。',act,'panel-intro');
     const actions=sortActions(b.report.recommended_actions||[]);
@@ -500,7 +1010,7 @@ renderBundle=function() {
     });
   }
 
-  // —— ④ 证据与统计：报告摘要 + 指标 + 版本 ——
+  // —— ⑥ 证据与统计：报告摘要 + 指标 + 版本 ——
   const st=tab('tab-stats'); if(st){ st.replaceChildren();
     element('p','这一页说明"结论从哪来"：整体研判摘要、各环节数量、以及本次分析用到的规则/模型版本，便于复核与留档。',st,'panel-intro');
     element('h3','风险报告摘要',st);
@@ -508,7 +1018,26 @@ renderBundle=function() {
     const m=b.metrics||{};
     element('h3','处理统计',st);
     const stats=element('div',undefined,st,'fact-grid');
-    [['原始事件',m.raw_count],['降噪后',m.denoised_count],['可疑事件',m.suspicious_count],['攻击链',(b.chains||currentTask.chains||[]).length],['告警',(b.alerts||currentTask.alerts||[]).length],['攻击者',(b.profiles||[]).length],['M1+M2 全流程耗时',fmtDuration(m.duration_seconds)]].forEach(([k,v])=>{const c=element('div',undefined,stats);element('small',k,c);element('strong',v??'—',c);});
+    [['原始事件',m.raw_count],['降噪后',m.denoised_count],['可疑事件',m.suspicious_count],['攻击链',(b.chains||currentTask.chains||[]).length],['攻击活动',(b.campaigns||[]).length],['告警',(b.alerts||currentTask.alerts||[]).length],['攻击者',(b.profiles||[]).length],['M1+M2 全流程耗时',fmtDuration(m.duration_seconds)]].forEach(([k,v])=>{const c=element('div',undefined,stats);element('small',k,c);element('strong',v??'—',c);});
+    // 数据质量面板：接入→降噪漏斗 + 坏行隔离明细（来自 M1 status.quality，经 bundle.metrics.quality 透出）
+    const q=m.quality||{};const flt=q.filtered||{};
+    const pct=v=>(v==null?'—':(Number(v)*100).toFixed(1)+'%');
+    element('h3','数据质量',st);
+    element('p','以下统计说明这批输入数据的"成色"：多少行被跳过、为什么跳过。解析失败的行会被隔离并跳过，不影响其余数据分析。',st,'panel-intro');
+    const qgrid=element('div',undefined,st,'fact-grid');
+    [['解析失败行',flt.parse_error??0],['空行跳过',flt.empty??0],['无意义行跳过',flt.meaningless??0],['重复剔除',flt.duplicate??0],['白名单过滤',flt.whitelist??0],['时间戳无法解析',q.timestamp_parse_errors??0]]
+      .forEach(([k,v])=>{const c=element('div',undefined,qgrid);element('small',k,c);element('strong',String(v),c);});
+    const qgrid2=element('div',undefined,st,'fact-grid');
+    [['复核分组数',q.review_groups??'—'],['可疑会话占比',pct(q.suspicious_ratio)],['复核压缩比',pct(q.review_reduction_ratio)],['语义研判覆盖',pct(q.l3_session_coverage)]]
+      .forEach(([k,v])=>{const c=element('div',undefined,qgrid2);element('small',k,c);element('strong',String(v),c);});
+    const errTotal=(q.parse_errors&&q.parse_errors.total)||0;
+    const errSamples=(q.parse_errors&&q.parse_errors.samples)||[];
+    if(errTotal>0&&errSamples.length){
+      element('p','以下输入行无法解析，已跳过并计入"解析失败行"：',st,'panel-intro');
+      errSamples.slice(0,10).forEach(e=>{element('p','· '+(e.source_file||'未知文件')+' 第 '+(e.row??'?')+' 行：'+(e.error||'未知原因'),st,'panel-intro');});
+      if(errTotal>errSamples.length) element('p','…其余 '+(errTotal-errSamples.length)+' 条同类错误已按同样方式跳过（明细保留在任务产物中）。',st,'panel-intro');
+    }
+    if(q.accuracy_status==='requires_human_labels') element('p','检测准确率评估：需要人工标注后离线评估（m1 quality evaluate 工具），当前结论以规则与模型研判为准。',st,'panel-intro');
     element('h3','方法与版本',st);
     const v=b.versions||{};
     const vt=element('table',undefined,st,'data-table compact');
@@ -596,6 +1125,41 @@ function renderReport() {
    ['攻击链', chainCount], ['多阶段链', multistage], ['高危及以上告警', highTop], ['攻击者画像', attackers], ['M1+M2 全流程耗时', fmtDuration(m.duration_seconds)]]
     .forEach(pair => { const c = element('div', undefined, grid); element('small', pair[0], c); element('strong', (pair[1] == null ? '—' : pair[1]), c); });
 
+  // 降噪漏斗（数据质量）：管道式摘要 + 过滤明细；旧结果包无 quality 时整段跳过
+  const q = m.quality || {};
+  const flt = q.filtered || {};
+  if (m.raw_count != null && ['empty', 'meaningless', 'duplicate', 'whitelist', 'parse_error'].some(k => flt[k] != null)) {
+    element('h3', '降噪漏斗', host);
+    const strip = element('div', undefined, host, 'funnel-strip');
+    const mkStage = (label, value, cls) => { const s = element('div', undefined, strip, 'funnel-stage ' + (cls || ''));
+      element('b', String(value == null ? '—' : value), s); element('small', label, s); return s; };
+    const mkArrow = () => element('span', '→', strip, 'funnel-arrow');
+    const filterNames = { empty: '空行', meaningless: '无意义行', duplicate: '重复', whitelist: '白名单', parse_error: '坏行' };
+    const filterItems = Object.entries(filterNames).map(([k, name]) => [name, Number(flt[k]) || 0]);
+    const filteredSum = filterItems.reduce((sum, f) => sum + f[1], 0);
+    mkStage('原始接入', m.raw_count);
+    mkArrow();
+    if (filteredSum > 0) {
+      filterItems.filter(f => f[1] > 0).forEach(f => { mkStage(f[0] + '过滤', f[1], 'is-filter'); mkArrow(); });
+    }
+    mkStage('入库会话', (Number(m.raw_count) || 0) - filteredSum);
+    mkArrow();
+    mkStage('可疑事件', m.suspicious_count);
+    mkArrow();
+    mkStage('确认告警', eventCount, 'is-alert');
+    if (filteredSum > 0) {
+      const detail = element('div', undefined, host, 'funnel-filters');
+      filterItems.forEach(f => { const chip = element('span', f[0] + ' ' + f[1], detail); if (f[1] > 0) chip.className += ' hit'; });
+    } else {
+      element('small', '本批五级过滤均未命中（空行/无意义/重复/白名单/坏行），原始行全部入库。', host, 'report-info-note');
+    }
+    const errs = q.parse_errors || {}; const samples = errs.samples || [];
+    if (samples.length) {
+      element('small', '坏行样本：' + samples.slice(0, 5).map(s => '第 ' + s.row + ' 行 ' + (s.error || '')).join('；')
+        + (errs.total > samples.length ? '（共 ' + errs.total + ' 条）' : ''), host, 'report-info-note');
+    }
+  }
+
   const SEV = [['严重', 'critical', '#9f1239'], ['高危', 'high', '#b4232f'], ['中危', 'medium', '#d97a1f'], ['低危', 'low', '#0e7c8c'], ['提示', 'info', '#8a94a6']];
   const totalSev = SEV.reduce((sum, r) => sum + (sevCounts[r[1]] || 0), 0) || 1;
   element('h3', '风险等级分布', host);
@@ -610,6 +1174,32 @@ function renderReport() {
   const types = Object.entries(m.attack_types || stat.attack_type_counts || {});
   if (types.length) { element('h3', '主要威胁类型', host); const tw = element('div', undefined, host, 'report-types');
     types.sort((a, c) => c[1] - a[1]).slice(0, 8).forEach(kv => { const chip = element('div', undefined, tw, 'type-chip'); element('b', kv[0], chip); element('span', kv[1] + ' 条', chip); }); }
+
+  // 高风险资产双榜单：旗标由 assemble 一次算好（critical/high 硬指针强制在受高威胁榜）
+  const victimsAll = b.victims || [];
+  const rankedVictims = victimsAll.filter(v => v.threat_score != null);
+  if (rankedVictims.length) {
+    element('h3', '高风险资产', host);
+    const threatRows = victimsAll.filter(v => v.in_threat_ranking).slice(0, 8);
+    const freqRows = victimsAll.filter(v => v.in_freq_ranking).slice(0, 8);
+    if (threatRows.length) {
+      element('small', '受高威胁攻击（最严等级 critical/high 强制在榜；其余按威胁指数相对线补足）', host, 'report-info-note');
+      const tw = element('div', undefined, host, 'report-types');
+      threatRows.forEach(v => { const chip = element('div', undefined, tw, 'type-chip'); element('b', v.victim_ip || '未知资产', chip);
+        element('span', '威胁指数 ' + v.threat_score + ' · ' + sevCN(v.max_severity) + ' · ' + (v.alert_count || 0) + ' 条', chip); });
+    }
+    if (freqRows.length) {
+      element('small', '被多次攻击（按命中告警数的对数指数，榜一恒为 100）', host, 'report-info-note');
+      const fw = element('div', undefined, host, 'report-types');
+      freqRows.forEach(v => { const chip = element('div', undefined, fw, 'type-chip'); element('b', v.victim_ip || '未知资产', chip);
+        element('span', '频次指数 ' + v.freq_score + ' · ' + (v.alert_count || 0) + ' 条', chip); });
+    }
+  } else {
+    const victims = victimsAll.slice(0, 8);
+    if (victims.length) { element('h3', '高风险资产', host); const vw = element('div', undefined, host, 'report-types');
+      victims.forEach(v => { const chip = element('div', undefined, vw, 'type-chip'); element('b', v.victim_ip || '未知资产', chip);
+        element('span', (v.attack_count || 0) + ' 次 · ' + sevCN(v.max_severity) + (v.first_seen ? ' · ' + fmtTime(v.first_seen) : ''), chip); }); }
+  }
 
   const actions = sortActions(b.report.recommended_actions || []).slice(0, 5);
   if (actions.length) { element('h3', '优先处置建议', host); const ab = element('div', undefined, host, 'report-actions-list');

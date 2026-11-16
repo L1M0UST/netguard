@@ -106,8 +106,8 @@ def _ratio(numerator: int, denominator: int) -> float | None:
     return numerator / denominator if denominator else None
 
 
-def score_batch(input_path: Path, ready_dir: Path) -> dict[str, Any]:
-    """Compare offline truth to M1 decisions, using row references (not model input)."""
+def m1_predictions(input_path: Path, ready_dir: Path) -> dict[str, Any]:
+    """Build per-row M1 screening predictions (rules+ML+cascade labels), no truth leakage."""
     label_field, truth = read_ground_truth(input_path)
     batch = read_batch(ready_dir)
     details = list(read_rows(ready_dir, batch, "event_details"))
@@ -132,20 +132,26 @@ def score_batch(input_path: Path, ready_dir: Path) -> dict[str, Any]:
             predictions[index] = prediction
             alerts[index] = suspicious
             assigned.add(index)
+    return {"label_field": label_field, "truth": truth, "predictions": predictions,
+            "alerts": alerts, "assigned": len(assigned), "batch": batch}
 
+
+def score_predictions(truth: list[str], predictions: list[str], alerts: list[bool]) -> dict[str, Any]:
+    """Classification metrics for one prediction set; unknown predictions count as misses."""
     expected_classes = sorted(set(truth))
-    matrix: dict[str, dict[str, int]] = {label: {pred: 0 for pred in expected_classes}
+    # 预测列必须包含真值类别之外的预测（如"未知攻击"）：否则这些行被静默跳过，
+    # 对应真值类的 FN 少计、recall 虚高（两条真 RCE 一对一未知会显示 recall=100%）。
+    prediction_classes = sorted({*expected_classes, *predictions})
+    matrix: dict[str, dict[str, int]] = {label: {pred: 0 for pred in prediction_classes}
                                          for label in expected_classes}
     for actual, predicted in zip(truth, predictions, strict=True):
-        if predicted not in expected_classes:
-            continue
         matrix[actual][predicted] += 1
     per_class: dict[str, dict[str, float | int | None]] = {}
     f1_values: list[float] = []
     for label in expected_classes:
         tp = matrix[label][label]
         fp = sum(matrix[actual][label] for actual in expected_classes if actual != label)
-        fn = sum(matrix[label][pred] for pred in expected_classes if pred != label)
+        fn = sum(matrix[label][pred] for pred in prediction_classes if pred != label)
         precision = _ratio(tp, tp + fp)
         recall = _ratio(tp, tp + fn)
         f1 = (2 * precision * recall / (precision + recall)
@@ -159,6 +165,29 @@ def score_batch(input_path: Path, ready_dir: Path) -> dict[str, Any]:
     fp = sum((not a) and p for a, p in zip(positive_actual, alerts, strict=True))
     fn = sum(a and (not p) for a, p in zip(positive_actual, alerts, strict=True))
     tn = sum((not a) and (not p) for a, p in zip(positive_actual, alerts, strict=True))
+    return {
+        "classes": expected_classes,
+        "prediction_columns": prediction_classes,
+        "multiclass_accuracy": _ratio(sum(pred == actual for pred, actual in zip(predictions, truth, strict=True)), len(truth)),
+        "macro_f1": statistics.fmean(f1_values) if f1_values else None,
+        "per_class": per_class,
+        "confusion_matrix_actual_by_predicted": matrix,
+        "unknown_attack_predictions": predictions.count("未知攻击"),
+        "binary_attack_detection": {
+            "confusion": {"tp": tp, "fp": fp, "tn": tn, "fn": fn},
+            "precision": _ratio(tp, tp + fp), "recall": _ratio(tp, tp + fn),
+            "f1": (2 * tp / (2 * tp + fp + fn)) if 2 * tp + fp + fn else None,
+            "false_positive_rate": _ratio(fp, fp + tn),
+        },
+    }
+
+
+def score_batch(input_path: Path, ready_dir: Path) -> dict[str, Any]:
+    """Compare offline truth to M1 decisions, using row references (not model input)."""
+    pred = m1_predictions(input_path, ready_dir)
+    label_field, truth = pred["label_field"], pred["truth"]
+    predictions, alerts, batch = pred["predictions"], pred["alerts"], pred["batch"]
+    metrics = score_predictions(truth, predictions, alerts)
     profile_files = sorted((ready_dir / "mapping_plans").glob("*.json"))
     excluded_columns: set[str] = set()
     for path in profile_files:
@@ -172,29 +201,28 @@ def score_batch(input_path: Path, ready_dir: Path) -> dict[str, Any]:
         raise AssertionError("M1 did not explicitly record exclusion of the truth column")
 
     return {
-        "scope": "offline_labeled_dataset_m1_screening_only",
-        "label_column": label_field,
-        "rows": len(truth),
-        "predicted_from_m1_rows": len(assigned),
-        "rows_without_an_m1_event_after_filters": len(truth) - len(assigned),
-        "classes": expected_classes,
-        "multiclass_accuracy": _ratio(sum(pred == actual for pred, actual in zip(predictions, truth, strict=True)), len(truth)),
-        "macro_f1": statistics.fmean(f1_values) if f1_values else None,
-        "per_class": per_class,
-        "confusion_matrix_actual_by_predicted": matrix,
-        "binary_attack_detection": {
-            "confusion": {"tp": tp, "fp": fp, "tn": tn, "fn": fn},
-            "precision": _ratio(tp, tp + fp), "recall": _ratio(tp, tp + fn),
-            "f1": (2 * tp / (2 * tp + fp + fn)) if 2 * tp + fp + fn else None,
-            "false_positive_rate": _ratio(fp, fp + tn),
+        "classification_m1_only": {
+            "scope": "offline_labeled_dataset_m1_screening_only",
+            "note": ("分类指标只评估 M1 初筛（规则+ML+级联的标签映射）；local 模式下 M2 为确定性规则链、"
+                     "云端模型关闭，不参与分类评分。二分类 FPR 即规则+ML 经会话聚合后的融合口径。"),
+            "label_column": label_field,
+            "rows": len(truth),
+            "predicted_from_m1_rows": pred["assigned"],
+            "rows_without_an_m1_event_after_filters": len(truth) - pred["assigned"],
+            **metrics,
+            "ground_truth_excluded_before_analysis": label_field in excluded_columns,
+            "m1_rule_version": batch.get("status", {}).get("rule_version"),
+            "m1_model_version": batch.get("status", {}).get("model_version"),
+            "m1_llm_provider_calls": batch.get("status", {}).get("llm_provider_calls", {}),
+            "m1_cascade": batch.get("status", {}).get("metrics", {}).get("cascade", {}),
+            "m1_ml_detector": batch.get("status", {}).get("ml_detector"),
         },
-        "unknown_attack_predictions": predictions.count("未知攻击"),
-        "ground_truth_excluded_before_analysis": label_field in excluded_columns,
-        "mapping_plan_files_checked": len(profile_files),
-        "m1_rule_version": batch.get("status", {}).get("rule_version"),
-        "m1_model_version": batch.get("status", {}).get("model_version"),
-        "m1_llm_provider_calls": batch.get("status", {}).get("llm_provider_calls", {}),
-        "m1_cascade": batch.get("status", {}).get("metrics", {}).get("cascade", {}),
+        "pipeline_run": {
+            "note": ("全链路运行结果（M1→Bridge→M2→bundle）见 run_records 与 bundle 工件；"
+                     "本节不含分类质量结论。ml_detector 验收闸门：status=='ready' 且 calls>0，"
+                     "否则视为降级运行、不得据此判定 ML 层通过。"),
+            "mapping_plan_files_checked": len(profile_files),
+        },
     }
 
 
@@ -271,6 +299,7 @@ def run_acceptance(input_path: Path, workspace: Path, repeat: int) -> dict[str, 
                 "end_to_end": stage_timings.get("end_to_end_seconds", elapsed),
             },
             "m1_cascade": metrics.get("cascade", {}),
+            "m1_ml_detector": status.get("ml_detector"),
             "m1_model_version": status.get("model_version"),
             "m1_llm_provider_calls": status.get("llm_provider_calls", {}),
             "m2_chain_count": bundle.get("metrics", {}).get("chain_count", bundle.get("statistics", {}).get("chain_count")),
@@ -281,7 +310,7 @@ def run_acceptance(input_path: Path, workspace: Path, repeat: int) -> dict[str, 
     elapsed_values = [float(item["elapsed_seconds"]) for item in run_records]
     rows = int(run_records[0].get("input_rows") or 0)
     return {
-        "schema_version": "NetGuardCompetitionAcceptance.v2",
+        "schema_version": "NetGuardCompetitionAcceptance.v3",
         "created_at": datetime.now(timezone.utc).isoformat(),
         "mode": "local_m1_and_deterministic_m2",
         "input_file": str(input_path),

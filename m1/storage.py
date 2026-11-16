@@ -12,9 +12,11 @@ def arrow_schema(keys):
         'semantic_evidence': pa.struct([(key, text) for key in ('request_body', 'message', 'user_agent')]),
         'raw_reference': pa.struct([('source_file', text), ('row', integer)]),
         'data_quality': pa.struct([('timestamp_parse_error', pa.bool_())]),
-        'score_components': pa.struct([(key, integer) for key in ('rule_or_ioc', 'session_frequency', 'source_activity', 'asset_criticality')]),
+        'score_components': pa.struct([(key, integer) for key in ('rule_or_ioc', 'session_frequency', 'source_activity', 'asset_criticality', 'ml')]),
         'evidence_reference': pa.struct([('event_id', text), ('batch_id', text)]),
-        'evidence': pa.list_(pa.struct([(key, text) for key in ('type', 'name', 'rule_version', 'source', 'severity', 'threat_type')] + [('judgments', strings)] + [(key, integer) for key in ('unique_path_count', 'window_seconds', 'min_unique_paths', 'min_sensitive_paths')])),
+        # ML 证据条目增量字段（label/model_version/event_id 文本 + score/threshold 分数）；
+        # pyarrow struct 只保留声明字段，不声明会被静默丢弃。
+        'evidence': pa.list_(pa.struct([(key, text) for key in ('type', 'name', 'rule_version', 'source', 'severity', 'threat_type', 'label', 'model_version', 'event_id')] + [('judgments', strings)] + [(key, integer) for key in ('unique_path_count', 'window_seconds', 'min_unique_paths', 'min_sensitive_paths')] + [(key, pa.float64()) for key in ('score', 'threshold')])),
     }
     lists = {'rule_hits', 'related_event_ids', 'related_session_ids', 'targets', 'sample_paths', 'behavior_tags', 'reasoning', 'domains', 'paths', 'tactic_candidates'}
     numbers = {'source_row', 'src_port', 'dst_port', 'risk_score', 'event_count', 'source_session_count', 'session_count', 'target_count', 'unique_path_count', 'domains_count', 'paths_count'}

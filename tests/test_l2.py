@@ -79,8 +79,8 @@ class L2Test(unittest.TestCase):
 
     def test_pipeline_unsigned_scan_and_parquet_evidence(self):
         with test_workspace() as root:
-            (root/'m1').mkdir()
-            (root/'m1/config.json').write_text(json.dumps({'output':{'format':'parquet'},'enable_l3_semantic_judge':False}))
+            (root/'m1').mkdir(exist_ok=True)
+            (root/'m1/config.json').write_text(json.dumps({'output':{'format':'parquet'},'enable_l3_semantic_judge':False,'ml_detector':{'enabled':False}}))
             rows = [self.event(i,url_path=path) for i,path in enumerate(['/.env','/.git/config','/wp-admin','/actuator/health','/server-status'])]
             (root/'data.json').write_text(json.dumps(rows))
             manifest = root/'manifest.json'
@@ -96,7 +96,7 @@ class L2Test(unittest.TestCase):
 
     def test_legacy_window_alias(self):
         with test_workspace() as root:
-            (root/'m1').mkdir()
+            (root/'m1').mkdir(exist_ok=True)
             config = root/'m1/config.json'
             config.write_text(json.dumps({'campaign_window_seconds':123}))
             self.assertEqual(load_config(root)['attack_campaign_window_seconds'],123)

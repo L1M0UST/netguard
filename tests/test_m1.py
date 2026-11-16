@@ -15,6 +15,9 @@ from m1.run import LLMClient, get_mapping_plan, ThreatBookClient, build_attack_c
 def test_workspace():
     root = Path(__file__).parent / ".test-workspaces" / str(uuid4())
     root.mkdir(parents=True)
+    # 普通回归明确关闭第二层 ML 检测器：仓库公共模型目录默认启用会波及测试工作区
+    (root / "m1").mkdir()
+    (root / "m1" / "config.json").write_text(json.dumps({"ml_detector": {"enabled": False}}), encoding="utf-8")
     try:
         yield root
     finally:
@@ -38,6 +41,56 @@ class M1IntegrationTest(unittest.TestCase):
         packet[30:34] = bytes([10,0,0,2])
         packet[34:38] = struct.pack('>HH', 8, 123)
         self.assertIsNone(parse_ethernet_packet(packet)['src_port'])
+
+    def test_parse_error_rows_isolated_and_gb18030_csv(self):
+        with test_workspace() as root:
+            lines = [json.dumps({'src_ip': '10.0.0.1', 'url_path': '/a'}),
+                     '{not valid json',
+                     json.dumps({'src_ip': '10.0.0.2', 'url_path': '/b'}),
+                     '42']
+            path = root / 'events.jsonl'
+            path.write_text('\n'.join(lines), encoding='utf-8')
+            records = list(read_records(path, 'jsonl'))
+            sentinels = [r for r in records if '_parse_error' in r]
+            self.assertEqual(len(sentinels), 2)
+            self.assertEqual(sentinels[0]['_source_row'], 2)
+            self.assertEqual(sentinels[1]['_source_row'], 4)
+            self.assertEqual([r['src_ip'] for r in records if '_parse_error' not in r], ['10.0.0.1', '10.0.0.2'])
+            # validate_upload 允许 GB18030 文本：CSV 头部含中文时必须回退读取而不是整个任务失败
+            csv_path = root / 'events.csv'
+            csv_path.write_bytes('时间,源ip\n2026-01-01T00:00:00+00:00,10.0.0.9\n'.encode('gb18030'))
+            rows = list(read_records(csv_path, 'csv'))
+            self.assertEqual(rows[0]['源ip'], '10.0.0.9')
+
+    def test_bad_rows_isolated_end_to_end(self):
+        root = Path(__file__).parent / ".test-workspaces" / str(uuid4())
+        try:
+            (root / "incoming").mkdir(parents=True); (root / "manifests").mkdir()
+            records = [
+                json.dumps({"timestamp": "2026-01-01T00:00:00+00:00", "src_ip": "10.0.0.2", "dst_ip": "10.0.0.8", "url_path": "/x?q=1%20or%201=1"}),
+                "{not valid json",
+                json.dumps({"timestamp": "2026-01-01T00:00:01+00:00", "src_ip": "10.0.0.2", "dst_ip": "10.0.0.8", "url_path": "/x?q=1%20or%201=1"}),
+                "42",
+            ]
+            (root / "incoming" / "alerts.jsonl").write_text('\n'.join(records), encoding='utf-8')
+            manifest = root / "manifests" / "t.json"
+            manifest.write_text(json.dumps({"task_id": "t", "batch_id": "b", "input_files": ["incoming/alerts.jsonl"]}), encoding="utf-8")
+            ready = process(root, manifest)
+            batch = json.loads((ready / "batch.json").read_text(encoding="utf-8"))
+            metrics = batch["status"]["metrics"]
+            self.assertEqual(metrics["filtered_parse_error"], 2)
+            self.assertEqual(metrics["input_records"], 4)
+            quality = batch["status"]["quality"]
+            self.assertEqual(quality["parse_errors"]["total"], 2)
+            self.assertEqual({s["row"] for s in quality["parse_errors"]["samples"]}, {2, 4})
+            self.assertEqual(quality["filtered"]["parse_error"], 2)
+            self.assertEqual(quality["filtered"]["duplicate"], 1)
+            events = [json.loads(line) for line in (ready / "suspicious_events.jsonl").read_text(encoding="utf-8").splitlines()]
+            self.assertEqual(len(events), 1)
+            self.assertIn("sql_injection", events[0]["rule_hits"])
+        finally:
+            import shutil
+            shutil.rmtree(root, ignore_errors=True)
 
     def test_l3_receives_bounded_evidence_and_rejects_nan(self):
         llm = LLMClient({'max_concurrency': 1})
@@ -112,8 +165,8 @@ class M1IntegrationTest(unittest.TestCase):
     def test_streamed_details_and_nested_attack_output(self):
         import pyarrow.parquet as pq
         with test_workspace() as root:
-            (root / 'm1').mkdir()
-            (root / 'm1/config.json').write_text(json.dumps({'output': {'format': 'parquet', 'batch_size': 1}}))
+            (root / 'm1').mkdir(exist_ok=True)
+            (root / 'm1/config.json').write_text(json.dumps({'output': {'format': 'parquet', 'batch_size': 1}, 'ml_detector': {'enabled': False}}))
             (root / 'alerts.csv').write_text('Source IP,URL,Payload\n10.0.0.1,/a,id=1 or 1=1\n10.0.0.2,/b,test\n')
             manifest = root / 'manifest.json'
             manifest.write_text(json.dumps({'task_id': 'nested', 'input_files': ['alerts.csv']}))
@@ -153,9 +206,9 @@ class M1IntegrationTest(unittest.TestCase):
     def test_independent_mapping_model_and_programmatic_full_scan(self):
         with test_workspace() as root_text:
             root = Path(root_text)
-            (root / "m1").mkdir()
+            (root / "m1").mkdir(exist_ok=True)
             (root / "incoming").mkdir()
-            (root / "m1/config.json").write_text(json.dumps({"mapping_llm": {"enabled": True, "model": "small-mapper", "api_key": "test"}, "llm": {"enabled": False}}))
+            (root / "m1/config.json").write_text(json.dumps({"mapping_llm": {"enabled": True, "model": "small-mapper", "api_key": "test"}, "llm": {"enabled": False}, "ml_detector": {"enabled": False}}))
             (root / "incoming/data.csv").write_text("mystery,URL\n" + "10.0.0.1,/index\n" * 10001)
             manifest = root / "manifest.json"
             manifest.write_text(json.dumps({"task_id": "mapping-test", "input_files": ["incoming/data.csv"], "options": {"profile_sample_size": 10000}}))
@@ -247,7 +300,7 @@ class M1IntegrationTest(unittest.TestCase):
     def test_manual_ioc_config_without_download(self):
         from m1.run import load_config
         with test_workspace() as root:
-            (root / "m1").mkdir()
+            (root / "m1").mkdir(exist_ok=True)
             (root / "m1/config.json").write_text(json.dumps({"ioc_ips": ["203.0.113.10"]}))
             loaded = load_config(root)
             with patch("m1.run.urlopen", side_effect=AssertionError("unexpected network request")):

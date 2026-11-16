@@ -99,11 +99,13 @@ from fastapi.middleware.gzip import GZipMiddleware  # noqa: E402  大 bundle 响
 app.add_middleware(GZipMiddleware, minimum_size=2048)
 
 def slim_bundle(bundle):
-    """任务列表用：剥离最重的 evidence、alerts 与 chains（alerts 已在任务顶层，
-    chains 以 chain_id+severity 摘要随任务顶层提供；详情接口 /tasks/{id} 仍提供全量）。"""
+    """任务列表用：剥离最重的 evidence、alerts、chains、victims、campaigns 与 graph
+    （alerts 已在任务顶层，chains 以 chain_id+severity 摘要随任务顶层提供；
+    详情接口 /tasks/{id} 仍提供全量）。"""
     if not bundle:
         return bundle
-    return {k: v for k, v in bundle.items() if k not in ('evidence', 'alerts', 'chains')}
+    return {k: v for k, v in bundle.items()
+            if k not in ('evidence', 'alerts', 'chains', 'victims', 'campaigns', 'graph')}
 
 
 def public_task(task):
@@ -365,6 +367,115 @@ def alert_detail(task_id: str, alert_id: str):
             'related_chains': related, 'evidence': evidence,
             'recommended_actions': (bundle.get('report') or {}).get('recommended_actions', [])[:10]}
 
+# ---- 单事件研判报告（cqsec 能力②激活；LLM 不可用回退确定性汇总） ----
+_EVENT_REPORT_CACHE: dict = {}
+
+
+def _event_report_lines(evidence_items, limit=8):
+    """从证据行确定性构建模型输入明细（时间|URL|载荷摘要→类型）。
+
+    证据索引没有 method/request_body 独立列：载荷从 M1 summary 的「载荷:」段截取，
+    method 不写（避免把 POST 事件虚构成 GET）。全部过 redact() 防止载荷里的指令
+    样式内容随提示词扩散。
+    """
+    lines = []
+    for item in (evidence_items or [])[:limit]:
+        summary = str(item.get('summary') or '')
+        marker = summary.find('载荷:')
+        payload = summary[marker + 3:].strip() if marker >= 0 else summary
+        payload = payload.rsplit(' [', 1)[0]  # 去掉尾部「 [标签]」
+        lines.append(f"  {str(item.get('timestamp') or '')[5:16].replace('T', ' ')}|"
+                     f"{redact(str(item.get('url_path') or '/'))[:60]}|"
+                     f"{redact(payload)[:50]}→{item.get('attack_type') or '未研判'}")
+    return lines
+
+
+def _deterministic_event_report(alert, evidence_items, bundle):
+    """LLM 不可用时的单事件研判报告：四要素全部取自结果包既有字段，不调用任何模型。"""
+    sev_cn = {'critical': '严重', 'high': '高危', 'medium': '中危', 'low': '低危', 'info': '提示'}
+    chain = next((c for c in bundle.get('chains', [])
+                  if c.get('chain_id') == alert.get('chain_id')), None)
+    card = (chain or {}).get('confidence_card') or {}
+    stamps = sorted(str(e.get('timestamp') or '') for e in evidence_items if e.get('timestamp'))
+    direction = (f"{(alert.get('attacker_ips') or ['未知来源'])[0]} → "
+                 f"{(alert.get('victim_ips') or ['未知资产'])[0]}")
+    atype = alert.get('attack_type') or '待研判'
+    severity = sev_cn.get(alert.get('severity'), alert.get('severity') or '未分级')
+    signal = sev_cn.get(alert.get('signal_severity'), '')
+    overview = (f"疑似{atype}：{direction}。发生时间 {stamps[0][5:16] if stamps else '—'} ~ "
+                f"{stamps[-1][5:16] if stamps else '—'}，关联证据 {len(evidence_items)} 条；"
+                f"综合等级 {severity}"
+                + (f"（规则信号 {signal}）" if signal and signal != severity else "")
+                + f"，置信度 {round((alert.get('confidence') or 0) * 100)}%。")
+    stage_parts = [f"  阶段{idx}：{_att_cn(stage.get('tactic'))} / {_att_cn(stage.get('technique'))}"
+                   f"（证据 {len(stage.get('evidence_event_ids') or [])} 条）"
+                   for idx, stage in enumerate((chain or {}).get('stages') or [], 1)]
+    evidence_parts = [f"  {i + 1}. [{str(e.get('event_id') or '')[:8]}] "
+                      f"{redact(str(e.get('summary') or ''))[:120]}"
+                      for i, e in enumerate(evidence_items[:5])]
+    risk = (f"风险分 {card.get('score', '—')}/100；风险依据："
+            f"{redact(str(alert.get('risk_reason') or '当前结果未提供详细风险依据'))[:150]}。")
+    technique = str(alert.get('technique') or alert.get('mitre') or '').split(' ')[0]
+    actions = (bundle.get('report') or {}).get('recommended_actions', [])
+    matched = [a for a in actions if technique and technique in (a.get('related_techniques') or [])]
+    advice_parts = []
+    for action in (matched or actions)[:3]:
+        code = next((t for t in (action.get('related_techniques') or []) if t in ADVICE_CN), None)
+        title, text = ADVICE_CN[code] if code else (str(action.get('title') or '建议'),
+                                                    str(action.get('text') or ''))
+        advice_parts.append(f"  · {title}：{redact(text)[:120]}")
+    return "\n".join([
+        f"【事件概述】{overview}",
+        ("【攻击证据】" + ("\n".join(stage_parts) if stage_parts
+                          else "  本告警未关联攻击链（单事件独立存在）。")
+         + ("\n" + "\n".join(evidence_parts) if evidence_parts else "")),
+        f"【风险等级】{risk}",
+        ("【处置建议】" + ("\n".join(advice_parts) if advice_parts
+                          else "  暂无结构化处置建议，请按攻击类型知识库处理。")),
+    ])
+
+
+@app.post('/api/v1/tasks/{task_id}/alert/{alert_id}/event-report')
+def alert_event_report(task_id: str, alert_id: str):
+    """单事件研判报告：本地垂域模型（能力②）生成四段研判；模型不可用时回退
+    确定性汇总（同构四要素，来源诚实标注）。本地模型无云端额度成本。"""
+    task = task_for(task_id)
+    if task['status'] != 'completed':
+        raise HTTPException(409, '任务尚未完成')
+    alert = next((a for a in task.get('alerts', []) if a.get('alert_id') == alert_id), None)
+    if not alert:
+        raise HTTPException(404, '告警不存在')
+    cached = _EVENT_REPORT_CACHE.get((task_id, alert_id))
+    if cached:
+        return {**cached, 'cached': True}
+    bundle = task.get('bundle', {})
+    event_ids = set(alert.get('event_ids') or [])
+    evidence_items = [e for e in bundle.get('evidence', []) if e.get('event_id') in event_ids]
+    src = (alert.get('attacker_ips') or ['未知来源'])[0]
+    dst = (alert.get('victim_ips') or ['未知资产'])[0]
+    stamps = sorted(str(e.get('timestamp') or '') for e in evidence_items if e.get('timestamp'))
+    source, note, report = 'deterministic', '', None
+    if os.getenv('NETGUARD_LLM_ENABLED', '0') == '1' and os.getenv('NETGUARD_LLM_PROTOCOL', '') == 'cqsec':
+        try:
+            from llm.cqsec import event_report as cqsec_event_report
+            report = cqsec_event_report(src, dst, _event_report_lines(evidence_items),
+                                        stamps[0][5:16] if stamps else '—',
+                                        stamps[-1][5:16] if stamps else '—')
+            source = 'cqsec'
+        except Exception as exc:  # noqa: BLE001 - 模型离线/超时/空回复 → 确定性回退
+            note = f'本地垂域模型不可用（{type(exc).__name__}），以下为确定性汇总'
+            report = None
+    if not report:
+        report = _deterministic_event_report(alert, evidence_items, bundle)
+    audit('report.event_report', task_id, alert_id)
+    payload = {'alert_id': alert_id, 'task_id': task_id, 'source': source, 'note': note,
+               'report': report, 'generated_at': datetime.now(timezone.utc).isoformat()}
+    if len(_EVENT_REPORT_CACHE) >= 200:
+        _EVENT_REPORT_CACHE.clear()
+    _EVENT_REPORT_CACHE[(task_id, alert_id)] = payload
+    return payload
+
+
 @app.get('/api/v1/tasks/{task_id}/stream')
 def progress(task_id: str):
     task = task_for(task_id)
@@ -532,6 +643,51 @@ def _profile_cn(p):
     if tac: parts.append('涉及战术 ' + '、'.join(tac))
     return '；'.join(parts) + '。'
 
+# 技术编号 → 中文处置建议（PDF 与单事件报告回退共用；与前端展示层同源）
+ADVICE_CN = {
+    'T1190': ('修补被利用的对外服务', '面向公网的应用被漏洞利用，立即修补受影响组件、下线受影响版本并验证已不可被外部访问。'),
+    'T1110': ('启用多因子认证与登录限流', '存在认证爆破，强制 MFA、账号锁定/频率限制，达阈值即封禁来源。'),
+    'T1567': ('实施出口数据防泄漏', '观测到对外数据传输，启用 DLP/出口过滤、限制上传目的地并对异常流量告警。'),
+    'T1041': ('排查命令与控制外传通道', '疑似经 C2 通道外传，阻断该通道、留存流量元数据并核实外传数据。'),
+    'T1048': ('监控备用协议外传', '疑似经 DNS/ICMP 等备用协议外传，强制出口管控并限制非法协议。'),
+    'T1595': ('收敛对外暴露面', '移除不必要暴露端口、对入站连接限速并将扫描源纳入边界封禁。'),
+    'T1046': ('限制并监控内网探测', '做网络分段、限制东西向流量，并对扫描特征告警。'),
+    'T1059': ('约束命令与脚本解释器', '限制解释器仅用于授权管理路径，开启脚本块日志并对混淆命令告警。'),
+    'T1003': ('保护凭据存储', '启用凭据防护、限制调试权限并轮换可能泄露的凭据。'),
+    'T1071': ('阻断并检查命令与控制通道', '对已识别基础设施封禁，出口启用 TLS 检查并排查周期性外联。'),
+}
+
+def _victim_top(bundle):
+    """高风险资产 Top：bundle['victims'] 优先；旧结果包没有该键时从 chains 确定性重建
+    （与 assemble._build_victims 兜底同口径），保证历史任务 PDF 也有资产章。"""
+    victims = bundle.get('victims') or []
+    if victims:
+        return victims
+    order = {'critical': 0, 'high': 1, 'medium': 2, 'low': 3, 'info': 4}
+    agg = {}
+    for chain in bundle.get('chains', []):
+        for ip in chain.get('victim_ips') or []:
+            entry = agg.setdefault(ip, {'victim_ip': ip, 'attack_count': 0, 'tactics': [],
+                                        'rank': 9, 'first_seen': None, 'last_seen': None})
+            entry['attack_count'] += 1
+            entry['rank'] = min(entry['rank'], order.get(chain.get('severity'), 9))
+            first_seen, last_seen = chain.get('first_seen'), chain.get('last_seen')
+            if first_seen and (not entry['first_seen'] or first_seen < entry['first_seen']):
+                entry['first_seen'] = first_seen
+            if last_seen and (not entry['last_seen'] or last_seen > entry['last_seen']):
+                entry['last_seen'] = last_seen
+            for stage in chain.get('stages') or []:
+                tactic = str(stage.get('tactic') or '')
+                if tactic and tactic not in entry['tactics']:
+                    entry['tactics'].append(tactic)
+    rank_to_sev = {rank: sev for sev, rank in order.items()}
+    rows = sorted(agg.values(), key=lambda e: (-e['attack_count'], e['victim_ip']))[:10]
+    for entry in rows:
+        entry['max_severity'] = rank_to_sev.get(entry.pop('rank'), 'info')
+        entry['tactics'] = entry['tactics'][:6]
+    return rows
+
+
 def _build_pdf_report(task) -> bytes:
     """结构化中文风险报告：执行摘要 → 统计 → 重点攻击链 → 处置建议 → 证据附录。"""
     global PDF_FONT_NAME
@@ -610,6 +766,20 @@ def _build_pdf_report(task) -> bytes:
     ], [26*mm]*6, st))
     story.append(Spacer(1, 4))
 
+    # 运营效率：各阶段处理耗时（数字全部来自编排器实测计时，非模型生成）
+    stage_items = [('M1 接入与降噪', 'm1_duration_seconds'), ('桥接证据转换', 'bridge_duration_seconds'),
+                   ('M2 关联与研判', 'm2_process_duration_seconds'),
+                   ('结果包装配', 'bundle_assembly_duration_seconds'), ('编排调度开销', 'orchestrator_overhead_seconds')]
+    stage_rows = [[Paragraph('<b>处理阶段</b>', st['cell']), Paragraph('<b>耗时</b>', st['cell'])]]
+    for name, key in stage_items:
+        if metrics.get(key) is None:
+            continue
+        stage_rows.append([Paragraph(name, st['cell']), Paragraph(_fmt_duration(metrics.get(key)), st['cell'])])
+    if len(stage_rows) > 1:
+        story.append(Paragraph('各阶段处理耗时（端到端合计 ' + _fmt_duration(metrics.get('duration_seconds')) + '）', st['sub']))
+        story.append(_pdf_table(stage_rows, [40*mm, 30*mm], st))
+        story.append(Spacer(1, 4))
+
     # 二、告警统计
     story.append(Paragraph('二、告警统计', st['h1']))
     level_rows = [[Paragraph('<b>等级</b>', st['cell']), Paragraph('<b>数量</b>', st['cell']), Paragraph('<b>占比</b>', st['cell'])]]
@@ -623,6 +793,33 @@ def _build_pdf_report(task) -> bytes:
     for name, count in list(stats['attack_types'].items())[:10]:
         type_rows.append([Paragraph(_esc(name), st['cell']), str(count)])
     story.append(_pdf_table(type_rows, [70*mm, 30*mm], st))
+
+    # 降噪漏斗（数据质量）：一行五列表 + 明细注脚；旧结果包无 quality 块时整段跳过
+    quality = metrics.get('quality') or {}
+    filtered = quality.get('filtered') or {}
+    funnel_filters = [('空行', filtered.get('empty')), ('无意义行', filtered.get('meaningless')),
+                      ('重复', filtered.get('duplicate')), ('白名单', filtered.get('whitelist')),
+                      ('坏行', filtered.get('parse_error'))]
+    if metrics.get('raw_count') is not None and all(v is not None for _, v in funnel_filters):
+        filtered_total = sum(int(v or 0) for _, v in funnel_filters)
+        ingested = int(metrics['raw_count']) - filtered_total
+        story.append(Spacer(1, 4))
+        story.append(Paragraph('<b>降噪漏斗（数据质量）</b>', st['body']))
+        story.append(_pdf_table([
+            [Paragraph('<b>原始接入</b>', st['cell']), Paragraph('<b>五级过滤</b>', st['cell']),
+             Paragraph('<b>入库会话</b>', st['cell']), Paragraph('<b>可疑事件</b>', st['cell']),
+             Paragraph('<b>确认告警</b>', st['cell'])],
+            [Paragraph(str(metrics['raw_count']), st['cell']), Paragraph(str(filtered_total), st['cell']),
+             Paragraph(str(ingested), st['cell']), Paragraph(str(metrics.get('suspicious_count', '—')), st['cell']),
+             Paragraph(str(stats['alert_count']), st['cell'])],
+        ], [26*mm, 24*mm, 26*mm, 26*mm, 26*mm], st))
+        story.append(Paragraph(_esc('五级明细：' + ' · '.join(f'{name} {int(v or 0)}' for name, v in funnel_filters)), st['sub']))
+        parse_errors = quality.get('parse_errors') or {}
+        samples = parse_errors.get('samples') or []
+        if samples:
+            first = samples[0]
+            story.append(Paragraph(_esc(f"坏行示例：第 {first.get('row', '?')} 行 {str(first.get('error') or '')[:60]}"
+                                         f"（共 {parse_errors.get('total', len(samples))} 条，明细见平台）"), st['sub']))
 
     # 三、重点攻击链（Top 5，按等级与风险分）
     story.append(Paragraph('三、重点攻击链（Top 5）', st['h1']))
@@ -675,23 +872,60 @@ def _build_pdf_report(task) -> bytes:
         story.append(Paragraph('暂无攻击者画像。', st['body']))
     story.append(Spacer(1, 4))
 
-    # 五、处置建议
-    story.append(Paragraph('五、处置建议', st['h1']))
+    # 五、高风险资产（双榜单：受高威胁攻击 + 被多次攻击；assemble 一次算好旗标，
+    # critical/high 是硬指针强制在榜——整体分数低时也不能漏掉被打进高危行为的资产）
+    story.append(Paragraph('五、高风险资产', st['h1']))
+    victim_rows = _victim_top(bundle)
+    ranked = [v for v in victim_rows if 'threat_score' in v] if victim_rows else []
+
+    def _asset_table(rows, score_key, score_label):
+        tbl = [[Paragraph('<b>资产</b>', st['cell']), Paragraph('<b>命中告警</b>', st['cell']),
+                Paragraph('<b>关联链</b>', st['cell']), Paragraph('<b>最严等级</b>', st['cell']),
+                Paragraph(f'<b>{_esc(score_label)}</b>', st['cell']), Paragraph('<b>主要战术</b>', st['cell'])]]
+        for v in rows:
+            tactics = '、'.join(_att_cn(t).split('（')[0] for t in (v.get('tactics') or [])[:3])
+            tbl.append([
+                Paragraph(_esc(v.get('victim_ip') or '—'), st['cell']),
+                Paragraph(str(v.get('alert_count', '—')), st['cell']),
+                Paragraph(str(v.get('chain_count', '—')), st['cell']),
+                Paragraph(_esc(severity_cn.get(v.get('max_severity'), v.get('max_severity') or '—')), st['cell']),
+                Paragraph(_esc(v.get(score_key, '—')), st['cell']),
+                Paragraph(_esc(tactics or '—'), st['cell']),
+            ])
+        return _pdf_table(tbl, [32*mm, 16*mm, 13*mm, 17*mm, 20*mm, 34*mm], st)
+
+    if ranked:
+        threat_rows = [v for v in victim_rows if v.get('in_threat_ranking')][:8]
+        freq_rows = [v for v in victim_rows if v.get('in_freq_ranking')][:8]
+        if threat_rows:
+            story.append(Paragraph('受高威胁攻击的资产（最严等级 critical/high 强制在榜；其余按威胁指数相对线补足）', st['sub']))
+            story.append(_asset_table(threat_rows, 'threat_score', '威胁指数'))
+            story.append(Spacer(1, 3))
+        if freq_rows:
+            story.append(Paragraph('被多次攻击的资产（按命中告警数的对数指数，榜一恒为 100）', st['sub']))
+            story.append(_asset_table(freq_rows, 'freq_score', '频次指数'))
+    elif victim_rows:
+        vtable = [[Paragraph('<b>资产</b>', st['cell']), Paragraph('<b>被攻击次数</b>', st['cell']),
+                   Paragraph('<b>最高等级</b>', st['cell']), Paragraph('<b>主要战术</b>', st['cell']),
+                   Paragraph('<b>首次 / 最近被攻击</b>', st['cell'])]]
+        for v in victim_rows[:10]:
+            tactics = '、'.join(_att_cn(t).split('（')[0] for t in (v.get('tactics') or [])[:4])
+            vtable.append([
+                Paragraph(_esc(v.get('victim_ip') or '—'), st['cell']),
+                Paragraph(str(v.get('attack_count', '—')), st['cell']),
+                Paragraph(_esc(severity_cn.get(v.get('max_severity'), v.get('max_severity') or '—')), st['cell']),
+                Paragraph(_esc(tactics or '—'), st['cell']),
+                Paragraph(_esc(_time_cn(v.get('first_seen') or '—') + ' ~ ' + _time_cn(v.get('last_seen') or '—')), st['cell']),
+            ])
+        story.append(_pdf_table(vtable, [32*mm, 24*mm, 18*mm, 42*mm, 40*mm], st))
+    else:
+        story.append(Paragraph('暂无受攻击资产记录。', st['body']))
+    story.append(Spacer(1, 4))
+
+    # 六、处置建议
+    story.append(Paragraph('六、处置建议', st['h1']))
     source_cn = {'rule_based': '规则/证据', 'knowledge_base': '知识库', 'llm_generated': '模型生成', 'analyst_verified': '人工确认'}
     priority_cn = {'critical': '立即', 'high': '高', 'medium': '常规', 'low': '观察', 'info': '参考'}
-    # 技术编号 → 中文处置建议（与前端展示层同源，避免报告里出现整段英文）
-    ADVICE_CN = {
-        'T1190': ('修补被利用的对外服务', '面向公网的应用被漏洞利用，立即修补受影响组件、下线受影响版本并验证已不可被外部访问。'),
-        'T1110': ('启用多因子认证与登录限流', '存在认证爆破，强制 MFA、账号锁定/频率限制，达阈值即封禁来源。'),
-        'T1567': ('实施出口数据防泄漏', '观测到对外数据传输，启用 DLP/出口过滤、限制上传目的地并对异常流量告警。'),
-        'T1041': ('排查命令与控制外传通道', '疑似经 C2 通道外传，阻断该通道、留存流量元数据并核实外传数据。'),
-        'T1048': ('监控备用协议外传', '疑似经 DNS/ICMP 等备用协议外传，强制出口管控并限制非法协议。'),
-        'T1595': ('收敛对外暴露面', '移除不必要暴露端口、对入站连接限速并将扫描源纳入边界封禁。'),
-        'T1046': ('限制并监控内网探测', '做网络分段、限制东西向流量，并对扫描特征告警。'),
-        'T1059': ('约束命令与脚本解释器', '限制解释器仅用于授权管理路径，开启脚本块日志并对混淆命令告警。'),
-        'T1003': ('保护凭据存储', '启用凭据防护、限制调试权限并轮换可能泄露的凭据。'),
-        'T1071': ('阻断并检查命令与控制通道', '对已识别基础设施封禁，出口启用 TLS 检查并排查周期性外联。'),
-    }
     actions = bundle.get('report', {}).get('recommended_actions', [])
     if actions:
         action_rows = [[Paragraph('<b>#</b>', st['cell']), Paragraph('<b>处置建议</b>', st['cell']), Paragraph('<b>优先级/来源</b>', st['cell'])]]
@@ -708,8 +942,8 @@ def _build_pdf_report(task) -> bytes:
     else:
         story.append(Paragraph('暂无结构化处置建议。', st['body']))
 
-    # 六、证据附录（前 20 条，已脱敏）
-    story.append(Paragraph('六、证据附录（前 20 条，已脱敏）', st['h1']))
+    # 七、证据附录（前 20 条，已脱敏）
+    story.append(Paragraph('七、证据附录（前 20 条，已脱敏）', st['h1']))
     evidence = (bundle.get('evidence') or [])[:20]
     if evidence:
         evidence_rows = [[Paragraph('<b>事件 ID</b>', st['cell']), Paragraph('<b>摘要</b>', st['cell'])]]
@@ -721,8 +955,8 @@ def _build_pdf_report(task) -> bytes:
     else:
         story.append(Paragraph('暂无证据记录。', st['body']))
 
-    # 七、方法与版本
-    story.append(Paragraph('七、方法与版本', st['h1']))
+    # 八、方法与版本
+    story.append(Paragraph('八、方法与版本', st['h1']))
     versions = bundle.get('versions', {})
     story.append(Paragraph(_esc(
         '研判链路：数据接入与降噪（规则 ' + str(versions.get('rule_version', '—'))

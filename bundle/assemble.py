@@ -13,7 +13,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import os
+import re
 import sys
 import time
 import uuid
@@ -21,6 +23,7 @@ from collections import Counter
 from pathlib import Path
 
 from bridge.labels import severity_for
+from bundle.graph_builder import build_attack_graph
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
@@ -135,6 +138,332 @@ def _confidence_summary(risk: dict, validation: dict, penalties: list[dict],
     return "；".join(parts)
 
 
+CAMPAIGN_GAP_SECONDS = 3600.0  # 同一攻击活动内两条链的最大时间间隔（秒）
+
+
+def _parse_ts(value) -> float | None:
+    if not value:
+        return None
+    try:
+        from datetime import datetime
+
+        return datetime.fromisoformat(str(value).replace("Z", "+00:00")).timestamp()
+    except (ValueError, TypeError):
+        return None
+
+
+def _freq_ranked(values, cap: int = 30) -> list[str]:
+    """按出现频次降序去重（并列按字典序），供活动级攻击源/受害资产列表使用。"""
+    counter = Counter(values)
+    return [value for value, _ in sorted(counter.items(), key=lambda item: (-item[1], item[0]))][:cap]
+
+
+def _build_campaigns(task_id: str, chains: list[dict]) -> list[dict]:
+    """跨链攻击活动归并（可解释规则 + Union-Find）。
+
+    两条链并入同一活动必须同时满足"证据相交"与"时间相容"：
+    - 共享攻击源 IP；或
+    - 共享受害资产 IP 且双方攻击源不同（疑似协同/分布式打击同一目标）。
+    时间相容 = 时间区间重叠或间隔 ≤ CAMPAIGN_GAP_SECONDS。
+    时间邻近只是相容条件、不是关联理由；每条归并边都落档可解释理由，
+    攻击源缺失时不臆断协同。
+    """
+    n = len(chains)
+    if n < 2:
+        return []
+    parent = list(range(n))
+
+    def find(x: int) -> int:
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    def union(a: int, b: int) -> None:
+        ra, rb = find(a), find(b)
+        if ra != rb:
+            parent[max(ra, rb)] = min(ra, rb)
+
+    starts: list[float] = []
+    ends: list[float] = []
+    for chain in chains:
+        begin = _parse_ts(chain.get("first_seen"))
+        finish = _parse_ts(chain.get("last_seen"))
+        if begin is None:
+            begin = finish if finish is not None else 0.0
+        if finish is None:
+            finish = begin
+        starts.append(begin)
+        ends.append(max(begin, finish))
+
+    def time_compatible(i: int, j: int) -> bool:
+        return max(starts[i], starts[j]) <= min(ends[i], ends[j]) + CAMPAIGN_GAP_SECONDS
+
+    pair_reasons: dict[tuple[int, int], list[str]] = {}
+
+    def add_reason(i: int, j: int, text: str) -> None:
+        key = (min(i, j), max(i, j))
+        bucket = pair_reasons.setdefault(key, [])
+        if text not in bucket:
+            bucket.append(text)
+
+    def sweep(index: dict[str, list[int]], reason_for) -> None:
+        """同一 IP 组内按首次时间排序、只连相邻项：O(k log k)，传递闭包仍成立。"""
+        for key, members in index.items():
+            if len(members) < 2:
+                continue
+            members = sorted(members, key=lambda idx: starts[idx])
+            for pos in range(len(members) - 1):
+                i, j = members[pos], members[pos + 1]
+                if not time_compatible(i, j):
+                    continue
+                text = reason_for(key, i, j)
+                if text:
+                    add_reason(i, j, text)
+                    union(i, j)
+
+    attacker_index: dict[str, list[int]] = {}
+    victim_index: dict[str, list[int]] = {}
+    for idx, chain in enumerate(chains):
+        for ip in chain.get("attacker_ips") or []:
+            attacker_index.setdefault(ip, []).append(idx)
+        for ip in chain.get("victim_ips") or []:
+            victim_index.setdefault(ip, []).append(idx)
+
+    def attacker_reason(key, i, j):
+        return f"共享攻击源 {key}"
+
+    def victim_reason(key, i, j):
+        left, right = chains[i].get("attacker_ips"), chains[j].get("attacker_ips")
+        if not left or not right:
+            return None  # 攻击源缺失时不臆断协同
+        if set(left) & set(right):
+            return None  # 已由共享攻击源覆盖，不重复记理由
+        return f"共享受害资产 {key}（来源不同、时间相容，疑似协同攻击）"
+
+    sweep(attacker_index, attacker_reason)
+    sweep(victim_index, victim_reason)
+
+    groups: dict[int, list[int]] = {}
+    for idx in range(n):
+        groups.setdefault(find(idx), []).append(idx)
+
+    campaigns: list[dict] = []
+    for members in groups.values():
+        if len(members) < 2:
+            continue
+        members.sort(key=lambda idx: starts[idx])
+        member_chains = [chains[idx] for idx in members]
+        reasons: list[str] = []
+        for pos, i in enumerate(members):
+            for j in members[pos + 1:]:
+                for text in pair_reasons.get((min(i, j), max(i, j)), []):
+                    if text not in reasons:
+                        reasons.append(text)
+        severity = min((c.get("severity", "info") for c in member_chains),
+                       key=lambda sev: SEVERITY_ORDER.get(sev, 9))
+        tactics: list[str] = []
+        for chain in member_chains:
+            for stage in chain.get("stages") or []:
+                tactic = str(stage.get("tactic") or "")
+                if tactic and tactic not in tactics:
+                    tactics.append(tactic)
+        last_times = [c.get("last_seen") for c in member_chains if c.get("last_seen")]
+        campaigns.append({
+            "schema_version": "AttackCampaign.v1",
+            "campaign_id": "camp_" + hashlib.sha256(
+                "|".join([task_id] + sorted(c["chain_id"] for c in member_chains)).encode("utf-8")
+            ).hexdigest()[:16],
+            "task_id": task_id,
+            "attacker_ips": _freq_ranked(
+                [ip for c in member_chains for ip in (c.get("attacker_ips") or [])]),
+            "victim_ips": _freq_ranked(
+                [ip for c in member_chains for ip in (c.get("victim_ips") or [])]),
+            "chain_ids": [c["chain_id"] for c in member_chains],
+            "chain_count": len(member_chains),
+            "multistage_count": sum(1 for c in member_chains if len(c.get("stages") or []) > 1),
+            "severity": severity,
+            "first_seen": member_chains[0].get("first_seen"),
+            "last_seen": max(last_times) if last_times else None,
+            "top_tactics": tactics[:8],
+            "reasons": reasons[:12],
+            "members": [{
+                "chain_id": c["chain_id"],
+                "severity": c.get("severity", "info"),
+                "risk_score": (c.get("risk_score") or {}).get("score"),
+                "stage_count": len(c.get("stages") or []),
+                "first_seen": c.get("first_seen"),
+                "last_seen": c.get("last_seen"),
+            } for c in member_chains],
+        })
+    campaigns.sort(key=lambda camp: (SEVERITY_ORDER.get(camp["severity"], 9), -camp["chain_count"]))
+    return campaigns
+
+
+SEVERITY_THREAT = {"critical": 1.0, "high": 0.85, "medium": 0.6, "low": 0.35, "info": 0.15}
+
+
+def _build_victims(report_raw: dict, chains: list[dict], alerts: list[dict]) -> list[dict]:
+    """高风险资产双榜单（确定性聚合，供报告层"高风险资产"维度使用）。
+
+    对每个受害资产算两个 0~100 动态指数（相对化，避免整批分数低时无内容展示）：
+    - freq_score  被多次攻击指数 = 100·ln(1+n)/ln(1+n_max)，n=命中告警数，榜一恒为 100；
+    - threat_score 受高威胁攻击指数 = 0.40·最严等级权重 + 0.25·命中链最大风险分/100
+      + 0.20·攻击类型多样性 + 0.15·攻击源多样性；命中多阶段链再 ×1.1（封顶 1.0）。
+    展示名单用动态截断（相对榜一/占比），但**高危是硬指针**：最严等级为
+    critical/high 的资产必须进入"受高威胁攻击"榜单，相对截断只负责在剩余
+    名额里补足低危资产——绝不能因为整体分数低而漏掉被打进高危/Webshell/SQL
+    注入/文件上传等危险行为的资产。
+    每行带 in_threat_ranking / in_freq_ranking 两个旗标（榜单逻辑只在 assemble
+    算一次，PDF 与页面按旗标取数，不重复实现截断规则）。
+    """
+    rows: list[dict] = []
+    for v in report_raw.get("victims") or []:
+        ip = str(v.get("victim_ip") or "").strip()
+        if ip:
+            rows.append({"victim_ip": ip, "m2_attack_count": int(v.get("attack_count") or 0),
+                         "m2_tactics": [str(t) for t in (v.get("tactics") or [])][:6],
+                         "m2_targeted_ports": list(v.get("targeted_ports") or [])[:8]})
+    m2_by_ip = {row.pop("victim_ip"): row for row in rows}
+
+    agg: dict[str, dict] = {}
+    for chain in chains:
+        risk_value = chain.get("risk_score")
+        score = (risk_value or {}).get("score") if isinstance(risk_value, dict) else None
+        try:
+            score = float(score) if score is not None else None
+        except (TypeError, ValueError):
+            score = None
+        multistage = len(chain.get("stages") or []) > 1
+        for ip in chain.get("victim_ips") or []:
+            entry = agg.setdefault(ip, {
+                "victim_ip": ip, "alert_count": 0, "chain_count": 0,
+                "max_severity": "info", "max_score": 0.0, "types": [], "attackers": [],
+                "tactics": [], "techniques": [], "multistage": False,
+                "first_seen": None, "last_seen": None})
+            entry["chain_count"] += 1
+            entry["multistage"] = entry["multistage"] or multistage
+            severity = chain.get("severity", "info")
+            if SEVERITY_ORDER.get(severity, 9) < SEVERITY_ORDER.get(entry["max_severity"], 9):
+                entry["max_severity"] = severity
+            if score is not None:
+                entry["max_score"] = max(entry["max_score"], score)
+            for ip_src in chain.get("attacker_ips") or []:
+                if ip_src not in entry["attackers"]:
+                    entry["attackers"].append(ip_src)
+            for field, key in (("tactics", "tactic"), ("techniques", "technique")):
+                for stage in chain.get("stages") or []:
+                    value = str(stage.get(key) or "")
+                    if value and value not in entry[field]:
+                        entry[field].append(value)
+            if chain.get("first_seen") and (not entry["first_seen"] or chain["first_seen"] < entry["first_seen"]):
+                entry["first_seen"] = chain["first_seen"]
+            if chain.get("last_seen") and (not entry["last_seen"] or chain["last_seen"] > entry["last_seen"]):
+                entry["last_seen"] = chain["last_seen"]
+    for alert in alerts:
+        for ip in alert.get("victim_ips") or []:
+            entry = agg.get(ip)
+            if entry is None:  # 告警 victim 不在链集合里（旧包/单事件）也独立成行
+                entry = agg.setdefault(ip, {
+                    "victim_ip": ip, "alert_count": 0, "chain_count": 0,
+                    "max_severity": "info", "max_score": 0.0, "types": [], "attackers": [],
+                    "tactics": [], "techniques": [], "multistage": False,
+                    "first_seen": None, "last_seen": None})
+            entry["alert_count"] += 1
+            atype = str(alert.get("attack_type") or "")
+            if atype and atype not in entry["types"]:
+                entry["types"].append(atype)
+            severity = alert.get("severity", "info")
+            if SEVERITY_ORDER.get(severity, 9) < SEVERITY_ORDER.get(entry["max_severity"], 9):
+                entry["max_severity"] = severity
+    if not agg:
+        return []
+
+    n_max = max(e["alert_count"] for e in agg.values()) or 1
+    type_total = max(1, len({a.get("attack_type") for a in alerts if a.get("attack_type")}))
+    for entry in agg.values():
+        sev_w = SEVERITY_THREAT.get(entry["max_severity"], 0.15)
+        threat = (0.40 * sev_w
+                  + 0.25 * min(1.0, entry["max_score"] / 100.0)
+                  + 0.20 * (len(entry["types"]) / type_total)
+                  + 0.15 * (len(entry["attackers"]) / max(1, entry["chain_count"])))
+        if entry["multistage"]:
+            threat = min(1.0, threat * 1.1)
+        entry["threat_score"] = round(threat * 100, 1)
+        entry["freq_score"] = round(100 * (math_log_ratio(entry["alert_count"], n_max)), 1)
+        m2 = m2_by_ip.get(entry["victim_ip"]) or {}
+        entry["targeted_ports"] = m2.get("m2_targeted_ports") or []
+        entry["tactics"] = (entry["tactics"] or m2.get("m2_tactics") or [])[:6]
+        entry["techniques"] = entry["techniques"][:6]
+
+    ranked = sorted(agg.values(), key=lambda e: (-e["threat_score"], e["victim_ip"]))
+    # 受高威胁攻击榜：critical/high 硬指针全保留 + 相对线（榜一×0.6）补足，≤8 个
+    threat_list: list[dict] = []
+    for entry in ranked:
+        if entry["max_severity"] in ("critical", "high"):
+            threat_list.append(entry)
+    soft_line = ranked[0]["threat_score"] * 0.6 if ranked else 0.0
+    for entry in ranked:
+        if len(threat_list) >= 8:
+            break
+        if entry in threat_list:
+            continue
+        if entry["threat_score"] >= soft_line:
+            threat_list.append(entry)
+    for entry in threat_list:
+        entry["in_threat_ranking"] = True
+    # 被多次攻击榜：count ≥ max(2, 榜一/3)；整体都只被打一次时退化为前 3（如实低频）
+    freq_sorted = sorted(agg.values(), key=lambda e: (-e["alert_count"], -e["threat_score"], e["victim_ip"]))
+    freq_line = max(2, -(-freq_sorted[0]["alert_count"] // 3))
+    freq_list = [e for e in freq_sorted if e["alert_count"] >= freq_line][:8]
+    if not freq_list:
+        freq_list = freq_sorted[:3]
+    for entry in freq_list:
+        entry["in_freq_ranking"] = True
+
+    ordered = [e for e in ranked if e.get("in_threat_ranking") or e.get("in_freq_ranking")]
+    ordered += [e for e in ranked if e not in ordered][: max(0, 20 - len(ordered))]
+    return ordered[:20]
+
+
+def math_log_ratio(count: int, n_max: int) -> float:
+    if count <= 0:
+        return 0.0
+    return math.log1p(count) / math.log1p(max(1, n_max))
+
+
+def _narrative_numbers_ok(narrative: str, metrics: dict, statistics: dict,
+                          extra: tuple = ()) -> bool:
+    """运营总结数字对账：叙事里带量词的整数必须落在系统统计允许集内。
+
+    大模型只负责文字组织，不负责产生统计值。ops_summary 虽被要求"原样引用数字"，
+    这里再加一道确定性校验：叙事中任何「N 条/个/起/位/次」形式的数字都必须能在
+    metrics/statistics/额外计数（证据/画像/告警总数）或 0~10 的小枚举（"前 3 条"之类）
+    里找到，出现对不上的数字即判定为模型编造，回退确定性文案。
+    """
+    allowed: set[int] = set(range(0, 11))
+
+    def collect(value) -> None:
+        if isinstance(value, bool):
+            return
+        if isinstance(value, int):
+            allowed.add(abs(value))
+        elif isinstance(value, dict):
+            for item in value.values():
+                collect(item)
+        elif isinstance(value, list):
+            for item in value:
+                collect(item)
+
+    collect(metrics)
+    collect(statistics)
+    allowed.update(abs(int(n)) for n in extra if isinstance(n, int))
+    for match in re.finditer(r"\d+(?=\s*(?:条|个|起|位|次))", narrative):
+        if int(match.group()) not in allowed:
+            return False
+    return True
+
+
 def _default_summary(sev_counts: dict, events: int, chains: int, multistage: int,
                      metrics: dict) -> str:
     """确定性运营总结（无 LLM 时兜底；数字全部来自加权后的真实分布）。"""
@@ -202,6 +531,11 @@ def assemble(task_id: str, m2_output: Path, evidence_path: Path, out_dir: Path,
             "session_id": row.get("session_id"),
             "matched_rules": row.get("matched_rules") or [],
             "ioc_hits": row.get("ioc_hits") or [],
+            # 处理前原貌（上传文件中的原始日志行锚点；旧产物无这些键时为 None，前端自动隐藏）
+            "source_row": row.get("source_row"),
+            "source_file": row.get("source_file"),
+            "request_body": row.get("request_body"),
+            "user_agent": row.get("user_agent"),
         })
     known_ids = set(events)
 
@@ -304,7 +638,22 @@ def assemble(task_id: str, m2_output: Path, evidence_path: Path, out_dir: Path,
             "last_seen": chain.get("last_seen"),
             "llm_meta": chain.get("llm_meta") or {},
             "confidence_card": confidence_card,
+            # 关联依据与缺失证据：M2 关联引擎的成对判定理由 + 链级不确定项，
+            # 回答"这些告警为什么被归为一次攻击/还缺什么证据"。
+            "correlation_score": _clamp01(chain.get("correlation_score") or 0.0),
+            "correlation_reasons": [str(r) for r in (chain.get("correlation_reasons") or [])][:12],
+            "uncertainties": [str(u) for u in (chain.get("uncertainties") or [])][:12],
         })
+
+    # ---- campaigns：跨链攻击活动归并（同攻击者/同受害目标 + 时间相容才合并）----
+    campaigns = _build_campaigns(task_id, chains)
+    if campaigns:
+        by_id = {chain["chain_id"]: chain for chain in chains}
+        for campaign in campaigns:
+            for member in campaign["members"]:
+                chain = by_id.get(member["chain_id"])
+                if chain is not None:
+                    chain["campaign_id"] = campaign["campaign_id"]
 
     # ---- alerts ----
     alerts: list[dict] = []
@@ -376,6 +725,9 @@ def assemble(task_id: str, m2_output: Path, evidence_path: Path, out_dir: Path,
             "notes": profile.get("notes") or [],
         })
 
+    # ---- 高风险资产双榜单（确定性聚合，报告层"高风险资产"维度数据源）----
+    victims = _build_victims(report_raw, chains, alerts)
+
     # ---- report ----
     recommendations = []
     for action in report_raw.get("recommendations") or []:
@@ -435,6 +787,20 @@ def assemble(task_id: str, m2_output: Path, evidence_path: Path, out_dir: Path,
     }
     metrics = {k: v for k, v in metrics.items() if v is not None}
     metrics.update(extra_metrics or {})
+    # M1 数据质量透出：过滤漏斗 + 坏行明细 + 语义研判覆盖。旧 batch 无 quality 块时
+    # 回退从 metrics 取过滤计数，其余置空骨架，前端按缺省值展示。
+    quality_raw = m1_status.get("quality") or {}
+    metrics["quality"] = {
+        "filtered": quality_raw.get("filtered") or {name: m1_metrics.get(f"filtered_{name}", 0) for name in ("empty", "meaningless", "duplicate", "whitelist", "parse_error")},
+        "timestamp_parse_errors": quality_raw.get("timestamp_parse_errors") or 0,
+        "parse_errors": quality_raw.get("parse_errors") or {"total": m1_metrics.get("filtered_parse_error", 0), "samples": []},
+        "review_groups": quality_raw.get("review_groups"),
+        "review_reduction_ratio": quality_raw.get("review_reduction_ratio"),
+        "suspicious_ratio": quality_raw.get("suspicious_ratio"),
+        "l3_session_coverage": quality_raw.get("l3_session_coverage"),
+        "accuracy_status": quality_raw.get("accuracy_status"),
+        "payload_similarity": quality_raw.get("payload_similarity") or {},
+    }
 
     # ---- 最终等级分布：与可解释综合风险分同源；M1 初筛强度另存 signal_severity ----
     sev_counts = {"critical": 0, "high": 0, "medium": 0, "low": 0, "info": 0}
@@ -446,15 +812,22 @@ def assemble(task_id: str, m2_output: Path, evidence_path: Path, out_dir: Path,
     chain_count = len(chains)
     confirmed_events = len(alerts)
     multistage_chains = sum(1 for c in chains if len(c.get("stages", [])) > 1)
+    # 攻击类型分布：与 M3 页面/PDF/chat 同口径（Counter(alert.attack_type or technique)），
+    # 一次计算三处同源：前端「主要威胁类型」chips、cqsec 运营总结输入、JSON 证据包。
+    type_counts = Counter(
+        (a.get("attack_type") or a.get("technique") or "未提供") for a in alerts)
+    metrics["attack_types"] = dict(type_counts)
     metrics["severity_counts"] = sev_counts
     metrics["chain_count"] = chain_count
     metrics["confirmed_events"] = confirmed_events
     metrics["multistage_chains"] = multistage_chains
+    metrics["campaign_count"] = len(campaigns)
     # 覆盖 report.statistics 的等级计数，保证叙事/表/PDF 三处同源且真实
     report["statistics"] = {**report["statistics"], **{
         f"{k}_count": v for k, v in sev_counts.items()},
         "chain_count": chain_count, "confirmed_events": confirmed_events,
         "multistage_chains": multistage_chains,
+        "attack_type_counts": dict(type_counts),
         # 单事件候选会各自成链，链数≈事件数属正常；如实标注避免把两数当两个独立大指标
         "events_vs_chains": ("本批攻击会话多为单事件、各自独立成链，故攻击链数接近攻击事件数"
                              if chain_count and abs(chain_count - confirmed_events) <= max(1, 0.05 * confirmed_events)
@@ -468,8 +841,29 @@ def assemble(task_id: str, m2_output: Path, evidence_path: Path, out_dir: Path,
                                   multistage_chains, metrics, dict(report["statistics"]))
         except Exception:  # noqa: BLE001 - 总结失败回退确定性文案，不影响主流程
             narrative = None
+        # 数字对账：叙事里出现系统统计之外的量词数字即判编造，回退确定性文案
+        if narrative and not _narrative_numbers_ok(
+                narrative, metrics, dict(report["statistics"]),
+                extra=(len(evidence), len(profiles), len(alerts), len(victims))):
+            import logging
+            logging.getLogger("assemble").warning(
+                "运营总结叙事包含与系统统计不一致的数字，已回退确定性文案")
+            narrative = None
     report["summary"] = (narrative or "").strip() or _default_summary(
         sev_counts, confirmed_events, chain_count, multistage_chains, metrics)
+
+    # ---- NetworkX 关联图：节点(IP/资产/链)+边(发起/命中/战役归并)+社区发现+布局坐标 ----
+    try:
+        graph = build_attack_graph(task_id, chains, campaigns)
+    except Exception as exc:  # noqa: BLE001 - 出图失败不阻塞结果包，前端按缺省展示
+        graph = None
+        import logging
+
+        logging.getLogger("assemble").warning("attack graph build failed: %s", exc)
+    if graph is not None:
+        metrics["graph_node_count"] = graph["stats"]["node_count"]
+        metrics["graph_edge_count"] = graph["stats"]["edge_count"]
+        metrics["graph_community_count"] = graph["stats"]["community_count"]
 
     m2_llm_meta = next((c.get("llm_meta") or {} for c in chains_raw if c.get("llm_meta")), {})
     versions = {
@@ -487,6 +881,9 @@ def assemble(task_id: str, m2_output: Path, evidence_path: Path, out_dir: Path,
         "chains": chains,
         "evidence": evidence,
         "profiles": profiles,
+        "victims": victims,
+        "campaigns": campaigns,
+        "graph": graph,
         "metrics": metrics,
         "report": report,
         "degraded": degraded
@@ -538,7 +935,10 @@ def assemble(task_id: str, m2_output: Path, evidence_path: Path, out_dir: Path,
         "alerts": len(alerts),
         "chains": len(chains),
         "profiles": len(profiles),
+        "victims": len(victims),
+        "campaigns": len(campaigns),
         "evidence": len(evidence),
+        "attack_type_counts": dict(type_counts),
         "severity_counts": dict(sev_counts),
         "multistage_chains": multistage_chains,
         "degraded": bundle["degraded"],

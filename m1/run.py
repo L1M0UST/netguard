@@ -16,7 +16,6 @@ import threading
 from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 from heapq import nlargest
 from math import floor, isfinite
-from itertools import chain, islice
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -27,6 +26,8 @@ from urllib.request import Request, urlopen
 from uuid import uuid4
 from m1.storage import EventWriter
 from m1.local_ioc import LocalIOC
+from m1.ml_detector import MLDetector
+from m1.ml_features import RISK_ML, extract_features
 from m1.quality import review_groups, pattern_key
 from m1.similarity import payload_features, session_features, VERSION as SIMILARITY_VERSION
 from m1.l2 import normalized_route, detect_scans, time_groups, identity, family
@@ -73,6 +74,10 @@ RISK = {"command_injection": 90, "sql_injection": 85, "java_deserialization": 90
 CSRF_BODY_MARKER = re.compile(r"(?:to|recipient)(?:=|%3d)att\w*|(?:role|permission)(?:=|%3d)admin|target_user(?:=|%3d)admin|new_password(?:=|%3d)|confirm_password(?:=|%3d)|action(?:=|%3d)delete|confirm(?:=|%3d)(?:true|1|yes)|attacker@|redirect_url(?:=|%3d).+|token(?:=|%3d)bypass|setting(?:=|%3d)disable", re.I)
 MAPPING_PROMPT_VERSION = "m1-schema-map-1.3"
 RISK['multi_path_scan'] = 45
+# 第二层 ML 检测器（m1-ml-1.0）的 ml_* 伪规则分：低于对应确定性规则分，仅用于
+# l3_candidates(:994) 的规则分桶（family=max(rule_hits, key=RISK.get)）；enrich(:798) 的
+# 直接索引不受影响——ml_* 命中由后置批量推理写入，不走 enrich 内部。
+RISK.update(RISK_ML)
 L3_PROMPT_VERSION = "m1-l3-judge-1.2"
 RULE_VERSION = 'm1-rules-1.4'  # 1.4: csrf 扩展覆盖"敏感状态变更端点+攻击者载荷"模式（官方数据集 942 条）
 
@@ -288,17 +293,61 @@ def detect_format(path: Path) -> str:
     raise ValueError(f"不支持或无法识别的文件格式: {path.name}")
 
 
+PARSE_ERROR_FIELD = "_parse_error"
+PARSE_ERROR_SAMPLE_LIMIT = 20
+
+
+def _text_encoding(path: Path) -> str:
+    """UTF-8 优先，采样失败回退 GB18030（validate_upload 允许两种文本编码）。
+
+    只探测前 64KB：极少数"头部 UTF-8、尾部非 UTF-8"的文件仍会在读取中途报错，
+    此时按文件级失败处理，不让静默替换字节污染 IP/URL 内容。
+    """
+    with path.open('rb') as stream:
+        head = stream.read(65536)
+    try:
+        head.decode('utf-8-sig')
+        return 'utf-8-sig'
+    except UnicodeDecodeError:
+        return 'gb18030'
+
+
+def parse_error_row(number: int, message: str) -> dict[str, Any]:
+    """解析失败行的哨兵记录：不抛异常打断整个任务，由调用方隔离计数。"""
+    return {PARSE_ERROR_FIELD: f"第 {number} 处无法解析：{message}", "_source_row": number}
+
+
 def read_records(path: Path, fmt: str) -> Iterable[dict[str, Any]]:
     if fmt == "csv":
-        with path.open("r", encoding="utf-8-sig", newline="") as f:
+        with path.open("r", encoding=_text_encoding(path), newline="") as f:
             yield from csv.DictReader(f)
     elif fmt == "jsonl":
-        with path.open("r", encoding="utf-8") as f:
-            for line in f:
-                if line.strip(): yield json.loads(line)
+        with path.open("r", encoding=_text_encoding(path)) as f:
+            for number, line in enumerate(f, start=1):
+                if not line.strip(): continue
+                try:
+                    item = json.loads(line)
+                except json.JSONDecodeError as error:
+                    yield parse_error_row(number, f"无效 JSON：{error.msg}（第 {error.colno} 列）")
+                    continue
+                if isinstance(item, dict):
+                    yield item
+                else:
+                    yield parse_error_row(number, f"不是 JSON 对象（{type(item).__name__}）")
     elif fmt == "json":
-        data = json.loads(path.read_text(encoding="utf-8"))
-        yield from (data if isinstance(data, list) else data.get("records", [data]))
+        try:
+            data = json.loads(path.read_text(encoding=_text_encoding(path)))
+        except json.JSONDecodeError as error:
+            # JSON 整体损坏时没有"部分行"可救：按文件级失败给出可读原因
+            raise ValueError(f"JSON 文件解析失败：{error.msg}（第 {error.lineno} 行）") from error
+        records = data if isinstance(data, list) else data.get("records", [data])
+        if not isinstance(records, list):
+            records = [records]
+        for number, item in enumerate(records, start=1):
+            if isinstance(item, dict):
+                yield item
+            else:
+                yield parse_error_row(number, f"记录不是 JSON 对象（{type(item).__name__}）")
     elif fmt == "xlsx":
         yield from read_xlsx(path)
     elif fmt == "xls":
@@ -669,7 +718,7 @@ def is_meaningless(event: dict[str, Any]) -> bool:
 
 def load_config(workspace: Path) -> dict[str, Any]:
     config_path = workspace / "m1" / "config.json"
-    default = {"whitelist_ips": [], "whitelist_networks": [], "trusted_networks": [], "ioc_ips": [], "ioc_domains": [], "ioc_urls": [], "threatbook": {"enabled": False, "api_key": "", "timeout_seconds": 5, "max_queries_per_batch": 200, "cache_ttl_seconds": 86400, "query_ip_reputation": True, "skip_private_ips": True}, "session_window_seconds": 300, "dedup_window_seconds": 60, "campaign_window_seconds": 21600, "attack_campaign_window_seconds": 86400, "scan_min_unique_paths": 5, "suspicious_min_score": 45, "asset_risk": {}, "schema_profile_sample_size": 200, "output": {"format": "jsonl", "require_parquet": False}, "enable_l3_semantic_judge": False, "l3_max_ratio": 0.01, "l3_max_candidates": 24, "llm": {"enabled": False, "api_key": "", "timeout_seconds": 20, "max_consecutive_failures": 3, "max_concurrency": 4}}
+    default = {"whitelist_ips": [], "whitelist_networks": [], "trusted_networks": [], "ioc_ips": [], "ioc_domains": [], "ioc_urls": [], "threatbook": {"enabled": False, "api_key": "", "timeout_seconds": 5, "max_queries_per_batch": 200, "cache_ttl_seconds": 86400, "query_ip_reputation": True, "skip_private_ips": True}, "session_window_seconds": 300, "dedup_window_seconds": 60, "campaign_window_seconds": 21600, "attack_campaign_window_seconds": 86400, "scan_min_unique_paths": 5, "suspicious_min_score": 45, "asset_risk": {}, "schema_profile_sample_size": 200, "output": {"format": "jsonl", "require_parquet": False}, "enable_l3_semantic_judge": False, "l3_max_ratio": 0.01, "l3_max_candidates": 24, "ml_detector": {"enabled": True}, "llm": {"enabled": False, "api_key": "", "timeout_seconds": 20, "max_consecutive_failures": 3, "max_concurrency": 4}}
     default.pop('campaign_window_seconds', None)
     default['attack_campaign_window_seconds'] = 3600
     default.update({'max_session_duration_seconds': 3600, 'scan_window_seconds': 60, 'scan_min_sensitive_paths': 2})
@@ -821,7 +870,11 @@ def finalize_session(events: list[dict[str, Any]], key: tuple[str, ...]) -> dict
     base_score = max(e["risk_score"] for e in events)
     suspicious_count = sum(bool(e['rule_hits']) for e in events)
     frequency_score = 20 if suspicious_count >= 10 else 10 if suspicious_count >= 3 else 0
+    # 会话级 score_components：保留事件级 ML 分量（取成员最大），否则会在重建时被覆盖丢失
+    ml_score = max(((e.get("score_components") or {}).get("ml") or 0) for e in events)
     first["score_components"] = {"rule_or_ioc": base_score, "session_frequency": frequency_score}
+    if ml_score:
+        first["score_components"]["ml"] = int(ml_score)
     first["risk_score"] = min(100, base_score + frequency_score)
     first["risk_level"] = "high" if first["risk_score"] >= 75 else "medium" if first["risk_score"] >= 45 else "low"
     return first
@@ -1235,6 +1288,9 @@ def process_task(workspace: Path, manifest: dict[str, Any]) -> Path:
     llm = LLMClient(config.get("llm", {}), workspace / 'm1' / 'cqsec_judge_cache.sqlite3')
     if config.get('local_ioc', {}).get('enabled', False):
         config['_local_ioc'] = LocalIOC(workspace)
+    # 第二层 ML 检测器：模型缺失/未安装 lightgbm/校验失败时 fail-open 降级为纯规则（状态留痕）
+    ml_cfg = config.get('ml_detector') or {}
+    config['_ml_detector'] = MLDetector(ml_cfg.get('model_dir'), enabled=bool(ml_cfg.get('enabled', True)))
     validate_l3_ratio(config)
     for name in ('session_window_seconds', 'max_session_duration_seconds', 'source_activity_window_seconds', 'activity_window_seconds', 'attack_campaign_window_seconds', 'scan_window_seconds', 'scan_min_sensitive_paths'):
         value = options.get(name, config.get(name, 300)) if name == 'session_window_seconds' else config.get(name, 300)
@@ -1250,23 +1306,62 @@ def process_task(workspace: Path, manifest: dict[str, Any]) -> Path:
         details_writer = EventWriter(ready, 'event_details', output)
         seen: set[str] = set(); accepted: list[dict[str, Any]] = []; metrics = Counter()
         plans: dict[str, dict[str, Any]] = {}
+        parse_error_samples: list[dict[str, Any]] = []  # 坏行明细样本，随 status.quality 透出
         total_hint = 0  # 各输入文件数据行数预估，供前端"已处理 n/总数"流式展示
+        # 第二层 ML 批量推理：特征在 consume 内即时提取（载荷尚未 pop），攒批 flush；
+        # 缓冲必须在 detect_scans/aggregate 之前清空并摘除临时特征字段。
+        ml_detector = config.get('_ml_detector')
+        ml_buffer: list[dict[str, Any]] = []
+
+        def ml_flush() -> None:
+            if not ml_buffer:
+                return
+            started = time.perf_counter()
+            try:
+                if ml_detector is not None:
+                    ml_detector.apply_batch(ml_buffer)
+            finally:
+                for buffered in ml_buffer:
+                    buffered.pop('_ml_features', None)
+                ml_buffer.clear()
+                metrics['ml_infer_ms'] += (time.perf_counter() - started) * 1000
+
+        def note_parse_error(relative: str, row: dict[str, Any], index: int) -> None:
+            metrics["input_records"] += 1
+            metrics["filtered_parse_error"] += 1
+            if len(parse_error_samples) < PARSE_ERROR_SAMPLE_LIMIT:
+                parse_error_samples.append({"source_file": relative, "row": row.get("_source_row", index),
+                                            "error": str(row.get(PARSE_ERROR_FIELD, ""))[:200]})
+
         for relative in manifest["input_files"]:
             path = workspace / relative
             fmt = detect_format(path)
             iterator = iter(read_records(path, fmt))
             requested_sample_size = int(options.get("profile_sample_size", config.get("schema_profile_sample_size", 200)))
             sample_size = max(100, min(500, requested_sample_size))
-            samples = list(islice(iterator, sample_size))
-            source_headers = list(samples[0].keys()) if samples else []
+            # 字段画像采样只取"可解析"的前 N 条；坏行就地隔离计数，不让一行坏数据
+            # 拖垮整个任务（此前坏 JSON 行会让 read_records 抛异常、整个任务失败）。
+            sampled: list[tuple[int, dict[str, Any]]] = []
+            consumed = 0
+            while len(sampled) < sample_size:
+                row = next(iterator, None)
+                if row is None:
+                    break
+                consumed += 1
+                if PARSE_ERROR_FIELD in row:
+                    note_parse_error(relative, row, consumed)
+                    continue
+                sampled.append((consumed, row))
+            sample_rows = [row for _, row in sampled]
+            source_headers = list(sample_rows[0].keys()) if sample_rows else []
             excluded_ground_truth_fields = [header for header in source_headers if is_ground_truth_header(header)]
             headers = [header for header in source_headers if not is_ground_truth_header(header)]
-            profile = schema_profile(samples)
+            profile = schema_profile(sample_rows)
             plan, reused, mapping_path, decisions = get_mapping_plan(workspace, headers, fmt, profile, mapping_llm)
             plans[relative] = {"format": fmt, "mapping": plan, "decisions": decisions, "profile": profile,
                                "excluded_ground_truth_fields": excluded_ground_truth_fields,
                                "mapping_file": str(mapping_path.relative_to(workspace)), "reused": reused,
-                               "sample_size_requested": requested_sample_size, "sample_size_used": len(samples), "frozen": True}
+                               "sample_size_requested": requested_sample_size, "sample_size_used": len(sample_rows), "frozen": True}
             try:  # 数据行数预估（csv 数换行 / xlsx 读维度元数据），失败不影响主流程
                 if fmt == 'csv':
                     with open(path, 'rb') as fh: total_hint += max(0, sum(1 for _ in fh) - 1)
@@ -1276,7 +1371,8 @@ def process_task(workspace: Path, manifest: dict[str, Any]) -> Path:
                     try: total_hint += max(0, (wb.worksheets[0].max_row or 1) - 1)
                     finally: wb.close()
             except (OSError, ValueError): pass
-            for index, row in enumerate(chain(samples, iterator), start=1):
+
+            def consume(index: int, row: dict[str, Any]) -> None:
                 metrics["input_records"] += 1
                 # 实时进度上报（态势总览流式展示用）：每 1000 条刷新一次运行状态文件
                 if metrics["input_records"] % 1000 == 0:
@@ -1284,14 +1380,26 @@ def process_task(workspace: Path, manifest: dict[str, Any]) -> Path:
                         write_json(running, {"task_id": task_id, "batch_id": batch_id, "stage": "RUNNING", "schema_version": SCHEMA_VERSION, "started_at": now(), "phase": "filter", "processed_records": metrics["input_records"], "total_records": total_hint or None, "accepted_records": len(accepted), "filtered_duplicate": metrics.get("filtered_duplicate", 0)})
                     except (OSError, ValueError):
                         pass
+                if PARSE_ERROR_FIELD in row:
+                    note_parse_error(relative, row, index)
+                    return
                 event = normalized(row, plan, batch_id, relative, index)
-                if event is None: metrics["filtered_empty"] += 1; continue
-                if is_meaningless(event): metrics["filtered_meaningless"] += 1; continue
+                if event is None: metrics["filtered_empty"] += 1; return
+                if is_meaningless(event): metrics["filtered_meaningless"] += 1; return
+                if (event.get("data_quality") or {}).get("timestamp_parse_error"):
+                    metrics["timestamp_parse_errors"] += 1
                 fingerprint_key = dedup_key(event, int(config.get("dedup_window_seconds", 60)))
-                if fingerprint_key in seen: metrics["filtered_duplicate"] += 1; continue
+                if fingerprint_key in seen: metrics["filtered_duplicate"] += 1; return
                 seen.add(fingerprint_key)
-                if is_whitelisted(event, config): metrics["filtered_whitelist"] += 1; continue
+                if is_whitelisted(event, config): metrics["filtered_whitelist"] += 1; return
                 enrich(event, config, threatbook)
+                if ml_detector is not None:
+                    feature_started = time.perf_counter()
+                    event['_ml_features'] = extract_features(event)
+                    metrics['ml_feature_ms'] += (time.perf_counter() - feature_started) * 1000
+                    ml_buffer.append(event)
+                    if len(ml_buffer) >= 500:
+                        ml_flush()
                 event['_payload'] = payload_features(event)
                 # Bounded excerpts for first-round judgement; full payload stays on disk.
                 event['semantic_evidence'] = {field: str(event.get(field) or '')[:512] for field in ('request_body', 'message', 'user_agent')}
@@ -1300,10 +1408,17 @@ def process_task(workspace: Path, manifest: dict[str, Any]) -> Path:
                 for field in ('request_body', 'message', 'user_agent', 'raw_reference', 'fingerprint', 'ingested_at'):
                     event.pop(field, None)
                 accepted.append(event)
+
+            for index, row in sampled:  # 采样行也要过完整管线；ordinal 采样时已记录
+                consume(index, row)
+            for index, row in enumerate(iterator, start=consumed + 1):
+                consume(index, row)
+            ml_flush()
         details_writer.close()
         details_artifact = details_writer.path.name
         details_writer = None
         seen.clear()
+        ml_flush()
         detect_scans(accepted, config)
         all_sessions = apply_contextual_scores(aggregate(accepted, int(options.get("session_window_seconds", config["session_window_seconds"])), int(config.get("max_session_duration_seconds", 3600))), config)
         # 信息级是全量会话中的低风险观察，不属于可疑告警；单独统计，避免被 M1
@@ -1362,6 +1477,8 @@ def process_task(workspace: Path, manifest: dict[str, Any]) -> Path:
         status['run_id'] = run_id
         local = config.get('_local_ioc')
         status['local_ioc'] = {'status': local.status, 'active_indicators': local.count, 'expired_indicators': local.expired} if local else {'status': 'disabled'}
+        # 第二层 ML 检测器状态：验收闸门断言 status=='ready' 且 calls>0（防降级假通过）
+        status['ml_detector'] = ml_detector.snapshot() if ml_detector is not None else {'status': 'disabled'}
         status['llm_attempts'] = llm.attempts + (mapping_llm.attempts if mapping_llm is not llm else 0)
         status['llm_retries'] = llm.retries
         status['l3_status'] = ('disabled' if not config.get('enable_l3_semantic_judge') or not llm.semantic_enabled else 'no_candidates' if not candidates else 'completed' if len(judgements) == len(candidates) else 'partial_failure' if judgements else 'failed')
@@ -1373,7 +1490,11 @@ def process_task(workspace: Path, manifest: dict[str, Any]) -> Path:
             'suspicious_ratio':len(suspicious)/len(all_sessions) if all_sessions else 0,
             'l3_session_coverage':len(judgements)/len(suspicious) if suspicious else 0,
             'selected_review_patterns':len({pattern_key(row) for row in candidates}),
-            'accuracy_status':'requires_human_labels'}
+            'accuracy_status':'requires_human_labels',
+            # 数据质量透出：过滤漏斗 + 坏行明细（assemble 原样带给 M3 展示）
+            'filtered': {name: int(metrics.get(f'filtered_{name}', 0)) for name in ('empty', 'meaningless', 'duplicate', 'whitelist', 'parse_error')},
+            'timestamp_parse_errors': int(metrics.get('timestamp_parse_errors', 0)),
+            'parse_errors': {'total': int(metrics.get('filtered_parse_error', 0)), 'samples': parse_error_samples}}
         status['quality']['payload_similarity'] = {'version': SIMILARITY_VERSION, 'jaccard_threshold':0.9, 'candidate_limit':64, **similarity_stats}
         status['semantic_counts'] = dict(Counter(session['semantic_status'] for session in suspicious))
         metadata = {name: artifact_info(ready / filename) for name, filename in artifacts.items()}

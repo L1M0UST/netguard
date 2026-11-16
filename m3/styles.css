@@ -242,6 +242,18 @@ svg.icon{width:16px;height:16px;flex:0 0 auto;stroke:currentColor;fill:none;stro
 .rs-label{font-size:12px;color:#334155}
 .rs-track{height:10px;background:#eef1f6;border-radius:5px;overflow:hidden}
 .rs-track i{display:block;height:100%;border-radius:5px}
+.funnel-strip{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin:2px 0 6px}
+.funnel-stage{display:grid;gap:3px;justify-items:center;padding:10px 14px;background:#fff;border:1px solid #e2e8f2;border-radius:10px;min-width:76px}
+.funnel-stage b{font-size:18px;line-height:1.2;font-variant-numeric:tabular-nums;color:#1d4ed8}
+.funnel-stage small{font-size:11px;color:#64748b}
+.funnel-stage.is-filter{background:#f8fafc;border-style:dashed}
+.funnel-stage.is-filter b{color:#b45309}
+.funnel-stage.is-alert{background:#fdf5f6;border-color:#f2d7dc}
+.funnel-stage.is-alert b{color:#9f1239}
+.funnel-arrow{align-self:center;color:#94a3b8;font-size:13px}
+.funnel-filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px}
+.funnel-filters span{font-size:11px;color:#94a3b8;background:#f1f5f9;border-radius:6px;padding:2px 8px}
+.funnel-filters span.hit{color:#b45309;background:#fef3c7;font-weight:600}
 .rs-num{font-size:12px;text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
 .report-types{display:flex;flex-wrap:wrap;gap:8px}
 .type-chip{background:#f5f8ff;border:1px solid #dfe7f6;border-radius:8px;padding:6px 12px;font-size:12.5px;display:flex;gap:8px;align-items:baseline}
@@ -293,4 +305,87 @@ button:disabled{cursor:not-allowed;opacity:.55}.chain-actions button,.chain-tab,
 .chat-input{padding:14px 16px;border-top:1px solid #e8ecf3;background:#fff}
 .chat-input input{padding:11px 12px;border:1px solid #ccd8ec;border-radius:8px;font-size:14px}
 .chat-input button{background:#2f56c4;color:#fff;border:0;border-radius:8px;padding:0 18px;font-weight:600;cursor:pointer}
-.alert-dialog{width:min(940px,94vw);padding:0 28px 28px;overflow:auto;background:#f8fafc}.alert-detail-top{position:sticky;top:0;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin:0 -28px 20px;padding:22px 28px 16px;background:rgba(255,255,255,.96);border-bottom:1px solid #e6ebf3;backdrop-filter:blur(12px)}.alert-detail-top small{color:#64748b}.alert-detail-top h2{margin:4px 0 0;font-size:20px;line-height:1.35}.alert-detail-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}.alert-detail-facts>div{display:grid;gap:5px;padding:12px 14px;background:#fff;border:1px solid #e5eaf2;border-radius:10px}.alert-detail-facts small,.alert-advice-list small{color:#64748b}.alert-detail-callout{padding:14px 16px;margin:12px 0 20px;border:1px solid #f0d6a7;border-radius:10px;background:#fff8e8}.alert-detail-callout p{margin:5px 0 0}.alert-dialog>h3{margin:22px 0 10px}.alert-detail-links,.alert-evidence-list,.alert-advice-list{display:grid;gap:9px}.alert-chain-link,.alert-evidence-list article,.alert-advice-list article{padding:12px 14px;background:#fff;border:1px solid #e3e9f2;border-radius:10px}.alert-chain-link{display:flex;align-items:center;justify-content:space-between;gap:15px}.alert-evidence-list p,.alert-advice-list p{margin:6px 0;line-height:1.55;overflow-wrap:anywhere}.alert-advice-list article{background:#f8faff;border-color:#d8e3f7}@media(max-width:720px){.alert-dialog{padding:0 16px 20px}.alert-detail-top{margin:0 -16px 16px;padding:18px 16px 14px}.alert-detail-facts{grid-template-columns:repeat(2,minmax(0,1fr))}.alert-chain-link{align-items:flex-start;flex-direction:column}}
+.alert-dialog{width:min(940px,94vw);padding:0 28px 28px;overflow:auto;background:#f8fafc}.alert-detail-top{position:sticky;top:0;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin:0 -28px 20px;padding:22px 28px 16px;background:rgba(255,255,255,.96);border-bottom:1px solid #e6ebf3;backdrop-filter:blur(12px)}.alert-detail-top small{color:#64748b}.alert-detail-top h2{margin:4px 0 0;font-size:20px;line-height:1.35}.alert-detail-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}.alert-detail-facts>div{display:grid;gap:5px;padding:12px 14px;background:#fff;border:1px solid #e5eaf2;border-radius:10px}.alert-detail-facts small,.alert-advice-list small{color:#64748b}.alert-detail-callout{padding:14px 16px;margin:12px 0 20px;border:1px solid #f0d6a7;border-radius:10px;background:#fff8e8}.alert-detail-callout p{margin:5px 0 0}.alert-report-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}.alert-report-head .secondary-btn{min-height:30px;padding:4px 12px;font-size:12px}.alert-event-report small{display:block;margin-top:6px;color:#64748b;line-height:1.5}.alert-event-report .event-report-text{white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0 0;font-family:inherit;font-size:12px;line-height:1.7;color:#1f2937;background:#fff;border:1px solid #e5eaf2;border-radius:8px;padding:10px 12px}.alert-dialog>h3{margin:22px 0 10px}.alert-detail-links,.alert-evidence-list,.alert-advice-list{display:grid;gap:9px}.alert-chain-link,.alert-evidence-list article,.alert-advice-list article{padding:12px 14px;background:#fff;border:1px solid #e3e9f2;border-radius:10px}.alert-chain-link{display:flex;align-items:center;justify-content:space-between;gap:15px}.alert-evidence-list p,.alert-advice-list p{margin:6px 0;line-height:1.55;overflow-wrap:anywhere}.alert-advice-list article{background:#f8faff;border-color:#d8e3f7}@media(max-width:720px){.alert-dialog{padding:0 16px 20px}.alert-detail-top{margin:0 -16px 16px;padding:18px 16px 14px}.alert-detail-facts{grid-template-columns:repeat(2,minmax(0,1fr))}.alert-chain-link{align-items:flex-start;flex-direction:column}}
+
+/* —— 攻击活动（跨链战役归并）与链内关联依据 —— */
+.campaign-card{border:1px solid #e3e9f2;border-radius:12px;margin:12px 0;padding:15px 17px;background:#fff;box-shadow:var(--shadow-sm)}
+.campaign-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.campaign-head b{font-size:12.5px;font-weight:600;color:#263650;overflow-wrap:anywhere}
+.campaign-times{display:block;color:var(--muted);font-size:12px;margin:9px 0 2px}
+.campaign-why{margin:10px 0 4px;font-size:12.5px}
+.campaign-why b{font-weight:600}
+.campaign-why ul{margin:5px 0 0;padding-left:20px}
+.campaign-members{margin-top:10px;border-top:1px dashed #e3e9f2;padding-top:9px;display:grid;gap:7px}
+.campaign-member{display:grid;grid-template-columns:minmax(0,1.3fr) auto minmax(0,1.2fr) auto;gap:10px;align-items:center;font-size:12px}
+.campaign-chain-id{color:#43516a;font-size:11.5px;overflow-wrap:anywhere}
+.campaign-member-meta{color:var(--muted);font-size:11.5px;overflow-wrap:anywhere}
+.campaign-link{cursor:pointer}
+.campaign-link:hover{background:#e0e8ff}
+.corr-section{margin:12px 0}
+.corr-reasons{margin:6px 0 0;padding-left:20px;font-size:12.5px;color:#43516a;line-height:1.65}
+.corr-reasons li{margin:3px 0}
+.chain-edge-note{margin-top:10px}
+
+.corr-note{display:block;color:var(--muted);font-size:11.5px;margin:4px 0 0}
+
+/* —— 阶段展开·从原始数据到判断 —— */
+.judge-section{margin:10px 0;padding:10px 12px;background:#f6f8ff;border:1px solid #dde6fb;border-radius:10px}
+.judge-section h3{margin:0 0 8px;font-size:13px;color:#2c3a5c}
+.judge-step{margin:7px 0;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px}
+.judge-k{font-size:12px;color:#2c3a5c;min-width:84px}
+.judge-chips{display:flex;flex-wrap:wrap;gap:6px}
+.judge-chip{display:inline-block;padding:2px 9px;background:#e7eeff;color:#2f56c4;border:1px solid #c3d2f5;border-radius:999px;font-size:11.5px}
+.judge-note{color:var(--muted);font-size:11.5px}
+.judge-verdict .att-name{font-weight:600;color:#1f2c4d}
+.judge-verdict .att-code{margin-left:5px}
+.judge-narrative{flex-basis:100%;margin:3px 0 0;color:#5d6b84;font-size:11.5px;font-style:italic;line-height:1.55;word-break:break-all;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.judge-hold{flex-basis:100%;margin:3px 0 0;color:#8a5a13;background:#fff7e8;border:1px solid #f0dfb8;border-radius:8px;padding:5px 9px;font-size:11.5px;line-height:1.55}
+.judge-raw{flex-basis:100%;margin:6px 0 0;padding:7px 9px;background:#fbfcff;border:1px dashed #c9d6ef;border-radius:8px}
+.judge-raw-t{display:block;font-size:11px;color:#5d6b84;margin-bottom:4px}
+.judge-raw-line{font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#43516a;line-height:1.6;padding:4px 6px;border-left:3px solid #c3d2f5;background:#f4f7ff;border-radius:4px;margin:3px 0;word-break:break-all;white-space:pre-wrap}
+
+/* —— 攻击活动实体关系图 + 路径图交互 —— */
+.campaign-graph{margin:10px 0;max-height:560px}
+.camp-node:hover rect{stroke-width:2.5;filter:drop-shadow(0 1px 2px rgba(0,0,0,.10))}
+.camp-node{outline:none}
+.camp-node:focus-visible rect{stroke-width:2.5;stroke:#2f56c4}
+.edge-gap-badge rect{fill:#fff}
+.edge-gap-badge:hover rect{stroke:#8fa8e0}
+.graph-viewport{cursor:grab}
+.graph-viewport:active{cursor:grabbing}
+.chain-zoom-tip{color:var(--muted);font-size:11px;align-self:center}
+
+/* —— NetworkX 任务级关联图 —— */
+.graph-stats{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:0 0 10px}
+.graph-stat{display:inline-flex;gap:5px;align-items:baseline;background:#f6f9ff;border:1px solid #dbe5f7;border-radius:7px;padding:4px 10px}
+.graph-stat small{color:var(--muted);font-size:11px}
+.graph-stat b{font-size:13px;color:#263650}
+.graph-note{color:#a65e0c;font-size:11px}
+.task-graph{max-height:620px;background:linear-gradient(180deg,#fbfcff,#f7faff)}
+.graph-node{outline:none}
+.graph-node:hover{filter:drop-shadow(0 2px 4px rgba(0,0,0,.12))}
+.graph-node:focus-visible circle,.graph-node:focus-visible rect{stroke:#2f56c4}
+.graph-edge{transition:opacity .15s}
+.task-graph-info{margin-top:10px;padding:10px 14px;border:1px solid #e3e9f2;border-radius:10px;background:#fff;font-size:12.5px;min-height:20px}
+.task-graph-info ul{margin:6px 0 0}
+.task-graph-info li{display:flex;align-items:center;gap:8px}
+
+/* —— 关联图成品化：图例 + 节点投影 —— */
+.graph-legend{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin:2px 0 12px;font-size:12px;color:#43516a}
+.lg-item{display:inline-flex;gap:7px;align-items:center}
+.lg-sw{display:inline-block;width:22px;height:14px;border-radius:5px;border:2px solid #b4232f;background:#dbe7ff}
+.lg-sw.lg-att{background:#fff3e2;border-color:#eab24a}
+.lg-sw.lg-vic{background:#e9f3ff;border-color:#7fa7e8}
+.lg-line{display:inline-block;width:24px;height:0;border-top:2px solid #aebfe2}
+.lg-line.lg-camp{border-top-style:dashed;border-top-color:#e0a05a}
+/* 静态投影已改为节点内垫层矩形（260+ 节点挂 CSS filter 会拖垮合成，曾致截图超时）；hover 才允许 filter */
+.graph-node{outline:none}
+.graph-node:hover{filter:drop-shadow(0 3px 7px rgba(23,35,60,.20))}
+.graph-node:focus-visible rect{stroke:#2f56c4;stroke-width:3}
+.graph-info-hint{color:var(--muted);font-size:11.5px}
+
+/* —— 关联图聚焦视图下拉 —— */
+.graph-focus-bar{display:flex;gap:10px;align-items:center;margin:2px 0 12px}
+.graph-focus-label{color:var(--muted);font-size:12px}
+.graph-focus{max-width:520px;border:1px solid #ccd8ec;border-radius:7px;padding:8px 10px;background:#fff;color:#263650;font-size:12.5px;min-height:38px}
+.task-graph-focus:empty{display:none}

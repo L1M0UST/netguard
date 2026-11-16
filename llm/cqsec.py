@@ -135,14 +135,17 @@ def _alert_lines(alerts: list[dict], limit: int) -> str:
     return "\n".join(lines)
 
 
-def event_report(src_ip: str, dst_ip: str, alerts: list[dict]) -> str:
-    """能力②：事件研判报告（≤8 条告警）。"""
-    first = str(alerts[0].get("timestamp") or "未知") if alerts else "未知"
-    last = str(alerts[-1].get("timestamp") or "未知") if alerts else "未知"
+def event_report(src_ip: str, dst_ip: str, lines: list[str],
+                 first_seen: str, last_seen: str) -> str:
+    """能力②：事件研判报告。
+
+    lines 为调用方从证据行确定性构建的明细（时间|URL|载荷摘要→类型，≤8 行）——
+    证据索引没有 method/request_body 独立列，缺什么字段就不写什么字段，不虚构。
+    """
     body = (
         f"事件源IP: {src_ip}\n受害资产: {dst_ip}\n"
-        f"时间跨度: {last} 至 {first}, 告警数: {len(alerts)}\n"
-        "告警明细(时间|方法|URL|载荷→类型):\n" + _alert_lines(alerts, 8)
+        f"时间跨度: {last_seen} 至 {first_seen}, 告警数: {len(lines[:8])}\n"
+        "告警明细(时间|URL|载荷摘要→类型):\n" + "\n".join(lines[:8])
     )
     return chat(f"{EVENT_REPORT_INSTRUCTION}\n\n{body}", max_tokens=600)
 

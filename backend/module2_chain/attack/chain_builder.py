@@ -118,6 +118,8 @@ class AttackChainBuilder:
             event_ids=list(candidate.event_ids),
             candidate_ids=[candidate.candidate_id],
             uncertainties=_dedupe(uncertainties),
+            correlation_score=round(float(candidate.correlation_score or 0.0), 4),
+            correlation_reasons=list(candidate.correlation_reasons or []),
             evidence_validation=(validation.model_dump(mode="json") if validation else {}),
             llm_degraded=degraded,
             first_seen=candidate.first_seen,
@@ -268,25 +270,42 @@ class AttackChainBuilder:
     def _collapse_single_evidence_stages(
         self, stages: list[ChainStage]
     ) -> tuple[list[ChainStage], str | None]:
-        """One evidence event can never justify several attack stages.
+        """A stage must introduce new evidence; re-used evidence is inference, not progression.
 
-        Spec §22: a single malicious-IP alert must not become a full attack chain;
-        it may only produce a single suspicious stage.  When every stage is supported by the same single event we keep
-        the most confident one and record why.
+        Spec §22: a single malicious-IP alert must not become a full attack chain.
+        The same principle applies cumulatively: walking the stages in order, any
+        stage whose evidence adds nothing beyond already-seen events is a candidate
+        expansion (one observation dressed as several tactics) and is folded away.
+        The surviving chain therefore has exactly one stage per new observation.
         """
 
-        evidence = {event_id for stage in stages for event_id in stage.evidence_event_ids}
-        if len(stages) <= 1 or len(evidence) > 1:
+        if len(stages) <= 1:
             return stages, None
-        best = max(
-            stages,
-            key=lambda stage: (stage.confidence, -self.knowledge.tactic_rank(stage.tactic)),
-        )
+        kept: list[ChainStage] = []
+        seen: set[str] = set()
+        folded: list[str] = []
+        for stage in stages:
+            ids = set(stage.evidence_event_ids)
+            if not ids or ids.issubset(seen):
+                folded.append(
+                    f"{stage.tactic}/{stage.technique or '?'} (confidence {stage.confidence:.2f})"
+                )
+                continue
+            seen |= ids
+            kept.append(stage)
+        if not folded:
+            return stages, None
+        kept = [
+            stage.model_copy(update={"stage_index": index})
+            for index, stage in enumerate(kept, start=1)
+        ]
+        preview = "; ".join(folded[:5]) + ("; ..." if len(folded) > 5 else "")
         note = (
-            "Multiple ATT&CK stages were proposed but only one evidence event supports "
-            "them; the chain was reduced to a single stage."
+            f"{len(folded)} of {len(stages)} proposed stages were folded: they cited no "
+            f"evidence beyond earlier stages and represent inferred tactics, not observed "
+            f"progression. Folded stages: {preview}."
         )
-        return [best.model_copy(update={"stage_index": 1})], note
+        return kept, note
 
     def _finalise_stages(
         self, stages: list[ChainStage], event_times: dict[str, datetime]

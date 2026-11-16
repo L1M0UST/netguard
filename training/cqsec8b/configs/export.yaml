@@ -1,0 +1,10 @@
+# Merge the selected adapter into the original unquantized BF16 base.
+# Edit adapter_name_or_path to the actual chosen checkpoint before export.
+model_name_or_path: ./models/Qwen3-8B
+adapter_name_or_path: ./runs/round_a
+template: qwen3_nothink
+trust_remote_code: false
+export_dir: ./exports/cqsec8b-merged
+export_size: 5
+export_device: cpu
+export_legacy_format: false

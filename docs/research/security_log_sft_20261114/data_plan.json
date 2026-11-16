@@ -1,0 +1,636 @@
+{
+  "schema_version": "NetGuardLogSFTPlan.v1",
+  "as_of": "2026-11-14",
+  "created_at_utc": "2026-11-14T12:11:21.677851+00:00",
+  "status": "research_and_source_inspection_complete_training_and_benchmark_not_run",
+  "workspace": "E:/platform_taishi/taishi_platform",
+  "workspace_git_head": "54e62affce34b0b41c0b41b5287787bbc7c0da24",
+  "workspace_has_preexisting_changes": true,
+  "model": {
+    "id": "Qwen/Qwen3-8B",
+    "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+    "parameters": 8190735360,
+    "license": "apache-2.0",
+    "method": "SFT with 4-bit QLoRA",
+    "thinking": false,
+    "first_gpu": "single RTX 4090 24GB",
+    "base_compute_dtype": "bf16",
+    "lora_rank": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "batch_size": 1,
+    "gradient_accumulation": 16
+  },
+  "datasets": [
+    {
+      "id": "D0",
+      "name": "competition_and_audited_legacy",
+      "source_type": "organizer_provided",
+      "local_input": "E:/platform_taishi/赛题2：网络安全态势智能感知.xlsx",
+      "input_sha256": "41b618a8c0c4507f88baa406a9595b3365e9184f2b9d0bf08ab77cf4e4526cf6",
+      "observed_raw_rows": 11000,
+      "observed_cleaned_rows": 9697,
+      "license": "organizer_terms",
+      "split_unit": "payload_family_and_source_incident",
+      "full_original_test_role": "contaminated_regression_only"
+    },
+    {
+      "id": "D1",
+      "name": "Multi-Class Web Attack Dataset with Iterative LLM-Generated Adversarial Payloads",
+      "url": "https://data.mendeley.com/datasets/zhzd5j9ffy/2",
+      "doi": "10.17632/zhzd5j9ffy.2",
+      "published": "2026-11-06",
+      "license": "CC-BY-4.0",
+      "raw_model_fields": [
+        "method",
+        "url",
+        "payload"
+      ],
+      "excluded_model_fields": [
+        "label",
+        "all_56_engineered_features"
+      ],
+      "label_map": {
+        "0": "Normal",
+        "1": "XSS",
+        "2": "SQLi",
+        "3": "CMDi",
+        "4": "LFI",
+        "5": "SSRF"
+      },
+      "files": [
+        {
+          "name": "baseline_dataset.csv",
+          "rows": 25736,
+          "size": 9163473,
+          "url": "https://data.mendeley.com/public-files/datasets/zhzd5j9ffy/files/5df47930-293e-4504-af0e-acfded5746d5/file_downloaded",
+          "sha256": "d3b3509555924de6e1d37522806f2debd97ea6659e8254a95ad98d19c28a24d6",
+          "hash_matches_publisher": true,
+          "label_columns": {
+            "label": {
+              "5": 1895,
+              "4": 3000,
+              "3": 2568,
+              "2": 3216,
+              "1": 3057,
+              "0": 12000
+            }
+          },
+          "role": "group_split_80_10_10"
+        },
+        {
+          "name": "dataset_description.txt",
+          "rows": null,
+          "size": 5015,
+          "url": "https://data.mendeley.com/public-files/datasets/zhzd5j9ffy/files/fd8b547b-0c69-4e60-85b4-2c0c06e6f671/file_downloaded",
+          "sha256": "c649c1c8efa9abefe33483a27e352d7bd583745002fe955d5907f6b599ada7e2",
+          "hash_matches_publisher": true,
+          "label_columns": null,
+          "role": "documentation"
+        },
+        {
+          "name": "llm_claude.csv",
+          "rows": 984,
+          "size": 348586,
+          "url": "https://data.mendeley.com/public-files/datasets/zhzd5j9ffy/files/ddf2b814-3330-4102-aaf5-85194464601a/file_downloaded",
+          "sha256": "98132a2455e47aaabc701db0dac4ebb18c37318edea9c6e4bc114183daf1be63",
+          "hash_matches_publisher": true,
+          "label_columns": {
+            "label": {
+              "1": 184,
+              "2": 271,
+              "3": 235,
+              "4": 151,
+              "5": 143
+            }
+          },
+          "role": "sealed_test_only"
+        },
+        {
+          "name": "llm_qwen.csv",
+          "rows": 934,
+          "size": 339639,
+          "url": "https://data.mendeley.com/public-files/datasets/zhzd5j9ffy/files/c2a5698e-dffc-436c-a26f-e49b57f5113a/file_downloaded",
+          "sha256": "5a028daca12b5253398d653cc57b126e18d81733e843e88b8d34cdb7b5754bcd",
+          "hash_matches_publisher": true,
+          "label_columns": {
+            "label": {
+              "1": 188,
+              "2": 199,
+              "3": 206,
+              "4": 158,
+              "5": 183
+            }
+          },
+          "role": "sealed_test_only"
+        },
+        {
+          "name": "llm_round1.csv",
+          "rows": 1135,
+          "size": 505514,
+          "url": "https://data.mendeley.com/public-files/datasets/zhzd5j9ffy/files/0e0da91e-00b4-4917-b14d-8ed86fe2852f/file_downloaded",
+          "sha256": "536b77fd4734dfcab7e933f18caa93f8d428a53a97e6a27c2b75307abc49700a",
+          "hash_matches_publisher": true,
+          "label_columns": {
+            "label": {
+              "1": 202,
+              "2": 261,
+              "3": 241,
+              "4": 180,
+              "5": 251
+            }
+          },
+          "role": "train_hard_pool"
+        },
+        {
+          "name": "llm_round2.csv",
+          "rows": 1118,
+          "size": 403862,
+          "url": "https://data.mendeley.com/public-files/datasets/zhzd5j9ffy/files/d58701a0-c96a-4d0f-8581-a8fa3266742c/file_downloaded",
+          "sha256": "5cf76ab40b087160e14a821abc777bad2a07127d86351b06f71bc64fbad69c08",
+          "hash_matches_publisher": true,
+          "label_columns": {
+            "label": {
+              "1": 217,
+              "2": 241,
+              "3": 222,
+              "4": 213,
+              "5": 225
+            }
+          },
+          "role": "train_hard_pool"
+        },
+        {
+          "name": "llm_round3.csv",
+          "rows": 1107,
+          "size": 438950,
+          "url": "https://data.mendeley.com/public-files/datasets/zhzd5j9ffy/files/7fbb4ec8-b724-45b1-88c3-f80fe80106c3/file_downloaded",
+          "sha256": "b0bed3954f5686d1b16baa55ae80428d86770b76bb1d6e7ab256e0e979993b9a",
+          "hash_matches_publisher": true,
+          "label_columns": {
+            "label": {
+              "1": 213,
+              "2": 239,
+              "3": 231,
+              "4": 197,
+              "5": 227
+            }
+          },
+          "role": "dev_only"
+        },
+        {
+          "name": "llm_round4.csv",
+          "rows": 1102,
+          "size": 453750,
+          "url": "https://data.mendeley.com/public-files/datasets/zhzd5j9ffy/files/4b0b3c4b-4580-4678-b02d-c0ea30683425/file_downloaded",
+          "sha256": "ce6ac0602badee7ae9d9a2e8b8b322d5995913f7b7d246a4c74a611c85e72f90",
+          "hash_matches_publisher": true,
+          "label_columns": {
+            "label": {
+              "1": 219,
+              "2": 242,
+              "3": 229,
+              "4": 202,
+              "5": 210
+            }
+          },
+          "role": "sealed_test_only"
+        }
+      ],
+      "test_attack_only_rows": 3020,
+      "split_priority": [
+        "sealed_test",
+        "dev",
+        "train"
+      ],
+      "split_requires_cross_file_payload_family_exclusion": true
+    },
+    {
+      "id": "D2",
+      "name": "AIT Log Data Set V2.1",
+      "url": "https://zenodo.org/records/19483937",
+      "version": "v2_1",
+      "license": "CC-BY-NC-SA-4.0",
+      "use_case": "competition_research",
+      "verification": "metadata_and_file_inventory_only",
+      "files": [
+        {
+          "key": "fox_no-pcaps.zip",
+          "size": 688586900,
+          "checksum": "md5:27b09dd2876ec08ee99a9b53e8718c92",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/fox_no-pcaps.zip/content"
+          },
+          "scenario": "fox",
+          "split": "train",
+          "checksum_status": "publisher_metadata_only_not_downloaded"
+        },
+        {
+          "key": "harrison_no-pcaps.zip",
+          "size": 667985140,
+          "checksum": "md5:4e837053ce4c5496227e0a3b65048c1c",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/harrison_no-pcaps.zip/content"
+          },
+          "scenario": "harrison",
+          "split": "train",
+          "checksum_status": "publisher_metadata_only_not_downloaded"
+        },
+        {
+          "key": "shaw_no-pcaps.zip",
+          "size": 1319137852,
+          "checksum": "md5:f890a1f52bc9f893b44254ad86118e39",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/shaw_no-pcaps.zip/content"
+          },
+          "scenario": "shaw",
+          "split": "dev",
+          "checksum_status": "publisher_metadata_only_not_downloaded"
+        },
+        {
+          "key": "wardbeck_no-pcaps.zip",
+          "size": 818462147,
+          "checksum": "md5:14eeacd83571a83615c2cce1f6a6eacf",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/wardbeck_no-pcaps.zip/content"
+          },
+          "scenario": "wardbeck",
+          "split": "dev",
+          "checksum_status": "publisher_metadata_only_not_downloaded"
+        },
+        {
+          "key": "wheeler_no-pcaps.zip",
+          "size": 767673839,
+          "checksum": "md5:774a146275a22707ee78bcb4574aca23",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/wheeler_no-pcaps.zip/content"
+          },
+          "scenario": "wheeler",
+          "split": "sealed_test",
+          "checksum_status": "publisher_metadata_only_not_downloaded"
+        },
+        {
+          "key": "wilson_no-pcaps.zip",
+          "size": 1083526183,
+          "checksum": "md5:98285593473dc05d0a6899f7cdefcd2d",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/wilson_no-pcaps.zip/content"
+          },
+          "scenario": "wilson",
+          "split": "sealed_test",
+          "checksum_status": "publisher_metadata_only_not_downloaded"
+        },
+        {
+          "key": "russellmitchell_no-pcaps.zip",
+          "size": 522084364,
+          "checksum": "md5:abb43a46c70939ad9f98669e3510d2b7",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/russellmitchell_no-pcaps.zip/content"
+          },
+          "scenario": "russellmitchell",
+          "split": "train",
+          "checksum_status": "publisher_metadata_only_not_downloaded"
+        },
+        {
+          "key": "santos_no-pcaps.zip",
+          "size": 576734274,
+          "checksum": "md5:cb484a2c55ea03c63c556f0531fe8367",
+          "links": {
+            "self": "https://zenodo.org/api/records/19483937/files/santos_no-pcaps.zip/content"
+          },
+          "scenario": "santos",
+          "split": "train",
+          "checksum_status": "publisher_metadata_only_not_downloaded"
+        }
+      ],
+      "download_total_bytes": 6444190699,
+      "split": {
+        "train": [
+          "fox",
+          "harrison",
+          "russellmitchell",
+          "santos"
+        ],
+        "dev": [
+          "shaw",
+          "wardbeck"
+        ],
+        "sealed_test": [
+          "wheeler",
+          "wilson"
+        ]
+      }
+    },
+    {
+      "id": "D3",
+      "name": "AIT Alert Data Set",
+      "url": "https://zenodo.org/records/8263181",
+      "version": "1",
+      "license": "CC-BY-4.0",
+      "verification": "metadata_only",
+      "files": [
+        {
+          "key": "ait_ads.zip",
+          "size": 96202946,
+          "checksum": "md5:43db6b1f0996e0024befd617706c50e9",
+          "links": {
+            "self": "https://zenodo.org/api/records/8263181/files/ait_ads.zip/content"
+          }
+        },
+        {
+          "key": "labels.csv",
+          "size": 3703,
+          "checksum": "md5:60ff33796c77fd2136c4d1a4bc841bd9",
+          "links": {
+            "self": "https://zenodo.org/api/records/8263181/files/labels.csv/content"
+          }
+        }
+      ],
+      "lineage_group": "AIT_scenario",
+      "split_inherits": "D2",
+      "label_policy": "join_official_annotations_and_evidence_do_not_label_all_events_in_attack_time_range_as_malicious"
+    },
+    {
+      "id": "D4",
+      "name": "Splunk Attack Data",
+      "url": "https://github.com/splunk/attack_data",
+      "revision": "4b19e4b6824a8ba91b0f5345a3a8de488619e823",
+      "license": "Apache-2.0",
+      "verification": "repository_and_metadata_only",
+      "planned_scenarios": [
+        20,
+        30
+      ],
+      "planned_groups": [
+        "authentication",
+        "credential_access",
+        "powershell_execution",
+        "process_lineage",
+        "scheduled_task",
+        "service_or_registry_persistence"
+      ],
+      "split_ratio": [
+        0.7,
+        0.15,
+        0.15
+      ],
+      "split_unit": "collection_run_and_template_family",
+      "exclude_from_training": "all OTRF test source copies or unresolved lineage groups"
+    },
+    {
+      "id": "D5",
+      "name": "grounded_business_task_samples",
+      "source_datasets": [
+        "D0",
+        "D1",
+        "D2",
+        "D3",
+        "D4"
+      ],
+      "split_policy": "inherit_source_group_before_generation",
+      "teacher_truth_authority": false,
+      "tasks": [
+        "m2_candidate_v1",
+        "evidence_qa_v2",
+        "report_v2",
+        "profile_v2",
+        "ops_summary_v2"
+      ]
+    }
+  ],
+  "rounds": [
+    {
+      "id": "A",
+      "new_sample_target": [
+        20000,
+        26000
+      ],
+      "max_sequence_tokens": 2048,
+      "epoch_range": [
+        1,
+        2
+      ],
+      "initial_learning_rate": 0.0001,
+      "replay_fraction": 0.0,
+      "objective": "typed_log_judgment_and_output_contract"
+    },
+    {
+      "id": "B",
+      "new_sample_target": [
+        8000,
+        12000
+      ],
+      "max_sequence_tokens": 4096,
+      "epoch_range": [
+        1,
+        2
+      ],
+      "initial_learning_rate": 5e-05,
+      "replay_fraction": 0.3,
+      "objective": "evidence_integration_candidate_analysis_and_business_tasks"
+    },
+    {
+      "id": "C",
+      "new_sample_target": [
+        2000,
+        4000
+      ],
+      "max_sequence_tokens": 4096,
+      "epoch_range": [
+        1,
+        1
+      ],
+      "initial_learning_rate": 2e-05,
+      "replay_fraction": 0.4,
+      "objective": "train_pool_hard_examples_uncertainty_counterevidence_and_robustness",
+      "sealed_test_error_replay": false
+    }
+  ],
+  "benchmarks": [
+    {
+      "id": "B0",
+      "name": "competition_compatibility",
+      "source": "D0_full_original",
+      "rows": 11000,
+      "role": "regression_not_unseen_generalization",
+      "metrics": [
+        "per_class_precision_recall_f1",
+        "macro_f1",
+        "normal_fpr",
+        "rce_recall",
+        "pipeline_stage_seconds"
+      ]
+    },
+    {
+      "id": "B1",
+      "name": "web_payload_and_adversarial",
+      "source": "D1_sealed_groups_and_three_test_files",
+      "role": "primary_custom_protocol",
+      "adversarial_attack_only_rows": 3020,
+      "normal_fpr_on_attack_only_files": false
+    },
+    {
+      "id": "B2",
+      "name": "multi_source_log_and_alert",
+      "source": [
+        "D2:wheeler",
+        "D2:wilson",
+        "D3:wheeler",
+        "D3:wilson"
+      ],
+      "role": "primary_custom_protocol",
+      "keep_natural_alert_prevalence": true,
+      "raw_and_alert_datasets_independent": false
+    },
+    {
+      "id": "B3",
+      "name": "cross_source_windows",
+      "source": "OTRF/Security-Datasets",
+      "url": "https://github.com/OTRF/Security-Datasets",
+      "revision": "d9d40ef123d2c87d5d3df28c96bcab4f0faccc87",
+      "license": "MIT",
+      "planned_scenarios": 20,
+      "planned_windows": [
+        1000,
+        2000
+      ],
+      "all_rows_malicious_assumption": false,
+      "role": "primary_custom_protocol_with_label_review"
+    },
+    {
+      "id": "B4",
+      "name": "evidence_and_operations",
+      "source": "held_out_B2_B3_events",
+      "planned_cases": 200,
+      "case_mix": {
+        "insufficient_or_counterevidence": 80,
+        "event_analysis_or_report": 60,
+        "profile_qa": 30,
+        "operations_summary": 30
+      },
+      "role": "primary_custom_protocol",
+      "new_independent_source": false
+    },
+    {
+      "id": "B5",
+      "name": "real_log_challenge",
+      "sources": [
+        {
+          "url": "https://zenodo.org/records/17178461",
+          "version": "v1",
+          "license": "CC-BY-4.0",
+          "scope": "blocked_modsecurity_requests_not_verified_attack_ground_truth"
+        },
+        {
+          "url": "https://zenodo.org/records/20001206",
+          "version": "v1",
+          "license": "MIT",
+          "scope": "organization_logs_with_rule_based_labels"
+        }
+      ],
+      "planned_expert_reviewed_cases": 100,
+      "label_review_status": "not_yet_done",
+      "role": "case_study_and_proxy_metrics_until_review"
+    },
+    {
+      "id": "E1",
+      "name": "CyberSOCEval Malware Analysis",
+      "role": "required_official_external_reference_not_generic_syslog_score",
+      "questions": 609,
+      "harness_repo": "https://github.com/meta-llama/PurpleLlama",
+      "harness_revision": "0654501399e7cbd560db9501965dc09c567a5563",
+      "data_revision": "ce7daa5bc7da51559ca97476d2277be02631783e",
+      "mode": "official_truncate_input_reported_separately",
+      "failures_remain_in_denominator": true
+    },
+    {
+      "id": "E2",
+      "name": "CyberSOCEval Threat Intelligence Reasoning",
+      "role": "auxiliary",
+      "questions": 588,
+      "mode": "text",
+      "train_use": false
+    },
+    {
+      "id": "E3",
+      "name": "CTI-MCQ_and_CyberMetric500",
+      "role": "auxiliary_knowledge_and_forgetting",
+      "train_use": false
+    }
+  ],
+  "deferred_benchmarks": [
+    {
+      "name": "ExCyTIn-Bench",
+      "reason": "requires_database_tool_agent_harness",
+      "recommended_harness": "https://github.com/microsoft/ACESEvals",
+      "harness_revision": "2c76fbdea415d6fa6a87bbad846686fefd6ee9bb"
+    },
+    {
+      "name": "SIABench",
+      "reason": "requires_original_pcap_and_tools_not_flow_summary",
+      "hf_revision": "ec48d6049811c48273a23c77e3000124e238cb64",
+      "observed_tii_tp_rows": 100,
+      "observed_tii_fp_rows": 50,
+      "ground_truth_fields_to_exclude": [
+        "alert_type",
+        "questions[].answer"
+      ]
+    },
+    {
+      "name": "CyberClear",
+      "reason": "author_project_links_forthcoming_at_audit_date"
+    },
+    {
+      "name": "Cyber Defense Benchmark",
+      "reason": "only_sample_public_full_benchmark_access_on_request"
+    },
+    {
+      "name": "APTInvestBench",
+      "reason": "full_public_resource_access_not_verified"
+    }
+  ],
+  "evaluation_conditions": {
+    "core": [
+      "current_4B",
+      "original_8B",
+      "SFT_8B",
+      "SFT_8B_with_evidence_retrieval"
+    ],
+    "precision": [
+      "bf16",
+      "deployment_quantization"
+    ],
+    "pipeline": [
+      "fixed_rules_and_ml_cloud_review_off",
+      "production_hybrid"
+    ],
+    "frozen_before_final_test": true,
+    "schema_invalid_timeout_and_truncation_reporting": true
+  },
+  "target_gates_not_achieved_results": {
+    "json_validity_min": 0.99,
+    "citation_id_existence": 1.0,
+    "program_statistic_consistency": 1.0,
+    "unsupported_critical_compromise_claims_in_200_case_suite": 0,
+    "development_normal_fpr_target": 0.01,
+    "macro_f1_improvement_over_original_8B_target_pp": 3,
+    "quantization_macro_f1_drop_target_pp_max": 1
+  },
+  "evidence_files": [
+    "public_metadata_snapshot.json",
+    "artifact_access_snapshot.json",
+    "artifact_schema_snapshot.json",
+    "mendeley_content_profile.json",
+    "revision_snapshot.json",
+    "official_protocol_snapshot.json",
+    "cybersoc_question_inventory.json",
+    "scholar_query_1.json",
+    "scholar_query_2.json"
+  ],
+  "notes": [
+    "Targets are design choices, not measured model results.",
+    "Archive checksums not downloaded locally remain publisher metadata.",
+    "Benchmarks and their answers are not SFT or knowledge-index data.",
+    "AnySearch returned no results; no dual-source cross-validation is claimed."
+  ]
+}

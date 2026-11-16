@@ -193,6 +193,9 @@ class AttackChain(BaseModel):
     candidate_ids: list[str] = Field(default_factory=list)
     threat_entities: list[str] = Field(default_factory=list)
     uncertainties: list[str] = Field(default_factory=list)
+    # ---- why these events were correlated into one chain (edge evidence) ----
+    correlation_score: float = Field(default=0.0, ge=0.0, le=1.0)
+    correlation_reasons: list[str] = Field(default_factory=list)
     evidence_validation: dict[str, Any] = Field(default_factory=dict)
     llm_degraded: bool = False
     deduplicated_from: list[str] = Field(default_factory=list)

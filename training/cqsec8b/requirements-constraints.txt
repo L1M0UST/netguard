@@ -1,0 +1,13 @@
+# Proposed Linux / Python 3.11 baseline for LlamaFactory v0.9.4.
+# The CUDA torch wheels are installed first from the PyTorch cu124 index.
+torch==2.6.0
+torchvision==0.21.0
+torchaudio==2.6.0
+transformers==4.53.3
+datasets==3.6.0
+accelerate==1.8.1
+peft==0.16.0
+trl==0.19.1
+bitsandbytes==0.45.5
+huggingface-hub==0.34.4
+numpy<2

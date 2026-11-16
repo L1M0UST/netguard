@@ -1,0 +1,235 @@
+{
+  "query": "security log large language model alert triage",
+  "year_range": [
+    2025,
+    2026
+  ],
+  "engine_log": "",
+  "result": {
+    "query": "security log large language model alert triage",
+    "cross_validated": [],
+    "openalex_only": [
+      {
+        "title": "Possibilities and limitations of using large language models (LLMs) for alert classification and prioritisation in security operations centers (SOCs)",
+        "authors": [
+          "Matthias Rieger",
+          "Atif Shah",
+          "Abu Alam",
+          "Jakir Hossain"
+        ],
+        "year": 2026,
+        "citations": 2,
+        "doi": "10.1016/j.eswa.2026.133194",
+        "abstract": "As cyber threats have become more sophisticated over time, security opera- tions centers (SOCs) have increasingly faced vast amounts of security alerts to be investigated, ultimately leading to overwhelmed security analysts and symptoms such as alert fatigue. While traditional automation has helped with streamlining parts of the incident response workflow, it remains limited, especially in regard to context-dependant tasks such as triage and prioriti- sation. Against this background, this research investigates the potential of large language models (LLMs) to augment SOC workflows through natural language understanding. Using a dataset of 178 manually labeled alerts, eight general-purpose LLMs from OpenAI, DeepSeek and Ai2 were tasked with independently classifying the alerts into true and false positives as well as prioritising them as low, medium, high or critical. In addition, traditional supervised machine learning baselines, including Logistic Regression, Random Forest and Linear Support Vector Machine (SVM), were implemented for comparative evaluation on the binary classification task. The performance of the models was assessed using standard evaluation metrics such as accuracy, precision, recall, F1-score and false positive rates as well as operational factors like runtime and cost per alert. Results show that while several LLMs achieved strong classification recall, lightweight machine learning models achieved competitive and, in some cases, superior binary classification performance, with the Linear SVM baseline achieving the highest overall F1-score. However, alert prioritisation proved substantially more challenging across all evaluated LLMs. While some models captured high- severity alerts with strong recall, precision remained consistently low, contributing to significant alert noise and elevated false positive rates. These findings suggest that while LLMs are able to support SOC analysts with ini- tial triage and contextual reasoning, their reliability for accurate prioritisation remains limited, and lightweight machine learning approaches continue to provide strong practical value for structured SOC alert classification tasks.",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "Expert Systems with Applications",
+        "volume": "331",
+        "issue": null,
+        "pages": "133194-133194",
+        "url": "https://doi.org/10.1016/j.eswa.2026.133194"
+      },
+      {
+        "title": "An Agentic Benchmarking of Large Language Models for Security Incident Analysis",
+        "authors": [
+          "Jajodia, Sourov"
+        ],
+        "year": 2025,
+        "citations": 0,
+        "doi": null,
+        "abstract": "Security incident analysis poses a difficult challenge for security operation centers, because they must respond to an overwhelming number of alerts, requiring analysis of large volumes of data, a myriad of tools, while facing shortages of experienced analysts. The job of an analyst is further complicated as incidents are dynamic and require multifaceted, multi-step analysis. While companies are keen to apply Large Language Models (LLM) to augment analysts’ efforts in security incident analysis (SIA), the lack of benchmarking of LLMs for SIA renders huge risks on their overall effectiveness and design choices. Moreover, such benchmarking becomes non-trivial as: (i) no dataset currently exists in a digestible format for LLMs that covers a wide range of SIA tasks; (ii) considering the vast diversity in analysts’ job, there is a continuous need to add new tasks; and (iii) frequent model releases must be included in evaluation. In this thesis, we aim to address these challenges while building an agentic evaluation framework, SIABENCH. Specifically, first, we build a first-of-its-kind dataset that includes two major SIA tasks: (i) deep analysis of security incidents (25 scenarios) and (ii) alert triaging (35 scenarios). Second, we build an agent to automatically conduct a wide range of SIA tasks (covering network/memory forensics, malware analysis in binary/code/PDF, phishing email/kit analysis, and log analysis) along with false alert detection. Third, we evaluate the performance of nine major LLMs (covering both open- and closed-weight) in SIA with the capability to support newer models and tasks.",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "Spectrum Research Repository (Concordia University)",
+        "volume": null,
+        "issue": null,
+        "pages": null,
+        "url": "https://spectrum.library.concordia.ca/id/eprint/996238/1/Jajodia_MASc_F2025.pdf"
+      },
+      {
+        "title": "Autonomous Security Alert Triage Using LLM Based Agentic Investigation with Tool Augmented Reasoning",
+        "authors": [
+          "Sunil Kumar",
+          "Mr. Irfan Khan"
+        ],
+        "year": 2026,
+        "citations": 0,
+        "doi": "10.32628/cseit261213109",
+        "abstract": "Security Operations Centers (SOCs) face an acute alert fatigue crisis, with analysts processing thousands of alerts daily while over 80% prove to be false positives. Existing automated triage solutions rely on static rule based playbooks or pretrained classifiers that require extensive labeled training data and fail to generalize across diverse alert types. This paper presents an autonomous alert triage framework that leverages Large Language Models (LLMs) with agentic tool augmented reasoning to investigate and classify security alerts without prior training data. Our approach introduces four key contributions: (1) a multi source data correlation pipeline that dynamically queries endpoint detection, threat intelligence, and incident management systems through a standardized tool integration protocol, enabling the LLM to perform real time evidence gathering; (2) a knowledge accumulation mechanism that builds institutional memory from past triage outcomes, improving classification accuracy over time without model retraining; (3) a layered prompt injection defense architecture that safely processes untrusted alert content within the LLM reasoning chain; and (4) a structured verdict extraction method that produces machine parseable triage outputs for downstream SOC workflow integration. We evaluate our framework on a production SOC environment processing 847 real world alerts spanning cloud identity threats, endpoint detections, and web application attacks over a 30 day period. Results demonstrate a mean triage time of 28 seconds (compared to 15 to 45 minutes for manual triage), 94.1% agreement with senior analyst verdicts (κ = 0.93), a weighted F1 score of 95.4% for severity classification, and 98% prompt injection resilience across adversarial test cases. The framework operates as a generalizable, vendor agnostic pipeline where the investigation strategy adapts dynamically based on alert content.",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "International Journal of Scientific Research in Computer Science Engineering and Information Technology",
+        "volume": "12",
+        "issue": "2",
+        "pages": "752-765",
+        "url": "https://doi.org/10.32628/cseit261213109"
+      },
+      {
+        "title": "Large Language Models for Security Operations Centers: A Comprehensive Survey",
+        "authors": [
+          "Ali Habibzadeh",
+          "Farid Feyzi",
+          "Reza Ebrahimi Atani"
+        ],
+        "year": 2026,
+        "citations": 51,
+        "doi": "10.1155/jece/3383674",
+        "abstract": "Security operations centers (SOCs) face escalating challenges from alert fatigue and a critical skills gap, leading to delayed incident response times. Addressing these persistent issues calls for innovative automation and decision‐support approaches. Large language models (LLMs) present a transformative opportunity to automate complex workflows and augment the capabilities of human analysts. This survey provides the first comprehensive and structured analysis of LLM integration into SOC operations. We systematically map LLM applications to the functions of the NIST Cybersecurity Framework (CSF) and use the MITRE ATT&CK framework as an analytical lens to evaluate their granular threat detection capabilities. By synthesizing findings from 216 studies, we provide a structured overview of current methodologies, identify key trade‐offs between LLM architectures, and highlight significant gaps in research, particularly in the NIST “Recover” function. This survey offers researchers and SOC managers a clear research roadmap and actionable insights for leveraging LLMs to build more resilient and intelligent security operations.",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "Journal of Electrical and Computer Engineering",
+        "volume": "2026",
+        "issue": "1",
+        "pages": null,
+        "url": "https://doi.org/10.1155/jece/3383674"
+      },
+      {
+        "title": "Enhanced Multi-Class Classification and Triage of Security Alerts Using Contrastive Learning in Cloud Environment",
+        "authors": [
+          "MD Sazzad Hossen",
+          "Avimanyu Sahoo"
+        ],
+        "year": 2025,
+        "citations": 0,
+        "doi": "10.1109/ijcnn64981.2025.11227262",
+        "abstract": "Cloud computing has opened up a plethora of opportunities for collaborations and innovations with access to sophisticated computing resources. At the same time, it also brought in several complex challenges hindering its security and reliability for uninterrupted service. This paper proposes a supervised learning framework for multi-class security alert classification based on a convolutional neural network with residual connections. By integrating cross-entropy and contrastive losses, the model proficiently differentiates between diverse security threats. In addition, a pre-trained large language model (LLM) is employed to estimate the severity of alerts and provide detailed error descriptions, both of which improve the security analyst feedback procedure. The model is validated with two datasets, such as AWS CloudTrail log and CICDoS2019. The experimentation results surpass the accuracy, precision, and recall of the state-of-the-art deep-learning models by over 10% for the AWS CloudTrail dataset and 1% for the open-source CICDoS2019 dataset. This exemplifies the efficacy and generalizability of the proposed Conv-Residual model in identifying security threats.",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "International Joint Conference on Neural Networks (IJCNN)",
+        "volume": null,
+        "issue": null,
+        "pages": "1-8",
+        "url": "https://doi.org/10.1109/ijcnn64981.2025.11227262"
+      },
+      {
+        "title": "REFINE: A Resilient Evolution Framework for Intelligent Enterprise Alert Triage in Security Operations Centers",
+        "authors": [
+          "Huimin Chen",
+          "Quan Long",
+          "Yanhao Wang"
+        ],
+        "year": 2026,
+        "citations": 0,
+        "doi": "10.48550/arxiv.2609.32516",
+        "abstract": "Security Operations Centers (SOCs) process large volumes of alerts daily. Alert triage prioritizes high-risk threats while reducing manual review of benign alerts. LLM agents can reason over logs and threat intelligence, but struggle to keep aligned with organization-specific, rapidly evolving SOC operational standards. We introduce REFINE, an LLM-agent framework for enterprise alert triage. REFINE encodes analyst expertise as structured skills and continuously adapts using analyst disposition feedback. It enforces recall = 1.0 as a hard constraint during evolution to maximize auto-closure of false positives, and identifies judgment blind spots by combining alert distributions with model error boundaries. Evaluated on four real industrial SOC scenarios across four MITRE ATT&CK phases with temporal split: REFINE achieves recall=1.0 on all evolution sets. On future test windows, it retains recall=1.0 in three scenarios; the degraded case reaches 0.807 recall, still outperforming self-evolution baselines (0.49-0.58).",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "arXiv (Cornell University)",
+        "volume": null,
+        "issue": null,
+        "pages": null,
+        "url": "https://arxiv.org/abs/2609.32516"
+      },
+      {
+        "title": "AI-Driven Intelligent Threat Detection Frameworks Using Large Language Models for Hybrid Cloud Security Operations",
+        "authors": [
+          "Murugeshwari B."
+        ],
+        "year": 2026,
+        "citations": 0,
+        "doi": null,
+        "abstract": "Hybrid cloud environments combine private infrastructure, public cloud platforms, edge resources, and third-party services, creating complex security ecosystems with diverse attack surfaces, heterogeneous telemetry, and rapidly changing configurations. Traditional security operations increasingly struggle to correlate high-volume logs, alerts, network events, identity signals, and contextual threat intelligence across these distributed environments. Large Language Models (LLMs) offer a promising capability for augmenting security operations by interpreting heterogeneous security data, supporting natural-language investigation, correlating multi-stage attack indicators, and assisting analysts in incident triage and response. This study examines an AI-driven intelligent threat detection framework that integrates LLMs with conventional security controls, Security Information and Event Management (SIEM), Extended Detection and Response (XDR), cloud-native monitoring, threat intelligence, and automated response mechanisms. The proposed framework emphasizes contextual reasoning, multimodal security evidence, human oversight, privacy protection, prompt-security controls, and continuous evaluation. The research methodology adopts a design-oriented approach combining systematic literature analysis, framework development, experimental evaluation, and comparative assessment against conventional detection approaches. Key evaluation dimensions include detection accuracy, precision, recall, false-positive rate, response latency, contextual correlation, scalability, and computational cost. The framework is intended to improve the analytical capabilities of hybrid cloud Security Operations Centers while maintaining explainability and operational safeguards. The study contributes a structured architecture and evaluation methodology for deploying LLM-assisted threat detection in security-critical hybrid cloud environments.",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "International Journal of Technology Management and Humanities",
+        "volume": null,
+        "issue": null,
+        "pages": null,
+        "url": "https://ijtmh.com/index.php/ijtmh/article/view/439"
+      },
+      {
+        "title": "Leveraging Large Language Models for Scalable and Explainable Cybersecurity Log Analysis",
+        "authors": [
+          "Giulia Palma",
+          "Gaia Cecchi",
+          "Mario Caronna",
+          "Antonio Rizzo"
+        ],
+        "year": 2025,
+        "citations": 26,
+        "doi": "10.3390/jcp5030055",
+        "abstract": "The increasing complexity and volume of cybersecurity logs demand advanced analytical techniques capable of accurate threat detection and explainability. This paper investigates the application of Large Language Models (LLMs), specifically qwen2.5:7b, gemma3:4b, llama3.2:3b, qwen3:8b and qwen2.5:32b to cybersecurity log classification, demonstrating their superior performance compared to traditional machine learning models such as XGBoost, Random Forest, and LightGBM. We present a comprehensive evaluation pipeline that integrates domain-specific prompt engineering, robust parsing of free-text LLM outputs, and uncertainty quantification to enable scalable, automated benchmarking. Our experiments on a vulnerability detection task show that the LLM achieves an F1-score of 0.928 ([0.913, 0.942] 95% CI), significantly outperforming XGBoost (0.555 [0.520, 0.590]) and LightGBM (0.432 [0.380, 0.484]). In addition to superior predictive performance, the LLM generates structured, domain-relevant explanations aligned with classical interpretability methods. These findings highlight the potential of LLMs as interpretable, adaptive tools for operational cybersecurity, making advanced threat detection feasible for SMEs and paving the way for their deployment in dynamic threat environments.",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "Journal of Cybersecurity and Privacy",
+        "volume": "5",
+        "issue": "3",
+        "pages": "55-55",
+        "url": "https://doi.org/10.3390/jcp5030055"
+      },
+      {
+        "title": "Information-Dense Reasoning for Efficient and Auditable Security Alert Triage",
+        "authors": [
+          "Zhao, Guangze",
+          "Zhang, Yongzheng",
+          "Tian, Changbo",
+          "Xie, Dan",
+          "Liu, Hongri",
+          "Wang, Bailing"
+        ],
+        "year": 2025,
+        "citations": 3,
+        "doi": "10.48550/arxiv.2512.08169",
+        "abstract": "Security Operations Centers face massive, heterogeneous alert streams under minute-level service windows, creating the Alert Triage Latency Paradox: verbose reasoning chains ensure accuracy and compliance but incur prohibitive latency and token costs, while minimal chains sacrifice transparency and auditability. Existing solutions fail: signature systems are brittle, anomaly methods lack actionability, and fully cloud-hosted LLMs raise latency, cost, and privacy concerns. We propose AIDR, a hybrid cloud-edge framework that addresses this trade-off through constrained information-density optimization. The core innovation is gradient-based compression of reasoning chains to retain only decision-critical steps--minimal evidence sufficient to justify predictions while respecting token and latency budgets. We demonstrate that this approach preserves decision-relevant information while minimizing complexity. We construct compact datasets by distilling alerts into 3-5 high-information bullets (68% token reduction), train domain-specialized experts via LoRA, and deploy a cloud-edge architecture: a cloud LLM routes alerts to on-premises experts generating SOAR-ready JSON. Experiments demonstrate AIDR achieves higher accuracy and 40.6% latency reduction versus Chain-of-Thought, with robustness to data corruption and out-of-distribution generalization, enabling auditable and efficient SOC triage with full data residency compliance.",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "arXiv (Cornell University)",
+        "volume": null,
+        "issue": null,
+        "pages": null,
+        "url": "http://arxiv.org/abs/2512.08169"
+      },
+      {
+        "title": "Let the Alerts Speak: LLM-Based IDS Alert Interpretation for SOC Triage",
+        "authors": [
+          "Alina Sophia Schärmer",
+          "Max Landauer",
+          "Florian Skopik",
+          "Markus Wurzenberger",
+          "Marco Squarcina"
+        ],
+        "year": 2026,
+        "citations": 0,
+        "doi": "10.1007/978-3-032-35579-9_19",
+        "abstract": "Abstract Interpreting the large volume of alerts produced by Intrusion Detection Systems (IDS) each day can be challenging and fatiguing for Security Operation Center (SOC) analysts, especially when encountering numerous false positives. Although modern SOC tooling supports alert aggregation, correlation, and enrichment, it provides limited semantic interpretation of alert content and rarely offers human-understandable explanations to support triage decisions. We therefore present a concept that leverages Large Language Models (LLMs) to classify IDS alerts and assist SOC analysts during triage. Of particular interest is the ability of LLMs to distinguish attack-related alerts from false positives and to associate alerts with attack techniques. We perform an empirical evaluation of the alert classification performance of the LLMs ChatGPT and Gemini on alerts from network-based and host-based IDS. We further examine how system context information such as additional logs, configuration data, and few-shot examples impact the LLM’s alert classification performance and consistency. Our results show that supplying LLMs with additional information, especially carefully chosen few-shot examples and system context, supports effective alert classification. At the same time, limitations related to cost, reliability, and sensitive data exposure could affect their practical use for alert interpretation.",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "Lecture notes in computer science",
+        "volume": null,
+        "issue": null,
+        "pages": "346-364",
+        "url": "https://doi.org/10.1007/978-3-032-35579-9_19"
+      }
+    ],
+    "anysearch_only": [],
+    "stats": {
+      "openalex_total": 20,
+      "anysearch_total": 0,
+      "cross_validated": 0,
+      "openalex_unique": 20,
+      "anysearch_unique": 0,
+      "filtered_irrelevant": 0,
+      "collapsed_duplicates": 0
+    }
+  }
+}

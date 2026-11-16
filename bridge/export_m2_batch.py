@@ -33,6 +33,8 @@ CONTRACT_COLUMNS = [
     "session_id", "emitted_at", "schema_version",
     # additive extras（契约允许增量字段，M2 会保留）
     "attack_type", "risk_level", "url_path", "review_group_id",
+    # 第二层 ML 检测器（m1-ml-1.0）：会话证据中模型分数最高的 ml 命中（模型分数未经概率校准）
+    "m1_ml_label", "m1_ml_score", "m1_ml_model_version",
     # M1 L3 advisory evidence. M2 consumes it through explicit prompt/scoring
     # inputs; detection.reason remains the deterministic M1 explanation.
     "m1_semantic_verdict", "m1_semantic_confidence", "m1_semantic_summary",
@@ -44,7 +46,9 @@ EVIDENCE_COLUMNS = [
     "event_id", "session_id", "timestamp", "src_ip", "dst_ip", "url_path",
     "attack_type", "risk_level", "matched_rules", "ioc_hits", "summary",
     "m1_semantic_verdict", "m1_semantic_confidence", "m1_semantic_provider",
-    "m1_semantic_attack_type",
+    "m1_semantic_attack_type", "m1_ml_label", "m1_ml_score",
+    # 处理前原貌（上传文件中的原始日志行锚点，供前端"从原始数据到判断"展示）
+    "source_row", "source_file", "request_body", "user_agent",
 ]
 
 
@@ -76,12 +80,21 @@ def _evidence_text(session: dict, label: str) -> str:
     for item in session.get("evidence") or []:
         if isinstance(item, dict) and item.get("name"):
             parts.append(f"{item.get('type', 'rule')}:{item['name']}")
+        if isinstance(item, dict) and item.get("type") == "ml" and item.get("label"):
+            parts.append(f"ml:{item['label']}(模型分数{item.get('score')})")
     for match in session.get("ioc_matches") or []:
         if isinstance(match, dict) and match.get("value"):
             parts.append(f"ioc:{match['type']}:{match['value']}")
     if label and label != "待研判":
         parts.append(f"标签:{label}")
     return "; ".join(parts) or "M1 会话级初筛命中（无规则明细）"
+
+
+def _ml_best(session: dict) -> dict | None:
+    """会话证据中模型分数最高的 ml 条目（一个会话可能有多条 ML 命中）。"""
+    entries = [item for item in (session.get("evidence") or [])
+               if isinstance(item, dict) and item.get("type") == "ml" and item.get("label")]
+    return max(entries, key=lambda item: float(item.get("score") or 0)) if entries else None
 
 
 def export_batch(m1_ready_dir: Path, out_dir: Path, task_id: str,
@@ -121,6 +134,7 @@ def export_batch(m1_ready_dir: Path, out_dir: Path, task_id: str,
         reason = _evidence_text(session, label)
         session_id = session.get("session_id") or ""
         semantic = judgement_by_session.get(str(session_id), {})
+        ml_best = _ml_best(session)
 
         member_ids = list(session.get("related_event_ids") or [])
         if not member_ids:
@@ -170,6 +184,9 @@ def export_batch(m1_ready_dir: Path, out_dir: Path, task_id: str,
                 "m1_semantic_model": semantic.get("model"),
                 "m1_model_agreement": semantic.get("model_agreement"),
                 "m1_evidence_reference": json.dumps(semantic.get("evidence_reference") or {}, ensure_ascii=False),
+                "m1_ml_label": (ml_best or {}).get("label"),
+                "m1_ml_score": float(ml_best["score"]) if ml_best and ml_best.get("score") is not None else None,
+                "m1_ml_model_version": (ml_best or {}).get("model_version"),
             }
             rows.append(row)
             evidence_rows.append({
@@ -190,6 +207,12 @@ def export_batch(m1_ready_dir: Path, out_dir: Path, task_id: str,
                 "m1_semantic_confidence": semantic.get("confidence"),
                 "m1_semantic_attack_type": semantic.get("attack_type") or semantic.get("attack_label"),
                 "m1_semantic_provider": semantic.get("provider"),
+                "m1_ml_label": (ml_best or {}).get("label"),
+                "m1_ml_score": float(ml_best["score"]) if ml_best and ml_best.get("score") is not None else None,
+                "source_row": detail.get("source_row"),
+                "source_file": detail.get("source_file"),
+                "request_body": (str(detail.get("request_body") or detail.get("message") or "").strip()[:1024]) or None,
+                "user_agent": (str(detail.get("user_agent") or "").strip()[:200]) or None,
             })
             if limit and len(rows) >= limit:
                 break

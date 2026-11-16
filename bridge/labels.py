@@ -7,7 +7,8 @@ M1 的英文规则名 -> 赛题官方中文标签。数据集 ground truth 共 8
 
 from __future__ import annotations
 
-# M1 规则名 -> 官方中文标签
+# M1 规则名 -> 官方中文标签。ml_* 为第二层 LightGBM 检测器（m1-ml-1.0）的伪规则名，
+# 与对应确定性规则映射到同一官方标签；冲突时双方证据各自保留，标签按 RULE_PRIORITY 取先者。
 RULE_LABELS: dict[str, str] = {
     "sql_injection": "SQL注入攻击",
     "xss": "XSS跨站脚本攻击",
@@ -17,12 +18,21 @@ RULE_LABELS: dict[str, str] = {
     "csrf": "CSRF攻击",
     "java_deserialization": "Java反序列化漏洞利用攻击",
     "file_upload": "文件上传攻击",
+    "ml_sql_injection": "SQL注入攻击",
+    "ml_xss": "XSS跨站脚本攻击",
+    "ml_path_traversal": "目录遍历攻击",
+    "ml_file_inclusion": "文件包含攻击",
+    "ml_command_injection": "远程命令执行攻击",
+    "ml_csrf": "CSRF攻击",
+    "ml_java_deserialization": "Java反序列化漏洞利用攻击",
+    "ml_file_upload": "文件上传攻击",
     "scanner": "扫描探测攻击",
     "multi_path_scan": "扫描探测攻击",
     "flow_scan": "扫描探测攻击",
 }
 
-# 多规则同时命中时的优先级：越靠前越具体（命令注入/反序列化 > 注入类 > 上传/遍历 > XSS/CSRF > 扫描）
+# 多规则同时命中时的优先级：八类确定性攻击规则优先（越靠前越具体），
+# 其次 ML 攻击类型（第一版不让 ML 改写已有确定性攻击标签），扫描类最后兜底。
 RULE_PRIORITY: list[str] = [
     "command_injection",
     "java_deserialization",
@@ -32,6 +42,14 @@ RULE_PRIORITY: list[str] = [
     "path_traversal",
     "xss",
     "csrf",
+    "ml_command_injection",
+    "ml_java_deserialization",
+    "ml_sql_injection",
+    "ml_file_inclusion",
+    "ml_file_upload",
+    "ml_path_traversal",
+    "ml_xss",
+    "ml_csrf",
     "multi_path_scan",
     "scanner",
     "flow_scan",

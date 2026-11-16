@@ -20,8 +20,8 @@ from m1.run import process_task
 def setup_service():
     with test_workspace() as root:
         (root/'incoming').mkdir()
-        (root/'m1').mkdir()
-        (root/'m1/config.json').write_text(json.dumps({'output':{'format':'parquet'},'llm':{'enabled':False},'mapping_llm':{'enabled':False},'threatbook':{'enabled':False}}))
+        (root/'m1').mkdir(exist_ok=True)
+        (root/'m1/config.json').write_text(json.dumps({'output':{'format':'parquet'},'llm':{'enabled':False},'mapping_llm':{'enabled':False},'threatbook':{'enabled':False},'ml_detector':{'enabled':False}}))
         (root/'incoming/web.csv').write_text('Time,Source IP,Destination,URL,Payload\n2026-01-01T00:00:00Z,10.0.0.1,10.0.0.2,/test,id=1 or 1=1\n')
         service=TaskService(root)
         try: yield root,service

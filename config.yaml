@@ -158,18 +158,18 @@ risk:
   weights:
     tactic_severity: 0.22
     evidence_strength: 0.14
-    ioc: 0.14
-    asset_criticality: 0.12
+    ioc: 0.0            # 2026-11-15 用户拍板：赛题数据源全内网，真实情报库不可命中；功能保留(PCAP演示/实战公网侧)，权重移出分母
+    asset_criticality: 0.0  # 用户拍板：日志必然全为本管控网络资产，无重要性事实时不做无依据加分；实战接CMDB后一键恢复
     rule_score: 0.12
-    llm_confidence: 0.06
-    m1_semantic: 0.06
+    llm_confidence: 0.0     # 用户拍板：LLM 不进风险评分(全量调用违背性能红线)，后移为高分链复核官(Top-N 60，并发8)
+    m1_semantic: 0.06   # 保留：本地cqsec免费、仅加不减、封顶0.36，只覆盖级联预算内候选
     chain_length: 0.08
     multi_stage: 0.08
   confidence_weights:
     evidence: 0.30
     rule: 0.20
     correlation: 0.20
-    ioc: 0.10
+    ioc: 0.0             # 2026-11-15 用户拍板：与 risk.weights.ioc 同步置 0，内网数据源恒 0 不再稀释置信度
     llm: 0.20
   confidence_threshold: 0.35
   evidence:
@@ -201,7 +201,7 @@ llm:
   provider: cloud_chain       # cloud_chain(OpenCode Go → Command Code → DeepSeek) | individual | finetuned | mock | disabled
   prompt_version: attack_analysis.v1
   prompt_dir: backend/module2_chain/llm/prompts
-  max_concurrency: 5
+  max_concurrency: 8
   timeout_seconds: 120
   max_retries: 2
   temperature: 0.1
@@ -212,7 +212,7 @@ llm:
   record_tokens: true
   fail_open: true                # degrade to the rule-based analyser on failure
   min_events_for_llm: 1
-  max_candidates: 60   # 每任务送 LLM 的候选上限（Top-N 按风险分），其余走规则链
+  max_candidates: 60   # 每任务送 LLM 的候选上限（Top-N 按风险分），其余走规则链——性能红线：万级端到端须保持分钟级
   providers:
     opencode_go:
       base_url: https://opencode.ai/zen/go/v1

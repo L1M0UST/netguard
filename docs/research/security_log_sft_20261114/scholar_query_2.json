@@ -1,0 +1,263 @@
+{
+  "query": "security operations benchmark log investigation",
+  "year_range": [
+    2025,
+    2026
+  ],
+  "engine_log": "",
+  "result": {
+    "query": "security operations benchmark log investigation",
+    "cross_validated": [],
+    "openalex_only": [
+      {
+        "title": "From Portals to Case Graphs: A Reference Architecture and Benchmark for Safety Investigation Operations with Agentic Orchestration",
+        "authors": [
+          "Sheriff Adefolarin Adepoju"
+        ],
+        "year": 2026,
+        "citations": 0,
+        "doi": "10.52783/jisem.v11i1s.14265",
+        "abstract": "National safety investigation organizations operate a continuous lifecycle spanning public occurrence intake, operations-center triage, multi-source situational context, investigation workflows, evidence handling, and controlled publication. These functions typically exist as separate portals lacking unified, case-centric back-ends that support cross-channel consolidation, event-time enrichment, auditability, and policy-governed automation. This paper presents N-iSOP, a reproducible reference architecture and benchmark specification for multimodal safety investigation operations using the Nigerian Safety Investigation Bureau online service as a motivating case. N-iSOP retargets an established three-layer functional model (integration, processing/intelligence, and control/service) and cloud-edge-device implementation patterns into a bureau-grade \"case graph\" platform with event-driven microservices, stream processing, and zero-trust security controls (Adepoju & Segun, 2025). The core extension is agentic orchestration: a policy-bound, tool-using agent that consumes case events and generates auditable proposals for deduplication, triage, follow-up tasks, incident-window context enrichment, and publication metadata. Reliability is enforced through knowledge-grounded prompt chaining and structured outputs, aligned with KG+LLM emergency decision support and disaster management LLM governance (Chen et al., 2024; Xu et al., 2025). We define a benchmark suite with minimal datasets measuring (i) cross-channel entity resolution quality (Binette & Reiter, 2023; Koumarelas et al., 2020), (ii) triage and enrichment latency under cloud-edge placement (Veith et al., 2023; Xhafa et al., 2020; Zeuch et al., 2022), (iii) authorization/audit overhead under Zero Trust (Rose et al., 2020; Sengupta & Lakshminarayanan, 2021), and (iv) custody trace completeness for digital evidence (Nath et al., 2024; Malik et al., 2023).",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "Journal of Information Systems Engineering & Management",
+        "volume": "11",
+        "issue": "1s",
+        "pages": "1175-1189",
+        "url": "https://doi.org/10.52783/jisem.v11i1s.14265"
+      },
+      {
+        "title": "AI-driven log reduction and storage optimization for security operations",
+        "authors": [
+          "Nutthakorn Chalaemwongwan"
+        ],
+        "year": 2026,
+        "citations": 1,
+        "doi": "10.11591/ijece.v16i3.pp1417-1424",
+        "abstract": "In this study, we present an AI-driven framework that integrates semantic log reduction with compliance-aware storage optimization, specifically designed for security operations center (SOC) and managed security service provider (MSSP) environments. Traditional approaches such as uniform compression, keyword filtering, and static tiering often either miss critical anomalies or preserve redundant noise, leading to excessive storage use, slower search performance, and analyst fatigue. The proposed framework addresses these challenges by combining three components: semantic reduction of repetitive entries, anomaly-focused retention supported by self-supervised models, and adaptive tiering aligned with regulatory requirements. Evaluations on HDFS, BGL, CICIDS2017, and Suricata datasets achieved 70%–80% log reduction, 55%–65% storage savings, recall rates above 95%, and a one-third reduction in query latency. These results demonstrate that pre-index reduction, together with anomaly- and compliance-aware retention, offers a scalable and regulator-ready solution for operational security environments.",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "International Journal of Power Electronics and Drive Systems/International Journal of Electrical and Computer Engineering",
+        "volume": "16",
+        "issue": "3",
+        "pages": "1417-1417",
+        "url": "https://doi.org/10.11591/ijece.v16i3.pp1417-1424"
+      },
+      {
+        "title": "OpenSOC-AI: Democratizing Security Operations with Parameter Efficient LLM Log Analysis",
+        "authors": [
+          "Chaitanya Vilas Garware",
+          "Sharif Noor Zisad"
+        ],
+        "year": 2026,
+        "citations": 1,
+        "doi": null,
+        "abstract": "Small and medium sized businesses (SMBs) face an escalating cybersecurity threat landscape, yet most lack the resources to staff full Security Operations Centers (SOCs) or deploy enterprise grade detection platforms. This paper presents OpenSOC-AI, a lightweight log analysis framework that uses parameter efficient fine tuning of a 1.1-billion parameter language model (TinyLlama-1.1B) to perform automated threat classification, MITRE ATT&CK technique mapping, and severity assessment on raw security log entries. Using Low-Rank Adaptation (LoRA) with only 12.6 million trainable parameters (roughly 1.13% of the base model), we fine tuned on 450 domain specific SOC examples in under five minutes on a single NVIDIA T4 GPU. Testing on a heldout set of 50 examples showed a 68% point gain in threat classification accuracy (from 0% to 68%), a 30% point gain in severity accuracy (from 28% to 58%), and an F1 score of 0.68 compared to the untuned baseline. Full codebase, adapter weights, and datasets are publicly released to support reproducibility and community extension.",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "arXiv (Cornell University)",
+        "volume": null,
+        "issue": null,
+        "pages": null,
+        "url": "https://arxiv.org/abs/2604.26217"
+      },
+      {
+        "title": "Forensiq - Intelligent Security Operations & Investigation Platform",
+        "authors": [
+          "Kumbhar Ayush Shankar",
+          "Patil Sharayu Nilesh",
+          "Patil Sakshi Chandrakant",
+          "Anil Morti Sakshi",
+          "Jadhav Soham Vikas",
+          "Jadhav Gayatri Umesh"
+        ],
+        "year": 2026,
+        "citations": 0,
+        "doi": "10.59256/ijire.20260706006",
+        "abstract": "Security Operations Centers process security alerts from many different systems. Analysts must match events gather evidence add data and evaluate risk before deciding. Forensiq is a platform that uses AI agents to help with these tasks. It works inside Splunk. Handles alert ingestion, event exploration, alert triage, threat-intelligence enrichment of indicators of compromise, mapping to MITRE ATT&CK correlating events calculating risk reasoning through investigations checking claims with facts and producing reports for analysts. A multi-agent design splits the work into tasks but the original data stays for analysts to check. Tests will look at how alerts are sorted how well ATT&CK mapping works how much threat data is added, how well evidence supports claims how many unsupported claims appear, how good event correlation is, how efficient investigations become, how good reports are and how the system scales. The final test will compare the Forensiq workflow to a baseline under the same data. Forensiq is meant to help analysts; the system gives reasoning support. Does not replace human checking and response decisions.",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "International Journal of Innovative Research in Engineering",
+        "volume": null,
+        "issue": null,
+        "pages": "53-53",
+        "url": "https://doi.org/10.59256/ijire.20260706006"
+      },
+      {
+        "title": "LogBase: A Large-Scale Benchmark for Semantic Log Parsing",
+        "authors": [
+          "Chenbo Zhang",
+          "Wenying Xu",
+          "Jinbu Liu",
+          "Lu Zhang",
+          "Guiyang Liu",
+          "Jihong Guan",
+          "Qi Zhou",
+          "Shuigeng Zhou"
+        ],
+        "year": 2025,
+        "citations": 13,
+        "doi": "10.1145/3728969",
+        "abstract": "Logs generated by large-scale software systems contain a huge amount of useful information. As the first step of automated log analysis, log parsing has been extensively studied. General log parsing techniques focus on identifying static templates from raw logs, but overlook the more important semantics implied in dynamic log parameters. With the popularity of Artificial Intelligence for IT Operations (AIOps), traditional log parsing methods no longer meet the requirements of various downstream tasks. Researchers are now exploring the next generation of log parsing techniques, i.e., semantic log parsing , to identify both log templates and semantics in log parameters. However, the absence of semantic annotations in existing datasets hinders the training and evaluation of semantic log parsers, thereby stalling the progress of semantic log parsing. To fill this gap and advance the field of semantic log parsing, we construct LogBase , the first semantic log parsing benchmark dataset. LogBase consists of logs from 130 popular open-source projects, containing 85,300 semantically annotated log templates, surpassing existing datasets in both log source diversity and template richness. To build Logbase, we develop the framework GenLog for constructing semantic log parsing datasets. GenLog mines log template-parameter-context triplets from popular open-source repositories on GitHub, and uses chain-of-thought (CoT) techniques with large language models (LLMs) to generate high-quality logs. Meanwhile, GenLog employs human feedback to improve the quality of the generated data and ensure its reliability. GenLog is highly automated and cost-effective, enabling researchers to easily and efficiently construct semantic log parsing datasets. Furthermore, we also design a set of comprehensive evaluation metrics for LogBase, including general log parser metrics and the metrics specifically for semantic log parsers and LLM-based parsers. With LogBase, we extensively evaluate 15 existing log parsers, revealing their true performance in complex scenarios. We believe that this work provides researchers with valuable data, reliable tools, and insightful findings to support and guide the future research of semantic log parsing.",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "Proceedings of the ACM on software engineering.",
+        "volume": "2",
+        "issue": "ISSTA",
+        "pages": "2091-2112",
+        "url": "https://doi.org/10.1145/3728969"
+      },
+      {
+        "title": "Context Contamination in LLM Analysis of Network Security Logs: Poison with Passive Prompt Injection and Mitigation Evaluation",
+        "authors": [
+          "Rabimba Karanjai",
+          "Ye Lu",
+          "Hemanth Hegadehalli Madhavarao",
+          "Lei Xu",
+          "Weidong Shi"
+        ],
+        "year": 2026,
+        "citations": 3,
+        "doi": "10.48550/arxiv.2607.14493",
+        "abstract": "Large Language Models are increasingly deployed in Security Operations Centers for log analysis tasks including summarization, alert triage, and threat investigation. These systems ingest logs from external-facing services and process network logs as natural language contexts to generate security insights. We demonstrate that this architectural pattern introduces a critical vulnerability: adversaries can embed prompt injection payloads in log-generating fields that persist in storage and are executed when analysts query the LLM, achieving what we term passive prompt injection. We present LogInject, a systematic framework for evaluating these threats. Using LogInject-1.0, a benchmark of 12,847 log entries including 2,569 adversarial samples, we evaluate three production LLMs across four attack objectives: activity concealment, false positive generation, information exfiltration, and output hijacking. Our findings reveal an up to 88.2% attack success rate (83.4% average across models) under the baseline conditions. We introduce Context Stitching, a novel technique that fragments payloads across multiple log entries to evade stateless filters while exploiting LLM long-context reasoning, achieving a 76.4% success rate. As mitigation, we evaluate layered defenses by combining input filtering, prompt hardening, and output validation, demonstrating a 90.4% attack reduction, although 8.4% residual vulnerability persists. Our results establish that LLM-based log analysis creates an inherent confused deputy vulnerability where untrusted data and trusted instructions compete indistinguishably for model attention, requiring defense in-depth architectures and continued human oversight for security-critical decisions.",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "arXiv (Cornell University)",
+        "volume": null,
+        "issue": null,
+        "pages": null,
+        "url": "https://arxiv.org/abs/2607.14493"
+      },
+      {
+        "title": "Design Principles for the Construction of a Benchmark Evaluating Security Operation Capabilities of Multi-agent AI Systems",
+        "authors": [
+          "Yicheng Cai",
+          "Mitchell John DeStefano",
+          "Guodong DONG",
+          "Pulkit Handa",
+          "Peng Liu",
+          "Tejas Singhal",
+          "Pei-Yu Tseng",
+          "Winston Jen White"
+        ],
+        "year": 2026,
+        "citations": 0,
+        "doi": "10.48550/arxiv.2603.28998",
+        "abstract": "As Large Language Models (LLMs) and multi-agent AI systems are demonstrating increasing potential in cybersecurity operations, organizations, policymakers, model providers, and researchers in the AI and cybersecurity communities are interested in quantifying the capabilities of such AI systems to achieve more autonomous SOCs (security operation centers) and reduce manual effort. In particular, the AI and cybersecurity communities have recently developed several benchmarks for evaluating the red team capabilities of multi-agent AI systems. However, because the operations in SOCs are dominated by blue team operations, the capabilities of AI systems & agents to achieve more autonomous SOCs cannot be evaluated without a benchmark focused on blue team operations. To our best knowledge, no systematic benchmark for evaluating coordinated multi-task blue team AI has been proposed in the literature. Existing blue team benchmarks focus on a particular task. The goal of this work is to develop a set of design principles for the construction of a benchmark, which is denoted as SOC-bench, to evaluate the blue team capabilities of AI. Following these design principles, we have developed a conceptual design of SOC-bench, which consists of a family of five blue team tasks in the context of large-scale ransomware attack incident response.",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "arXiv (Cornell University)",
+        "volume": null,
+        "issue": null,
+        "pages": null,
+        "url": "http://arxiv.org/abs/2603.28998"
+      },
+      {
+        "title": "LogEval: A comprehensive benchmark suite for LLMs in log analysis",
+        "authors": [
+          "Tianyu Cui",
+          "Shiyu Ma",
+          "Ziang Chen",
+          "Tong Xiao",
+          "Chenyu Zhao",
+          "Shimin Tao",
+          "Yilun Liu",
+          "Shenglin Zhang",
+          "Duoming Lin",
+          "Changchang Liu",
+          "Yuzhe Cai",
+          "Weibin Meng",
+          "Yongqian Sun",
+          "Dan Pei"
+        ],
+        "year": 2025,
+        "citations": 38,
+        "doi": "10.1007/s10664-025-10701-6",
+        "abstract": null,
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "Empirical Software Engineering",
+        "volume": "30",
+        "issue": "6",
+        "pages": null,
+        "url": "https://doi.org/10.1007/s10664-025-10701-6"
+      },
+      {
+        "title": "SafeGenBench: A Benchmark Framework for Security Vulnerability Detection in LLM-Generated Code",
+        "authors": [
+          "Xinghang Li",
+          "Ding, Jingzhe",
+          "Peng, Chao",
+          "Zhao, Bing",
+          "Xiang Yang Gao",
+          "Gao, Hongwan",
+          "Xinchen Gu"
+        ],
+        "year": 2025,
+        "citations": 32,
+        "doi": "10.48550/arxiv.2506.05692",
+        "abstract": "The code generation capabilities of large language models(LLMs) have emerged as a critical dimension in evaluating their overall performance. However, prior research has largely overlooked the security risks inherent in the generated code. In this work, we introduce SafeGenBench, a benchmark specifically designed to assess the security of LLM-generated code. The dataset encompasses a wide range of common software development scenarios and vulnerability types. Building upon this benchmark, we develop an automatic evaluation framework that leverages both static application security testing(SAST) and LLM-based judging to assess the presence of security vulnerabilities in model-generated code. Through the empirical evaluation of state-of-the-art LLMs on SafeGenBench, we reveal notable deficiencies in their ability to produce vulnerability-free code. Our findings highlight pressing challenges and offer actionable insights for future advancements in the secure code generation performance of LLMs. The data and code will be released soon.",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "arXiv (Cornell University)",
+        "volume": null,
+        "issue": null,
+        "pages": null,
+        "url": "http://arxiv.org/abs/2506.05692"
+      },
+      {
+        "title": "GraphChase: A Platform and Benchmark for Urban Network Security Games",
+        "authors": [
+          "Shuxin Zhuang",
+          "Shuxin Li",
+          "Tianji Yang",
+          "Muheng Li",
+          "Xianjie Shi",
+          "Bo An",
+          "Youzhi Zhang"
+        ],
+        "year": 2026,
+        "citations": 5,
+        "doi": "10.1145/3770855.3817540",
+        "abstract": "After the achievement of solving two-player zero-sum games, more AI researchers focus on solving multiplayer games. Urban Network Security Games (UNSGs) represent a class of such games, modeling real-world scenarios where law enforcement must strategically allocate limited resources to intercept criminals escaping within urban networks, and have gained considerable research attention. However, progress in this field has been limited by the absence of a standardized experimental platform and realistic benchmarks with heterogeneous travel costs. To address this limitation, we introduce GraphChase, an open-source platform designed to support the development and evaluation of algorithms for UNSGs. GraphChase offers a unified environment for modeling diverse UNSG variants on unweighted and weighted road networks across urban topologies. It also incorporates learning-based algorithms as baseline references for researchers. Furthermore, our experiments with GraphChase reveal that existing approaches to UNSGs still face challenges in terms of robustness and scalability, and suffer performance degradation when deployed under weighted edge costs, highlighting a sim-to-real generalization gap. GraphChase thus provides a realistic testbed for developing and validating UNSGs solvers under realistic travel-time heterogeneity.",
+        "sources": [
+          "openalex"
+        ],
+        "cross_validated": false,
+        "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
+        "volume": null,
+        "issue": null,
+        "pages": "10372-10383",
+        "url": "https://doi.org/10.1145/3770855.3817540"
+      }
+    ],
+    "anysearch_only": [],
+    "stats": {
+      "openalex_total": 20,
+      "anysearch_total": 0,
+      "cross_validated": 0,
+      "openalex_unique": 18,
+      "anysearch_unique": 0,
+      "filtered_irrelevant": 2,
+      "collapsed_duplicates": 0
+    }
+  }
+}

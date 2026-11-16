@@ -30,3 +30,9 @@ output/
 tmp/
 m3/shared_workspace/
 m3/__pycache__/
+
+# ML 验收/冒烟运行时工作区（含注入 key 的 config.json，勿入库）
+workspace_accept_ml/
+ws_smoke_campaign/
+workspace_*/
+ws_*/

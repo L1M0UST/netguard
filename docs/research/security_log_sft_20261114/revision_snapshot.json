@@ -1,0 +1,43 @@
+{
+  "repositories": [
+    {
+      "repo": "splunk/attack_data",
+      "commit": "4b19e4b6824a8ba91b0f5345a3a8de488619e823",
+      "date": "2026-11-12T17:00:47Z"
+    },
+    {
+      "repo": "OTRF/Security-Datasets",
+      "commit": "d9d40ef123d2c87d5d3df28c96bcab4f0faccc87",
+      "date": "2023-09-20T14:42:56Z"
+    },
+    {
+      "repo": "microsoft/SecRL",
+      "commit": "a1b234f7a846133f08b7b5e1614c5c63b96f3b5c",
+      "date": "2026-08-27T20:21:53Z"
+    },
+    {
+      "repo": "microsoft/ACESEvals",
+      "commit": "2c76fbdea415d6fa6a87bbad846686fefd6ee9bb",
+      "date": "2026-09-15T21:36:11Z"
+    },
+    {
+      "repo": "llmslayer/SIABench",
+      "commit": "99327f02d4c0eb9902b4df00881e527255d14ca6",
+      "date": "2026-05-14T02:40:01Z"
+    },
+    {
+      "repo": "CrowdStrike/CyberSOCEval_data",
+      "commit": "ce7daa5bc7da51559ca97476d2277be02631783e",
+      "date": "2025-09-22T15:30:00Z"
+    }
+  ],
+  "workspace_file_sha256": {
+    "llm/cqsec.py": "d2173defdfc9521b6697d23dcbc5f72563228cd07d72e5a41a7729bfc8944b46",
+    "m1/run.py": "1296390149258240f3b8c0ebd88724724cc4c9cc8be7ce88e8f21414cffc8d18",
+    "backend/module2_chain/llm/schemas.py": "0c9b12dde697486a31aa393ede366a1117aa834025101ddacc8a79fd3ff743bb",
+    "backend/module2_chain/llm/prompt_builder.py": "2f94364d25442418f1993b554f39b454a954528b8c5c9717139dddec5e39ca40",
+    "m3/m3_services.py": "bdf4156645b1bcdde7852229dde80c505de2f6b4d1e93a2d2713d0ac97f8b781",
+    "bundle/assemble.py": "cdd6ed28a6f229b61f18dc4fe726950f71642be360ba70d97700c99f3abf5c21",
+    "scripts/competition_acceptance.py": "15f38a94b2770ea43b42b6ff8c206289217d492956cc4316e4cc286f946a2466"
+  }
+}

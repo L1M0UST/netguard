@@ -1,0 +1,4 @@
+2026-11-16 17:44:27 baseline_count=103;adapter_count=bash: line 7: /root/sj-tmp/cqsec_mist8b_web_20261115/reports/qwen_adapter/predictions.jsonl: No such file or directory;train_progress=gpu=8510 MiB, 25 %;
+2026-11-16 17:49:36 baseline_count=123;adapter_count=bash: line 7: /root/sj-tmp/cqsec_mist8b_web_20261115/reports/qwen_adapter/predictions.jsonl: No such file or directory;train_progress=gpu=8510 MiB, 24 %;
+2026-11-16 17:54:46 baseline_count=143;adapter_count=bash: line 7: /root/sj-tmp/cqsec_mist8b_web_20261115/reports/qwen_adapter/predictions.jsonl: No such file or directory;train_progress=gpu=8510 MiB, 23 %;
+2026-11-16 17:59:53 baseline_count=164;adapter_count=bash: line 7: /root/sj-tmp/cqsec_mist8b_web_20261115/reports/qwen_adapter/predictions.jsonl: No such file or directory;train_progress=gpu=8510 MiB, 22 %;

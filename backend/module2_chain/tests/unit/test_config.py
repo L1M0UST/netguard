@@ -23,7 +23,7 @@ def test_defaults_load_from_repo_config(tmp_path: Path) -> None:
     assert config.correlation.correlation_window_seconds == 300
     assert config.llm.max_concurrency >= 1
     assert config.llm.max_retries <= 2
-    assert config.llm.provider in {"deepseek", "finetuned", "mock", "disabled"}
+    assert config.llm.provider in {"cloud_chain", "deepseek", "finetuned", "mock", "disabled"}
     assert config.risk.severity_thresholds.critical > config.risk.severity_thresholds.high
 
 

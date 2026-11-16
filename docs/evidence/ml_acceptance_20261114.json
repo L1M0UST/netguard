@@ -1,0 +1,359 @@
+{
+  "schema_version": "NetGuardCompetitionAcceptance.v3",
+  "created_at": "2026-11-14T07:23:34.296913+00:00",
+  "mode": "local_m1_and_deterministic_m2",
+  "input_file": "E:\\platform_taishi\\赛题2：网络安全态势智能感知.xlsx",
+  "input_sha256": "41b618a8c0c4507f88baa406a9595b3365e9184f2b9d0bf08ab77cf4e4526cf6",
+  "repetitions": 1,
+  "environment": {
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "platform": "win32",
+    "local_model_base_url": "http://127.0.0.1:8008",
+    "local_model_runtime": {
+      "available": false,
+      "endpoint": "http://127.0.0.1:8008/models",
+      "reason": "HTTPError"
+    }
+  },
+  "performance": {
+    "input_rows": 11000,
+    "median_elapsed_seconds": 87.847,
+    "p95_elapsed_seconds": 87.847,
+    "median_input_throughput_events_per_second": 125.22,
+    "runs": [
+      {
+        "task_id": "9bbf5ed84a254039b3a104875534fa9c",
+        "elapsed_seconds": 87.847,
+        "input_rows": 11000,
+        "m1_normalized_rows": 11000,
+        "m1_suspicious_sessions": 7433,
+        "m1_filter_counts": {
+          "filtered_empty": 0,
+          "filtered_meaningless": 0,
+          "filtered_duplicate": 0,
+          "filtered_whitelist": 0
+        },
+        "m1_duration_seconds": 20.125,
+        "m1_plus_bridge_m2_bundle_seconds": 84.453,
+        "m2_duration_seconds": 64.328,
+        "stage_breakdown_seconds": {
+          "m1_parse_screen_and_model": 20.125,
+          "bridge_export": 0.656,
+          "m2_process_including_startup_and_output": 50.063,
+          "m2_internal_total": 29.129,
+          "m2_internal_stages": {
+            "validation": 0.0038,
+            "ingestion": 0.2591,
+            "deduplication": 0.0226,
+            "normalization": 0.135,
+            "correlation": 3.5458,
+            "threat_intel": 0.0012,
+            "technique_mapping": 12.0483,
+            "llm_analysis": 0.0291,
+            "evidence_validation": 2.1687,
+            "event_deduplication": 0.0083,
+            "profiling": 0.1046,
+            "entity_extraction": 10.3053,
+            "report_generation": 0.4979
+          },
+          "bundle_assembly_and_summary": 13.609,
+          "orchestrator_overhead": 0.0,
+          "end_to_end": 84.453
+        },
+        "m1_cascade": {
+          "local_hits": 0,
+          "escalations": 0,
+          "local_failures": 12,
+          "enabled": true
+        },
+        "m1_ml_detector": {
+          "status": "ready",
+          "version": "m1-ml-1.0",
+          "model_dir": "E:\\platform_taishi\\taishi_platform\\m1\\model",
+          "classes": 9,
+          "whitelist": [
+            "CSRF攻击",
+            "Java反序列化漏洞利用攻击",
+            "SQL注入攻击",
+            "XSS跨站脚本攻击",
+            "文件上传攻击",
+            "文件包含攻击",
+            "目录遍历攻击",
+            "远程命令执行攻击"
+          ],
+          "calls": 11000,
+          "hits": {
+            "目录遍历攻击": 965,
+            "SQL注入攻击": 836,
+            "XSS跨站脚本攻击": 932,
+            "Java反序列化漏洞利用攻击": 920,
+            "文件包含攻击": 942,
+            "远程命令执行攻击": 774,
+            "文件上传攻击": 907,
+            "CSRF攻击": 919
+          },
+          "errors": 0,
+          "detail": ""
+        },
+        "m1_model_version": null,
+        "m1_llm_provider_calls": {},
+        "m2_chain_count": 7370,
+        "bundle_present": true
+      }
+    ],
+    "timing_note": "End-to-end includes M1, Bridge, M2 and bundle assembly; M2 duration includes Bridge/assembly overhead in the current public metric split."
+  },
+  "quality": {
+    "classification_m1_only": {
+      "scope": "offline_labeled_dataset_m1_screening_only",
+      "note": "分类指标只评估 M1 初筛（规则+ML+级联的标签映射）；local 模式下 M2 为确定性规则链、云端模型关闭，不参与分类评分。二分类 FPR 即规则+ML 经会话聚合后的融合口径。",
+      "label_column": "attack_type(结果列，需参赛选手判断输出)",
+      "rows": 11000,
+      "predicted_from_m1_rows": 11000,
+      "rows_without_an_m1_event_after_filters": 0,
+      "classes": [
+        "CSRF攻击",
+        "Java反序列化漏洞利用攻击",
+        "SQL注入攻击",
+        "XSS跨站脚本攻击",
+        "文件上传攻击",
+        "文件包含攻击",
+        "正常访问",
+        "目录遍历攻击",
+        "远程命令执行攻击"
+      ],
+      "prediction_columns": [
+        "CSRF攻击",
+        "Java反序列化漏洞利用攻击",
+        "SQL注入攻击",
+        "XSS跨站脚本攻击",
+        "文件上传攻击",
+        "文件包含攻击",
+        "正常访问",
+        "目录遍历攻击",
+        "远程命令执行攻击"
+      ],
+      "multiclass_accuracy": 0.9566363636363636,
+      "macro_f1": 0.9510601466921711,
+      "per_class": {
+        "CSRF攻击": {
+          "support": 942,
+          "precision": 0.9978632478632479,
+          "recall": 0.9915074309978769,
+          "f1": 0.9946751863684771
+        },
+        "Java反序列化漏洞利用攻击": {
+          "support": 920,
+          "precision": 0.9919816723940436,
+          "recall": 0.941304347826087,
+          "f1": 0.9659788064696041
+        },
+        "SQL注入攻击": {
+          "support": 964,
+          "precision": 0.9772256728778468,
+          "recall": 0.979253112033195,
+          "f1": 0.978238341968912
+        },
+        "XSS跨站脚本攻击": {
+          "support": 958,
+          "precision": 0.9968051118210862,
+          "recall": 0.9770354906054279,
+          "f1": 0.9868212967843965
+        },
+        "文件上传攻击": {
+          "support": 907,
+          "precision": 0.9955947136563876,
+          "recall": 0.9966923925027563,
+          "f1": 0.9961432506887052
+        },
+        "文件包含攻击": {
+          "support": 959,
+          "precision": 0.9185360094451004,
+          "recall": 0.8112617309697602,
+          "f1": 0.8615725359911407
+        },
+        "正常访问": {
+          "support": 3413,
+          "precision": 0.9611126880499574,
+          "recall": 0.9920890711983592,
+          "f1": 0.9763552479815455
+        },
+        "目录遍历攻击": {
+          "support": 972,
+          "precision": 0.907,
+          "recall": 0.9331275720164609,
+          "f1": 0.9198782961460447
+        },
+        "远程命令执行攻击": {
+          "support": 965,
+          "precision": 0.8611111111111112,
+          "recall": 0.8994818652849741,
+          "f1": 0.8798783578307148
+        }
+      },
+      "confusion_matrix_actual_by_predicted": {
+        "CSRF攻击": {
+          "CSRF攻击": 934,
+          "Java反序列化漏洞利用攻击": 0,
+          "SQL注入攻击": 3,
+          "XSS跨站脚本攻击": 1,
+          "文件上传攻击": 0,
+          "文件包含攻击": 0,
+          "正常访问": 0,
+          "目录遍历攻击": 2,
+          "远程命令执行攻击": 2
+        },
+        "Java反序列化漏洞利用攻击": {
+          "CSRF攻击": 0,
+          "Java反序列化漏洞利用攻击": 866,
+          "SQL注入攻击": 0,
+          "XSS跨站脚本攻击": 0,
+          "文件上传攻击": 0,
+          "文件包含攻击": 0,
+          "正常访问": 0,
+          "目录遍历攻击": 0,
+          "远程命令执行攻击": 54
+        },
+        "SQL注入攻击": {
+          "CSRF攻击": 0,
+          "Java反序列化漏洞利用攻击": 0,
+          "SQL注入攻击": 944,
+          "XSS跨站脚本攻击": 0,
+          "文件上传攻击": 0,
+          "文件包含攻击": 0,
+          "正常访问": 18,
+          "目录遍历攻击": 0,
+          "远程命令执行攻击": 2
+        },
+        "XSS跨站脚本攻击": {
+          "CSRF攻击": 0,
+          "Java反序列化漏洞利用攻击": 2,
+          "SQL注入攻击": 5,
+          "XSS跨站脚本攻击": 936,
+          "文件上传攻击": 0,
+          "文件包含攻击": 2,
+          "正常访问": 11,
+          "目录遍历攻击": 1,
+          "远程命令执行攻击": 1
+        },
+        "文件上传攻击": {
+          "CSRF攻击": 0,
+          "Java反序列化漏洞利用攻击": 1,
+          "SQL注入攻击": 1,
+          "XSS跨站脚本攻击": 0,
+          "文件上传攻击": 904,
+          "文件包含攻击": 1,
+          "正常访问": 0,
+          "目录遍历攻击": 0,
+          "远程命令执行攻击": 0
+        },
+        "文件包含攻击": {
+          "CSRF攻击": 0,
+          "Java反序列化漏洞利用攻击": 0,
+          "SQL注入攻击": 0,
+          "XSS跨站脚本攻击": 1,
+          "文件上传攻击": 1,
+          "文件包含攻击": 778,
+          "正常访问": 13,
+          "目录遍历攻击": 87,
+          "远程命令执行攻击": 79
+        },
+        "正常访问": {
+          "CSRF攻击": 2,
+          "Java反序列化漏洞利用攻击": 3,
+          "SQL注入攻击": 12,
+          "XSS跨站脚本攻击": 1,
+          "文件上传攻击": 2,
+          "文件包含攻击": 3,
+          "正常访问": 3386,
+          "目录遍历攻击": 2,
+          "远程命令执行攻击": 2
+        },
+        "目录遍历攻击": {
+          "CSRF攻击": 0,
+          "Java反序列化漏洞利用攻击": 0,
+          "SQL注入攻击": 1,
+          "XSS跨站脚本攻击": 0,
+          "文件上传攻击": 1,
+          "文件包含攻击": 63,
+          "正常访问": 0,
+          "目录遍历攻击": 907,
+          "远程命令执行攻击": 0
+        },
+        "远程命令执行攻击": {
+          "CSRF攻击": 0,
+          "Java反序列化漏洞利用攻击": 1,
+          "SQL注入攻击": 0,
+          "XSS跨站脚本攻击": 0,
+          "文件上传攻击": 0,
+          "文件包含攻击": 0,
+          "正常访问": 95,
+          "目录遍历攻击": 1,
+          "远程命令执行攻击": 868
+        }
+      },
+      "unknown_attack_predictions": 0,
+      "binary_attack_detection": {
+        "confusion": {
+          "tp": 7450,
+          "fp": 27,
+          "tn": 3386,
+          "fn": 137
+        },
+        "precision": 0.9963889260398555,
+        "recall": 0.9819427968894161,
+        "f1": 0.9891131173659055,
+        "false_positive_rate": 0.007910928801640784
+      },
+      "ground_truth_excluded_before_analysis": true,
+      "m1_rule_version": "m1-rules-1.4",
+      "m1_model_version": null,
+      "m1_llm_provider_calls": {},
+      "m1_cascade": {
+        "local_hits": 0,
+        "escalations": 0,
+        "local_failures": 12,
+        "enabled": true
+      },
+      "m1_ml_detector": {
+        "status": "ready",
+        "version": "m1-ml-1.0",
+        "model_dir": "E:\\platform_taishi\\taishi_platform\\m1\\model",
+        "classes": 9,
+        "whitelist": [
+          "CSRF攻击",
+          "Java反序列化漏洞利用攻击",
+          "SQL注入攻击",
+          "XSS跨站脚本攻击",
+          "文件上传攻击",
+          "文件包含攻击",
+          "目录遍历攻击",
+          "远程命令执行攻击"
+        ],
+        "calls": 11000,
+        "hits": {
+          "目录遍历攻击": 965,
+          "SQL注入攻击": 836,
+          "XSS跨站脚本攻击": 932,
+          "Java反序列化漏洞利用攻击": 920,
+          "文件包含攻击": 942,
+          "远程命令执行攻击": 774,
+          "文件上传攻击": 907,
+          "CSRF攻击": 919
+        },
+        "errors": 0,
+        "detail": ""
+      }
+    },
+    "pipeline_run": {
+      "note": "全链路运行结果（M1→Bridge→M2→bundle）见 run_records 与 bundle 工件；本节不含分类质量结论。ml_detector 验收闸门：status=='ready' 且 calls>0，否则视为降级运行、不得据此判定 ML 层通过。",
+      "mapping_plan_files_checked": 1
+    }
+  },
+  "data_provenance": {
+    "fixture_generator": null,
+    "fixture_seed": null,
+    "official_or_synthetic": "team-provided labeled workbook present in the project; official source and redistribution/license terms were not independently verified",
+    "truth_handling": "the analyzer receives the original file but M1 removes the ground-truth column before schema profiling/mapping; this script reads that column only after all analysis is complete"
+  }
+}

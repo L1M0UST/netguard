@@ -12,7 +12,8 @@ def normalized_route(value):
 
 
 def family(event):
-    rules = set(event.get('rule_hits', []))
+    # ml_* 前缀（第二层 ML 检测器）归入对应确定性规则族，避免 ML-only 命中塌进 unclassified
+    rules = {str(name).removeprefix('ml_') for name in event.get('rule_hits', [])}
     if rules & {'scanner', 'multi_path_scan'}: return 'reconnaissance'
     if rules & {'sql_injection', 'xss', 'path_traversal', 'command_injection', 'java_deserialization', 'file_inclusion', 'file_upload', 'csrf'}:
         return 'web_exploitation'

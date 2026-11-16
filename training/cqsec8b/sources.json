@@ -1,0 +1,150 @@
+{
+  "source_plan": "docs/research/security_log_sft_20261114/data_plan.json",
+  "source_plan_date": "2026-11-14",
+  "files": [
+    {
+      "dataset": "d1",
+      "name": "baseline_dataset.csv",
+      "url": "https://data.mendeley.com/public-files/datasets/zhzd5j9ffy/files/5df47930-293e-4504-af0e-acfded5746d5/file_downloaded",
+      "size": 9163473,
+      "checksum": "sha256:d3b3509555924de6e1d37522806f2debd97ea6659e8254a95ad98d19c28a24d6",
+      "role": "group_split_80_10_10"
+    },
+    {
+      "dataset": "d1",
+      "name": "dataset_description.txt",
+      "url": "https://data.mendeley.com/public-files/datasets/zhzd5j9ffy/files/fd8b547b-0c69-4e60-85b4-2c0c06e6f671/file_downloaded",
+      "size": 5015,
+      "checksum": "sha256:c649c1c8efa9abefe33483a27e352d7bd583745002fe955d5907f6b599ada7e2",
+      "role": "documentation"
+    },
+    {
+      "dataset": "d1",
+      "name": "llm_claude.csv",
+      "url": "https://data.mendeley.com/public-files/datasets/zhzd5j9ffy/files/ddf2b814-3330-4102-aaf5-85194464601a/file_downloaded",
+      "size": 348586,
+      "checksum": "sha256:98132a2455e47aaabc701db0dac4ebb18c37318edea9c6e4bc114183daf1be63",
+      "role": "sealed_test_only"
+    },
+    {
+      "dataset": "d1",
+      "name": "llm_qwen.csv",
+      "url": "https://data.mendeley.com/public-files/datasets/zhzd5j9ffy/files/c2a5698e-dffc-436c-a26f-e49b57f5113a/file_downloaded",
+      "size": 339639,
+      "checksum": "sha256:5a028daca12b5253398d653cc57b126e18d81733e843e88b8d34cdb7b5754bcd",
+      "role": "sealed_test_only"
+    },
+    {
+      "dataset": "d1",
+      "name": "llm_round1.csv",
+      "url": "https://data.mendeley.com/public-files/datasets/zhzd5j9ffy/files/0e0da91e-00b4-4917-b14d-8ed86fe2852f/file_downloaded",
+      "size": 505514,
+      "checksum": "sha256:536b77fd4734dfcab7e933f18caa93f8d428a53a97e6a27c2b75307abc49700a",
+      "role": "train_hard_pool"
+    },
+    {
+      "dataset": "d1",
+      "name": "llm_round2.csv",
+      "url": "https://data.mendeley.com/public-files/datasets/zhzd5j9ffy/files/d58701a0-c96a-4d0f-8581-a8fa3266742c/file_downloaded",
+      "size": 403862,
+      "checksum": "sha256:5cf76ab40b087160e14a821abc777bad2a07127d86351b06f71bc64fbad69c08",
+      "role": "train_hard_pool"
+    },
+    {
+      "dataset": "d1",
+      "name": "llm_round3.csv",
+      "url": "https://data.mendeley.com/public-files/datasets/zhzd5j9ffy/files/7fbb4ec8-b724-45b1-88c3-f80fe80106c3/file_downloaded",
+      "size": 438950,
+      "checksum": "sha256:b0bed3954f5686d1b16baa55ae80428d86770b76bb1d6e7ab256e0e979993b9a",
+      "role": "dev_only"
+    },
+    {
+      "dataset": "d1",
+      "name": "llm_round4.csv",
+      "url": "https://data.mendeley.com/public-files/datasets/zhzd5j9ffy/files/4b0b3c4b-4580-4678-b02d-c0ea30683425/file_downloaded",
+      "size": 453750,
+      "checksum": "sha256:ce6ac0602badee7ae9d9a2e8b8b322d5995913f7b7d246a4c74a611c85e72f90",
+      "role": "sealed_test_only"
+    },
+    {
+      "dataset": "d2",
+      "name": "fox_no-pcaps.zip",
+      "url": "https://zenodo.org/api/records/19483937/files/fox_no-pcaps.zip/content",
+      "size": 688586900,
+      "checksum": "md5:27b09dd2876ec08ee99a9b53e8718c92",
+      "role": "train; scenario=fox"
+    },
+    {
+      "dataset": "d2",
+      "name": "harrison_no-pcaps.zip",
+      "url": "https://zenodo.org/api/records/19483937/files/harrison_no-pcaps.zip/content",
+      "size": 667985140,
+      "checksum": "md5:4e837053ce4c5496227e0a3b65048c1c",
+      "role": "train; scenario=harrison"
+    },
+    {
+      "dataset": "d2",
+      "name": "shaw_no-pcaps.zip",
+      "url": "https://zenodo.org/api/records/19483937/files/shaw_no-pcaps.zip/content",
+      "size": 1319137852,
+      "checksum": "md5:f890a1f52bc9f893b44254ad86118e39",
+      "role": "dev; scenario=shaw"
+    },
+    {
+      "dataset": "d2",
+      "name": "wardbeck_no-pcaps.zip",
+      "url": "https://zenodo.org/api/records/19483937/files/wardbeck_no-pcaps.zip/content",
+      "size": 818462147,
+      "checksum": "md5:14eeacd83571a83615c2cce1f6a6eacf",
+      "role": "dev; scenario=wardbeck"
+    },
+    {
+      "dataset": "d2",
+      "name": "wheeler_no-pcaps.zip",
+      "url": "https://zenodo.org/api/records/19483937/files/wheeler_no-pcaps.zip/content",
+      "size": 767673839,
+      "checksum": "md5:774a146275a22707ee78bcb4574aca23",
+      "role": "sealed_test; scenario=wheeler"
+    },
+    {
+      "dataset": "d2",
+      "name": "wilson_no-pcaps.zip",
+      "url": "https://zenodo.org/api/records/19483937/files/wilson_no-pcaps.zip/content",
+      "size": 1083526183,
+      "checksum": "md5:98285593473dc05d0a6899f7cdefcd2d",
+      "role": "sealed_test; scenario=wilson"
+    },
+    {
+      "dataset": "d2",
+      "name": "russellmitchell_no-pcaps.zip",
+      "url": "https://zenodo.org/api/records/19483937/files/russellmitchell_no-pcaps.zip/content",
+      "size": 522084364,
+      "checksum": "md5:abb43a46c70939ad9f98669e3510d2b7",
+      "role": "train; scenario=russellmitchell"
+    },
+    {
+      "dataset": "d2",
+      "name": "santos_no-pcaps.zip",
+      "url": "https://zenodo.org/api/records/19483937/files/santos_no-pcaps.zip/content",
+      "size": 576734274,
+      "checksum": "md5:cb484a2c55ea03c63c556f0531fe8367",
+      "role": "train; scenario=santos"
+    },
+    {
+      "dataset": "d3",
+      "name": "ait_ads.zip",
+      "url": "https://zenodo.org/api/records/8263181/files/ait_ads.zip/content",
+      "size": 96202946,
+      "checksum": "md5:43db6b1f0996e0024befd617706c50e9",
+      "role": "split inherited from AIT-LDS; verify lineage"
+    },
+    {
+      "dataset": "d3",
+      "name": "labels.csv",
+      "url": "https://zenodo.org/api/records/8263181/files/labels.csv/content",
+      "size": 3703,
+      "checksum": "md5:60ff33796c77fd2136c4d1a4bc841bd9",
+      "role": "split inherited from AIT-LDS; verify lineage"
+    }
+  ]
+}

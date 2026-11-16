@@ -1,0 +1,9 @@
+0.00.001.678 I srv  llama_server: initializing ...
+0.00.780.609 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.784.556 W srv  llama_server: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.789.672 I srv    load_model: loading model 'E:\platform_taishi\NetGuard_Deploy\model\weights\qwen3-4b-cqsec-v32-Q4_K_M.gguf'
+0.01.290.112 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.03.022.917 I cmn          init: llama threadpool init, n_threads = 6
+0.03.185.550 I srv    load_model: initializing, n_slots = 4, n_ctx_slot = 2048, kv_unified = 'false'
+0.03.199.186 I srv  llama_server: model loaded
+0.03.199.191 I srv  llama_server: listening on http://127.0.0.1:18008

@@ -127,6 +127,15 @@ class AttackDeduplicator:
                 ),
                 "first_seen": first_seen,
                 "last_seen": last_seen,
+                # 关联依据取并集（上限 12 条，与 MAX_GROUP_REASONS 同量级）：
+                # 指纹合并只应让"为什么连成一条链"的证据更多，而不是丢失。
+                "correlation_score": max(
+                    (chain.correlation_score for chain in group),
+                    default=primary.correlation_score,
+                ),
+                "correlation_reasons": _dedupe(
+                    [reason for chain in group for reason in chain.correlation_reasons]
+                )[:12],
                 "summary": primary.summary or max((chain.summary for chain in group), key=len),
             }
         )

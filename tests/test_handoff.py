@@ -8,8 +8,8 @@ from m1.handoff import read_batch, iter_suspicious
 
 class HandoffTest(unittest.TestCase):
     def prepare(self, root, empty=False):
-        (root / 'm1').mkdir()
-        (root / 'm1/config.json').write_text(json.dumps({'output': {'format': 'parquet', 'batch_size': 1}, 'ioc_ips': ['10.0.0.2'], 'asset_ids': {'10.0.0.2': 'asset-2'}, 'shared_egress_ips': ['10.0.0.1']}))
+        (root / 'm1').mkdir(exist_ok=True)
+        (root / 'm1/config.json').write_text(json.dumps({'output': {'format': 'parquet', 'batch_size': 1}, 'ioc_ips': ['10.0.0.2'], 'asset_ids': {'10.0.0.2': 'asset-2'}, 'shared_egress_ips': ['10.0.0.1'], 'ml_detector': {'enabled': False}}))
         (root / 'data.csv').write_text('Time,Source IP,Destination,URL,Payload\n' + ('' if empty else '2026-01-01T00:00:00Z,10.0.0.1,10.0.0.2,https://a.example/x,id=1 or 1=1\n2026-01-01T00:01:00Z,10.0.0.1,10.0.0.2,https://b.example/y,test\n'))
         manifest = root / 'manifest.json'
         manifest.write_text(json.dumps({'task_id': 't', 'batch_id': 'b', 'input_files': ['data.csv']}))
